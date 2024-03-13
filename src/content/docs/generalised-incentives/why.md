@@ -1,6 +1,7 @@
 ---
 title: "Why?"
-sidebar_position: 2
+sidebar:
+  order: 2
 ---
 
 Generalised Incentives documentation is mainly on [Github](https://github.com/catalystdao/GeneralisedIncentives) in the form of a readme. The below is an extract.

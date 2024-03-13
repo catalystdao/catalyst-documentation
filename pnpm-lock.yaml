@@ -14,6 +14,9 @@ dependencies:
   astro:
     specifier: ^4.3.5
     version: 4.5.2(typescript@5.4.2)
+  astro-d2:
+    specifier: ^0.1.1
+    version: 0.1.1(astro@4.5.2)
   astro-iconify:
     specifier: ^1.2.0
     version: 1.2.0
@@ -1294,6 +1297,16 @@ packages:
   /astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
+    dev: false
+
+  /astro-d2@0.1.1(astro@4.5.2):
+    resolution: {integrity: sha512-4Hj4aaf+xCTdXWV23Bsyb9IjlWa9BGYD74Ze7nGa/6OnbSm6p+fSordqEE7SMPmFOgqOH0/cgl8OuUTo0jfJKQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      astro: '>=4.0.0'
+    dependencies:
+      astro: 4.5.2(typescript@5.4.2)
+      unist-util-visit: 5.0.0
     dev: false
 
   /astro-expressive-code@0.33.4(astro@4.5.2):

@@ -1,6 +1,7 @@
 ---
 title: "Server Requirements"
-sidebar_position: 2
+sidebar:
+  order: 2
 ---
 
 # Choosing your Server

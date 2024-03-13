@@ -1,6 +1,7 @@
 ---
 title: "Generalised Relayer"
-sidebar_position: 1
+sidebar:
+  order: 1
 ---
 
 # Generalised Incentives

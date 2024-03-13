@@ -1,6 +1,7 @@
 ---
 title: "Setting up a Relayer"
-sidebar_position: 3
+sidebar:
+  order: 3
 ---
 
 # Relayer Setup & Configuration

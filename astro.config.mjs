@@ -3,6 +3,8 @@ import starlight from "@astrojs/starlight";
 import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax";
 
+import d2 from "astro-d2";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://docs.catalyst.exchange",
@@ -30,25 +32,38 @@ export default defineConfig({
       sidebar: [
         {
           label: "Introduction",
-          autogenerate: { directory: "introduction" },
+          autogenerate: {
+            directory: "introduction",
+          },
         },
         {
           label: "Protocol",
-          autogenerate: { directory: "protocol" },
+          autogenerate: {
+            directory: "protocol",
+          },
         },
         {
           label: "Generalised Incentives",
-          autogenerate: { directory: "generalised-incentives" },
+          autogenerate: {
+            directory: "generalised-incentives",
+          },
         },
         {
           label: "Relayer",
-          autogenerate: { directory: "relayer" },
+          autogenerate: {
+            directory: "relayer",
+          },
         },
         {
           label: "Resources",
-          autogenerate: { directory: "resources" },
+          autogenerate: {
+            directory: "resources",
+          },
         },
       ],
+    }),
+    d2({
+      skipGeneration: !!process.env["CF_PAGES"] || !process.env["D2"],
     }),
   ],
 });
