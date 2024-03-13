@@ -1,0 +1,35 @@
+---
+title: Catalyst Documentation
+description: Welcome to the Catalyst knowledge hub!
+template: splash
+hero:
+  tagline: Welcome to the Catalyst knowledge hub!
+  image:
+    light: '/src/assets/symbol_dark.svg'
+    dark: '/src/assets/symbol_light.svg'
+  actions:
+    - text: Get Started
+      link: /introduction/catalyst-overview/
+      icon: right-arrow
+      variant: primary
+    - text: Github
+      link: https://github.com/catalystdao
+      icon: external
+---
+
+import Card from '../../components/Card.astro';
+import CardGrid from '../../components/CardGrid.astro';
+
+## Our advantages
+
+<CardGrid stagger>
+	<Card title="Permissionless" icon="mdi:lock-off-outline">
+		New chains are integrated into Catalyst immediately as they are deployed. Cross-chain liquidity pools and cross-chain asset swaps are open for anyone to initialize.
+	</Card>
+	<Card title="Safe by Design" icon="mdi:safe">
+		Catalyst sends one single, lightning-fast cross-chain message and only leverages battle-tested, trust-minimized protocols like IBC.
+	</Card>
+	<Card title="Simple and Sustainable" icon="mdi:recycle">
+	One-click transaction experience using native assets. Capital efficient liquidity provisioning, and sustainable yield through MEV recapture.
+	</Card>
+</CardGrid>
