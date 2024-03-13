@@ -15,7 +15,7 @@ export default defineConfig({
         github: "https://github.com/catalystdao",
       },
       customCss: ["./src/assets/landing.css"],
-      favicon: "/public/favicon.ico",
+      favicon: "/favicon.ico",
       sidebar: [
         {
           label: "Introduction",
