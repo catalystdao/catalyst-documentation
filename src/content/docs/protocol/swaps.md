@@ -1,10 +1,8 @@
 ---
 title: "Swaps"
 sidebar:
-    order: 4
+  order: 4
 ---
-
-# Swaps
 
 Catalyst supports the following swap types:
 

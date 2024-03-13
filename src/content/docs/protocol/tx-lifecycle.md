@@ -1,10 +1,8 @@
 ---
 title: "Transaction Lifecycle"
 sidebar:
-    order: 1
+  order: 1
 ---
-
-# Catalyst's Transaction Lifecycle
 
 Here's a high-level overview of how Catalyst's components work together to facilitate cross-chain swaps:
 

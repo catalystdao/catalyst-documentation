@@ -1,18 +1,11 @@
 ---
 title: "Whitepaper"
 sidebar:
-    order: 1
+  order: 1
 ---
 
-# Whitepaper
+You can find a list of papers by the Catalyst here:
 
-Catalyst Protocol Whitepaper can be read on GitHub.
+- [Catalyst - Asynchronous Autonomous Market Making via a Unit of Liquidity: June 2023](https://whitepaper.catalyst.exchange)
 
-[Whitepaper Version 1.0.0: June 2023](https://whitepaper.catalyst.exchange)
-
-- Introduction
-- Motivation
-- High-level Overview
-- Reference Implementation
-
-You can find all papers published by Catalyst on our github: https://github.com/catalystdao/papers
+or on our Github: https://github.com/catalystdao/papers

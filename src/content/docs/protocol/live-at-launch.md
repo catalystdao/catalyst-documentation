@@ -1,10 +1,8 @@
 ---
 title: "Live at Launch"
 sidebar:
-    order: 5
+  order: 5
 ---
-
-# Deploying to Chains
 
 Catalyst can be deployed on two categories of chains:
 

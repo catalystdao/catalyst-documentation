@@ -13,7 +13,3 @@ Our goals:
 1. No gatekeeping. Allow any chain to move value to another chain from Day 1.
 2. Superior UX. Interact with any asset on any chain.
 3. Safe by design. Simple protocol design built on trust-minimised infrastructure to ensure the highest level of security.
-
-# What's Next
-
-Catalyst is currently under development—join the [waitlist](https://waitlist.catalyst.exchange) to be the first to know when our testnet and mainnet are shipped.

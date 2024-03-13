@@ -1,10 +1,8 @@
 ---
 title: "Liquidity Pools"
 sidebar:
-    order: 3
+  order: 3
 ---
-
-# Liquidity Pools
 
 Catalyst is extensible and can replicate any type of AMM pool such as Curve stableswap, UNI v2 and Balancer multi-asset pool.
 
