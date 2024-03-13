@@ -7,15 +7,15 @@ export default defineConfig({
     starlight({
       title: "Catalyst Documentation",
       logo: {
-        light: '/src/assets/logo_dark.svg',
-        dark: '/src/assets/logo_light.svg',
+        light: "/src/assets/logo_dark.svg",
+        dark: "/src/assets/logo_light.svg",
         replacesTitle: true,
       },
       social: {
         github: "https://github.com/catalystdao",
       },
       customCss: ["./src/assets/landing.css"],
-      favicon: "/src/assets/symbol_dark.svg",
+      favicon: "/public/favicon.ico",
       sidebar: [
         {
           label: "Introduction",
