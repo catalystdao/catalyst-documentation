@@ -5,6 +5,7 @@ import rehypeMathjax from "rehype-mathjax";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://docs.catalyst.exchange",
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeMathjax],
@@ -12,6 +13,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Catalyst Documentation",
+      editLink: {
+        baseUrl:
+          "https://github.com/catalystdao/catalyst-documentation/edit/main",
+      },
       logo: {
         light: "/src/assets/logo_dark.svg",
         dark: "/src/assets/logo_light.svg",
