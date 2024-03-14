@@ -39,6 +39,8 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
 }
 ```
 
+### Defining Structures
+
 The integration is less opinionated than other cross-chain endpoint, as we need to define some boilercode. First, lets set our escrow endpoint. Below we present 2 options
 
 1. Set the escrow explicity. This defines a single escrow which you may interact in. This may be desired to reduce complexity but also introduces some vendor lock-in.
@@ -67,7 +69,7 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
     approvedEscrows[escrow] = true;
   }
 
-  // We need to validate senders. Lets define a custom error for our approval modifier.
+  // We need to validate senders. Lets define a custom error for our modifier.
   error NotApprovedEscrow();
   // Validating function inputs if most often done with modifiers as it reduces
   // code reuse. We will define onlyEscrow() as a check on msg.sender.
@@ -78,6 +80,89 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
     // Solution 2: We need to make a lookup to check if the caller is approved.
     // if the caller isn't the approved, revert with NotApprovedEscrow
     if (!approvedEscrows(msg.sender)) revert NotApprovedEscrow();
+    _;
+  }
+}
+```
+
+### Callbacks
+
+Generalised Incentives defines 2 callback functions we need to implement:
+
+- receiveAck: Called when a message has been processed on the destination.
+- receiveMessage: Called when you receive a message from the source chain.
+
+Lets add these functions to our contract
+
+```solidity
+
+contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
+  error AckAlreadyDelivered();
+
+  event WowAck(
+    bytes1 status,
+    bytes acknowledgement,
+  );
+
+  // Generalised Incentives allows replaying acks. As a result, it is important
+  // that you ensure that acks cannot be delivered multiple times.
+  mapping(bytes => bool) ackSpent;
+
+  // Remember to add your onlyEscrow modifier.
+  function receiveAck(bytes32 destinationIdentifier, bytes32 messageIdentifier, bytes calldata acknowledgement) onlyEscrow() external {
+
+    if (spentAcks[acknowledgement]) revert AckAlreadyDelivered();
+    ackSpent[acknowledgement] = true;
+
+    // Wow, much ACK!
+    // IF the transaction fails, the first byte of the transaction is an error code and
+    // the rest of the package is your original message. Use this to your advantage.
+    emit WowAck(acknowledgement[0], acknowledgement[1:]);
+  }
+
+  // Remember to add your onlyEscrow modifier.
+  function receiveMessage(bytes32 sourceIdentifierbytes, bytes32 messageIdentifier, bytes calldata fromApplication, bytes calldata message) onlyEscrow() external returns(bytes memory acknowledgement) {
+    // Do some processing and then return back your ack.
+    // Notice that we are sending back 00 before our message.
+    // That is because if the message fails for some reason,
+    // an error code is prepended to the message.
+    // By always sending back hex"00", we ensure that the first byte is unused.
+    // Alternativly, use this byte as our own failure code.
+    return bytes.concat(
+      hex"00",
+      keccak(message)
+    );
+  }
+}
+```
+
+We now implemented the reference code for Generalised incentives and is ready for processing messages sent to us.
+
+:::danger
+Ack messages can be replayed! Ensure that acks cannot be submitted to your contract twice. In the above example we check if a message has already been delivered by looking it up in a map. There are other ways to facilitate this, like checking against a piece of data in the ack.
+:::
+
+For more information, check the relevant [natspecs](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/ICrossChainReceiver.sol).
+
+### Sending Messages
+
+We havn't actually sent any messages yet. Lets do that. For simplicity, this section assumes that you used solution 1.
+
+```solidity
+
+contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
+  // If your contract didn't inheirt IMessageEscrowStructs, you may have to
+  // set the type of incentive to IIncentivizedMessageEscrow.IncentiveDescription.
+  function sendMessage(bytes destinationIdentifier, bytes destinationAddress, bytes calldata message, IncentiveDescription calldata incentive, uint64 deadline) payable external {
+    // Submit the message to the escrow. Remember to add associated value.
+    // If you send excess, it will be sent to incentive.refundGasTo.
+    escrow.submitMessage{value: msg.value}(
+        destinationIdentifier,
+        destinationAddress,
+        message,
+        incentive,
+        deadline
+    );
   }
 }
 ```
