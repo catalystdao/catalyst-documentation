@@ -22,7 +22,7 @@ A further advantage of underwritten swaps is that their [logic dependency](#logi
 
 Underwriters underwriting their own swaps can get sub second swaps price finality. 😲
 
-### Logic Dependent Swaps
+## Logic Dependent Swaps
 
 By only commiting to a swap if a certain logic returns true, Catlayst opens up for a host of new cross-chain applications. Developers can set any condition which can be programmed into a smart contract to determine whether or not to commit to the swap. If not, the swap reverts back to the sending chains.
 
@@ -35,6 +35,6 @@ Examples of use cases for logic dependent swaps:
 
 re: underwriting: Underwriting is conditional on the configured dependent logic. As a result, underwriter will continously try to underwriter swaps if the conditions may change over time.
 
-### Liquidity boostrapping pools (LBPs)
+## Liquidity boostrapping pools (LBPs)
 
 Liquidity Bootstrapping Pools (LBPs) are pools that allow for dynamic changes in token weighting over time. The pool owner determines the starting and end weights and times, and has the ability to pause swaps. LBPs use a weighted math model that gradually adjusts the token price until it reaches market equilibrium.
