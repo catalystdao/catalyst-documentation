@@ -35,11 +35,12 @@ VaultBSC: {
   units: Units
   usdc: USDC
 
-  units <-> usdc
   units <-> bnb
+  units <-> usdc
 }
 
-VaultBSC.units <-> VaultETH.units <-> VaultPolygon.units <-> VaultBSC.units
+VaultETH.units <-> VaultPolygon.units <-> VaultBSC.units
+VaultETH.units <-> VaultBSC.units
 ```
 
 Any asset within the pool can be exchanged into any other asset in the pool. This is facilitated by swapping into Units as an intermediary. Units are pricing using an internal price curve which defined a constant operation space.
