@@ -1,29 +1,41 @@
 ---
-title: "Why?"
+title: "Integration"
 sidebar:
   order: 2
 ---
 
-Generalised Incentives documentation is mainly on [Github](https://github.com/catalystdao/GeneralisedIncentives) in the form of a readme. The below is an extract.
+For the following tutorial we are going to assume you use Foundry. If you are using other frameworks, you may need to copy the relevant interfaces into your repository.
 
-Currently, many AMBs (arbitrary message bridges) have poor and non-standardized relayer incentives. They either miss one or many of the following features:
+## Installation
 
-- Unspent gas is refunded.
-  Often the gas associated with transaction calls is semi-unknown until immediately before execution. As a result the gas paid by the user often has to be overestimated by 10%, 20%, or even more.
+To install Generalised Incentives as a dependency in your repository, run
 
-- Payment is conditional on execution.
-  Some relaying schemes require the user or protocol to trust one or a few, sometimes centralized, entities with their gas payment. In cases where these relayers fail to do their job, a new payment has to be initiated.
+```bash
+forge install https://github.com/catalystdao/GeneralisedIncentives.git
+```
 
-- Prepay for an ack message
-  Some applications rely on, or use, acks for application logic, or simply to improve the user experience. If it is not possible to pay for an ack on the source chain in the source currency, the user is overly burdened with figuring out how to acquire additional gas or the application has to do gas management on all the chains they are deployed on.
+This will add Generalised Incentives to your repository and you are now ready to integrate it into your contract.
 
-and this does not mention non-standardized payments, different interfaces, payments in protocol tokens, and address formats.
+## Integration
 
-### Solution
+Start by adding import statements to your smart contract file. We need to import 2 files:
 
-By placing a contract as an intermediary between the applications and the AMBs, it can define how relayers are paid based on the observed (and verified) messages delivered. Since the contract sits on-chain, its logic is governed by the base chain rather than off-chain logic.
-This also allows the contract to surround the AMB with additional logic:
+- [ICrossChainReceiver](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/ICrossChainReceiver.sol): This will ensure you corretly implement the interfaces for the message callbacks
+- [IIncentivizedMessageEscrow](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/IIncentivizedMessageEscrow.sol): This will ensure you correctly call the message escrow correctly.
+- [Optionally] [IMessageEscrowStructs](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/IMessageEscrowStructs.sol): To simplify struct handling.
 
-- Measuring the gas used by the application
-- Reliably sending a message back to the source chain
-- Paying the relayer in a standardized token
+Adding these to your contract will look something like this:
+
+```solidity
+//SPDX-License-Identifier: <YOUR_LICENSE_HERE>
+pragma solidity ^0.Y.X;
+
+import { ICrossChainReceiver } from "GeneralisedIncentives/src/interfaces/ICrossChainReceiver.sol";
+import { IIncentivizedMessageEscrow } from "GeneralisedIncentives/src/interfaces/IIncentivizedMessageEscrow.sol";
+import { IMessageEscrowStructs } from "GeneralisedIncentives/src/interfaces/IMessageEscrowStructs.sol";
+
+contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
+  ...
+}
+
+```
