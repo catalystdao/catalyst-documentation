@@ -14,7 +14,7 @@ The Unit of Liquidity (UoL) is an abstract representation of asset value that ca
 
 UoL allows Catalyst to scale linearly with the number of chains connected: Catalyst only requires liquidity per additional asset added, not per chain.
 
-## Low-level explanation
+## High-level explanation
 
 Imagine Alice wants to trade her Apples for Charlie's Citrons. Both Alice and Charlie have a certain number of values attached to their produce. If Alice has 1 million Apples and only 1 Citron, then 1 Citron is inherently worth more to Alice than 1 Apple, _how else will she get all of their C-vitamins?_
 
