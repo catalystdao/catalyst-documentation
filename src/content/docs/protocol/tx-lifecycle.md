@@ -7,6 +7,8 @@ sidebar:
 A cross-chain Catalyst transaction lifecycle is spread across multiple chains. Lets examine a user swapping a token from Chain A to Chain B.
 
 ```d2
+style.fill: transparent
+
 direction: right
 
 amb: AMB

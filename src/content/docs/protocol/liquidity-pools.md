@@ -11,6 +11,7 @@ Catalyst keeps liquidity on-chain in Vaults without partitions. This allows anyo
 Each Vault contains 1 or more assets and can be connected to none, one or more other vaults to allow swaps between their assets. When vaults are connected, they form a pool. Within a pool, any asset can be exchanged for any other asset. Below is an example of a 6 asset pool consisting of 3 vaults.
 
 ```d2 animateInterval=2500
+style.fill: transparent
 direction: right
 
 title: All Available Routes {

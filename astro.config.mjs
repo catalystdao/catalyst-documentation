@@ -33,6 +33,10 @@ export default defineConfig({
       favicon: "/favicon.ico",
       sidebar: [
         {
+          label: "Overview",
+          link: "/",
+        },
+        {
           label: "Introduction",
           autogenerate: {
             directory: "introduction",
