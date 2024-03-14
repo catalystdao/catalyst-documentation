@@ -1,0 +1,15 @@
+---
+import SmallTableGenerator from "./SmallTableGenerator.svelte";
+
+interface Props {
+  url: string;
+  entryKey?: string;
+}
+
+const { url, entryKey } = Astro.props;
+
+const response = await fetch(url);
+const content = await response.json();
+---
+
+<SmallTableGenerator content={entryKey ? content[entryKey] : content} />

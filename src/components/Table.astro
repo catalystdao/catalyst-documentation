@@ -1,0 +1,15 @@
+---
+import TableGenerator from "./TableGenerator.svelte";
+
+interface Props {
+  url: string;
+  lastKey?: string;
+}
+
+const { url, lastKey } = Astro.props;
+
+const response = await fetch(url);
+const content = await response.json();
+---
+
+<TableGenerator {content} {lastKey} />
