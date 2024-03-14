@@ -12,4 +12,4 @@ The relayer is very lightweight and intended to run on cheap VPS. Do note that w
 | Memory        | 1 GB    | 2 GB                        |
 | Storage Space | 15 GB   | 25 GB                       |
 
-With these specs, the monthly cost to run a relayer on a VPS is roughly $6 to $14.
+With these specs, the monthly cost to run a relayer on a VPS is roughly \$6 to \$14.
