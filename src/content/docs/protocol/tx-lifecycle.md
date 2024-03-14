@@ -41,7 +41,7 @@ Chain A.garp -> amb: Collect Proof
 Chain B.garp <- amb: Deliver Proof
 ```
 
-1. **Assets to Units**. The user deposits their assets into Vault A along with the swap context. The vault converts their tokens into Units by examining the user's deposits and comparing them to the current liquidity within. For more about units read: [What Is The Unit Of Liquidity](/introduction/how-it-works#what-is-the-unit-of-liquidity). This is done by comparing the incoming assets to the assets contained within the vault.
+1. **Assets to Units**. The user deposits their assets into Vault A along with the swap context. The vault converts their tokens into Units by examining the user's deposits and comparing them to the current liquidity within. For more about units read: [What Is The Unit Of Liquidity](/introduction/how-it-works#what-is-the-unit-of-liquidity).
 2. **Pack Swap**. The vault sends the swap context to the cross-chain interface (CCI). The CCI packs the swap context into bytes. These bytes will be compatible with any virtual machine (VM) the user may want to receive their assets on.
 3. **Incentives**. Generalised Incentives (GARP) is used to both standardize AMB integration and incentivise relayers to relay Catalyst swaps. The incentive is held in escrow here until a relayer proves they correctly did their job.
 4. **Collect Message** & **Deliver Proof**. Relayers collect the message emitted by the AMB so that when the AMB generates the message proof, it can be submitted to the destination.
