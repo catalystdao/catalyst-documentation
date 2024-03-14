@@ -10,37 +10,164 @@ Catalyst keeps liquidity on-chain in Vaults without partitions. This allows anyo
 
 Each Vault contains 1 or more assets and can be connected to none, one or more other vaults to allow swaps between their assets. When vaults are connected, they form a pool. Within a pool, any asset can be exchanged for any other asset. Below is an example of a 6 asset pool consisting of 3 vaults.
 
-```d2
+```d2 animateInterval=2500
 direction: right
 
-VaultETH: {
+title: All Available Routes {
+  near: top-center
+  shape: text
+  style: {
+    font-size: 40
+  }
+}
+
+Vault ETH: {
   ether: Ether
   wbtc: wBTC
   units: Units
   dai: DAI
 
-  dai <-> units
-  ether <-> units
-  wbtc <-> units
+  dai -> units
+  dai <- units
+  ether -> units
+  ether <- units
+  wbtc -> units
+  wbtc <- units
 }
 
-VaultPolygon: {
+Vault Polygon: {
   matic: Matic
   units: Units
 
-  matic <-> units
+  matic -> units
+  matic <- units
 }
-VaultBSC: {
+
+Vault BSC: {
   bnb: BNB
   units: Units
   usdc: USDC
 
-  units <-> bnb
-  units <-> usdc
+  units -> bnb
+  units <- bnb
+  units -> usdc
+  units <- usdc
 }
 
-VaultETH.units <-> VaultPolygon.units <-> VaultBSC.units
-VaultETH.units <-> VaultBSC.units
+Vault ETH.units -- Vault Polygon.units -- Vault BSC.units
+Vault ETH.units -- Vault BSC.units
+
+scenarios: {
+  localswap: {
+    title.label: Ether to wBTC
+    Vault ETH: {
+      (dai -> units)[0]: {
+        style.opacity: 0.2
+      }
+      (dai <- units)[0]: {
+        style.opacity: 0.2
+      }
+      (wbtc -> units)[0]: {
+        style.opacity: 0.2
+      }
+      (wbtc <- units)[0]: {
+        style.animated: true
+      }
+      (ether -> units)[0]: {
+        style.animated: true
+      }
+      (ether <- units)[0]: {
+        style.opacity: 0.2
+      }
+    }
+    Vault Polygon: {
+      (matic -> units)[0]: {
+        style.opacity: 0.2
+      }
+      (matic <- units)[0]: {
+        style.opacity: 0.2
+      }
+    }
+
+    Vault BSC: {
+      (units -> bnb)[0]: {
+        style.opacity: 0.2
+      }
+      (units <- bnb)[0]: {
+        style.opacity: 0.2
+      }
+      (units -> usdc)[0]: {
+        style.opacity: 0.2
+      }
+      (units <- usdc)[0]: {
+        style.opacity: 0.2
+      }
+    }
+
+    (Vault ETH.units -- Vault Polygon.units)[0]: {
+      style.opacity: 0.2
+    }
+    (Vault Polygon.units -- Vault BSC.units)[0]: {
+      style.opacity: 0.2
+    }
+    (Vault ETH.units -- Vault BSC.units)[0]: {
+      style.opacity: 0.2
+    }
+  }
+  crossswap: {
+    title.label: DAI to USDC
+    Vault ETH: {
+      (dai -> units)[0]: {
+        style.animated: true
+      }
+      (dai <- units)[0]: {
+        style.opacity: 0.2
+      }
+      (wbtc -> units)[0]: {
+        style.opacity: 0.2
+      }
+      (wbtc <- units)[0]: {
+        style.opacity: 0.2
+      }
+      (ether -> units)[0]: {
+        style.opacity: 0.2
+      }
+      (ether <- units)[0]: {
+        style.opacity: 0.2
+      }
+    }
+    Vault Polygon: {
+      (matic -> units)[0]: {
+        style.opacity: 0.2
+      }
+      (matic <- units)[0]: {
+        style.opacity: 0.2
+      }
+    }
+
+    Vault BSC: {
+      (units -> bnb)[0]: {
+        style.opacity: 0.2
+      }
+      (units <- bnb)[0]: {
+        style.opacity: 0.2
+      }
+      (units -> usdc)[0]: {
+        style.animated: true
+      }
+      (units <- usdc)[0]: {
+        style.opacity: 0.2
+      }
+    }
+
+    (Vault ETH.units -- Vault Polygon.units)[0]: {
+      style.opacity: 0.2
+    }
+    (Vault Polygon.units -- Vault BSC.units)[0]: {
+      style.opacity: 0.2
+    }
+  }
+}
 ```
 
 Any asset within the pool can be exchanged into any other asset in the pool. This is facilitated by swapping into Units as an intermediary. Units are pricing using an internal price curve which defined a constant operation space.
