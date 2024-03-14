@@ -4,8 +4,6 @@ sidebar:
   order: 3
 ---
 
-# Relayer Setup & Configuration
-
 To configure the relayer, we will go through the following steps:
 
 - [Installing Dependencies](#installing-dependencies)
@@ -133,7 +131,7 @@ For simplicity, you can set `NODE_ENV` across sessions. If you use this machine 
 echo "export NODE_ENV=production" >> ~/.bashrc
 ```
 
-## Running the relayer:
+## Running the relayer
 
 When everything has been set, you can start the relayer by running:
 

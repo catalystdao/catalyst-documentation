@@ -4,8 +4,6 @@ sidebar:
   order: 2
 ---
 
-# Choosing your Server
-
 The relayer is very lightweight and intended to run on cheap VPS. Do note that while possible to run the relayer on very basic hardware, some configuration settings can increase the requirements. Generally, less but faster is better than more but slower.
 
 | Requirements  | Minimum | Recommended                 |

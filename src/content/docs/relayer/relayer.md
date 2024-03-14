@@ -4,8 +4,6 @@ sidebar:
   order: 1
 ---
 
-# Generalised Incentives
-
 Catalyst uses [Generalised Incentives](https://github.com/catalystdao/GeneralisedIncentives) to standardise the user experience across messaging bridges. Generalised Incentives allow Catalyst to support a wide variety of bridges with an improved incentive scheme.
 
 Generalised Incentives is an open bridge incentive abstraction scheme and other applications can be used to improve their bridge support without changing the incentive scheme. It comes with a wide variety of improvements and is sure to simplify integrating bridges.
