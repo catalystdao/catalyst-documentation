@@ -6,7 +6,7 @@ sidebar:
 
 Are you building a cross-chain application and are you tired of vendor lock-in? So are we!
 
-At Catalyst, we have designed [Generalised Incentives](https://github.com/catalystdao/GeneralisedIncentives) to simplify cross-chain app development and let you choose the best AMB for your application using a common set of standardized incentives and interfaces.
+At Catalyst, we have designed [Generalised Incentives](https://github.com/catalystdao/GeneralisedIncentives) to simplify cross-chain app development and let you choose the best AMB for your application using a common set of standardized incentives and interfaces. Generalised Incentives is somtimes refered to as GARP which is shorthand for General Automatic Relayer Payment.
 
 Currently, Generalised Incentives support the following AMBs
 

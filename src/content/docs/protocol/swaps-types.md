@@ -33,7 +33,7 @@ Examples of use cases for logic dependent swaps:
 - Governance fee collection: Send fees from a chain and only commit to the transfer if it can be exchanged and favorable rates.
 - Rebalance WBTC between AAVE deployment: Only commit to the rebalance if the rate on the destination chain is higher than the sending chain.
 
-re: underwriting: Underwriting is conditional on the configured dependent logic. As a result, underwriter will continously try to underwriter swaps if the conditions may change over time.
+Underwriting is conditional on the configured dependent logic. As a result, underwriter will continously try to underwriter swaps if the conditions may change over time.
 
 ## Liquidity boostrapping pools (LBPs)
 
