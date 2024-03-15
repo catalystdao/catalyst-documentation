@@ -13,7 +13,7 @@ Currently, Generalised Incentives support the following AMBs:
 - **Wormhole**: Full support via Generalised Relayer
 - **Polymer**: Full support via Polymer's Relayer
 
-You can read more about the benefits to [Generalised incentives on Github](https://github.com/catalystdao/GeneralisedIncentives?tab=readme-ov-file#generalised-incentive-escrow).
+You can read more about the benefits of [Generalised incentives on Github](https://github.com/catalystdao/GeneralisedIncentives?tab=readme-ov-file#generalised-incentive-escrow).
 
 ### The Case of Catalyst
 
