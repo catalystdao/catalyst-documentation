@@ -61,6 +61,13 @@ export default defineConfig({
           },
         },
         {
+          label: "Underwriter",
+          badge: "Coming Soon!",
+          autogenerate: {
+            directory: "underwriter",
+          },
+        },
+        {
           label: "Resources",
           autogenerate: {
             directory: "resources",
