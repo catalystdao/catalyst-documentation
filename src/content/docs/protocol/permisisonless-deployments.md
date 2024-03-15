@@ -1,5 +1,5 @@
 ---
-title: "Permisisonless Deployments"
+title: "Permissionless Deployments"
 sidebar:
   order: 5
 ---
