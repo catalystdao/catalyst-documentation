@@ -1,8 +1,9 @@
-import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import remarkMath from "remark-math";
-import rehypeMathjax from "rehype-mathjax";
 import d2 from "astro-d2";
+import { defineConfig } from "astro/config";
+import rehypeMathjax from "rehype-mathjax";
+import remarkMath from "remark-math";
+import starlightLinksValidator from "starlight-links-validator";
 
 import svelte from "@astrojs/svelte";
 
@@ -15,6 +16,7 @@ export default defineConfig({
   },
   integrations: [
     starlight({
+      plugins: [starlightLinksValidator()],
       title: "Catalyst Documentation",
       editLink: {
         baseUrl:
