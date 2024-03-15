@@ -24,7 +24,7 @@ Underwriters underwriting their own swaps can get sub second swaps price finalit
 
 ## Logic Dependent Swaps
 
-By only commiting to a swap if a certain logic returns true, Catlayst opens up for a host of new cross-chain applications. Developers can set any condition which can be programmed into a smart contract to determine whether or not to commit to the swap. If not, the swap reverts back to the sending chains.
+By only commiting to a swap if a certain logic returns true, Catalyst opens up for a host of new cross-chain applications. Developers can set any condition which can be programmed into a smart contract to determine whether or not to commit to the swap. If not, the swap reverts back to the sending chains.
 
 Examples of use cases for logic dependent swaps:
 
