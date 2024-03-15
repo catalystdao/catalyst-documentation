@@ -17,7 +17,7 @@ You can read more about the benefits to [Generalised incentives on Github](https
 
 ### The Case of Catalyst
 
-Generalised Incentives allows Catalyst to be agnostic to interoperability protocols and allows us to leverage any arbitrary message bridge (AMB) to send the Unit of Liquidity across chains. This is facilitated at the same time that our users experience the same consistent good UX as any AMB has the same interface. As a result, Catalyst is guaranteed to be the liquidity protocol with most supported chains.
+Generalised Incentives allows Catalyst to be agnostic to interoperability protocols and allows us to leverage any arbitrary message bridge (AMB) to send the Unit of Liquidity across chains. This ensures that our users will experience the same consistent high-quality UX as every AMB has the same interface. As a result, Catalyst is guaranteed to be the liquidity protocol with most supported chains.
 
 ### You here?
 
