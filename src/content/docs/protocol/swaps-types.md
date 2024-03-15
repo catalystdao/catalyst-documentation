@@ -30,7 +30,7 @@ Examples of use cases for logic dependent swaps:
 
 - Buy an NFT: swap ETH (on Ethereum) to STARS (on Stargaze) to buy a Bad kid only if price of the NFT is ≤ 1000 STARS
 - Buy & Stake: Buy Ether and stake it into Rocketpool if and only if there is space in the deposit pool.
-- Governance fee collection: Send fees from a chain and only commit to the transfer if it can be exchanged and favorable rates.
+- Governance fee collection: Send fees from a chain and only commit to the transfer if it can be exchanged at favorable rates.
 - Rebalance WBTC between AAVE deployment: Only commit to the rebalance if the rate on the destination chain is higher than the sending chain.
 
 Underwriting is conditional on the configured dependent logic. As a result, underwriter will continously try to underwriter swaps if the conditions may change over time.
