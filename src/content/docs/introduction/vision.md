@@ -1,5 +1,6 @@
 ---
 title: "The Vision"
+description: "Catalyst & The Modular Future."
 sidebar:
   order: 4
 ---

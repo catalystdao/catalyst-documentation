@@ -1,5 +1,6 @@
 ---
 title: "Setting up a Relayer"
+description: "Setting up the Generalised Relayer is easy for everyone. After installing Docker, the relayer can be installed by pulling the generalised-relayer repo and then configuring the appropiate settings. Fund the relayer and you are off to the races."
 sidebar:
   order: 3
 ---
@@ -9,6 +10,10 @@ To configure the relayer, we will go through the following steps:
 - [Installing Dependencies](#installing-dependencies)
 - [Installing the Relayer](#installing-the-relayer)
 - [Configuring the Relayer](#configuring-the-relayer)
+  - [Private key](#private-key)
+  - [RPCs](#rpcs)
+  - [NODE\_ENV](#node_env)
+- [Running the relayer](#running-the-relayer)
 
 ## Installing Dependencies
 

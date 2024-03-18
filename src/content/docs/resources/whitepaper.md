@@ -1,5 +1,6 @@
 ---
 title: "Whitepaper"
+description: "You can find a list of papers by the Catalyst here"
 sidebar:
   order: 1
 ---

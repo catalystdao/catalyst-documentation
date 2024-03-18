@@ -1,5 +1,6 @@
 ---
 title: "Server Requirements"
+description: "Generalised Incentives server requirements. Anyone can run the relayer with recommended specs of 2 vCPU and 2GB RAM corresponding to roughly $14 / month."
 sidebar:
   order: 2
 ---

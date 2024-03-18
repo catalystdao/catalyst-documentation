@@ -1,5 +1,6 @@
 ---
 title: "Catalyst Differentiators"
+description: "1. Permissionless pool creation. 2. User experience. 3. Scalable liquidity. 4. Security by design."
 sidebar:
   order: 3
 ---

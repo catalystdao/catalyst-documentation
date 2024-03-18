@@ -1,5 +1,6 @@
 ---
 title: "Build Bridge Agnostic"
+description: "Are you building a cross-chain application and are you tired of vendor lock-in? So are we! Generalised Incentives allows you to support a wide varity of messaging bridges while standarding the user interface."
 sidebar:
   order: 1
 ---

@@ -1,5 +1,6 @@
 ---
 title: "Integrate GARP"
+description: "Add Generalised Incentives to your contract today!"
 sidebar:
   order: 2
 ---

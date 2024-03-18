@@ -1,5 +1,6 @@
 ---
 title: "How Does Catalyst Work?"
+description: "Catalyst uses the Unit Of Liquidity as a liquidity abstraction and that allows Catalyst to evaluate liquidity asyncronously."
 sidebar:
   order: 2
 ---

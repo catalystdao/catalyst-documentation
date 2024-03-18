@@ -1,5 +1,6 @@
 ---
 title: "Underwriting Swaps"
+description: "Underwriting is dependent on running a relayer. Start by running a relayer and when underwriting gets into general availbility add underwriting to your relayer."
 sidebar:
   order: 1
 ---

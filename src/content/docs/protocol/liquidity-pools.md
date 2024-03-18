@@ -1,10 +1,11 @@
 ---
 title: "Liquidity Pools"
+description: "Catalyst liquidity pools can relicate any type of AMM pool such as Curve stableswap, UNI v2, and Balancer all while being nativly cross-chain."
 sidebar:
   order: 3
 ---
 
-Catalyst is extensible and can replicate any type of AMM pool such as Curve stableswap, UNI v2 and Balancer multi-asset pool.
+Catalyst is extensible and can replicate any type of AMM pool such as Curve stableswap, UNI v2, and Balancer multi-asset pool.
 
 Catalyst keeps liquidity on-chain in Vaults without partitions. This allows anyone to use the complete liquidity in a Catalyst vault for any pair locally (ETH to USDC) or cross-chain (Matic to BNB).
 

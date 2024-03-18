@@ -1,5 +1,6 @@
 ---
 title: "Transaction Lifecycle"
+description: "A cross-chain Catalyst transaction lifecycle is spread across multiple chains. Lets examine a user swapping a token from Chain A to Chain B."
 sidebar:
   order: 1
 ---

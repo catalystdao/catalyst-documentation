@@ -1,5 +1,6 @@
 ---
 title: "Brand Assets"
+description: "Find logo, mark, and other brand assets here."
 sidebar:
     order: 3
 ---
