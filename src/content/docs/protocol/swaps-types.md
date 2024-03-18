@@ -1,6 +1,6 @@
 ---
 title: "Swaps Types"
-description: "Catalyst suports 3 different types of swaps: Local Swaps, Cross-Chain Swaps, Underwritten Cross-chain swaps, and Logic Dependent Swaps. This allows Catalyst to bring the forefront of cross-chain innovation anywhere."
+description: "Catalyst suports 4 different types of swaps: Local Swaps, Cross-Chain Swaps, Underwritten Cross-chain swaps, and Logic Dependent Swaps. This allows Catalyst to bring the forefront of cross-chain innovation anywhere."
 sidebar:
   order: 4
 ---
