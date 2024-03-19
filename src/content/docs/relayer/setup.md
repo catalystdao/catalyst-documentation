@@ -78,11 +78,22 @@ It should look something like:
 
 ```yaml
 global:
-  privateKey: "<YOUR_PRIVAET_KEY>"
-  logLevel: "info"
+  privateKey: '0xf2d04...2369'
+  logLevel: 'info'
   blockDelay: 5
   ...
 ```
+where `0xf2d04...23d9` is your privatekey.
+
+
+:::tip[Private Key Format]
+A proper private key begins with **0x**. Metamask does not add 0x to the front of the privatekey and you may have to do that yourself.
+The privatekey should be 64 charactors long without 0x and 66 charactors long with 0x.
+:::
+
+:::caution
+Do not use this private key for other applications as it could interfear with the operation of the relayer wallet. Use a dedicated private key for the relayer to ensure proper operation.
+:::
 
 ### RPCs
 
