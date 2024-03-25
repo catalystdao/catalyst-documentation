@@ -80,7 +80,7 @@ It should look something like:
 global:
   privateKey: '0xf2d04...2369'
   logLevel: 'info'
-  blockDelay: 5
+  blockDelay: 1
   ...
 ```
 where `0xf2d04...23d9` is your privatekey.
