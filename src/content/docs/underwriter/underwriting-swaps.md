@@ -21,7 +21,7 @@ When underwriting, the Underwriter does not have to provide the associated under
 
 ## Risk Specifications
 
-In more ridig terms, the bought finality risk is the following:
+The bought finality risk is the following:
 
 1. The Underwriter is underwriting the **exact** message which has been sent. If a transaction is **MOVED** since a block (reorg, double spend, or likewise) then there is a very significant chance that the message is not exact anymore. While the message does not contain any ordering information it contains an unit quote. This quote will change if the order of swaps changes within a block changes.
    - If this happens the underwriter loses 100% of their fronted tokens.
@@ -58,4 +58,8 @@ Using the above list, we can list the risk factors in order of likelihood:
 
 - Ordinary meaning: RPC is working, blocks are being produced, and the associated AMB is working. For many (non-signing) AMBs the former implies the latter.
 
-Some of these risk factors can easily be migrated like 1. can be migrated against by waiting longer before underwriting the swap. This can be configured in our underwriter but will make the underwriter less competitive or 7. which is very easiy to audit for and no issues has EVER been found with the escrow implementation.
+Some of these risk factors can easily be migrated like
+
+(1.) can be migrated against by waiting longer before underwriting the swap. This can be configured in our underwriter but will make the underwriter less competitive or
+
+(7.) which is very easiy to audit for and no issues has EVER been found with the escrow implementation.

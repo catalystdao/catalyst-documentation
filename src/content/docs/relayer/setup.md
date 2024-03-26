@@ -149,7 +149,7 @@ echo "export NODE_ENV=production" >> ~/.bashrc
 
 ## Running the relayer
 
-When everything has been set, you can start the relayer by running:
+When everything has been set, assuming you are within the relayer folder, `~/generalised-relayer`, you can start the relayer by running:
 
 ```bash
 docker compose up -d
