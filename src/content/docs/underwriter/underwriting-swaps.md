@@ -13,7 +13,7 @@ Fast swaps works by selling the finality risk to an Underwriter. When an Underwr
 
 To facilitate this, the Underwriter has to monitor newly created Catalyst swaps and relevant messaging bridge packages. The Underwriter needs to collect the relevant information: Swap context and the AMB package itself and then call: [`underwrite(...)`](https://github.com/catalystdao/catalyst/blob/e975abcf82cdd5a0b1dc7ac768e15d4511967a11/evm/src/CatalystChainInterface.sol#L698) on the associated Cross-Chain Interface.
 
-There are a lot of security checks that needs to pass before underwriting to ensure that everything has been parsed correctly. IF some information was incorrectly parsed, the `underwrite` call will go **NOT** revert but instead execute and the settlement from the messaging bridge will **NOT** hit the underwrite. As a result, the Underwriter will not be able to recover the associated main assets for the underwrite though it can recover some of the collateral IF they expire the underwrite.
+There are a lot of security checks that needs to pass before underwriting to ensure that everything has been parsed correctly. If some information was incorrectly parsed, the `underwrite` call will **NOT** revert but instead execute and the settlement from the messaging bridge will **NOT** hit the underwrite. As a result, the Underwriter will not be able to recover the associated fronted assets for the underwrite. It may be able to recover some of the collateral.
 
 ### Incentive
 
