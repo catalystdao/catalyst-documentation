@@ -7,6 +7,8 @@ sidebar:
 
 Before setting up an underwriter, ensure that you are fully aware of the associated [risks](/underwriter/underwriting-swaps#risk-specifications).
 
+And have read the [README](https://github.com/catalystdao/catalyst-underwriter?tab=readme-ov-file#catalyst-underwriter) on this github page.
+
 For this guide, we assume that you are running a [relayer](/relayer/setup) and have gone through the associated setup and fulfill all of the requirements for running a relayer. If the relayer isn't working, gettings bountes, collecting proofs, or submitting transactions you should try to fix those issues before running an underwriter.
 
 It is assumed that the underwriter is running on the same VPS as the relayer AND the folder name of the relayer is `~/generalised-relayer`
