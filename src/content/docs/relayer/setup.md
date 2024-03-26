@@ -12,7 +12,7 @@ To configure the relayer, we will go through the following steps:
 - [Configuring the Relayer](#configuring-the-relayer)
   - [Private key](#private-key)
   - [RPCs](#rpcs)
-  - [NODE\_ENV](#node_env)
+  - [NODE_ENV](#node_env)
 - [Running the relayer](#running-the-relayer)
 
 ## Installing Dependencies
@@ -83,8 +83,8 @@ global:
   blockDelay: 1
   ...
 ```
-where `0xf2d04...23d9` is your privatekey.
 
+where `0xf2d04...23d9` is your privatekey.
 
 :::tip[Private Key Format]
 A proper private key begins with **0x**. Metamask does not add 0x to the front of the privatekey and you may have to do that yourself.

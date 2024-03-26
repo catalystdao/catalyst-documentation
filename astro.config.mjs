@@ -64,7 +64,7 @@ export default defineConfig({
         },
         {
           label: "Underwriter",
-          badge: "Coming Soon!",
+          badge: "Open Beta!",
           autogenerate: {
             directory: "underwriter",
           },
