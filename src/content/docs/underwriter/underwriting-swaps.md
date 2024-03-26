@@ -5,15 +5,15 @@ sidebar:
   order: 1
 ---
 
-Catalyst supports fast swaps also called underwritten swaps. Fast swaps are price and execution settled before the messaging bridge has confirmed the swap. Normal full finality swaps take around 15-30 minutes (some even longer) where fast swaps takes between 30 seconds and 1 minute.
+Catalyst supports fast swaps also called underwritten swaps. Fast swaps are price and execution settled before the messaging bridge has confirmed the swap. Normal full finality swaps take around 15-30 minutes (some even longer, depending on the source chain finality) where fast swaps takes between 30 seconds and 1 minute.
 
 ## How?
 
-Fast swaps works by selling the finality risk to an Underwriter. When an Underwriter determines a swap is _final_ they execute the equivalent swap. TheUunderwriter truely **executes** the swap, as the incoming Units will be swapped to the designated output asset. These assets will be escrowed and the underwrite will match the amount + a small amount of collateral. This scheme ensures that the Underwriter does not take on any price risk and can fully focus on the finality risk. The assets prvoided by the Underwriter sent to the designated output, the associated logic is executed, and the price finalised the Underwriter now waits for the messaging bridge to confirm full finality and then gets a refund of their provided tokens from the escrow.
+Fast swaps work by selling the finality risk to an Underwriter. When an Underwriter determines a swap is _final_ they execute the equivalent swap. The Underwriter truly **executes** the swap, as the incoming Units will be swapped to the designated output asset. These assets will be escrowed and the underwrite will match the amount + a small amount of collateral. This scheme ensures that the Underwriter does not take on any price risk and can fully focus on the finality risk. The assets provided by the Underwriter sent to the designated output, the associated logic is executed, and the price finalised the Underwriter now waits for the messaging bridge to confirm full finality and then gets a refund of their provided tokens from the escrow.
 
 To facilitate this, the Underwriter has to monitor newly created Catalyst swaps and relevant messaging bridge packages. The Underwriter needs to collect the relevant information: Swap context and the AMB package itself and then call: [`underwrite(...)`](https://github.com/catalystdao/catalyst/blob/e975abcf82cdd5a0b1dc7ac768e15d4511967a11/evm/src/CatalystChainInterface.sol#L698) on the associated Cross-Chain Interface.
 
-There are a lot of security checks that needs to pass before underwriting to ensure that everything has been parsed correctly. If some information was incorrectly parsed, the `underwrite` call will **NOT** revert but instead execute and the settlement from the messaging bridge will **NOT** hit the underwrite. As a result, the Underwriter will not be able to recover the associated fronted assets for the underwrite. It may be able to recover some of the collateral.
+There are some security checks that needs to pass before underwriting to ensure that everything has been parsed correctly. If some information was incorrectly parsed, the `underwrite` call will **NOT** revert but instead execute and the settlement from the messaging bridge will **NOT** hit the underwrite. As a result, the Underwriter will not be able to recover the associated fronted assets for the underwrite. It may be able to recover some of the collateral.
 
 ### Incentive
 
