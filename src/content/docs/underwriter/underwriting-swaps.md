@@ -9,11 +9,9 @@ Catalyst supports fast swaps also called underwritten swaps. Fast swaps are pric
 
 ## How?
 
-Fast swaps work by selling the finality risk to an Underwriter. When an Underwriter determines a swap is _final_ they execute the equivalent swap. The Underwriter truly **executes** the swap, as the incoming Units will be swapped to the designated output asset. These assets will be escrowed and the underwrite will match the amount + a small amount of collateral. This scheme ensures that the Underwriter does not take on any price risk and can fully focus on the finality risk. The assets provided by the Underwriter sent to the designated output, the associated logic is executed, and the price finalised the Underwriter now waits for the messaging bridge to confirm full finality and then gets a refund of their provided tokens from the escrow.
+Fast swaps work by selling the finality risk to an Underwriter. When an Underwriter determines a swap is _final_ they execute the equivalent swap. The Underwriter truly **executes** the swap, as the incoming Units will be swapped to the designated output asset. Instead of sending the newly bought assets to the user, they are escrowed and instead the underwrite will front the bought assets + a small amount of collateral. Once the swap is finalised by the messaging bridge, the Underwrite's assets is refunded along with a small incentive.
 
-To facilitate this, the Underwriter has to monitor newly created Catalyst swaps and relevant messaging bridge packages. The Underwriter needs to collect the relevant information: Swap context and the AMB package itself and then call: [`underwrite(...)`](https://github.com/catalystdao/catalyst/blob/e975abcf82cdd5a0b1dc7ac768e15d4511967a11/evm/src/CatalystChainInterface.sol#L698) on the associated Cross-Chain Interface.
-
-There are some security checks that needs to pass before underwriting to ensure that everything has been parsed correctly. If some information was incorrectly parsed, the `underwrite` call will **NOT** revert but instead execute and the settlement from the messaging bridge will **NOT** hit the underwrite. As a result, the Underwriter will not be able to recover the associated fronted assets for the underwrite. It may be able to recover some of the collateral.
+This scheme ensures that the Underwriter does not take on any price risk and can fully focus on optimising for the finality risk. It also significantly reduces the cost, as the Underwriter does not have to manage price risks.
 
 ### Incentive
 
@@ -63,3 +61,29 @@ Some of these risk factors can easily be migrated like
 (1.) can be migrated against by waiting longer before underwriting the swap. This can be configured in our underwriter but will make the underwriter less competitive or
 
 (7.) which is very easiy to audit for and no issues has EVER been found with the escrow implementation.
+
+## Designing an Underwriter
+
+To underwrite swaps, at least 3 jobs have to be performed to underwrite swaps:
+
+1. Monitor newly initiated Catalyst swaps
+2. Collect relevant messaging bridge packages.
+
+With these information, it can both validate swaps by cross-examining the package with the swap event and construct the underwriter call.
+
+3. Commit underwrites by calling [`underwrite(...)`](https://github.com/catalystdao/catalyst/blob/e975abcf82cdd5a0b1dc7ac768e15d4511967a11/evm/src/CatalystChainInterface.sol#L698) on the associated Cross-Chain Interface.
+
+:::danger[Loss Of Funds!]
+`underwrite(...)` is very unlikely to revert. It will generally accept any information and _underwrite_ whatever swap is proposed. However, there will never be a messaging bridge hit on the underwrite and the fronted tokens will not be refunded.
+
+It is important to throughly verify that swaps before underwriting to avoid loss of funds.
+:::
+
+### Risk Migration implementaitons
+
+The [reference underwriter](/underwriter/setup/) has built-in risk migrations. Below is a list of the currently implemented risk management features:
+
+- The underwriter processes the chains' events with a configurable _block delay_ to minimize the likelihood of acting on transactions that eventually become part of a block reorg.
+- Underwrites are only performed within an acceptable 'block count margin' after the block at which the swap is observed. If the _underwrite_ transaction takes too long to be submitted to the RPC (e.g. too many transactions to be processed by the underwriter), the transaction is dropped altogether.
+- Underwrites executed by itself are expired **before** the expiry deadline, to make sure that at least the associated collateral is recovered.
+- Stuck 'pending' transactions are automatically repriced/cancelled to make sure a stuck transaction does not stall all other transactions of the signing account.
