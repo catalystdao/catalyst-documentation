@@ -29,7 +29,7 @@ export default defineConfig({
       },
       social: {
         github: "https://github.com/catalystdao",
-        discord: "https://discord.gg/GQmgzVxgmN",
+        discord: "https://discord.gg/nvvN3XbaYG",
       },
       customCss: ["./src/assets/landing.css", "./src/assets/math-fix.css"],
       favicon: "/favicon.ico",
