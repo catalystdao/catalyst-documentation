@@ -74,7 +74,7 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
   error NotApprovedEscrow();
   // Validating function inputs if most often done with modifiers as it reduces
   // code reuse. We will define onlyEscrow() as a check on msg.sender.
-  modifer onlyEscrow() {
+  modifier onlyEscrow() {
     // Solution 1: We can simply check explicitly if there is a match.
     // if the caller isn't the escrow, revert with NotApprovedEscrow
     if (msg.sender != address(escrow)) revert NotApprovedEscrow();
