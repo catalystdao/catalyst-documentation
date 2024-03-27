@@ -154,7 +154,7 @@ We havn't actually sent any messages yet. Lets do that. For simplicity, this sec
 contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
   // If your contract didn't inheirt IMessageEscrowStructs, you may have to
   // set the type of incentive to IIncentivizedMessageEscrow.IncentiveDescription.
-  function sendMessage(bytes destinationIdentifier, bytes destinationAddress, bytes calldata message, IncentiveDescription calldata incentive, uint64 deadline) payable external {
+  function sendMessage(bytes32 destinationIdentifier, bytes destinationAddress, bytes calldata message, IncentiveDescription calldata incentive, uint64 deadline) payable external {
     // Submit the message to the escrow. Remember to add associated value.
     // If you send excess, it will be sent to incentive.refundGasTo.
     escrow.submitMessage{value: msg.value}(
