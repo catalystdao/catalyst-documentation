@@ -73,10 +73,10 @@ With these information, it can both validate swaps by cross-examining the packag
 
 3. Commit underwrites by calling [`underwrite(...)`](https://github.com/catalystdao/catalyst/blob/e975abcf82cdd5a0b1dc7ac768e15d4511967a11/evm/src/CatalystChainInterface.sol#L698) on the associated Cross-Chain Interface.
 
-:::danger[Loss Of Funds!]
-`underwrite(...)` is very unlikely to revert. It will generally accept any information and _underwrite_ whatever swap is proposed. However, there will never be a messaging bridge hit on the underwrite and the fronted tokens will not be refunded.
+:::danger[Validate!]
+`underwrite(...)` is very unlikely to revert. It will generally accept any information and _underwrite_ whatever swap is proposed. But if there is not a messaging bridge hit on the underwrite the fronted tokens will not be refunded.
 
-It is important to throughly verify that swaps before underwriting to avoid loss of funds.
+It is important to throughly verify that swaps before underwriting to ensure the fronted underwrite capital is refunded otherwise there may be a loss of funds.
 :::
 
 ### Risk Migration implementaitons
