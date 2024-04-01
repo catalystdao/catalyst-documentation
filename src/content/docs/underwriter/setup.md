@@ -51,6 +51,10 @@ The relayer requires 2 types of funding:
 1. Gas funding. We highly recommend filling it up with a slight excess. The underwriter will not get more gas as it is operating (unlike the relayer) and if it runs out of gas it will be unable to expire its underwriters if something goes wrong which may lead to loss of collateral.
 2. Underwrite capital. The underwriter requires assets which it can front for underwrites. For testnet, these are the respective wrapped assets. You can get these by wrapping on the Catalyst UI and sending them to the associated address.
 
+:::tip
+For Catalyst Tiger testnet, the underwriter requires wrapped gas. You can fund the underwriter account directly by wrapping via [Catalyst App](https://app.catalyst.exchange) and specifying the relayer addres as the `Recipient Address`.
+:::
+
 ## Running the underwriter
 
 In the future, the underwriter will go through a graceful shutdown to ensure that all of its underwrites are monitored to completion. This reduces chances for loss of funds.
