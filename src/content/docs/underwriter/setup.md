@@ -29,7 +29,7 @@ cp .env.example .env
 
 Once this has been done, we can go on to configuration.
 
-## Configuring the Relayer
+## Configuring the Underwriter
 
 We need to edit `config.production.yaml` with the correct configuration values. Similarly to the relayer, we need to modify the privatekey (`global.privateKey`) and RPCs (`chains.[chain].rpc`).
 
@@ -44,7 +44,7 @@ Any interference is likely to result in lost funds.
 
 Currently you have to specify explicitly which pools to underwrite. For testnet, leave them as the default.
 
-## Funding the relayer
+## Funding the Underwriter
 
 The relayer requires 2 types of funding:
 
@@ -55,7 +55,7 @@ The relayer requires 2 types of funding:
 For Catalyst Tiger testnet, the underwriter requires wrapped gas. You can fund the underwriter account directly by wrapping via [Catalyst App](https://app.catalyst.exchange) and specifying the relayer addres as the `Recipient Address`.
 :::
 
-## Running the underwriter
+## Running the Underwriter
 
 In the future, the underwriter will go through a graceful shutdown to ensure that all of its underwrites are monitored to completion. This reduces chances for loss of funds.
 
