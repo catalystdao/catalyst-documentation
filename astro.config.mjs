@@ -19,8 +19,7 @@ export default defineConfig({
       plugins: [starlightLinksValidator()],
       title: "Catalyst Documentation",
       editLink: {
-        baseUrl:
-          "https://github.com/catalystdao/catalyst-documentation/edit/main",
+        baseUrl: `https://github.com/catalystdao/catalyst-documentation/edit/${process.env["CF_PAGES_BRANCH"]}`,
       },
       logo: {
         light: "/src/assets/logo_dark.svg",
@@ -64,7 +63,7 @@ export default defineConfig({
         },
         {
           label: "Underwriter",
-          badge: "Coming Soon!",
+          badge: "Open Beta!",
           autogenerate: {
             directory: "underwriter",
           },
