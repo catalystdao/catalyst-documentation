@@ -52,7 +52,7 @@ The relayer requires 2 types of funding:
 2. Underwrite capital. The underwriter requires assets which it can front for underwrites. For testnet, these are the respective wrapped assets. You can get these by wrapping on the Catalyst UI and sending them to the associated address.
 
 :::tip
-For Catalyst Tiger testnet, the underwriter requires wrapped gas. You can fund the underwriter account directly by wrapping via [Catalyst App](https://app.catalyst.exchange) and specifying the relayer addres as the `Recipient Address`.
+For Catalyst Tiger testnet, the underwriter requires wrapped gas. You can fund the underwriter account directly by wrapping via [Catalyst App](https://app.catalyst.exchange) and specifying the relayer address as the `Recipient Address`.
 :::
 
 ## Running the Underwriter
