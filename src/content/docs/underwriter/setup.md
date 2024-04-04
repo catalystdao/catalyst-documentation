@@ -84,10 +84,10 @@ The underwriter is updated similarly to the relayer.
 ```bash
 git pull
 docker compose pull
-docker compose restart underwriter
+docker-compose up -d
 ```
 
 The commands does the following:
 - `git pull` collects relevant changes to scripts, configs, and other code changes. It is not needed if you continue using the existing config.
 - `docker compose pull` pulls the latest docker image. This will be applied after a restart.
-- `docker compose restart underwriter` restarts the underwriter and applies the latest docker image.
+- `docker-compose up -d` restarts the underwriter and applies the latest docker image.
