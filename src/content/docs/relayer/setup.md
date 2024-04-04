@@ -174,7 +174,7 @@ To update the relayer, we need to pull the latest changes. Run the commands:
 ```bash
 git pull
 docker compose pull
-docker compose restart relayer
+docker compose up -d
 ```
 
 The commands does the following:
