@@ -166,3 +166,18 @@ If you want to stop the relayer you can run
 ```bash
 docker compose stop
 ```
+
+## Updating the Relayer
+
+To update the relayer, we need to pull the latest changes. Run the commands:
+
+```bash
+git pull
+docker compose pull
+docker compose restart underwriter
+```
+
+The commands does the following:
+- `git pull` collects relevant changes to scripts, configs, and other code changes. It is not needed if you continue using the existing config.
+- `docker compose pull` pulls the latest docker image. This will be applied after a restart.
+- `docker compose restart relayer` restarts the relayer and applies the latest docker image.
