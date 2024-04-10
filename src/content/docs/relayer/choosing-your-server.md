@@ -14,3 +14,5 @@ The relayer is very lightweight and intended to run on cheap VPS. Do note that w
 | Storage Space | 15 GB   | 25 GB                       |
 
 With these specs, the monthly cost to run a relayer on a VPS is roughly \$6 to \$14.
+
+The relayer does not support ARM because the Wormhole Spy does not support ARM. 
