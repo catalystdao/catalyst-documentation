@@ -13,7 +13,7 @@ From within the Underwriter's directory:
     ```
 - Get the codebase changes:
     ```bash
-    git fetch && git checkout main
+    git pull && git checkout main
     ```
 - Pull the corresponding docker image:
     ```bash
