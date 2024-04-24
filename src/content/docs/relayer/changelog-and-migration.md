@@ -5,6 +5,32 @@ sidebar:
   order: 4
 ---
 
+## Installing a new Relayer version
+From within the Relayer's directory:
+- Pull down the Relayer if it is running.
+    ```bash
+    docker compose down
+    ```
+    :::caution
+    Pull down the Underwriter first if it is running in tandem with the Relayer.
+    :::
+- Get the codebase changes:
+    ```bash
+    git fetch && git checkout main
+    ```
+- Pull the corresponding docker image:
+    ```bash
+    docker pull ghcr.io/catalystdao/generalised-relayer:latest
+    ```
+- Perform any migration steps as described on all relevant changelogs.
+- Start the Relayer.
+    ```bash
+    docker compose up -d
+    ```
+:::tip
+To install a specific Relayer version, replace `main` and `latest` on the commands above with the desired version tag.
+:::
+
 ## v0.1.0
 ---
 Release: [GitHub](https://github.com/catalystdao/generalised-relayer/releases/tag/v0.1.0)
@@ -19,22 +45,6 @@ Release: [GitHub](https://github.com/catalystdao/generalised-relayer/releases/ta
 - Full [changelog](https://github.com/catalystdao/generalised-relayer/commit/e7d63265b7ddfcf5b3210ae74f71659c01681f5f).
 
 ### Migration steps:
-From within the Relayer's directory:
-- Pull down the Relayer if it is running.
-    ```bash
-    docker compose down
-    ```
-    :::caution
-    Pull down the Underwriter first if it is running in tandem with the Relayer.
-    :::
-- Get the latest changes from the repo's `v0.1.0` release:
-    ```bash
-    git fetch && git checkout v0.1.0
-    ```
-- Pull the corresponding docker image:
-    ```bash
-    docker pull ghcr.io/catalystdao/generalised-relayer:0.1
-    ```
 - Update the Relayer configuration:
     :::caution
     It is highly recommended to rewrite the Relayer configuration from scratch using the example configuration file provided (`config.example.yaml`).
@@ -47,7 +57,3 @@ From within the Relayer's directory:
     - Optional `resolver` configuration for each chain.
         - `resolver: 'arbitrum'` is now **required** for Arbitrum.
     - See `config.types.ts` for further advanced configuration options added that are not present on `config.example.yaml`.
-- Start the Relayer.
-    ```bash
-    docker compose up -d
-    ```

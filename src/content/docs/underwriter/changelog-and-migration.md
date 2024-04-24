@@ -5,6 +5,29 @@ sidebar:
   order: 4
 ---
 
+## Installing a new Underwriter version
+From within the Underwriter's directory:
+- Pull down the Underwriter if it is running.
+    ```bash
+    docker compose down
+    ```
+- Get the codebase changes:
+    ```bash
+    git fetch && git checkout main
+    ```
+- Pull the corresponding docker image:
+    ```bash
+    docker pull ghcr.io/catalystdao/catalyst-underwriter:latest
+    ```
+- Perform any migration steps as described on all relevant changelogs.
+- Start the Underwriter.
+    ```bash
+    docker compose up -d
+    ```
+  :::tip
+  To install a specific Underwriter version, replace `main` and `latest` on the commands above with the desired version tag.
+  :::
+
 ## v0.1.0
 ---
 Release: [GitHub](https://github.com/catalystdao/catalyst-underwriter/releases/tag/v0.1.0)
@@ -21,19 +44,6 @@ Release: [GitHub](https://github.com/catalystdao/catalyst-underwriter/releases/t
 - Full [changelog](https://github.com/catalystdao/catalyst-underwriter/commit/03ba7a539f22cb78439ae2d9889bd705852fa454).
 
 ### Migration steps:
-From within the Underwriter's directory:
-- Pull down the Underwriter if it is running.
-    ```bash
-    docker compose down
-    ```
-- Get the latest changes from the repo's `v0.1.0` release:
-    ```bash
-    git fetch && git checkout v0.1.0
-    ```
-- Pull the corresponding docker image:
-    ```bash
-    docker pull ghcr.io/catalystdao/catalyst-underwriter:0.1
-    ```
 - Update the Underwriter configuration:
     :::caution
     It is highly recommended to rewrite the Underwriter configuration from scratch using the example configuration file provided (`config.example.yaml`).
@@ -46,7 +56,3 @@ From within the Underwriter's directory:
     - Optional `resolver` configuration for each chain
       - `resolver: 'arbitrum'` is now **required** for Arbitrum.
     - See `config.types.ts` for further advanced configuration options added that are not present on `config.example.yaml`.
-- Start the Underwriter.
-    ```bash
-    docker compose up -d
-    ```
