@@ -76,18 +76,3 @@ If you want to stop the underwriter you can run
 ```bash
 docker compose stop
 ```
-
-## Updating the Underwriter
-
-The underwriter is updated similarly to the relayer.
-
-```bash
-git pull
-docker compose pull
-docker-compose up -d
-```
-
-The commands does the following:
-- `git pull` collects relevant changes to scripts, configs, and other code changes. It is not needed if you continue using the existing config.
-- `docker compose pull` pulls the latest docker image. This will be applied after a restart.
-- `docker-compose up -d` restarts the underwriter and applies the latest docker image.
