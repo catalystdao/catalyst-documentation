@@ -20,6 +20,11 @@ You can read more about the benefits of [Generalised incentives on Github](https
 
 Generalised Incentives allows Catalyst to be agnostic to interoperability protocols and allows us to leverage any arbitrary message bridge (AMB) to send the Unit of Liquidity across chains. This ensures that our users will experience the same consistent high-quality UX as every AMB has the same interface. As a result, Catalyst is guaranteed to be the liquidity protocol with most supported chains.
 
+Arbitrary message agnosticism has two main advantages:
+
+- The cross-chain attack surface is limited to a single message as opposed to 4-6 attack surfaces of existing solutions.
+- Cross-chain pool creators can choose the best AMB depending on their use-case.
+
 ### You here?
 
 Are you building with Generalised Incentives? Submit a PR and get a shoutout on this page.
