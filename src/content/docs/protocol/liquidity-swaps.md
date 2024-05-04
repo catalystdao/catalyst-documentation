@@ -14,7 +14,7 @@ While Catalyst has the same portfolio profile as traditional CFMM (constant func
 1. Liquidity exists in multiple pots asynchronously
 2. Liquidity is owned by independent vault tokens.
 
-Assume you are depositing in an ETH-OP-ARB pool across Ethereum, Optimism Mainnet, and Arbitrum. If you had an equal amount of assets across all three chains, (e.g., \$100 worth each of ETH, OP and ARB tokens), you will get 3 vault tokens that represent each of the holdings in their respective vaults.
+Assume you are depositing in an ETH-OP-ARB pool across Ethereum Mainnet, Optimism, and Arbitrum. If you had an equal amount of assets across all three chains, (e.g., \$100 worth each of ETH, OP and ARB tokens), you will get 3 vault tokens that represent each of the holdings in their respective vaults.
 However, from a technical perspective, there is nothing stopping someone from depositing only ETH and getting only 1 vault token. They may even be inclined if they only hold ETH.
 
 Holding an uneven distribution of vault tokens is risky. Any individual vault token may get diluted at the benefit of every other vault token. This happens when someone deposits an unequal amount of assets.
