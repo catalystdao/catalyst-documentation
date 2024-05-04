@@ -9,11 +9,11 @@ Catalyst has support for a wide range of swap types to suit any user.
 
 ## Local Swaps
 
-Local Swaps are instant swaps between tokens on the same chain. An example could be Ether to USDC on Ethereum. Local Swaps are instant and can access the full liquidity of the Catalyst vault. This has the same liquidity efficiency as a traditional CFMM AMM.
+Local swaps are instant swaps between tokens on the same chain. An example could be Ether (ETH) to USDC on Ethereum. Local swaps are instant and can access the full liquidity of the Catalyst vault. This has the same liquidity efficiency as a traditional CFMM AMM.
 
 ## Cross-Chain Swaps
 
-Cross-chain swaps are non-instant swaps between tokens on two different chains. An example could be Matic (on Polygon) to BNB (on BSC). These swaps take time, as we need to examine both vaults for their balances. If the price changes during the swap, you will get back the original tokens provided minus a low swap fee.
+Cross-chain swaps are non-instant swaps between tokens on two different chains. An example could be MATIC (on Polygon) to BNB (on BNB Chain). These swaps take time, as we need to examine both vaults for their balances. If the price changes during the swap, you will get back the original tokens provided minus a low swap fee.
 
 ### Underwriting
 

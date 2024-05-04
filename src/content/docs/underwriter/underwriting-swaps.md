@@ -60,7 +60,7 @@ Some of these risk factors can easily be migrated like
 
 (1.) can be migrated against by waiting longer before underwriting the swap. This can be configured in our underwriter but will make the underwriter less competitive or
 
-(7.) which is very easiy to audit for and no issues has EVER been found with the escrow implementation.
+(7.) which is very easy to audit for and no issues has EVER been found with the escrow implementation.
 
 ## Designing an Underwriter
 
