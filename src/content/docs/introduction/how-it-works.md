@@ -5,9 +5,9 @@ sidebar:
   order: 2
 ---
 
-Catalyst is a cross-chain AMM that only needs an interoperability messaging layer to operate. This enables easy-to-use, secure, and fast cross-chain swaps. Traditional AMMs price assets based on their internal state, which means the balances of assets within the AMM. This requires the AMM to have full knowledge of all assets they use. The Catalyst innovation allows us to ease the knowledge constraint such that we can split the state of the AMM across different chains: pools of assets can be created on different chains and connected by a cross-chain messaging layer.
+Catalyst is a cross-chain AMM that only needs an interoperability messaging layer to operate. This enables easy-to-use, secure, and fast cross-chain swaps. Traditional AMMs price assets based on their internal state, which means the balances of assets within the AMM. This requires the AMM to have full knowledge of all assets they use. The Catalyst innovation allows us to ease this constraint such that the state can be split across different chains: vaults of assets can be created on different chains and connected by a cross-chain messaging layer. Together they form a pool where assets can be swapped within.
 
-Catalyst works by being lightweight and extensible enough to live on any chain—irrespective of virtual machine, consensus mechanism, etc. Catalyst uses a concept called "unit of liquidity": a value abstraction that can be easily transferred between pools asynchronously to allow for universal comprehension between any Catalyst smart contract on any chain. As a result, any chain that integrates Catalyst can automatically move value to/from any other Catalyst-enabled chain.
+Catalyst works by being lightweight and extensible enough to live on any chain —irrespective of virtual machine, consensus mechanism, etc. Catalyst uses a concept called "unit of liquidity": a value abstraction that can be easily transferred between pools asynchronously to allow for universal comprehension between any Catalyst smart contract on any chain. As a result, any chain that integrates Catalyst can automatically move value to/from any other Catalyst-enabled chain.
 
 ## What is the Unit of Liquidity?
 
@@ -17,7 +17,7 @@ UoL allows Catalyst to scale linearly with the number of chains connected: Catal
 
 ### High-level explanation
 
-Imagine Alice wants to trade her Apples for Charlie's Citrons. Both Alice and Charlie have a certain number of values attached to their produce. If Alice has 1 million Apples and only 1 Citron, then 1 Citron is inherently worth more to Alice than 1 Apple, _how else will she get all of their C-vitamins?_
+Imagine Alice wants to trade her Apples for Charlie's Citrons. Both Alice and Charlie have a certain number of values attached to their produce. If Alice has 1000 Apples and only 1 Citron, then 1 Citron is inherently worth more to Alice than 1 Apple, _how else will she get all of her C-vitamins?_
 
 We imagine that Alice has some value function that she uses to evaluate if she should trade her Apples to Citrons. We call that function the marginal price function (of Alice).
 
@@ -31,6 +31,6 @@ One idea is to introduce an intermediary value that has a known value relative t
 
 For Uniswap v2, the marginal price equation is $P(x, y) = \frac{y}{x}$ with a resulting swap equation of $y(x) = \frac{Y \cdot x}{X +x}$ where y is output, x is input, Y is the current pool balance of output and X is current pool balance of input.
 
-Say we want to replicate the Uniswap AMM, one idea could be to split up the equation: $U_x(x) = \frac{x}{X + x}$ and $y(x) = Y \cdot U_x(x)$. This provides us with 2 independent equations that describe the relative value between assets without any intermediary asset transfer or Oracles.
+Say we want to replicate the Uniswap AMM, one idea could be to split up the equation: $U_x(x) = \frac{x}{X + x}$ and $y(x) = Y \cdot U_x(x)$. This provides us with 2 independent equations that describe the relative value between assets without any intermediary asset transfer or Oracles. It turns out that this is sane, the Catalyst equations can be simplified to the above equations and those can be proved to form a cross-chain invariant.
 
 You can find a deep dive into the math in our whitepaper: [whitepaper.catalyst.exchange](https://whitepaper.catalyst.exchange).
