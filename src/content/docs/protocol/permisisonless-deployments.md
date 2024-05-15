@@ -110,7 +110,7 @@ While the Cross-chain Interface can be deployed permissionlessly, the deployer i
 
 1. Set **new** cross-chain connections. If not set correctly, it may lead to loss of funds. Once a connection is set, it cannot be changed. This ensures that previously correct vaults remain correct indefinitely.
 2. Configure gas parameters for cross-chain swaps. This does not impact in-flight swaps but is able to disable initiation of new swaps, including selectivly censoring transactions by sandwiching. For amplified pools, this can lead to loss of some funds if the pool is particularly unbalanced.
-3. They can modify underwriting duraction such that they become unmatchable, or cause excessive escrow usage resulting in cheaper DoS for the pool.
+3. They can modify underwriting duraction such that they become unmatchable, or cause excessive escrow usage resulting in cheaper DoS for the pool. This can even be exploited by the owner. This only impacts new underwrites.
 
 As a result, while anyone can deploy a cross-chain interface there are certain trust factors that makes it more applicable for certain individuals to deploy the cross-chain interface.
 
