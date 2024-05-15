@@ -12,7 +12,7 @@ export default defineConfig({
   redirects: {
     "/resources/whitepaper": "/resources/audit-whitepaper#Papers",
   },
-  site: "https://docs.catalyst.exchange",
+  site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeMathjax],
