@@ -9,6 +9,9 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
+  redirects: {
+    "/resources/whitepaper": "/resources/audit-whitepaper#Papers",
+  },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
     remarkPlugins: [remarkMath],
