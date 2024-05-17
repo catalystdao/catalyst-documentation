@@ -11,9 +11,6 @@ Eggs are distributed weekly to Catalyst users for 3 months. The first distributi
 
 Eggs criteria will be updated on a recurring basis. Eggs distributions are based on weekly activity ending Wednesdays at 00:00 UTC. Distributions take place on Thursdays. Catalyst reserves the right to modify previous eggs distributions under its sole discretion.
 
-### Points to Boxes conversion
-At the end of the season, eggs will be converted into boxes with randomised rarities. There are 4 types of boxes: Uncommon, Rare, Legendary and Mythical. Each box holds a different amount of reward depending on its rarity (Mythical boxes are worth 100x Uncommon boxes).
-
 ### Loyalty Score
 The loyalty score tracks user activity over time and is represented as a number between 0 and 100. This score is user-specific and is updated weekly—it can decrease, increase, or remain the same. Users who stay active throughout the entire season will accrue a higher loyalty score. The loyalty score doesn't affect the number of Boxes you receive, but it does affect your luck when revealing them.
 
