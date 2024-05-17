@@ -7,11 +7,12 @@ sidebar:
 
 Catalyst's eggs program began on May 21 at 00:00 UTC.
 
-Eggs are distributed weekly to Catalyst users for 3 months. The first distribution will take place May 30. Eggs are meant to reward users who contribute to the protocol’s success.
+Eggs are distributed weekly to Catalyst users for 10 weeks. Distribution takes place every Friday, and the first distribution will take place on May 30. Eggs are meant to reward users who contribute to the protocol’s success.
 
-Eggs criteria will be updated on a recurring basis. Eggs distributions are based on weekly activity ending Wednesdays at 00:00 UTC. Distributions take place on Thursdays. Catalyst reserves the right to modify previous eggs distributions under its sole discretion.
+Eggs criteria will be updated on a recurring basis. Eggs distributions are based on weekly activity ending Thursday at 11:59 UTC. Distributions take place on every Friday. Catalyst reserves the right to modify previous eggs distributions under its sole discretion.
 
 ### Loyalty Score
+
 The loyalty score tracks user activity over time and is represented as a number between 0 and 100. This score is user-specific and is updated weekly—it can decrease, increase, or remain the same. Users who stay active throughout the entire season will accrue a higher loyalty score. The loyalty score doesn't affect the number of Boxes you receive, but it does affect your luck when revealing them.
 
 ## Referrals
@@ -23,6 +24,7 @@ You can create a referral code on app.catalyst.exchange/code after connecting yo
 Share your referral code with other traders using a unique link: app.catalyst.exchange/join/YOURCODE.
 
 ### How do I use a referral code?
+
 Click on a referral code link or input a friend's referral link on catalyst.exchange/join
 
 ###  Kickback
