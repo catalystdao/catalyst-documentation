@@ -57,4 +57,10 @@ Note: the kickback can only be increased but not decreased over time. Referral s
 
 Note: only direct referrals (i.e. someone that directly uses your code) counts for tier progression.
 
+## Eggs for Galxe Quests
 
+Thank you to all individuals that completed Catalyst Missions on [Galxe](https://app.galxe.com/catalyst) during the Catalyst testnets. 
+
+All Galxe users that completed at least 1 mission are eligible to a 5% bonus rebate on the Eggs they earn during season 1 on mainnet. The bonus is capped at 50,000 Eggs per user.
+
+Example: Alice earned 1000 Eggs during season 1 and she qualified for the galxe 5% bonus. At the end of the season, she will earn 1000 + (1000 * 5%) = 1050 Eggs
