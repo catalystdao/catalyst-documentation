@@ -13,23 +13,23 @@ Eggs criteria will be updated on a recurring basis. Eggs distributions are based
 
 ### Loyalty Score
 
-The loyalty score tracks user activity over time and is represented as a number between 0 and 100. This score is user-specific and is updated weekly—it can decrease, increase, or remain the same. Users who stay active throughout the entire season will accrue a higher loyalty score. The loyalty score doesn't affect the number of Boxes you receive, but it does affect your luck when revealing them.
+The loyalty score tracks user activity over time and is represented as a number between 0 and 100. This score is user-specific and is updated weekly — it can decrease, increase, or remain the same. Users who stay active throughout the entire season will accrue a higher loyalty score. While the loyalty score doesn't affect the number of eggs you receive, it does affect what emerges after the eggs are hatched.
 
 ## Referrals
 
 ### How do I refer someone to Catalyst?
 
-You can create a referral code on app.catalyst.exchange/code after connecting your wallet. You will receive a percentage of referred users' eggs based on their weekly activity. The percentage is determined by your referral tier.
+You can create a referral code on app.catalyst.exchange/rewards after connecting your wallet. You will receive a percentage of referred users' eggs based on their weekly activity. The percentage is determined by your referral tier.
 
 Share your referral code with other traders using a unique link: app.catalyst.exchange/join/YOURCODE.
 
 ### How do I use a referral code?
 
-Click on a referral code link or input a friend's referral link on catalyst.exchange/join
+Click on a referral code link or input a friend's referral link on the Rewards page on Catalyst UI.
 
 ###  Kickback
 
-Using a referral code will give you a variable kickback determined by the referee. The kickback works exactly like a credit card cashback, meaning that you’ll get a % of your weekly Eggs back. The higher your referral tier, the larger the kickback you can offer to your friends. You can check how much the kickback is when you click on a referral code link.
+Using a referral code will give you a variable kickback determined by the referee. The kickback works exactly like a credit card cashback, meaning that you’ll get a % of your weekly eggs back. The higher your referral tier, the larger the kickback you can offer to your friends. You can check how much the kickback is when you click on a referral code link.
 
 Example:
 Bob is Silver tier (20% referral rewards) and offers a 10% kickback.
