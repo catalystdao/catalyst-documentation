@@ -7,7 +7,7 @@ sidebar:
 
 ## Audits
 
-Catalyst has been audited by several companies, including Veridise, Ackee, and Zellic.
+Catalyst has been audited by several companies, including Veridise, Ackee Blockchain Security, and Zellic.
 
 ### Generalised Incentives
 
