@@ -2,7 +2,7 @@
 title: "Protocol Fees"
 description: "The distribution of fees for using Catalyst."
 sidebar:
-  order: 5
+  order: 6
 ---
 
 ## Catalyst Transaction Fees
