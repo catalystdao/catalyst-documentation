@@ -9,6 +9,8 @@ Catalyst: https://catalyst.exchange/
 
 Catalyst UI: https://app.catalyst.exchange/
 
+Catalyst Testnet: https://testnet.catalyst.exchange/
+
 Catalyst Docs: https://docs.catalyst.exchange/
 
 Whitepaper: https://whitepaper.catalyst.exchange/
