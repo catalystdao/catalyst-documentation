@@ -38,7 +38,7 @@ Alice signs up on Catalyst using Bob's code.
 
 At the end of the week, Alice earns 100 Eggs based on her Catalyst activity.
 
-Bob will earn (100 * 20%) - 10% = 18 Eggs, while Alice will receive 2 additional Eggs as a kickback.
+Bob will earn (100 * 10%) = 10 Eggs, while Alice will receive 10 additional Eggs as a kickback.
 
 Note: the kickback can only be increased but not decreased over time. Referral signups are immutable. Once you sign up using a code, you won't be able to change it later on.
 
