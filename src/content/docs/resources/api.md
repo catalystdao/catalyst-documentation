@@ -7,4 +7,6 @@ sidebar:
 
 The Catalyst API and SDK abstract away the blockchain-specific complexities of the Catalyst Protocol. The Catalyst API is created by [Cata Labs, Inc.](https://catalabs.org/) as a public good to assist developers in interacting with Catalyst more easily.
 
-Swagger endpoint and descriptions are accessible at `/swagger`
+API can be accessed at [api.catalyst.exchange](https://api.catalyst.exchange/)
+
+Swagger UI and descriptions are accessible at [api.catalyst.exchange/swagger](https://api.catalyst.exchange/swagger)
