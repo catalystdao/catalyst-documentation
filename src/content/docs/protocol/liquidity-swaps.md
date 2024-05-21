@@ -70,7 +70,10 @@ Suddenly, there is an important observation. The user we examined does not hold 
 You can imagine this as a U graph where the relative value is on the Y axis. An even distribution is the middle and lowest point of the U and other users deposit unevenly they move your position either left or right. This provides you relative gains.
 
 :::caution[Do not use liquidity swaps for speculation]
-You may imagine that you read the above and think: Why not use liquidity swaps to lock in some of the uneven distribution gains?
+You may have read the above and though: Why not use liquidity swaps to lock in some of the uneven distribution gains?
 
-This is dangerous! First, Liquidity swaps are not free. Second, liquidity swaps rebalance what your liquidity distribution fundamentally looks like. One of the assumptions in the above section is that the price is constant. In the real world, this is unlikely to be the case. As a result, liquidity swaps should be used as sparsely as possible.
-:::
+This is dangerous!
+
+1.  Liquidity swaps are not free: They cost gas, the pool fee is charged, and the computation of the liquidity swap is not exactly.
+2.  liquidity swaps rebalance what your liquidity distribution fundamentally looks like. One of the assumptions in the above section is that the price is constant. In the real world, this is unlikely to be the case. As a result, liquidity swaps should be used as sparsely as possible.
+    :::
