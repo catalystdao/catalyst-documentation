@@ -112,7 +112,7 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
   // Remember to add your onlyEscrow modifier.
   function receiveAck(bytes32 destinationIdentifier, bytes32 messageIdentifier, bytes calldata acknowledgement) onlyEscrow() external {
 
-    if (spentAcks[acknowledgement]) revert AckAlreadyDelivered();
+    if (ackSpent[acknowledgement]) revert AckAlreadyDelivered();
     ackSpent[acknowledgement] = true;
 
     // Wow, much ACK!
