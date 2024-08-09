@@ -21,7 +21,7 @@ This will add Generalised Incentives to your repository and you are now ready to
 
 Start by adding import statements to your smart contract file. We need to import 2 files:
 
-- [ICrossChainReceiver](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/ICrossChainReceiver.sol): This will ensure you corretly implement the interfaces for the message callbacks
+- [ICrossChainReceiver](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/ICrossChainReceiver.sol): This will ensure you correctly implement the interfaces for the message callbacks
 - [IIncentivizedMessageEscrow](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/IIncentivizedMessageEscrow.sol): This will ensure you correctly call the message escrow correctly.
 - [Optionally] [IMessageEscrowStructs](https://github.com/catalystdao/GeneralisedIncentives/blob/main/src/interfaces/IMessageEscrowStructs.sol): To simplify struct handling.
 
@@ -44,7 +44,7 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
 
 The integration is less opinionated than other cross-chain endpoint, as we need to define some boilercode. First, lets set our escrow endpoint. Below we present 2 options
 
-1. Set the escrow explicity. This defines a single escrow which you may interact in. This may be desired to reduce complexity but also introduces some vendor lock-in.
+1. Set the escrow explicitly. This defines a single escrow which you may interact in. This may be desired to reduce complexity but also introduces some vendor lock-in.
 2. Define a list of escrow that are allowed. This allows you to pick and chose which AMB is best suited for a certain connection. This introduces some additional complexity but mitigates vendor lock-in.
 
 ```solidity
@@ -128,7 +128,7 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
     // That is because if the message fails for some reason,
     // an error code is prepended to the message.
     // By always sending back hex"00", we ensure that the first byte is unused.
-    // Alternativly, use this byte as our own failure code.
+    // Alternatively, use this byte as our own failure code.
     return bytes.concat(
       hex"00",
       keccak(message)
@@ -152,7 +152,7 @@ We havn't actually sent any messages yet. Lets do that. For simplicity, this sec
 ```solidity
 
 contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
-  // If your contract didn't inheirt IMessageEscrowStructs, you may have to
+  // If your contract didn't inherit IMessageEscrowStructs, you may have to
   // set the type of incentive to IIncentivizedMessageEscrow.IncentiveDescription.
   function sendMessage(bytes32 destinationIdentifier, bytes destinationAddress, bytes calldata message, IncentiveDescription calldata incentive, uint64 deadline) payable external {
     // Submit the message to the escrow. Remember to add associated value.

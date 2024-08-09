@@ -1,6 +1,6 @@
 ---
 title: "Setting up a Relayer"
-description: "Setting up the Generalised Relayer is easy for everyone. After installing Docker, the relayer can be installed by pulling the generalised-relayer repo and then configuring the appropiate settings. Fund the relayer and you are off to the races."
+description: "Setting up the Generalised Relayer is easy for everyone. After installing Docker, the relayer can be installed by pulling the generalised-relayer repo and then configuring the appropriate settings. Fund the relayer and you are off to the races."
 sidebar:
   order: 3
 ---
@@ -88,11 +88,11 @@ where `0xf2d04...23d9` is your privatekey.
 
 :::tip[Private Key Format]
 A proper private key begins with **0x**. Metamask does not add 0x to the front of the privatekey and you may have to do that yourself.
-The privatekey should be 64 charactors long without 0x and 66 charactors long with 0x.
+The privatekey should be 64 characters long without 0x and 66 characters long with 0x.
 :::
 
 :::caution
-Do not use this private key for other applications as it could interfear with the operation of the relayer wallet. Use a dedicated private key for the relayer to ensure proper operation.
+Do not use this private key for other applications as it could interfere with the operation of the relayer wallet. Use a dedicated private key for the relayer to ensure proper operation.
 :::
 
 ### RPCs

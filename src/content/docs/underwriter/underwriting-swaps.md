@@ -28,7 +28,7 @@ The bought finality risk is the following:
    - If this happens the underwriter loses 100% of their fronted tokens.
    - The underwriter can recover part of their collateral if they expire their own underwrite.
 3. The underwriter also pays gas to execute the logic associated with the user’s swap. To underwrite a swap is conditional on executing the logic. There is not an associated gas payment included in the underwrite incentive and it will have to also cover the gas cost.
-   - If the underwriter evaluator is unable to correctly asses the profitability of underwrites, it could underwrite swaps such that it is not truely profitable.
+   - If the underwriter evaluator is unable to correctly asses the profitability of underwrites, it could underwrite swaps such that it is not truly profitable.
 4. The messaging bridge finalises the swap within the configured max time. If the message is not relayed within the configured max time, the underwrite may be expired.
    - If this happens the underwriter loses 100% of their fronted tokens.
    - The underwriter can recover part of their collateral if they expire their own underwrite.
@@ -76,10 +76,10 @@ With these information, it can both validate swaps by cross-examining the packag
 :::danger[Validate!]
 `underwrite(...)` is very unlikely to revert. It will generally accept any information and _underwrite_ whatever swap is proposed. But if there is not a messaging bridge hit on the underwrite the fronted tokens will not be refunded.
 
-It is important to throughly verify that swaps before underwriting to ensure the fronted underwrite capital is refunded otherwise there may be a loss of funds.
+It is important to thoroughly verify that swaps before underwriting to ensure the fronted underwrite capital is refunded otherwise there may be a loss of funds.
 :::
 
-### Risk Migration implementaitons
+### Risk Migration implementations
 
 The [reference underwriter](/underwriter/setup/) has built-in risk migrations. Below is a list of the currently implemented risk management features:
 

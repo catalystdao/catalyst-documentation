@@ -1,6 +1,6 @@
 ---
 title: "Swaps Types"
-description: "Catalyst suports 4 different types of swaps: Local Swaps, Cross-Chain Swaps, Underwritten Cross-chain swaps, and Logic Dependent Swaps. This allows Catalyst to bring the forefront of cross-chain innovation anywhere."
+description: "Catalyst supports 4 different types of swaps: Local Swaps, Cross-Chain Swaps, Underwritten Cross-chain swaps, and Logic Dependent Swaps. This allows Catalyst to bring the forefront of cross-chain innovation anywhere."
 sidebar:
   order: 4
 ---
@@ -25,7 +25,7 @@ Underwriters underwriting their own swaps can get sub second swaps price finalit
 
 ## Logic Dependent Swaps
 
-By only commiting to a swap if a certain logic returns true, Catalyst opens up for a host of new cross-chain applications. Developers can set any condition which can be programmed into a smart contract to determine whether or not to commit to the swap. If not, the swap reverts back to the sending chains.
+By only committing to a swap if a certain logic returns true, Catalyst opens up for a host of new cross-chain applications. Developers can set any condition which can be programmed into a smart contract to determine whether or not to commit to the swap. If not, the swap reverts back to the sending chains.
 
 Examples of use cases for logic dependent swaps:
 
@@ -34,8 +34,8 @@ Examples of use cases for logic dependent swaps:
 - Governance fee collection: Send fees from a chain and only commit to the transfer if it can be exchanged at favorable rates.
 - Rebalance WBTC between AAVE deployment: Only commit to the rebalance if the rate on the destination chain is higher than the sending chain.
 
-Underwriting is conditional on the configured dependent logic. As a result, underwriter will continously try to underwriter swaps if the conditions may change over time.
+Underwriting is conditional on the configured dependent logic. As a result, underwriter will continuously try to underwriter swaps if the conditions may change over time.
 
-## Liquidity boostrapping pools (LBPs)
+## Liquidity bootstrapping pools (LBPs)
 
 Liquidity Bootstrapping Pools (LBPs) are pools that allow for dynamic changes in token weighting over time. The pool owner determines the starting and end weights and times, and has the ability to pause swaps. LBPs use a weighted math model that gradually adjusts the token price until it reaches market equilibrium.
