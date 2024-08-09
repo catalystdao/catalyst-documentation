@@ -15,7 +15,7 @@ Catalyst is ERC-7683-ish compatible. The implementation differs in 2 ways:
 2. In the struct `Output` both the element `token` and `recipient` are encoded as `bytes32` instead of `address`. Solidity ABI encodes structs such that they fill 32 bytes. As a result, all returned objects of `ResolvedCrossChainOrder` remains compatible with implementations that assumes these are `address` (except these values are truncated).
 
 There are 3 order structures in play.
- 1. CrossChainOrder is a generic **input** order with an ERC-7683 compatible structure. Importantly, orderData contains the secret sauce and surely differes between ERC-7683 supporting implementations.
+ 1. CrossChainOrder is a generic **input** order with an ERC-7683 compatible structure. Importantly, orderData contains the secret sauce and surely differs between ERC-7683 supporting implementations.
  2. ResolvedCrossChainOrder is a **output** description that roughly describes the value of a cross-chain order at a specific moment in time. It is ERC-7683 compliant* and allows solvers to easily compare resolution of order across protocols.
  3. Catalyst Order Keys are used to keep track of a Catalyst order through its **lifetime**. It contains Catalyst specific context and describes orders in depth. The hash of this struct is used to index the state progress of orders.
 
@@ -32,7 +32,7 @@ struct CrossChainOrder {
 }
 ```
 
-Currently, Cross-Cats supports 2 order structs: `LimitOrderData` and `DutchOrderData` for many inputs (same chain) to many outputs (different chains) and Dutch Auctions (1 to 1), respectivly.
+Currently, Cross-Cats supports 2 order structs: `LimitOrderData` and `DutchOrderData` for many inputs (same chain) to many outputs (different chains) and Dutch Auctions (1 to 1), respectively.
 ```solidity
 struct LimitOrderData {
     uint32 proofDeadline;
@@ -166,7 +166,7 @@ def get_orders():
 
 ## From VM
 
-Cross Cats has directionality. That means the ways orders are initiated depends on the inputs chain (where the user is swapped out of). In the current interation, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains will generally be supported in a similar manner but non-VM chains behave slightly different.
+Cross Cats has directionality. That means the ways orders are initiated depends on the inputs chain (where the user is swapped out of). In the current iteration, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains will generally be supported in a similar manner but non-VM chains behave slightly different.
 
 On VM chains, assets can be pulled from the user through approvals. This is not possible on non-VM chains. As a result, the order of operations is slightly different. The following section describes orders originating from a VM chain, the section [From Bitcoin](#from-bitcoin) describes orders originating from Bitcoin.
 
@@ -225,7 +225,7 @@ def get_orders():
 
 ### Evaluating Orders
 
-After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficent to validate the quote and check that the sovler supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId`. These parameters will always be present.
+After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficient to validate the quote and check that the sovler supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId`. These parameters will always be present.
 
 Some orders may be exclusive. If `getOrderData.order.orderData.verificationContract` is defined and not `address(0)`, it will be exclusive until `getOrderData.order.orderData.slopeStartingTime`. In these cases, if they aren't exclusive to you wait until `getOrderData.order.orderData.slopeStartingTime` before submitting the order.
 
@@ -279,7 +279,7 @@ pnpm create astro --template starlight
 
 If `fillerData` is not provided, the input (user provided assets) will be sent to the caller. This is likely desired and as such there may be no further need to customize `fillerData`.
 
-However, if you want to send the input to another address OR enable underwriting you need to use customized `fillerData`. Currently only 1 custom version is supposed, v1. It is structued by 1 version byte (`0x01`), `fillerAddress`, `orderPurchaseDeadline`, and `orderDiscount`:
+However, if you want to send the input to another address OR enable underwriting you need to use customized `fillerData`. Currently only 1 custom version is supposed, v1. It is structured by 1 version byte (`0x01`), `fillerAddress`, `orderPurchaseDeadline`, and `orderDiscount`:
 - `fillerAddress` can be set to another address and indicates the (recipient of input assets)
 - `orderPurchaseDeadline` allows someone else to buy the order before this time. Buy here means paying all of the inputs assets & potential collateral to you.
 - `orderDiscount` gives buyers a small discount on the inputs. Is of `2**16-1`. To provide 1% discount: `0.01*(2**16-1)=655`. For chains with slow blocks (Bitcoin) this can be used to pay the solver using only 0-1 confirmations while assuring the user that they get high finality (6 confirmations).
@@ -319,7 +319,7 @@ fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDi
 
 ### Delivery
 
-Asset delivery depends on wheter the destination is a VM chain or Bitcoin. For VM chains, you have to call the reactor with the appropiate configurations where for Bitcoin you just have to make any transfer that matches the provided arguments.
+Asset delivery depends on whether the destination is a VM chain or Bitcoin. For VM chains, you have to call the reactor with the appropriate configurations where for Bitcoin you just have to make any transfer that matches the provided arguments.
 
 #### EVM deliveries
 
@@ -335,7 +335,7 @@ TODO: Some endpoint that includes an approximate quote.
 
 ### Final signed messages
 
-TODO: If you are chosen to be the solver for the Bitcoin to VM order, you need to generate a signed order. This works opposite of the flow for VM chains where the user would be the one signing orders. This may seem riskier but don't worry. We will make the order exclusive to the user & the UI's executor. This is important since the Cross Cats UI can gurantee that the assets will be delivered through a UI controlled but user owned Bitcoin address.
+TODO: If you are chosen to be the solver for the Bitcoin to VM order, you need to generate a signed order. This works opposite of the flow for VM chains where the user would be the one signing orders. This may seem riskier but don't worry. We will make the order exclusive to the user & the UI's executor. This is important since the Cross Cats UI can guarantee that the assets will be delivered through a UI controlled but user owned Bitcoin address.
 
 ## Proving Orders
 
