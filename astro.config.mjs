@@ -81,7 +81,7 @@ export default defineConfig({
     }),
     d2({
       skipGeneration: !!process.env["CF_PAGES"] || !process.env["D2"],
-      layout: "elk",
+      layout: "tala",
     }),
     svelte(),
   ],
