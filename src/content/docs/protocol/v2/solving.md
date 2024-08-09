@@ -53,12 +53,12 @@ Source Chain: {
   Challenger -> Reactor: C.6.1. fraud() {style.opacity: ${default-opacity}}
 
   # - Challenged Rejected (VM)
-  Oracle -> Reactor: C.9.2. prove() {style.opacity: ${default-opacity}}
+  Oracle -> Reactor: C.9.2. oracle() {style.opacity: ${default-opacity}}
   Reactor -> Solver: C.9.3. payout tokens {style.opacity: ${default-opacity}}
 
   # - Challenged Rejected (Bitcoin)
   Solver -> SPV: C.7.1. validateTransaction() {style.opacity: ${default-opacity}}
-  SPV -> Reactor: C.7.2. prove() {style.opacity: ${default-opacity}}
+  SPV -> Reactor: C.7.2. oracle() {style.opacity: ${default-opacity}}
   Reactor -> Solver: C.7.3. payout tokens {style.opacity: ${default-opacity}}
 
   # - Challenged Accepted
@@ -89,7 +89,7 @@ Destination Chain: {
   Solver -> User: 5.2. Tokens
 
   # Challenged submit proof (VM)
-  Solver -> Oracle: C.7.1. submitProof() {style.opacity: ${default-opacity}}
+  Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
 
   # Challenged submit proof (Bitcoin)
   Solver -> SPV: C.7.1: validateTransaction() {style.opacity: ${default-opacity}}
@@ -122,14 +122,13 @@ Proof: {
 }
 
 Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
-Proof -> Source Chain.Oracle: C.9.1. submitProof() {style.opacity: ${default-opacity}}
+Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
 
 scenarios: {
   optimistic resolution: {
     title.label: Optimistic Resolution
     Source Chain: {
       (Solver <-> Reactor)[0].style.opacity: 1
-      (Solver <-> Reactor)[0].style.bold: true
       (Solver <-> Reactor)[0].style.stroke-width: 3
     }
   }
@@ -137,7 +136,6 @@ scenarios: {
     title.label: Challenged
     Source Chain.Challenger.style.opacity: 1
     Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
-    Source Chain.(Challenger -> Reactor)[0].style.bold: true
 
     Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
     
@@ -145,10 +143,8 @@ scenarios: {
       challenged uncontested: {
         title.label: Challenged Uncontested
         Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
-        Source Chain.(Challenger -> Reactor)[0].style.bold: false
         Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
         Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
-        Source Chain.(Challenger -> Reactor)[1].style.bold: true
         Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
         Source Chain.(Reactor -> User)[0].style.opacity: 1
         Destination Chain.style.opacity: ${default-opacity}
@@ -158,10 +154,8 @@ scenarios: {
       order fill proven (VM): {
         title.label: Order Fill Proven (VM)
         Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
-        Source Chain.(Challenger -> Reactor)[0].style.bold: false
 
         Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
-        Destination Chain.(Solver -> Oracle)[1].style.bold: true
         Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
         Destination Chain.Oracle.style.opacity: 1
         Proof.style.opacity: 1
@@ -173,7 +167,6 @@ scenarios: {
       }
       order fill proven, (BTC): {
         Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
-        Source Chain.(Challenger -> Reactor)[0].style.bold: false
         Destination Chain.style.opacity: ${default-opacity}
         Destination Chain.*.style.opacity: ${default-opacity}
         Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
@@ -189,7 +182,6 @@ scenarios: {
 
             Source Chain.(Solver -> SPV)[0].style.opacity: 1
             Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
-            Source Chain.(Solver -> SPV)[0].style.bold: true
             Source Chain.(SPV -> Reactor)[0].style.opacity: 1
             Source Chain.(Reactor -> Solver)[1].style.opacity: 1
           }
