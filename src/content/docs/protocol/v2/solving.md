@@ -1,6 +1,6 @@
 ---
 title: "Cross Cats: Solving Liquidity x Bitcoin"
-description: "Catalyst v2 will support Bitcoin swaps. This is facilitates through intent based swaps that are verified through an on-chain Bitcoin SPV client. This provides: Fast settlement, Competitive rates, and near full security."
+description: "Catalyst v2 will support Bitcoin swaps. This is facilitated through intent based swaps that are verified through an on-chain Bitcoin SPV client. This provides: Fast settlement, Competitive rates, and near full security."
 sidebar:
   order: 7
 ---
