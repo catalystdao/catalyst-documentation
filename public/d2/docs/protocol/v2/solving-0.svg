@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" d2Version="0.6.5" preserveAspectRatio="xMinYMin meet" viewBox="0 0 2727 679"><svg id="d2-svg" width="2727" height="679" viewBox="-89 -160 2727 679"><style type="text/css"><![CDATA[
+.d2-977910685 .text {
+	font-family: "d2-977910685-font-regular";
+}
+@font-face {
+	font-family: d2-977910685-font-regular;
+	src: url("data:application/font-woff;base64,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");
+}
+.d2-977910685 .text-bold {
+	font-family: "d2-977910685-font-bold";
+}
+@font-face {
+	font-family: d2-977910685-font-bold;
+	src: url("data:application/font-woff;base64,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");
+}
+.d2-977910685 .text-italic {
+	font-family: "d2-977910685-font-italic";
+}
+@font-face {
+	font-family: d2-977910685-font-italic;
+	src: url("data:application/font-woff;base64,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");
+}]]></style><style type="text/css"><![CDATA[.shape {
+  shape-rendering: geometricPrecision;
+  stroke-linejoin: round;
+}
+.connection {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.blend {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+		.d2-977910685 .fill-N1{fill:#0A0F25;}
+		.d2-977910685 .fill-N2{fill:#676C7E;}
+		.d2-977910685 .fill-N3{fill:#9499AB;}
+		.d2-977910685 .fill-N4{fill:#CFD2DD;}
+		.d2-977910685 .fill-N5{fill:#DEE1EB;}
+		.d2-977910685 .fill-N6{fill:#EEF1F8;}
+		.d2-977910685 .fill-N7{fill:#FFFFFF;}
+		.d2-977910685 .fill-B1{fill:#0D32B2;}
+		.d2-977910685 .fill-B2{fill:#0D32B2;}
+		.d2-977910685 .fill-B3{fill:#E3E9FD;}
+		.d2-977910685 .fill-B4{fill:#E3E9FD;}
+		.d2-977910685 .fill-B5{fill:#EDF0FD;}
+		.d2-977910685 .fill-B6{fill:#F7F8FE;}
+		.d2-977910685 .fill-AA2{fill:#4A6FF3;}
+		.d2-977910685 .fill-AA4{fill:#EDF0FD;}
+		.d2-977910685 .fill-AA5{fill:#F7F8FE;}
+		.d2-977910685 .fill-AB4{fill:#EDF0FD;}
+		.d2-977910685 .fill-AB5{fill:#F7F8FE;}
+		.d2-977910685 .stroke-N1{stroke:#0A0F25;}
+		.d2-977910685 .stroke-N2{stroke:#676C7E;}
+		.d2-977910685 .stroke-N3{stroke:#9499AB;}
+		.d2-977910685 .stroke-N4{stroke:#CFD2DD;}
+		.d2-977910685 .stroke-N5{stroke:#DEE1EB;}
+		.d2-977910685 .stroke-N6{stroke:#EEF1F8;}
+		.d2-977910685 .stroke-N7{stroke:#FFFFFF;}
+		.d2-977910685 .stroke-B1{stroke:#0D32B2;}
+		.d2-977910685 .stroke-B2{stroke:#0D32B2;}
+		.d2-977910685 .stroke-B3{stroke:#E3E9FD;}
+		.d2-977910685 .stroke-B4{stroke:#E3E9FD;}
+		.d2-977910685 .stroke-B5{stroke:#EDF0FD;}
+		.d2-977910685 .stroke-B6{stroke:#F7F8FE;}
+		.d2-977910685 .stroke-AA2{stroke:#4A6FF3;}
+		.d2-977910685 .stroke-AA4{stroke:#EDF0FD;}
+		.d2-977910685 .stroke-AA5{stroke:#F7F8FE;}
+		.d2-977910685 .stroke-AB4{stroke:#EDF0FD;}
+		.d2-977910685 .stroke-AB5{stroke:#F7F8FE;}
+		.d2-977910685 .background-color-N1{background-color:#0A0F25;}
+		.d2-977910685 .background-color-N2{background-color:#676C7E;}
+		.d2-977910685 .background-color-N3{background-color:#9499AB;}
+		.d2-977910685 .background-color-N4{background-color:#CFD2DD;}
+		.d2-977910685 .background-color-N5{background-color:#DEE1EB;}
+		.d2-977910685 .background-color-N6{background-color:#EEF1F8;}
+		.d2-977910685 .background-color-N7{background-color:#FFFFFF;}
+		.d2-977910685 .background-color-B1{background-color:#0D32B2;}
+		.d2-977910685 .background-color-B2{background-color:#0D32B2;}
+		.d2-977910685 .background-color-B3{background-color:#E3E9FD;}
+		.d2-977910685 .background-color-B4{background-color:#E3E9FD;}
+		.d2-977910685 .background-color-B5{background-color:#EDF0FD;}
+		.d2-977910685 .background-color-B6{background-color:#F7F8FE;}
+		.d2-977910685 .background-color-AA2{background-color:#4A6FF3;}
+		.d2-977910685 .background-color-AA4{background-color:#EDF0FD;}
+		.d2-977910685 .background-color-AA5{background-color:#F7F8FE;}
+		.d2-977910685 .background-color-AB4{background-color:#EDF0FD;}
+		.d2-977910685 .background-color-AB5{background-color:#F7F8FE;}
+		.d2-977910685 .color-N1{color:#0A0F25;}
+		.d2-977910685 .color-N2{color:#676C7E;}
+		.d2-977910685 .color-N3{color:#9499AB;}
+		.d2-977910685 .color-N4{color:#CFD2DD;}
+		.d2-977910685 .color-N5{color:#DEE1EB;}
+		.d2-977910685 .color-N6{color:#EEF1F8;}
+		.d2-977910685 .color-N7{color:#FFFFFF;}
+		.d2-977910685 .color-B1{color:#0D32B2;}
+		.d2-977910685 .color-B2{color:#0D32B2;}
+		.d2-977910685 .color-B3{color:#E3E9FD;}
+		.d2-977910685 .color-B4{color:#E3E9FD;}
+		.d2-977910685 .color-B5{color:#EDF0FD;}
+		.d2-977910685 .color-B6{color:#F7F8FE;}
+		.d2-977910685 .color-AA2{color:#4A6FF3;}
+		.d2-977910685 .color-AA4{color:#EDF0FD;}
+		.d2-977910685 .color-AA5{color:#F7F8FE;}
+		.d2-977910685 .color-AB4{color:#EDF0FD;}
+		.d2-977910685 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}@media screen and (prefers-color-scheme:dark){
+		.d2-977910685 .fill-N1{fill:#CDD6F4;}
+		.d2-977910685 .fill-N2{fill:#BAC2DE;}
+		.d2-977910685 .fill-N3{fill:#A6ADC8;}
+		.d2-977910685 .fill-N4{fill:#585B70;}
+		.d2-977910685 .fill-N5{fill:#45475A;}
+		.d2-977910685 .fill-N6{fill:#313244;}
+		.d2-977910685 .fill-N7{fill:#1E1E2E;}
+		.d2-977910685 .fill-B1{fill:#CBA6f7;}
+		.d2-977910685 .fill-B2{fill:#CBA6f7;}
+		.d2-977910685 .fill-B3{fill:#6C7086;}
+		.d2-977910685 .fill-B4{fill:#585B70;}
+		.d2-977910685 .fill-B5{fill:#45475A;}
+		.d2-977910685 .fill-B6{fill:#313244;}
+		.d2-977910685 .fill-AA2{fill:#f38BA8;}
+		.d2-977910685 .fill-AA4{fill:#45475A;}
+		.d2-977910685 .fill-AA5{fill:#313244;}
+		.d2-977910685 .fill-AB4{fill:#45475A;}
+		.d2-977910685 .fill-AB5{fill:#313244;}
+		.d2-977910685 .stroke-N1{stroke:#CDD6F4;}
+		.d2-977910685 .stroke-N2{stroke:#BAC2DE;}
+		.d2-977910685 .stroke-N3{stroke:#A6ADC8;}
+		.d2-977910685 .stroke-N4{stroke:#585B70;}
+		.d2-977910685 .stroke-N5{stroke:#45475A;}
+		.d2-977910685 .stroke-N6{stroke:#313244;}
+		.d2-977910685 .stroke-N7{stroke:#1E1E2E;}
+		.d2-977910685 .stroke-B1{stroke:#CBA6f7;}
+		.d2-977910685 .stroke-B2{stroke:#CBA6f7;}
+		.d2-977910685 .stroke-B3{stroke:#6C7086;}
+		.d2-977910685 .stroke-B4{stroke:#585B70;}
+		.d2-977910685 .stroke-B5{stroke:#45475A;}
+		.d2-977910685 .stroke-B6{stroke:#313244;}
+		.d2-977910685 .stroke-AA2{stroke:#f38BA8;}
+		.d2-977910685 .stroke-AA4{stroke:#45475A;}
+		.d2-977910685 .stroke-AA5{stroke:#313244;}
+		.d2-977910685 .stroke-AB4{stroke:#45475A;}
+		.d2-977910685 .stroke-AB5{stroke:#313244;}
+		.d2-977910685 .background-color-N1{background-color:#CDD6F4;}
+		.d2-977910685 .background-color-N2{background-color:#BAC2DE;}
+		.d2-977910685 .background-color-N3{background-color:#A6ADC8;}
+		.d2-977910685 .background-color-N4{background-color:#585B70;}
+		.d2-977910685 .background-color-N5{background-color:#45475A;}
+		.d2-977910685 .background-color-N6{background-color:#313244;}
+		.d2-977910685 .background-color-N7{background-color:#1E1E2E;}
+		.d2-977910685 .background-color-B1{background-color:#CBA6f7;}
+		.d2-977910685 .background-color-B2{background-color:#CBA6f7;}
+		.d2-977910685 .background-color-B3{background-color:#6C7086;}
+		.d2-977910685 .background-color-B4{background-color:#585B70;}
+		.d2-977910685 .background-color-B5{background-color:#45475A;}
+		.d2-977910685 .background-color-B6{background-color:#313244;}
+		.d2-977910685 .background-color-AA2{background-color:#f38BA8;}
+		.d2-977910685 .background-color-AA4{background-color:#45475A;}
+		.d2-977910685 .background-color-AA5{background-color:#313244;}
+		.d2-977910685 .background-color-AB4{background-color:#45475A;}
+		.d2-977910685 .background-color-AB5{background-color:#313244;}
+		.d2-977910685 .color-N1{color:#CDD6F4;}
+		.d2-977910685 .color-N2{color:#BAC2DE;}
+		.d2-977910685 .color-N3{color:#A6ADC8;}
+		.d2-977910685 .color-N4{color:#585B70;}
+		.d2-977910685 .color-N5{color:#45475A;}
+		.d2-977910685 .color-N6{color:#313244;}
+		.d2-977910685 .color-N7{color:#1E1E2E;}
+		.d2-977910685 .color-B1{color:#CBA6f7;}
+		.d2-977910685 .color-B2{color:#CBA6f7;}
+		.d2-977910685 .color-B3{color:#6C7086;}
+		.d2-977910685 .color-B4{color:#585B70;}
+		.d2-977910685 .color-B5{color:#45475A;}
+		.d2-977910685 .color-B6{color:#313244;}
+		.d2-977910685 .color-AA2{color:#f38BA8;}
+		.d2-977910685 .color-AA4{color:#45475A;}
+		.d2-977910685 .color-AA5{color:#313244;}
+		.d2-977910685 .color-AB4{color:#45475A;}
+		.d2-977910685 .color-AB5{color:#313244;}.appendix text.text{fill:#CDD6F4}.md{--color-fg-default:#CDD6F4;--color-fg-muted:#BAC2DE;--color-fg-subtle:#A6ADC8;--color-canvas-default:#1E1E2E;--color-canvas-subtle:#313244;--color-border-default:#CBA6f7;--color-border-muted:#CBA6f7;--color-neutral-muted:#313244;--color-accent-fg:#CBA6f7;--color-accent-emphasis:#CBA6f7;--color-attention-subtle:#BAC2DE;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-B2{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-B3{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B4{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B6{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AA2{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AA4{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AA5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AB4{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AB5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N1{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N2{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N6{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N7{fill:url(#streaks-darker);mix-blend-mode:lighten}.light-code{display: none}.dark-code{display: block}}]]></style><style type="text/css">.md em,
+.md dfn {
+  font-family: "d2-977910685-font-italic";
+}
+
+.md b,
+.md strong {
+  font-family: "d2-977910685-font-bold";
+}
+
+.md code,
+.md kbd,
+.md pre,
+.md samp {
+  font-family: "d2-977910685-font-mono";
+  font-size: 1em;
+}
+
+.md {
+  tab-size: 4;
+}
+
+/* variables are provided in d2renderers/d2svg/d2svg.go */
+
+.md {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  color: var(--color-fg-default);
+  background-color: transparent; /* we don't want to define the background color */
+  font-family: "d2-977910685-font-regular";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.md details,
+.md figcaption,
+.md figure {
+  display: block;
+}
+
+.md summary {
+  display: list-item;
+}
+
+.md [hidden] {
+  display: none !important;
+}
+
+.md a {
+  background-color: transparent;
+  color: var(--color-accent-fg);
+  text-decoration: none;
+}
+
+.md a:active,
+.md a:hover {
+  outline-width: 0;
+}
+
+.md abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.md dfn {
+  font-style: italic;
+}
+
+.md h1 {
+  margin: 0.67em 0;
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.md mark {
+  background-color: var(--color-attention-subtle);
+  color: var(--color-text-primary);
+}
+
+.md small {
+  font-size: 90%;
+}
+
+.md sub,
+.md sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.md sub {
+  bottom: -0.25em;
+}
+
+.md sup {
+  top: -0.5em;
+}
+
+.md img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: var(--color-canvas-default);
+}
+
+.md figure {
+  margin: 1em 40px;
+}
+
+.md hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--color-border-muted);
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: var(--color-border-default);
+  border: 0;
+}
+
+.md input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.md [type="button"],
+.md [type="reset"],
+.md [type="submit"] {
+  -webkit-appearance: button;
+}
+
+.md [type="button"]::-moz-focus-inner,
+.md [type="reset"]::-moz-focus-inner,
+.md [type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+.md [type="button"]:-moz-focusring,
+.md [type="reset"]:-moz-focusring,
+.md [type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+.md [type="checkbox"],
+.md [type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.md [type="number"]::-webkit-inner-spin-button,
+.md [type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.md [type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+.md [type="search"]::-webkit-search-cancel-button,
+.md [type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.md ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54;
+}
+
+.md ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+.md a:hover {
+  text-decoration: underline;
+}
+
+.md hr::before {
+  display: table;
+  content: "";
+}
+
+.md hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.md table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.md td,
+.md th {
+  padding: 0;
+}
+
+.md details summary {
+  cursor: pointer;
+}
+
+.md details:not([open]) > *:not(summary) {
+  display: none !important;
+}
+
+.md kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  color: var(--color-fg-default);
+  vertical-align: middle;
+  background-color: var(--color-canvas-subtle);
+  border: solid 1px var(--color-neutral-muted);
+  border-bottom-color: var(--color-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
+}
+
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  font-family: "font-semibold";
+}
+
+.md h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.md h3 {
+  font-size: 1.25em;
+}
+
+.md h4 {
+  font-size: 1em;
+}
+
+.md h5 {
+  font-size: 0.875em;
+}
+
+.md h6 {
+  font-size: 0.85em;
+  color: var(--color-fg-muted);
+}
+
+.md p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.md blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--color-fg-muted);
+  border-left: 0.25em solid var(--color-border-default);
+}
+
+.md ul,
+.md ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.md ol ol,
+.md ul ol {
+  list-style-type: lower-roman;
+}
+
+.md ul ul ol,
+.md ul ol ol,
+.md ol ul ol,
+.md ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.md dd {
+  margin-left: 0;
+}
+
+.md pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  word-wrap: normal;
+}
+
+.md ::placeholder {
+  color: var(--color-fg-subtle);
+  opacity: 1;
+}
+
+.md input::-webkit-outer-spin-button,
+.md input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.md::before {
+  display: table;
+  content: "";
+}
+
+.md::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.md > *:first-child {
+  margin-top: 0 !important;
+}
+
+.md > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.md a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.md .absent {
+  color: var(--color-danger-fg);
+}
+
+.md .anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.md .anchor:focus {
+  outline: none;
+}
+
+.md p,
+.md blockquote,
+.md ul,
+.md ol,
+.md dl,
+.md table,
+.md pre,
+.md details {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.md blockquote > :first-child {
+  margin-top: 0;
+}
+
+.md blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.md sup > a::before {
+  content: "[";
+}
+
+.md sup > a::after {
+  content: "]";
+}
+
+.md h1:hover .anchor,
+.md h2:hover .anchor,
+.md h3:hover .anchor,
+.md h4:hover .anchor,
+.md h5:hover .anchor,
+.md h6:hover .anchor {
+  text-decoration: none;
+}
+
+.md h1 tt,
+.md h1 code,
+.md h2 tt,
+.md h2 code,
+.md h3 tt,
+.md h3 code,
+.md h4 tt,
+.md h4 code,
+.md h5 tt,
+.md h5 code,
+.md h6 tt,
+.md h6 code {
+  padding: 0 0.2em;
+  font-size: inherit;
+}
+
+.md ul.no-list,
+.md ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.md ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.md ol[type="a"] {
+  list-style-type: lower-alpha;
+}
+
+.md ol[type="i"] {
+  list-style-type: lower-roman;
+}
+
+.md div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.md ul ul,
+.md ul ol,
+.md ol ol,
+.md ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.md li > p {
+  margin-top: 16px;
+}
+
+.md li + li {
+  margin-top: 0.25em;
+}
+
+.md dl {
+  padding: 0;
+}
+
+.md dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-family: "font-semibold";
+}
+
+.md dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.md table th {
+  font-family: "font-semibold";
+}
+
+.md table th,
+.md table td {
+  padding: 6px 13px;
+  border: 1px solid var(--color-border-default);
+}
+
+.md table tr {
+  background-color: var(--color-canvas-default);
+  border-top: 1px solid var(--color-border-muted);
+}
+
+.md table tr:nth-child(2n) {
+  background-color: var(--color-canvas-subtle);
+}
+
+.md table img {
+  background-color: transparent;
+}
+
+.md img[align="right"] {
+  padding-left: 20px;
+}
+
+.md img[align="left"] {
+  padding-right: 20px;
+}
+
+.md span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.md span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+}
+
+.md span.frame span img {
+  display: block;
+  float: left;
+}
+
+.md span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--color-fg-default);
+}
+
+.md span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.md span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.md span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.md span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.md span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.md span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.md span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.md span.float-left span {
+  margin: 13px 0 0;
+}
+
+.md span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.md span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.md code,
+.md tt {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: var(--color-neutral-muted);
+  border-radius: 6px;
+}
+
+.md code br,
+.md tt br {
+  display: none;
+}
+
+.md del code {
+  text-decoration: inherit;
+}
+
+.md pre code {
+  font-size: 100%;
+}
+
+.md pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.md .highlight {
+  margin-bottom: 16px;
+}
+
+.md .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.md .highlight pre,
+.md pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: var(--color-canvas-subtle);
+  border-radius: 6px;
+}
+
+.md pre code,
+.md pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.md .csv-data td,
+.md .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.md .csv-data .blob-num {
+  padding: 10px 8px 9px;
+  text-align: right;
+  background: var(--color-canvas-default);
+  border: 0;
+}
+
+.md .csv-data tr {
+  border-top: 0;
+}
+
+.md .csv-data th {
+  font-family: "font-semibold";
+  background: var(--color-canvas-subtle);
+  border-top: 0;
+}
+
+.md .footnotes {
+  font-size: 12px;
+  color: var(--color-fg-muted);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.md .footnotes ol {
+  padding-left: 16px;
+}
+
+.md .footnotes li {
+  position: relative;
+}
+
+.md .footnotes li:target::before {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -24px;
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--color-accent-emphasis);
+  border-radius: 6px;
+}
+
+.md .footnotes li:target {
+  color: var(--color-fg-default);
+}
+
+.md .task-list-item {
+  list-style-type: none;
+}
+
+.md .task-list-item label {
+  font-weight: 400;
+}
+
+.md .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.md .task-list-item + .task-list-item {
+  margin-top: 3px;
+}
+
+.md .task-list-item .handle {
+  display: none;
+}
+
+.md .task-list-item-checkbox {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.md .contains-task-list:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em 0.25em 0.2em;
+}
+</style><style type="text/css"><![CDATA[@keyframes d2Transition-d2-977910685-0 {
+		0%, 0.000000% {
+				opacity: 0;
+		}
+		0.000000%, 24.997500% {
+				opacity: 1;
+		}
+		25.000000%, 100% {
+				opacity: 0;
+		}
+}@keyframes d2Transition-d2-977910685-1 {
+		0%, 24.997500% {
+				opacity: 0;
+		}
+		25.000000%, 49.997500% {
+				opacity: 1;
+		}
+		50.000000%, 100% {
+				opacity: 0;
+		}
+}@keyframes d2Transition-d2-977910685-2 {
+		0%, 49.997500% {
+				opacity: 0;
+		}
+		50.000000%, 74.997500% {
+				opacity: 1;
+		}
+		75.000000%, 100% {
+				opacity: 0;
+		}
+}@keyframes d2Transition-d2-977910685-3 {
+		0%, 74.997500% {
+				opacity: 0;
+		}
+		75.000000%, 100.000000% {
+				opacity: 1;
+		}
+}]]></style><g style="animation: d2Transition-d2-977910685-0 40000ms infinite"  class="d2-977910685" width="2727" height="679" viewBox="-89 -160 2727 679"><rect x="-89.000000" y="-160.000000" width="2727.000000" height="679.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="1274.000000" y="-19.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">System Overview</text></g><g id="Source Chain"><g class="shape" ><rect x="1087.000000" y="12.000000" width="1450.000000" height="406.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="1812.000000" y="45.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Source Chain</text></g><g id="Destination Chain"><g class="shape" ><rect x="12.000000" y="42.000000" width="822.000000" height="278.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="423.000000" y="75.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Destination Chain</text></g><g id="Proof"><g class="shape" ><path d="M 926 224 C 926 225 925 226 925 226 C 916 227 909 238 909 252 C 909 267 917 279 926 279 H 992 C 1002 279 1011 266 1011 251 C 1011 236 1003 224 993 223 C 992 223 992 222 991 221 C 989 206 978 195 966 195 C 958 195 951 200 947 207 C 946 208 946 208 945 208 C 943 207 941 207 939 207 C 933 207 927 214 926 224 Z" class=" stroke-B1 fill-N7" style="stroke-width:2;" /></g><text x="960.178500" y="258.516000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Proof</text></g><g id="Source Chain.Solver"><g class="shape" ><rect x="2396.000000" y="264.000000" width="91.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="2441.500000" y="309.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Source Chain.User"><g class="shape" ><path d="M 1990 142 H 1942 V 141 C 1942 127 1947 115 1956 109 C 1951 104 1948 97 1948 88 C 1948 74 1956 62 1966 62 C 1976 62 1984 74 1984 88 C 1984 96 1981 104 1977 109 C 1985 115 1991 127 1991 141 V 142 H 1990 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="1966.000000" y="163.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Source Chain.Reactor"><g class="shape" ><rect x="1461.000000" y="157.000000" width="100.000000" height="160.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1511.000000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Source Chain.Oracle"><g class="shape" ><rect x="1137.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1182.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.Challenger" style='opacity:0.000000'><g class="shape" ><rect x="1917.000000" y="188.000000" width="123.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1978.500000" y="226.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Challenger</text></g><g id="Destination Chain.Solver"><g class="shape" ><rect x="62.000000" y="155.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="107.500000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Destination Chain.User"><g class="shape" ><path d="M 741 158 H 693 V 157 C 693 146 698 136 707 131 C 702 127 699 120 699 113 C 699 102 707 92 717 92 C 727 92 735 102 735 113 C 735 120 732 126 728 130 C 736 135 742 145 742 156 V 157 H 741 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="717.000000" y="179.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Destination Chain.Reactor"><g class="shape" ><rect x="355.000000" y="148.000000" width="100.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="405.000000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Destination Chain.Oracle"><g class="shape" ><rect x="693.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="738.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.(User -&gt; Solver)[0]"><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1985.000000 115.000000 L 2296.000000 115.000000 S 2306.000000 115.000000 2306.000000 125.000000 L 2306.000000 270.500000 S 2306.000000 280.500000 2316.000000 280.500000 L 2392.000000 280.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="2272.000000" y="121.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Signed Message</text></g><g id="Source Chain.(Solver -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 2394.000000 312.500000 L 2311.250000 312.500000 C 2300.750000 312.500000 2311.250000 323.000000 2300.750000 323.000000 L 1661.000000 323.000000 S 1651.000000 323.000000 1651.000000 313.000000 L 1651.000000 287.500000 S 1651.000000 277.500000 1641.000000 277.500000 L 1565.000000 277.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1961.000000" y="329.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Order</text></g><g id="Source Chain.(Reactor &lt;-&gt; User)[0]"><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1565.000000 177.500000 L 1591.000000 177.500000 S 1601.000000 177.500000 1601.000000 167.500000 L 1601.000000 107.333000 S 1601.000000 97.333000 1610.999995 97.323431 L 1945.000002 97.003828" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1715.000000" y="103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Collect Tokens</text></g><g id="Source Chain.(Challenger -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 1915.000000 237.500000 L 1565.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1739.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fraud</text></g><g id="Source Chain.(Reactor -&gt; Challenger)[0]" style='opacity:0.000000'><path d="M 1563.000000 217.500000 L 1694.500000 217.500000 C 1707.500000 217.500000 1694.500000 204.500000 1707.500000 204.500000 L 1913.000000 204.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1732.500000" y="210.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Reward</text></g><g id="Source Chain.(Reactor -&gt; User)[0]" style='opacity:0.000000'><path d="M 1563.000000 197.500000 L 1641.000000 197.500000 S 1651.000000 197.500000 1651.000000 187.500000 L 1651.000000 141.500000 S 1651.000000 131.500000 1660.999985 131.517123 L 1939.000006 131.993151" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1719.500000" y="137.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Refund</text></g><g id="Source Chain.(Oracle -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 1230.000000 237.500000 L 1457.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1344.500000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Commit Proof</text></g><g id="Source Chain.(Solver -&gt; Reactor)[1]"><path d="M 2394.000000 328.500000 L 2366.000000 328.500000 S 2356.000000 328.500000 2356.000000 338.500000 L 2356.000000 346.000000 S 2356.000000 356.000000 2346.000000 356.000000 L 1611.000000 356.000000 S 1601.000000 356.000000 1601.000000 346.000000 L 1601.000000 307.500000 S 1601.000000 297.500000 1591.000000 297.500000 L 1565.000000 297.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1963.500000" y="362.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Tokens</text></g><g id="Source Chain.(Reactor -&gt; Solver)[0]" style='opacity:0.000000'><path d="M 1563.000000 257.500000 L 2246.000000 257.500000 S 2256.000000 257.500000 2256.000000 267.500000 L 2256.000000 286.500000 S 2256.000000 296.500000 2266.000000 296.500000 L 2392.000000 296.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="1998.500000" y="263.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Pay Tokens</text></g><g id="Destination Chain.(Solver -&gt; Reactor)[0]"><path d="M 155.000000 188.000000 L 351.000000 188.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="254.000000" y="194.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fill Order</text></g><g id="Destination Chain.(Reactor -&gt; User)[0]"><path d="M 457.000000 174.666000 L 485.000000 174.666000 S 495.000000 174.666000 495.000000 164.666000 L 495.000000 148.500000 S 495.000000 138.500000 504.999970 138.524510 L 695.000012 138.990196" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="559.000000" y="144.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Deliver Order</text></g><g id="Destination Chain.(Reactor -&gt; Oracle)[0]" style='opacity:0.000000'><path d="M 457.000000 201.332993 L 485.000000 201.332993 S 495.000000 201.332993 495.000000 211.332993 L 495.000000 227.500000 S 495.000000 237.500000 505.000000 237.500000 L 689.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /><text x="556.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Submit proof</text></g><g id="(Destination Chain.Oracle -&gt; Proof)[0]" style='opacity:0.000000'><path d="M 785.999985 237.507812 L 908.000031 237.984375" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /></g><g id="(Proof -&gt; Source Chain.Oracle)[0]" style='opacity:0.000000'><path d="M 1009.999940 237.984497 L 1133.000120 237.031007" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-977910685)" /></g><mask id="d2-977910685" maskUnits="userSpaceOnUse" x="-89" y="-160" width="2727" height="679">
+<rect x="-89" y="-160" width="2727" height="679" fill="white"></rect>
+<rect x="1131.000000" y="-59.000000" width="286" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1735.500000" y="17.000000" width="153" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="320.000000" y="47.000000" width="206" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="940.678500" y="242.516000" width="39" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2418.500000" y="293.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1949.500000" y="147.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1483.500000" y="226.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1159.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1939.500000" y="210.500000" width="78" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="84.500000" y="177.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="700.500000" y="163.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="377.500000" y="177.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="715.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2219.000000" y="105.000000" width="106" height="21" fill="black"></rect>
+<rect x="1921.000000" y="313.000000" width="80" height="21" fill="black"></rect>
+<rect x="1667.000000" y="87.000000" width="96" height="21" fill="black"></rect>
+<rect x="1719.000000" y="227.000000" width="40" height="21" fill="black"></rect>
+<rect x="1707.000000" y="194.000000" width="51" height="21" fill="black"></rect>
+<rect x="1696.000000" y="121.000000" width="47" height="21" fill="black"></rect>
+<rect x="1298.000000" y="227.000000" width="93" height="21" fill="black"></rect>
+<rect x="1919.000000" y="346.000000" width="89" height="21" fill="black"></rect>
+<rect x="1961.000000" y="247.000000" width="75" height="21" fill="black"></rect>
+<rect x="223.000000" y="178.000000" width="62" height="21" fill="black"></rect>
+<rect x="515.000000" y="128.000000" width="88" height="21" fill="black"></rect>
+<rect x="512.000000" y="227.000000" width="88" height="21" fill="black"></rect>
+</mask></g><g style="animation: d2Transition-d2-977910685-1 40000ms infinite"  class="d2-977910685" width="2727" height="679" viewBox="-89 -160 2727 679"><rect x="-89.000000" y="-160.000000" width="2727.000000" height="679.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="1274.500000" y="-19.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Optimistic Resolution</text></g><g id="Source Chain"><g class="shape" ><rect x="1087.000000" y="12.000000" width="1450.000000" height="406.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="1812.000000" y="45.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Source Chain</text></g><g id="Destination Chain"><g class="shape" ><rect x="12.000000" y="42.000000" width="822.000000" height="278.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="423.000000" y="75.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Destination Chain</text></g><g id="Proof"><g class="shape" ><path d="M 926 224 C 926 225 925 226 925 226 C 916 227 909 238 909 252 C 909 267 917 279 926 279 H 992 C 1002 279 1011 266 1011 251 C 1011 236 1003 224 993 223 C 992 223 992 222 991 221 C 989 206 978 195 966 195 C 958 195 951 200 947 207 C 946 208 946 208 945 208 C 943 207 941 207 939 207 C 933 207 927 214 926 224 Z" class=" stroke-B1 fill-N7" style="stroke-width:2;" /></g><text x="960.178500" y="258.516000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Proof</text></g><g id="Source Chain.Solver"><g class="shape" ><rect x="2396.000000" y="264.000000" width="91.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="2441.500000" y="309.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Source Chain.User"><g class="shape" ><path d="M 1990 142 H 1942 V 141 C 1942 127 1947 115 1956 109 C 1951 104 1948 97 1948 88 C 1948 74 1956 62 1966 62 C 1976 62 1984 74 1984 88 C 1984 96 1981 104 1977 109 C 1985 115 1991 127 1991 141 V 142 H 1990 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="1966.000000" y="163.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Source Chain.Reactor"><g class="shape" ><rect x="1461.000000" y="157.000000" width="100.000000" height="160.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1511.000000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Source Chain.Oracle"><g class="shape" ><rect x="1137.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1182.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.Challenger" style='opacity:0.000000'><g class="shape" ><rect x="1917.000000" y="188.000000" width="123.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1978.500000" y="226.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Challenger</text></g><g id="Destination Chain.Solver"><g class="shape" ><rect x="62.000000" y="155.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="107.500000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Destination Chain.User"><g class="shape" ><path d="M 741 158 H 693 V 157 C 693 146 698 136 707 131 C 702 127 699 120 699 113 C 699 102 707 92 717 92 C 727 92 735 102 735 113 C 735 120 732 126 728 130 C 736 135 742 145 742 156 V 157 H 741 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="717.000000" y="179.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Destination Chain.Reactor"><g class="shape" ><rect x="355.000000" y="148.000000" width="100.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="405.000000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Destination Chain.Oracle"><g class="shape" ><rect x="693.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="738.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.(User -&gt; Solver)[0]"><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1985.000000 115.000000 L 2296.000000 115.000000 S 2306.000000 115.000000 2306.000000 125.000000 L 2306.000000 270.500000 S 2306.000000 280.500000 2316.000000 280.500000 L 2392.000000 280.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="2272.000000" y="121.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Signed Message</text></g><g id="Source Chain.(Solver -&gt; Reactor)[0]"><path d="M 2394.000000 312.500000 L 2311.250000 312.500000 C 2300.750000 312.500000 2311.250000 323.000000 2300.750000 323.000000 L 1661.000000 323.000000 S 1651.000000 323.000000 1651.000000 313.000000 L 1651.000000 287.500000 S 1651.000000 277.500000 1641.000000 277.500000 L 1565.000000 277.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1961.000000" y="329.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Order</text></g><g id="Source Chain.(Reactor &lt;-&gt; User)[0]"><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1565.000000 177.500000 L 1591.000000 177.500000 S 1601.000000 177.500000 1601.000000 167.500000 L 1601.000000 107.333000 S 1601.000000 97.333000 1610.999995 97.323431 L 1945.000002 97.003828" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1715.000000" y="103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Collect Tokens</text></g><g id="Source Chain.(Challenger -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 1915.000000 237.500000 L 1565.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1739.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fraud</text></g><g id="Source Chain.(Reactor -&gt; Challenger)[0]" style='opacity:0.000000'><path d="M 1563.000000 217.500000 L 1694.500000 217.500000 C 1707.500000 217.500000 1694.500000 204.500000 1707.500000 204.500000 L 1913.000000 204.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1732.500000" y="210.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Reward</text></g><g id="Source Chain.(Reactor -&gt; User)[0]" style='opacity:0.000000'><path d="M 1563.000000 197.500000 L 1641.000000 197.500000 S 1651.000000 197.500000 1651.000000 187.500000 L 1651.000000 141.500000 S 1651.000000 131.500000 1660.999985 131.517123 L 1939.000006 131.993151" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1719.500000" y="137.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Refund</text></g><g id="Source Chain.(Oracle -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 1230.000000 237.500000 L 1457.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1344.500000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Commit Proof</text></g><g id="Source Chain.(Solver -&gt; Reactor)[1]"><path d="M 2394.000000 328.500000 L 2366.000000 328.500000 S 2356.000000 328.500000 2356.000000 338.500000 L 2356.000000 346.000000 S 2356.000000 356.000000 2346.000000 356.000000 L 1611.000000 356.000000 S 1601.000000 356.000000 1601.000000 346.000000 L 1601.000000 307.500000 S 1601.000000 297.500000 1591.000000 297.500000 L 1565.000000 297.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1963.500000" y="362.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Tokens</text></g><g id="Source Chain.(Reactor -&gt; Solver)[0]"><path d="M 1563.000000 257.500000 L 2246.000000 257.500000 S 2256.000000 257.500000 2256.000000 267.500000 L 2256.000000 286.500000 S 2256.000000 296.500000 2266.000000 296.500000 L 2392.000000 296.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="1998.500000" y="263.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Pay Tokens</text></g><g id="Destination Chain.(Solver -&gt; Reactor)[0]"><path d="M 155.000000 188.000000 L 351.000000 188.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="254.000000" y="194.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fill Order</text></g><g id="Destination Chain.(Reactor -&gt; User)[0]"><path d="M 457.000000 174.666000 L 485.000000 174.666000 S 495.000000 174.666000 495.000000 164.666000 L 495.000000 148.500000 S 495.000000 138.500000 504.999970 138.524510 L 695.000012 138.990196" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="559.000000" y="144.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Deliver Order</text></g><g id="Destination Chain.(Reactor -&gt; Oracle)[0]" style='opacity:0.000000'><path d="M 457.000000 201.332993 L 485.000000 201.332993 S 495.000000 201.332993 495.000000 211.332993 L 495.000000 227.500000 S 495.000000 237.500000 505.000000 237.500000 L 689.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /><text x="556.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Submit proof</text></g><g id="(Destination Chain.Oracle -&gt; Proof)[0]" style='opacity:0.000000'><path d="M 785.999985 237.507812 L 908.000031 237.984375" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /></g><g id="(Proof -&gt; Source Chain.Oracle)[0]" style='opacity:0.000000'><path d="M 1009.999940 237.984497 L 1133.000120 237.031007" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2212543776)" /></g><mask id="d2-2212543776" maskUnits="userSpaceOnUse" x="-89" y="-160" width="2727" height="679">
+<rect x="-89" y="-160" width="2727" height="679" fill="white"></rect>
+<rect x="1096.000000" y="-59.000000" width="357" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1735.500000" y="17.000000" width="153" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="320.000000" y="47.000000" width="206" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="940.678500" y="242.516000" width="39" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2418.500000" y="293.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1949.500000" y="147.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1483.500000" y="226.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1159.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1939.500000" y="210.500000" width="78" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="84.500000" y="177.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="700.500000" y="163.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="377.500000" y="177.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="715.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2219.000000" y="105.000000" width="106" height="21" fill="black"></rect>
+<rect x="1921.000000" y="313.000000" width="80" height="21" fill="black"></rect>
+<rect x="1667.000000" y="87.000000" width="96" height="21" fill="black"></rect>
+<rect x="1719.000000" y="227.000000" width="40" height="21" fill="black"></rect>
+<rect x="1707.000000" y="194.000000" width="51" height="21" fill="black"></rect>
+<rect x="1696.000000" y="121.000000" width="47" height="21" fill="black"></rect>
+<rect x="1298.000000" y="227.000000" width="93" height="21" fill="black"></rect>
+<rect x="1919.000000" y="346.000000" width="89" height="21" fill="black"></rect>
+<rect x="1961.000000" y="247.000000" width="75" height="21" fill="black"></rect>
+<rect x="223.000000" y="178.000000" width="62" height="21" fill="black"></rect>
+<rect x="515.000000" y="128.000000" width="88" height="21" fill="black"></rect>
+<rect x="512.000000" y="227.000000" width="88" height="21" fill="black"></rect>
+</mask></g><g style="animation: d2Transition-d2-977910685-2 40000ms infinite"  class="d2-977910685" width="2727" height="679" viewBox="-89 -160 2727 679"><rect x="-89.000000" y="-160.000000" width="2727.000000" height="679.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="1274.500000" y="-19.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Challanged but proven</text></g><g id="Source Chain"><g class="shape" ><rect x="1087.000000" y="12.000000" width="1450.000000" height="406.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="1812.000000" y="45.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Source Chain</text></g><g id="Destination Chain"><g class="shape" ><rect x="12.000000" y="42.000000" width="822.000000" height="278.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="423.000000" y="75.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Destination Chain</text></g><g id="Proof"><g class="shape" ><path d="M 926 224 C 926 225 925 226 925 226 C 916 227 909 238 909 252 C 909 267 917 279 926 279 H 992 C 1002 279 1011 266 1011 251 C 1011 236 1003 224 993 223 C 992 223 992 222 991 221 C 989 206 978 195 966 195 C 958 195 951 200 947 207 C 946 208 946 208 945 208 C 943 207 941 207 939 207 C 933 207 927 214 926 224 Z" class=" stroke-B1 fill-N7" style="stroke-width:2;" /></g><text x="960.178500" y="258.516000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Proof</text></g><g id="Source Chain.Solver"><g class="shape" ><rect x="2396.000000" y="264.000000" width="91.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="2441.500000" y="309.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Source Chain.User"><g class="shape" ><path d="M 1990 142 H 1942 V 141 C 1942 127 1947 115 1956 109 C 1951 104 1948 97 1948 88 C 1948 74 1956 62 1966 62 C 1976 62 1984 74 1984 88 C 1984 96 1981 104 1977 109 C 1985 115 1991 127 1991 141 V 142 H 1990 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="1966.000000" y="163.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Source Chain.Reactor"><g class="shape" ><rect x="1461.000000" y="157.000000" width="100.000000" height="160.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1511.000000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Source Chain.Oracle"><g class="shape" ><rect x="1137.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1182.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.Challenger"><g class="shape" ><rect x="1917.000000" y="188.000000" width="123.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1978.500000" y="226.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Challenger</text></g><g id="Destination Chain.Solver"><g class="shape" ><rect x="62.000000" y="155.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="107.500000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Destination Chain.User"><g class="shape" ><path d="M 741 158 H 693 V 157 C 693 146 698 136 707 131 C 702 127 699 120 699 113 C 699 102 707 92 717 92 C 727 92 735 102 735 113 C 735 120 732 126 728 130 C 736 135 742 145 742 156 V 157 H 741 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="717.000000" y="179.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Destination Chain.Reactor"><g class="shape" ><rect x="355.000000" y="148.000000" width="100.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="405.000000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Destination Chain.Oracle"><g class="shape" ><rect x="693.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="738.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.(User -&gt; Solver)[0]"><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1985.000000 115.000000 L 2296.000000 115.000000 S 2306.000000 115.000000 2306.000000 125.000000 L 2306.000000 270.500000 S 2306.000000 280.500000 2316.000000 280.500000 L 2392.000000 280.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="2272.000000" y="121.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Signed Message</text></g><g id="Source Chain.(Solver -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 2394.000000 312.500000 L 2311.250000 312.500000 C 2300.750000 312.500000 2311.250000 323.000000 2300.750000 323.000000 L 1661.000000 323.000000 S 1651.000000 323.000000 1651.000000 313.000000 L 1651.000000 287.500000 S 1651.000000 277.500000 1641.000000 277.500000 L 1565.000000 277.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1961.000000" y="329.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Order</text></g><g id="Source Chain.(Reactor &lt;-&gt; User)[0]"><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1565.000000 177.500000 L 1591.000000 177.500000 S 1601.000000 177.500000 1601.000000 167.500000 L 1601.000000 107.333000 S 1601.000000 97.333000 1610.999995 97.323431 L 1945.000002 97.003828" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1715.000000" y="103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Collect Tokens</text></g><g id="Source Chain.(Challenger -&gt; Reactor)[0]"><path d="M 1915.000000 237.500000 L 1565.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1739.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fraud</text></g><g id="Source Chain.(Reactor -&gt; Challenger)[0]" style='opacity:0.000000'><path d="M 1563.000000 217.500000 L 1694.500000 217.500000 C 1707.500000 217.500000 1694.500000 204.500000 1707.500000 204.500000 L 1913.000000 204.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1732.500000" y="210.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Reward</text></g><g id="Source Chain.(Reactor -&gt; User)[0]" style='opacity:0.000000'><path d="M 1563.000000 197.500000 L 1641.000000 197.500000 S 1651.000000 197.500000 1651.000000 187.500000 L 1651.000000 141.500000 S 1651.000000 131.500000 1660.999985 131.517123 L 1939.000006 131.993151" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1719.500000" y="137.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Refund</text></g><g id="Source Chain.(Oracle -&gt; Reactor)[0]"><path d="M 1230.000000 237.500000 L 1457.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1344.500000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Commit Proof</text></g><g id="Source Chain.(Solver -&gt; Reactor)[1]"><path d="M 2394.000000 328.500000 L 2366.000000 328.500000 S 2356.000000 328.500000 2356.000000 338.500000 L 2356.000000 346.000000 S 2356.000000 356.000000 2346.000000 356.000000 L 1611.000000 356.000000 S 1601.000000 356.000000 1601.000000 346.000000 L 1601.000000 307.500000 S 1601.000000 297.500000 1591.000000 297.500000 L 1565.000000 297.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1963.500000" y="362.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Tokens</text></g><g id="Source Chain.(Reactor -&gt; Solver)[0]"><path d="M 1563.000000 257.500000 L 2246.000000 257.500000 S 2256.000000 257.500000 2256.000000 267.500000 L 2256.000000 286.500000 S 2256.000000 296.500000 2266.000000 296.500000 L 2392.000000 296.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="1998.500000" y="263.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Pay Tokens</text></g><g id="Destination Chain.(Solver -&gt; Reactor)[0]"><path d="M 155.000000 188.000000 L 351.000000 188.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="254.000000" y="194.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fill Order</text></g><g id="Destination Chain.(Reactor -&gt; User)[0]"><path d="M 457.000000 174.666000 L 485.000000 174.666000 S 495.000000 174.666000 495.000000 164.666000 L 495.000000 148.500000 S 495.000000 138.500000 504.999970 138.524510 L 695.000012 138.990196" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="559.000000" y="144.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Deliver Order</text></g><g id="Destination Chain.(Reactor -&gt; Oracle)[0]"><path d="M 457.000000 201.332993 L 485.000000 201.332993 S 495.000000 201.332993 495.000000 211.332993 L 495.000000 227.500000 S 495.000000 237.500000 505.000000 237.500000 L 689.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /><text x="556.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Submit proof</text></g><g id="(Destination Chain.Oracle -&gt; Proof)[0]"><path d="M 785.999985 237.507812 L 908.000031 237.984375" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /></g><g id="(Proof -&gt; Source Chain.Oracle)[0]"><path d="M 1009.999940 237.984497 L 1133.000120 237.031007" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-292022775)" /></g><mask id="d2-292022775" maskUnits="userSpaceOnUse" x="-89" y="-160" width="2727" height="679">
+<rect x="-89" y="-160" width="2727" height="679" fill="white"></rect>
+<rect x="1086.000000" y="-59.000000" width="377" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1735.500000" y="17.000000" width="153" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="320.000000" y="47.000000" width="206" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="940.678500" y="242.516000" width="39" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2418.500000" y="293.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1949.500000" y="147.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1483.500000" y="226.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1159.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1939.500000" y="210.500000" width="78" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="84.500000" y="177.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="700.500000" y="163.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="377.500000" y="177.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="715.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2219.000000" y="105.000000" width="106" height="21" fill="black"></rect>
+<rect x="1921.000000" y="313.000000" width="80" height="21" fill="black"></rect>
+<rect x="1667.000000" y="87.000000" width="96" height="21" fill="black"></rect>
+<rect x="1719.000000" y="227.000000" width="40" height="21" fill="black"></rect>
+<rect x="1707.000000" y="194.000000" width="51" height="21" fill="black"></rect>
+<rect x="1696.000000" y="121.000000" width="47" height="21" fill="black"></rect>
+<rect x="1298.000000" y="227.000000" width="93" height="21" fill="black"></rect>
+<rect x="1919.000000" y="346.000000" width="89" height="21" fill="black"></rect>
+<rect x="1961.000000" y="247.000000" width="75" height="21" fill="black"></rect>
+<rect x="223.000000" y="178.000000" width="62" height="21" fill="black"></rect>
+<rect x="515.000000" y="128.000000" width="88" height="21" fill="black"></rect>
+<rect x="512.000000" y="227.000000" width="88" height="21" fill="black"></rect>
+</mask></g><g style="animation: d2Transition-d2-977910685-3 40000ms infinite"  class="d2-977910685" width="2727" height="679" viewBox="-89 -160 2727 679"><rect x="-89.000000" y="-160.000000" width="2727.000000" height="679.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="1274.500000" y="-19.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Fraud Proven</text></g><g id="Source Chain"><g class="shape" ><rect x="1087.000000" y="12.000000" width="1450.000000" height="406.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="1812.000000" y="45.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Source Chain</text></g><g id="Destination Chain"><g class="shape" ><rect x="12.000000" y="42.000000" width="822.000000" height="278.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="423.000000" y="75.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Destination Chain</text></g><g id="Proof"><g class="shape" ><path d="M 926 224 C 926 225 925 226 925 226 C 916 227 909 238 909 252 C 909 267 917 279 926 279 H 992 C 1002 279 1011 266 1011 251 C 1011 236 1003 224 993 223 C 992 223 992 222 991 221 C 989 206 978 195 966 195 C 958 195 951 200 947 207 C 946 208 946 208 945 208 C 943 207 941 207 939 207 C 933 207 927 214 926 224 Z" class=" stroke-B1 fill-N7" style="stroke-width:2;" /></g><text x="960.178500" y="258.516000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Proof</text></g><g id="Source Chain.Solver"><g class="shape" ><rect x="2396.000000" y="264.000000" width="91.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="2441.500000" y="309.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Source Chain.User"><g class="shape" ><path d="M 1990 142 H 1942 V 141 C 1942 127 1947 115 1956 109 C 1951 104 1948 97 1948 88 C 1948 74 1956 62 1966 62 C 1976 62 1984 74 1984 88 C 1984 96 1981 104 1977 109 C 1985 115 1991 127 1991 141 V 142 H 1990 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="1966.000000" y="163.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Source Chain.Reactor"><g class="shape" ><rect x="1461.000000" y="157.000000" width="100.000000" height="160.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1511.000000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Source Chain.Oracle"><g class="shape" ><rect x="1137.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1182.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.Challenger"><g class="shape" ><rect x="1917.000000" y="188.000000" width="123.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1978.500000" y="226.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Challenger</text></g><g id="Destination Chain.Solver"><g class="shape" ><rect x="62.000000" y="155.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="107.500000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Solver</text></g><g id="Destination Chain.User"><g class="shape" ><path d="M 741 158 H 693 V 157 C 693 146 698 136 707 131 C 702 127 699 120 699 113 C 699 102 707 92 717 92 C 727 92 735 102 735 113 C 735 120 732 126 728 130 C 736 135 742 145 742 156 V 157 H 741 Z" class=" stroke-B1 fill-B3" style="stroke-width:2;" /></g><text x="717.000000" y="179.000000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">User</text></g><g id="Destination Chain.Reactor"><g class="shape" ><rect x="355.000000" y="148.000000" width="100.000000" height="80.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="405.000000" y="193.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Reactor</text></g><g id="Destination Chain.Oracle"><g class="shape" ><rect x="693.000000" y="204.000000" width="91.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="738.500000" y="242.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Oracle</text></g><g id="Source Chain.(User -&gt; Solver)[0]"><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1985.000000 115.000000 L 2296.000000 115.000000 S 2306.000000 115.000000 2306.000000 125.000000 L 2306.000000 270.500000 S 2306.000000 280.500000 2316.000000 280.500000 L 2392.000000 280.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="2272.000000" y="121.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Signed Message</text></g><g id="Source Chain.(Solver -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 2394.000000 312.500000 L 2311.250000 312.500000 C 2300.750000 312.500000 2311.250000 323.000000 2300.750000 323.000000 L 1661.000000 323.000000 S 1651.000000 323.000000 1651.000000 313.000000 L 1651.000000 287.500000 S 1651.000000 277.500000 1641.000000 277.500000 L 1565.000000 277.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1961.000000" y="329.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Order</text></g><g id="Source Chain.(Reactor &lt;-&gt; User)[0]"><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 1565.000000 177.500000 L 1591.000000 177.500000 S 1601.000000 177.500000 1601.000000 167.500000 L 1601.000000 107.333000 S 1601.000000 97.333000 1610.999995 97.323431 L 1945.000002 97.003828" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1715.000000" y="103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Collect Tokens</text></g><g id="Source Chain.(Challenger -&gt; Reactor)[0]"><path d="M 1915.000000 237.500000 L 1565.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1739.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fraud</text></g><g id="Source Chain.(Reactor -&gt; Challenger)[0]"><path d="M 1563.000000 217.500000 L 1694.500000 217.500000 C 1707.500000 217.500000 1694.500000 204.500000 1707.500000 204.500000 L 1913.000000 204.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1732.500000" y="210.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Reward</text></g><g id="Source Chain.(Reactor -&gt; User)[0]"><path d="M 1563.000000 197.500000 L 1641.000000 197.500000 S 1651.000000 197.500000 1651.000000 187.500000 L 1651.000000 141.500000 S 1651.000000 131.500000 1660.999985 131.517123 L 1939.000006 131.993151" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1719.500000" y="137.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Refund</text></g><g id="Source Chain.(Oracle -&gt; Reactor)[0]" style='opacity:0.000000'><path d="M 1230.000000 237.500000 L 1457.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1344.500000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Commit Proof</text></g><g id="Source Chain.(Solver -&gt; Reactor)[1]"><path d="M 2394.000000 328.500000 L 2366.000000 328.500000 S 2356.000000 328.500000 2356.000000 338.500000 L 2356.000000 346.000000 S 2356.000000 356.000000 2346.000000 356.000000 L 1611.000000 356.000000 S 1601.000000 356.000000 1601.000000 346.000000 L 1601.000000 307.500000 S 1601.000000 297.500000 1591.000000 297.500000 L 1565.000000 297.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1963.500000" y="362.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Claim Tokens</text></g><g id="Source Chain.(Reactor -&gt; Solver)[0]" style='opacity:0.000000'><path d="M 1563.000000 257.500000 L 2246.000000 257.500000 S 2256.000000 257.500000 2256.000000 267.500000 L 2256.000000 286.500000 S 2256.000000 296.500000 2266.000000 296.500000 L 2392.000000 296.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="1998.500000" y="263.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Pay Tokens</text></g><g id="Destination Chain.(Solver -&gt; Reactor)[0]"><path d="M 155.000000 188.000000 L 351.000000 188.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="254.000000" y="194.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Fill Order</text></g><g id="Destination Chain.(Reactor -&gt; User)[0]"><path d="M 457.000000 174.666000 L 485.000000 174.666000 S 495.000000 174.666000 495.000000 164.666000 L 495.000000 148.500000 S 495.000000 138.500000 504.999970 138.524510 L 695.000012 138.990196" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="559.000000" y="144.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Deliver Order</text></g><g id="Destination Chain.(Reactor -&gt; Oracle)[0]" style='opacity:0.000000'><path d="M 457.000000 201.332993 L 485.000000 201.332993 S 495.000000 201.332993 495.000000 211.332993 L 495.000000 227.500000 S 495.000000 237.500000 505.000000 237.500000 L 689.000000 237.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /><text x="556.000000" y="243.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Submit proof</text></g><g id="(Destination Chain.Oracle -&gt; Proof)[0]" style='opacity:0.000000'><path d="M 785.999985 237.507812 L 908.000031 237.984375" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /></g><g id="(Proof -&gt; Source Chain.Oracle)[0]" style='opacity:0.000000'><path d="M 1009.999940 237.984497 L 1133.000120 237.031007" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-323696398)" /></g><mask id="d2-323696398" maskUnits="userSpaceOnUse" x="-89" y="-160" width="2727" height="679">
+<rect x="-89" y="-160" width="2727" height="679" fill="white"></rect>
+<rect x="1165.000000" y="-59.000000" width="219" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1735.500000" y="17.000000" width="153" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="320.000000" y="47.000000" width="206" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="940.678500" y="242.516000" width="39" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2418.500000" y="293.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1949.500000" y="147.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1483.500000" y="226.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1159.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="1939.500000" y="210.500000" width="78" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="84.500000" y="177.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="700.500000" y="163.000000" width="33" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="377.500000" y="177.500000" width="55" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="715.500000" y="226.500000" width="46" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="2219.000000" y="105.000000" width="106" height="21" fill="black"></rect>
+<rect x="1921.000000" y="313.000000" width="80" height="21" fill="black"></rect>
+<rect x="1667.000000" y="87.000000" width="96" height="21" fill="black"></rect>
+<rect x="1719.000000" y="227.000000" width="40" height="21" fill="black"></rect>
+<rect x="1707.000000" y="194.000000" width="51" height="21" fill="black"></rect>
+<rect x="1696.000000" y="121.000000" width="47" height="21" fill="black"></rect>
+<rect x="1298.000000" y="227.000000" width="93" height="21" fill="black"></rect>
+<rect x="1919.000000" y="346.000000" width="89" height="21" fill="black"></rect>
+<rect x="1961.000000" y="247.000000" width="75" height="21" fill="black"></rect>
+<rect x="223.000000" y="178.000000" width="62" height="21" fill="black"></rect>
+<rect x="515.000000" y="128.000000" width="88" height="21" fill="black"></rect>
+<rect x="512.000000" y="227.000000" width="88" height="21" fill="black"></rect>
+</mask></g></svg></svg>
