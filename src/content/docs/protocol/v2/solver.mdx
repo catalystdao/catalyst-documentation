@@ -257,7 +257,7 @@ async function initiateOrder() {
   const reactorAddress = order.order.settlementContract;
   const reactor = new ethers.Contract(reactorAddress, reactorAbi, signer);
 
-  // TODO: there needs to be set approvals for the reactorAddress for all inputs & collateral.
+  // TODO: Set approvals for the reactorAddress for all inputs & collateral.
 
   // The order arrives almost exactly ready to use, we just need to remove the type from the orderdata.
   const {type: _, ...cleanedOrderData} = order.order.orderData;
@@ -294,7 +294,7 @@ def initiate_order():
     reactor_address = order['order']['settlementContract']
     reactor = web3.eth.contract(address=reactor_address, abi=reactor_abi)
 
-    # TODO: there needs to be set approvals for the reactorAddress for all inputs & collateral.
+    # TODO: Set approvals for the reactorAddress for all inputs & collateral.
     # This will depend on the specific ERC20 tokens you're using, you need to call approve() on the ERC20 token contracts
 
     # Clean the order data by removing the type field
@@ -309,16 +309,12 @@ def initiate_order():
         'from': signer_address,
         'nonce': web3.eth.get_transaction_count(signer_address)
     })
-
     # Sign the transaction
     signed_txn = web3.eth.account.sign_transaction(txn, private_key=signer_private_key)
-
     # Send the transaction
     tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
-
     # Wait for the transaction receipt
     receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
-
     return receipt
 ```
 
@@ -373,7 +369,89 @@ Asset delivery depends on whether the destination is a VM chain or Bitcoin. For 
 
 #### EVM deliveries
 
+Call the destination chain oracle `getOrderData.order.orderData.remoteOracle`. You can get remote chain from the output `getOrderData.order.orderData.outputs[].chainId`.
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+// It is assumed you are continuing from the above steps.
+import {ethers} from 'ethers';
+
+const oracleAbi = "...";
+
+// The oracle allows filling multiple outputs from different orders in a single transaction.
+// They do have to go to the same chain.
+// For simplicity, this function assumes that all outputs goes to the same chain but it may not be the case.
+async function fillSingleChainOrder(order: CrossChainOrder) {
+  const oracle = new ethers.Contract(order.orderData.remoteOracle, oracleAbi, signer);
+
+  let recordedChain;
+  for (const output of order.orderData.outputs) {
+    if (recordedChain === undefined) recordedChain = output.chainId;
+    if (recordedChain !== output.chainId) throw Error(`Mixed ChainIds, seen ${recordedChain} and ${output.chainId}`);
+  }
+
+  // TODO: Set approvals for the oracleAddress for the value of the output.
+
+  // We need to provide fill times. These have to be set to proofTime.
+  // These are used to ensure you can't reuse fills.
+  const fillTimes = order.orderData.outputs.map(_ => order.orderData.proofDeadline);
+
+  // Call the reactor to initiate the order.
+  return oracle.fill(outputs, fillTimes);
+}
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+# It is assumed you are continuing from the above steps.
+
+oracleAbi = "...";
+
+# The oracle allows filling multiple outputs from different orders in a single transaction.
+# They do have to go to the same chain.
+# For simplicity, this function assumes that all outputs goes to the same chain but it may not be the case.
+def fill_single_chain_order(order):
+    oracle_address = order['orderData']['remoteOracle']
+    oracle = web3.eth.contract(address=oracle_address, abi=oracle_abi)
+
+    recordedChain = "";
+    for (output in order['orderData']['outputs']):
+      if (recordedChain == ""):
+        recordedChain = output.chainId
+      if (recordedChain != output.chainId):
+        raise Exception(f"Mixed ChainIds, seen {recordedChain} and {output.chainId}");
+
+    # TODO: Set approvals for the oracleAddress for the value of the output.
+
+
+    # We need to provide fill times. These have to be set to proofTime.
+    # These are used to ensure you can't reuse fills.
+    fillTimes = [order.orderData.proofDeadline for _ in order.orderData.outputs]
+
+    # Build the transaction
+    txn = oracle.functions.fill(order.orderData.outputs, fillTimes).build_transaction({
+        'from': signer_address,
+        'nonce': web3.eth.get_transaction_count(signer_address)
+    })
+    # Sign the transaction
+    signed_txn = web3.eth.account.sign_transaction(txn, private_key=signer_private_key)
+    # Send the transaction
+    tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+    # Wait for the transaction receipt
+    receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+    return receipt
+```
+
+</TabItem>
+</Tabs>
+
 #### Bitcoin Deliveries
+
+The order contains a low level encoded version of the Bitcoin address. There exist 5 different types of Bitcoin scripts, P2PKH, P2SH, P2WPKH, P2WSH, and P2TR addresses using 3 different ways to encode the script into an address: P2PKH and P2SH uses `RIPEMD-160(SHA-256(pubkey/script))` with 1 and 3 prepended respectively, P2WPKH and P2WSH uses SHA256 encoded with Bech32 with either 20 or 32 bytes encoded respectively prepended with bc1 and lastly P2TR Bech32m encodes the output key directly.
 
 ## From Bitcoin
 
