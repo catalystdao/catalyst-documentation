@@ -225,7 +225,7 @@ def get_orders():
 
 ### Evaluating Orders
 
-After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficient to validate the quote and check that the sovler supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId`. These parameters will always be present.
+After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficient to validate the quote and check that the solver supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId`. These parameters will always be present.
 
 Some orders may be exclusive. If `getOrderData.order.orderData.verificationContract` is defined and not `address(0)`, it will be exclusive until `getOrderData.order.orderData.slopeStartingTime`. In these cases, if they aren't exclusive to you wait until `getOrderData.order.orderData.slopeStartingTime` before submitting the order.
 
