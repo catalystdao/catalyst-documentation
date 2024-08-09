@@ -2,7 +2,7 @@
 title: "Liquidity Swaps"
 description: "Catalyst has a brand new deposit innovation called liquidity swaps that allow for an even easier cross-chain deposit experience."
 sidebar:
-  order: 5
+  order: 4
 ---
 
 Liquidity swaps are a brand-new innovation pioneered by Catalyst. At a high level, liquidity swaps are a macro that allows users to deposit into a Catalyst pool without having equal parts of every required asset. The rest of the assets will be swapped on Catalyst and redistributed into their respective vaults and chains accordingly — such that the users’ deposits will be distributed optimally.

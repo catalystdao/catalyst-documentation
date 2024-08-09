@@ -2,7 +2,7 @@
 title: "Permissionless Deployments"
 description: "Anyone can deploy Catalyst to any chain that supports either EVM or CosmWasm."
 sidebar:
-  order: 6
+  order: 5
 ---
 
 Catalyst is designed with ease of deployment in mind. Catalyst can be permissionlessly deployed to any chain and connected it to the existing Catalyst network.
