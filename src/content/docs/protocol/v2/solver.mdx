@@ -1,0 +1,247 @@
+---
+title: "Integrating Cross-Cats as a solver"
+description: "Integrating Catalyst V2 as a solver requires collecting available orders from an order server and submitting these on-chain."
+sidebar:
+  order: 8
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+If you aren't interested in the order structure in Solidity, skip to [Collecting Orders](#collecting-orders).
+
+Catalyst is ERC-7683-ish compatible. The implementation differs in 2 ways:
+
+1. A Catalyst Order Key is returned on `initiate(...)`. For implementations that wants to very that an order was correctly collected, this adds an option for further data validation. This change is compatible with ERC-7683 since it does not change function signatures and ERC-7683 specifies that the function has no return.
+2. In the struct `Output` both the element `token` and `recipient` are encoded as `bytes32` instead of `address`. Solidity ABI encodes structs such that they fill 32 bytes. As a result, all returned objects of `ResolvedCrossChainOrder` remains compatible with implementations that assumes these are `address` (except these values are truncated).
+
+There are 3 order structures in play.
+ 1. CrossChainOrder is a generic **input** order with an ERC-7683 compatible structure. Importantly, orderData contains the secret sauce and surely differes between ERC-7683 supporting implementations.
+ 2. ResolvedCrossChainOrder is a **output** description that roughly describes the value of a cross-chain order at a specific moment in time. It is ERC-7683 compliant* and allows solvers to easily compare resolution of order across protocols.
+ 3. Catalyst Order Keys are used to keep track of a Catalyst order through its **lifetime**. It contains Catalyst specific context and describes orders in depth. The hash of this struct is used to index the state progress of orders.
+
+The generic CrossChainOrder can be seen below. `CrossChainOrder.orderData` is an ABI encoded order struct.
+```solidity
+struct CrossChainOrder {
+    address settlementContract;
+    address swapper;
+    uint256 nonce;
+    uint32 originChainId;
+    uint32 initiateDeadline;
+    uint32 fillDeadline;
+    bytes orderData;
+}
+```
+
+Currently, Cross-Cats supports 2 order structs: `LimitOrderData` and `DutchOrderData` for many inputs (same chain) to many outputs (different chains) and Dutch Auctions (1 to 1), respectivly.
+```solidity
+struct LimitOrderData {
+    uint32 proofDeadline;
+    uint32 challengeDeadline;
+    address collateralToken;
+    uint256 fillerCollateralAmount;
+    uint256 challengerCollateralAmount;
+    address localOracle;
+    bytes32 remoteOracle;
+    Input[] inputs;
+    Output[] outputs;
+}
+
+struct DutchOrderData {
+    bytes32 verificationContext;
+    address verificationContract;
+    uint32 proofDeadline;
+    uint32 challengeDeadline;
+    address collateralToken;
+    uint256 fillerCollateralAmount;
+    uint256 challengerCollateralAmount;
+    address localOracle;
+    bytes32 remoteOracle;
+    uint32 slopeStartingTime;
+    int256 inputSlope;
+    int256 outputSlope;
+    Input input;
+    Output output;
+}
+
+struct Input {
+    address token;
+    uint256 amount;
+}
+
+struct Output {
+    bytes32 token;
+    uint256 amount;
+    bytes32 recipient;
+    uint32 chainId;
+}
+```
+
+Users will generate these order descriptions and then sign them with Permit2, generating an approval & order description with a single signature.
+
+## Broadcasting An Order
+
+The first step of any order is broadcasting it. For solvers this can be seen as the 0'th step, since it is required before solvers can collect the orders from the order server.
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+// Lets define the 2 Order data types.
+
+type DutchAuctionData = {
+  type: "DutchAuction", // should not be submitted on-chain but can be used to differentiate order types.
+  proofDeadline: number,
+  challengeDeadline: number,
+  collateralToken: string,
+  fillerCollateralAmount: string,
+  challengerCollateralAmount: string,
+  localOracle: string,
+  remoteOracle: string,
+  slopeStartingTime: number,
+  inputSlope: string,
+  outputSlope: string,
+  inputs: {}[], // Even though `inputs` is provided as an array, to submit on-chain it needs to be provided as a single input named `input`
+  outputs: {}[]
+}
+
+type LimitOrderData = {
+  type: "LimitOrder", // should not be submitted on-chain but can be used to differentiate order types.
+  proofDeadline: number,
+  challengeDeadline: number,
+  collateralToken: string,
+  fillerCollateralAmount: string,
+  challengerCollateralAmount: string,
+  localOracle: string,
+  remoteOracle: string,
+  inputs: {}[],
+  outputs: {}[]
+}
+
+// Then the CrossChainOrder is defined as such:
+type CrossChainOrder = {
+  settlementContract: string,
+  swapper: string,
+  nonce: string,
+  originChainId: number,
+  initiateDeadline: number,
+  fillDeadline: number,
+  orderContext: DutchAuctionData | LimitOrderData
+}
+
+const API_URL = "https://orders.catalyst.exchange/"
+
+async function submitOrder(): bool {
+  const order: CrossChainorder;
+  const signature: string;
+  const body = {
+    order,
+    signature
+  };
+  const response = await fecth(API_URL + "submitOrder/", {
+    method: 'POST',
+    body
+  });
+  const parsedResponse = await response.json() as { success: bool };
+
+  return fetchedOrders;
+}
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+import requests
+
+API_URL = "https://orders.catalyst.exchange/"
+
+def get_orders():
+    response = requests.post(API_URL+ "submitOrder/", data)
+    fetched_orders = response.json()
+    return fetched_orders
+```
+
+</TabItem>
+</Tabs>
+
+## Collecting Orders
+
+The order server stores orders in their dictionary format. This allows integrators to easily parse orders and it makes the implementation highly transparent.
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+type getOrderData = {
+  order: CrossChainOrder,
+  orderKeyHash: string | undefined, // initially but will become always defined.
+  quote: {
+    fromAsset: string,
+    toAsset: string,
+    toPrice: string,
+    fromPrice: string,
+    intermediary: "USD" | "EUR" | "BTC" | string,  // explicit string types here are examples.
+    discount: string
+  },
+  signature: string,
+  submitTime: number
+}
+
+type getOrdersEvent = {
+  orders: getOrderData[],
+  pagination: any
+}
+
+async function getOrders(): getOrdersFetch {
+  const orderServerResponse = await fetch(API_URL + "orders/");
+  const fetchedOrders = await orderServerResponse.json() as getOrdersEvent;
+
+  return fetchedOrders;
+}
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+import requests
+
+API_URL = "https://orders.catalyst.exchange/getOrders"
+
+def get_orders():
+    response = requests.get(API_URL)
+    fetched_orders = response.json()
+    return fetched_orders
+```
+
+</TabItem>
+</Tabs>
+
+## Submitting Orders
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```sh
+npm create astro@latest -- --template starlight
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```sh
+pnpm create astro --template starlight
+```
+
+</TabItem>
+</Tabs>
+
+
+## Proving Orders
+
+If a Solvers' orders get challenged, they need to prove delivery. In exchange for these proofs, Solvers collect the collateral provided by Challengers.
+
+
+# Challenger
+
+Challengers work to ensure that solvers stay honest. Solvers submit collateral when claiming transaction. If Solvers aren't honest, Challengers can claim the collateral if they prove that Solvers havn't done settled their claimed orders.
