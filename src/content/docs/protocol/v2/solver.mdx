@@ -7,7 +7,7 @@ sidebar:
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-If you aren't interested in the order structure in Solidity, skip to [Collecting Orders](#collecting-orders).
+If you aren't interested in the order structure in Solidity, skip to [From Vm](#from-vm).
 
 Catalyst is ERC-7683-ish compatible. The implementation differs in 2 ways:
 
@@ -137,7 +137,7 @@ async function submitOrder(): bool {
     order,
     signature
   };
-  const response = await fecth(API_URL + "submitOrder/", {
+  const response = await fecth(API_URL + "orders/submit", {
     method: 'POST',
     body
   });
@@ -163,7 +163,7 @@ def submit_order(): bool:
       "order": order,
       "signature": signature
     }
-    response = requests.post(API_URL+ "submitOrder/", json=data)
+    response = requests.post(API_URL+ "orders/submit", json=data)
     fetched_orders = response.json()
     return fetched_orders.get("success")
 ```
