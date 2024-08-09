@@ -164,7 +164,13 @@ def get_orders():
 </TabItem>
 </Tabs>
 
-## Collecting Orders
+## From VM
+
+Cross Cats has directionality. That means the ways orders are initiated depends on the inputs chain (where the user is swapped out of). In the current interation, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains will generally be supported in a similar manner but non-VM chains behave slightly different.
+
+On VM chains, assets can be pulled from the user through approvals. This is not possible on non-VM chains. As a result, the order of operations is slightly different. The following section describes orders originating from a VM chain, the section [From Bitcoin](#from-bitcoin) describes orders originating from Bitcoin.
+
+### Collecting Orders
 
 The order server stores orders in their dictionary format. This allows integrators to easily parse orders and it makes the implementation highly transparent.
 
@@ -176,10 +182,10 @@ type getOrderData = {
   order: CrossChainOrder,
   orderKeyHash: string | undefined, // initially but will become always defined.
   quote: {
-    fromAsset: string,
-    toAsset: string,
-    toPrice: string,
-    fromPrice: string,
+    fromAssets: string[],
+    toAssets: string[],
+    toPrices: string[],
+    fromPrices: string[],
     intermediary: "USD" | "EUR" | "BTC" | string,  // explicit string types here are examples.
     discount: string
   },
@@ -217,13 +223,46 @@ def get_orders():
 </TabItem>
 </Tabs>
 
-## Submitting Orders
+### Evaluating Orders
+
+After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficent to validate the quote and check that the sovler supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId`. These parameters will always be present.
+
+Some orders may be exclusive. If `getOrderData.order.orderData.verificationContract` is defined and not `address(0)`, it will be exclusive until `getOrderData.order.orderData.slopeStartingTime`. In these cases, if they aren't exclusive to you wait until `getOrderData.order.orderData.slopeStartingTime` before submitting the order.
+
+### Submitting Orders
+
+After fetching and validatnig an order, it has to be submitted on-chain. Catalyst Orders arrive signed: `getOrderData.signature`. The signature is multi-use. It is a permit2 signature and allows our contracts to pull the submittor's tokens and ensures that the user approves the order. If orders are not exclusive, they are initiated on a first come first serve basis.
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
 
-```sh
-npm create astro@latest -- --template starlight
+```typescript
+// This tutorial uses ethersjs but you can easily replace it by similar libraries.
+import {ethers} from 'ethers';
+
+const reactorAbi = "...";
+const signer = "ethers.signer..."
+
+async function initiateOrder() {
+  // Get an order
+  const orders = await getOrders();
+  const order = orders.orders[0];
+
+  // Define the reactor we will call. You can get the reactor address from the order
+  const reactorAddress = order.order.settlementContract;
+  const reactor = new ethers.Contract(reactorAddress, reactorAbi, signer);
+
+  // TODO: there needs to be set approvals for the reactorAddress for all inputs & collateral.
+
+  // The order arrives almost exactly ready to use, we just need to remove the type from the orderdata.
+  const {type: _, ...cleanedOrderData} = order.order.orderData;
+  const cleanedOrder = {...order.order, orderData: cleanedOrderData};
+  const signature = order.signature;
+  const fillerData = "0x"; // We will touch on the later.
+
+  // Call the reactor to initiate the order.
+  return reactor.initiate(cleanedOrder, signature, fillerData)
+}
 ```
 
 </TabItem>
@@ -236,12 +275,73 @@ pnpm create astro --template starlight
 </TabItem>
 </Tabs>
 
+#### Custom FillerData & Underwriting
+
+If `fillerData` is not provided, the input (user provided assets) will be sent to the caller. This is likely desired and as such there may be no further need to customize `fillerData`.
+
+However, if you want to send the input to another address OR enable underwriting you need to use customized `fillerData`. Currently only 1 custom version is supposed, v1. It is structued by 1 version byte (`0x01`), `fillerAddress`, `orderPurchaseDeadline`, and `orderDiscount`:
+- `fillerAddress` can be set to another address and indicates the (recipient of input assets)
+- `orderPurchaseDeadline` allows someone else to buy the order before this time. Buy here means paying all of the inputs assets & potential collateral to you.
+- `orderDiscount` gives buyers a small discount on the inputs. Is of `2**16-1`. To provide 1% discount: `0.01*(2**16-1)=655`. For chains with slow blocks (Bitcoin) this can be used to pay the solver using only 0-1 confirmations while assuring the user that they get high finality (6 confirmations).
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+const fillerDataVersion = "0x01";
+const fillerAddress = '0x....'.replace("0x", "");
+// fillerAddress.length === 20*2;
+const orderPurchaseDeadline = Number(1723199919).toString(16).padStart("0", 4*2);
+//orderPurchaseDeadline.length === 4*2
+const orderDiscount = Math.floor(0.01*(2**16-1)).toString(16).padStart("0", 2*2);
+// orderDiscount.length === 2*2
+
+const fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+fillerDataVersion = "0x01";
+fillerAddress = '0x....'.replace("0x", "");
+# len(fillerAddress) === 20*2;
+orderPurchaseDeadline = hex(1723199919).replace("0x", "").zfill(4*2);
+# len(orderPurchaseDeadline) === 4*2
+const orderDiscount = hex(int(0.01*(2**16-1))).replace("0x", "").zfill(2*2);
+# len(orderDiscount) === 2*2
+
+fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+```
+
+</TabItem>
+</Tabs>
+
+### Delivery
+
+Asset delivery depends on wheter the destination is a VM chain or Bitcoin. For VM chains, you have to call the reactor with the appropiate configurations where for Bitcoin you just have to make any transfer that matches the provided arguments.
+
+#### EVM deliveries
+
+#### Bitcoin Deliveries
+
+## From Bitcoin
+
+### Delivering quotes
+
+Unlike for VM, to solve Bitcoin to EVM orders you need to be able to submit quotes to the UI. The UI may request a quote from you.
+
+TODO: Some endpoint that includes an approximate quote.
+
+### Final signed messages
+
+TODO: If you are chosen to be the solver for the Bitcoin to VM order, you need to generate a signed order. This works opposite of the flow for VM chains where the user would be the one signing orders. This may seem riskier but don't worry. We will make the order exclusive to the user & the UI's executor. This is important since the Cross Cats UI can gurantee that the assets will be delivered through a UI controlled but user owned Bitcoin address.
 
 ## Proving Orders
 
 If a Solvers' orders get challenged, they need to prove delivery. In exchange for these proofs, Solvers collect the collateral provided by Challengers.
 
 
-# Challenger
+## Challenger
 
 Challengers work to ensure that solvers stay honest. Solvers submit collateral when claiming transaction. If Solvers aren't honest, Challengers can claim the collateral if they prove that Solvers havn't done settled their claimed orders.
