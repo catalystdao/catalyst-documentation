@@ -481,6 +481,7 @@ The below tutorials assume that you are implementing this from the perspective o
 - **P2WSH**. The recipient is the witness hash. The witness hash needs to be encoded with [Bech32](https://github.com/bitcoinjs/bech32). Select the first 32 bytes. Encode with Bech32. Prepend with bc1q.
 - **P2WTR**. The recipient is the witness hash. The witness hash needs to be encoded with [Bech32m](https://en.bitcoin.it/wiki/BIP_0350#Bech32m). Select the first 32 bytes. Encode with Bech32m. Prepend with bc1p.
 
+Once the address is generate, make a transaction that has an **exact** output that matches any outputs from the initiated order. There is no limit as to how the transaction is organised, it may have any inputs and outputs as long as one output matched exactly the one described by the order's output. This allows for transaction flexibility like batch filling, consolidation, and more.
 
 ## From Bitcoin
 
