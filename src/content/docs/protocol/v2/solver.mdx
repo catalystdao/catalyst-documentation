@@ -8,7 +8,8 @@ sidebar:
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import GetQuotes from '../../../../components/solver/GetQuotes.svelte';
 
-If you aren't interested in the order structure in Solidity, skip to [From Vm](#from-vm).
+If you aren't interested in the order structure in Solidity, skip to [From Vm](#from-vm). For API documentation, refer to the [API Swagger documentation](https://catalyst-order-server-0140d799e2f7.herokuapp.com/api
+).
 
 Catalyst is ERC-7683-ish compatible. The implementation differs in 2 ways:
 
@@ -181,9 +182,11 @@ def get_orders():
 </TabItem>
 </Tabs>
 
-<br/>
-
 <GetQuotes client:visible/>
+
+#### Subscribe to orders
+
+Order subscription is WIP. We are looking for feedback as to which methods are best.
 
 ### Evaluate Orders
 
@@ -216,7 +219,8 @@ async function initiateOrder() {
 
   // TODO: Set approvals for the reactorAddress for all inputs & collateral.
 
-  // The order arrives almost exactly ready to use, we just need to remove the type from the orderdata.
+  // The order arrives almost exactly ready to use,
+  // we just need to remove the type from the orderdata.
   const {type: _, ...cleanedOrderData} = order.order.orderData;
   const cleanedOrder = {...order.order, orderData: cleanedOrderData};
   const signature = order.signature;
@@ -252,7 +256,8 @@ def initiate_order():
     reactor = web3.eth.contract(address=reactor_address, abi=reactor_abi)
 
     # TODO: Set approvals for the reactorAddress for all inputs & collateral.
-    # This will depend on the specific ERC20 tokens you're using, you need to call approve() on the ERC20 token contracts
+    # This will depend on the specific ERC20 tokens you're using,
+    # you need to call approve() on the ERC20 token contracts
 
     # Clean the order data by removing the type field
     cleaned_order_data = order['order']['orderData'].copy()
@@ -320,13 +325,13 @@ fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDi
 </TabItem>
 </Tabs>
 
-### Delivery
+## Delivery
 
 Asset delivery depends on whether the destination is a VM chain or Bitcoin. For VM chains, you have to call the reactor with the appropriate configurations where for Bitcoin you just have to make any transfer that matches the provided arguments.
 
-#### EVM deliveries
+### EVM deliveries
 
-Call the destination chain oracle `getOrderData.order.orderData.remoteOracle`. You can get remote chain from the output `getOrderData.order.orderData.outputs[].chainId`.
+Call the destination chain oracle `getOrderData.order.orderData.remoteOracle`. You can get remote chain from each output `getOrderData.order.orderData.outputs[].chainId`.
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
@@ -337,16 +342,18 @@ import {ethers} from 'ethers';
 
 const oracleAbi = "...";
 
-// The oracle allows filling multiple outputs from different orders in a single transaction.
-// They do have to go to the same chain.
-// For simplicity, this function assumes that all outputs goes to the same chain but it may not be the case.
+// The oracle allows filling multiple outputs from different orders
+// in a single transaction. They do have to go to the same chain.
+// For simplicity, this function assumes that all outputs goes to
+// the same chain but it may not be the case.
 async function fillSingleChainOrder(order: CrossChainOrder) {
   const oracle = new ethers.Contract(order.orderData.remoteOracle, oracleAbi, signer);
 
   let recordedChain;
   for (const output of order.orderData.outputs) {
     if (recordedChain === undefined) recordedChain = output.chainId;
-    if (recordedChain !== output.chainId) throw Error(`Mixed ChainIds, seen ${recordedChain} and ${output.chainId}`);
+    if (recordedChain !== output.chainId)
+      throw Error(`Mixed ChainIds, seen ${recordedChain} and ${output.chainId}`);
   }
 
   // TODO: Set approvals for the oracleAddress for the value of the output.
@@ -406,9 +413,74 @@ def fill_single_chain_order(order):
 </TabItem>
 </Tabs>
 
-#### Bitcoin Deliveries
+### Bitcoin Deliveries
 
-The order contains a low level encoded version of the Bitcoin address. There exist 5 different types of Bitcoin scripts, P2PKH, P2SH, P2WPKH, P2WSH, and P2TR addresses using 3 different ways to encode the script into an address: P2PKH and P2SH uses `RIPEMD-160(SHA-256(pubkey/script))` with 1 and 3 prepended respectively, P2WPKH and P2WSH uses SHA256 encoded with Bech32 with either 20 or 32 bytes encoded respectively prepended with bc1 and lastly P2TR Bech32m encodes the output key directly.
+To identify whether an order contains a Bitcoin transaction, check the output token: `getOrderData.order.orderData.outputs[].token`. If the output is Bitcoin, the following must hold:
+- The first 12 bytes can be anything and are not read.
+- The 13'th byte (or 20'th from right) must be 0xBB.
+- Byte 14 through 30 must be 0.
+- Byte The 2 bytes 31 and 32 contains an address version identifier. Decode as uint16.
+
+If the transaction is to Bitcoin, the address (`getOrderData.order.orderData.outputs[].recipient`) will contain the relevant hash or witness.
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Name</th>
+      <th>Encoding Scheme</th>
+      <th>Prefix</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>0</td>
+    <td>Unknown</td>
+    <td>Ignore</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>P2PKH</td>
+    <td>Base58Check(00+PKH)</td>
+    <td>1*</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>P2SH</td>
+    <td>Base58Check(05+SH)</td>
+    <td>3*</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>P2WPKH</td>
+    <td>Bech32</td>
+    <td>b1cq</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>P2WSH</td>
+    <td>Bech32</td>
+    <td>b1cq</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>P2TR</td>
+    <td>Bech32m</td>
+    <td>b1cp</td>
+  </tr>
+  </tbody>
+</table>
+*Not true prefixes since the prefix is determined by the encoding.
+
+The below tutorials assume that you are implementing this from the perspective of a solver. As a result, you are interested in converting an expected output script into a Bitcoin address that can be provided to your wallet.
+
+- **P2PKH**. The recipient is the public key hash. The script hash needs to be encoded with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Select the first 20 bytes and prepend with 00. Encode with Base58Check.
+- **P2SH**. The recipient is the script hash. The script hash needs to be encoded with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Select the first 20 bytes and prepend with 05. Encode with Base58Check.
+- **P2WPKH**. The recipient is the witness. The witness needs to be encoded with [Bech32](https://github.com/bitcoinjs/bech32). Select the first 20 bytes. Encode with Bech32. Prepend with bc1q.
+- **P2WSH**. The recipient is the witness hash. The witness hash needs to be encoded with [Bech32](https://github.com/bitcoinjs/bech32). Select the first 32 bytes. Encode with Bech32. Prepend with bc1q.
+- **P2WTR**. The recipient is the witness hash. The witness hash needs to be encoded with [Bech32m](https://en.bitcoin.it/wiki/BIP_0350#Bech32m). Select the first 32 bytes. Encode with Bech32m. Prepend with bc1p.
+
 
 ## From Bitcoin
 
