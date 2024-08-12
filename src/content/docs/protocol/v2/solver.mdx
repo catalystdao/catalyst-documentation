@@ -184,9 +184,13 @@ def get_orders():
 
 <GetQuotes client:visible/>
 
-#### Subscribe to orders
+#### Subscribe to orders (WIP)
 
-Order subscription is WIP. We are looking for feedback as to which methods are best.
+This section is heavily work in progress and is very likely to be significantly changed. We are very open to feedback and exploring alternatives.
+
+As an alternative to polling orders, you can also subscribe to new orders. The Catalyst order server exposes a websocket endpoint that broadcasts new orders as they arrive. This significantly decreases latency at the cost of increased complexity.
+
+Unlike the API endpoint, orders delivered over the websocket connected are not filterable. It is assumed that the consumer will filter orders locally.
 
 ### Evaluate Orders
 
@@ -430,6 +434,7 @@ If the transaction is to Bitcoin, the address (`getOrderData.order.orderData.out
       <th>Name</th>
       <th>Encoding Scheme</th>
       <th>Prefix</th>
+      <th>Hash Length</th>
     </tr>
   </thead>
   <tbody>
@@ -438,36 +443,42 @@ If the transaction is to Bitcoin, the address (`getOrderData.order.orderData.out
     <td>Unknown</td>
     <td>Ignore</td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>1</td>
     <td>P2PKH</td>
     <td>Base58Check(00+PKH)</td>
     <td>1*</td>
+    <td>20</td>
   </tr>
   <tr>
     <td>2</td>
     <td>P2SH</td>
     <td>Base58Check(05+SH)</td>
     <td>3*</td>
+    <td>20</td>
   </tr>
   <tr>
     <td>3</td>
     <td>P2WPKH</td>
     <td>Bech32</td>
     <td>b1cq</td>
+    <td>20</td>
   </tr>
   <tr>
     <td>4</td>
     <td>P2WSH</td>
     <td>Bech32</td>
     <td>b1cq</td>
+    <td>32</td>
   </tr>
   <tr>
     <td>5</td>
     <td>P2TR</td>
     <td>Bech32m</td>
     <td>b1cp</td>
+    <td>32</td>
   </tr>
   </tbody>
 </table>
@@ -485,29 +496,86 @@ Once the address is generate, make a transaction that has an **exact** output th
 
 ## From Bitcoin
 
-### Quote Open Order
+While Bitcoin has scripts, Bitcoin scripts are only contains spending conditions so unlike a VM chain, we can't pull funds from the user after a signed message. As a result, the order flow is flipped and the solver signed the VM order.
 
-Unlike for VM, to solve Bitcoin to EVM orders you need to be able to submit quotes to the UI. The UI may request a quote from you.
+#### Encoding a Bitcoin Address
 
-TODO: Some endpoint that includes an approximate quote.
+Your solver needs to be able to generate a Bitcoin deposit address. It is technically possible to use the same address for every single order. If you do this, it is very important that the amounts are unique for every single order. It is recommended to use different addresses for every order. Bitcoin does not charge extract to collect UTXOs from different addresses.
 
-### Return Signed Orders
+The Bitcoin address is encoded in 2 fields: `token` and `address`. The token field is used to block tokens from filling Bitcoin orders and to encode the address version. See this [table](#bitcoin-deliveries) for converting address types to versions.
 
-TODO: If you are chosen to be the solver for the Bitcoin to VM order, you need to generate a signed order. This works opposite of the flow for VM chains where the user would be the one signing orders. This may seem riskier but don't worry. We will make the order exclusive to the user & the UI's executor. This is important since the Cross Cats UI can guarantee that the assets will be delivered through a UI controlled but user owned Bitcoin address.
+The `address` is used to encode either the public key hash, script hash, or witness hash. The table mentioned above contains the encoding schemes for various Bitcoin address versions. Hashes of 20 bytes (P2PKH, P2SH, and P2WSH) should be padded with 0s on the right side. (`0xabcdef...00000`)
 
-## Prove Orders
+### Quote Open Order (WIP)
+
+Solvers for BTC to VM needs to be able to quote orders for comparison with other solvers. To start quoting, solvers needs to subscribe to requests quote from the order server. Upon requests for quotes, the solver needs to respond with a quote. The quote needs to be valid for at least 60 seconds. (30 second quote life, 30 order life)
+
+If a quote is issued, the solver needs to be able to respond with a signed order. If the solver doesn't respond with the same (or better) order when the order is requested within 30 seconds, the solver may be blacklisted.
+
+```typescript
+// TODO: make this proper logic rather than pseudo-logic.
+const websocketServer;
+// 1. Define an evaluation logic. This evaluation logic may
+// be as simple as either accepting or rejecting the order
+// based on the reference rate.
+function orderEvaluations(order: any): any | undefined {...}
+// 2. Subscribe to the Quotes
+websocketServer.onRequestForQuote((order) => {
+  const quoted = orderEvaluations(order);
+  if (quoted !== undefined)
+    // 3. Respond to the request for quote.
+    websocketServer.respond(quoted);
+});
+```
+
+### Return Signed Orders (WIP)
+
+The UI compares all received quotes from solvers and chooses the quote from the best solver. Once the user's deposit is confirmed, the UI requests the solver for a signed order. The signer has to send back a signed order that matches with quote given (within expiry). It is important that the returned order is exclusive to the user & the UI's executor (see code). This is important since the Cross Cats UI can guarantee that the assets will be delivered through a UI controlled but user owned Bitcoin address.
+
+```typescript
+const websocketServer;
+// 1. We need to sign the order request.
+// Importantly, we also need to validate that this is a valid
+// request.
+function signOrderRequest(signOrderRequest: any): any | undefined {
+  const evaluationResponse = orderEvaluations(signOrderRequest);
+  if (evaluationResponse === undefined) return undefined;
+  ...
+}
+// 2. Listen to request for signed orders
+websocketServer.onRequestForOrder((request) => {
+  const signedOrder = signOrderRequest(order);
+  if (quoted === undefined) {
+    // 3. Respond to the request for quote.
+    websocketServer.respond("no");
+  } else {
+    websocketServer.respond(signedOrder);
+  }
+});
+```
+
+Once
+
+## Prove Orders (WIP)
 
 If a Solvers' orders get challenged, they need to prove delivery. In exchange for these proofs, Solvers collect the collateral provided by Challengers.
+
+Initially, Cata Labs will prove every single order for completeness.
 
 
 ## Challenger
 
 Challengers work to ensure that solvers stay honest. Solvers submit collateral when claiming transaction. If Solvers aren't honest, Challengers can claim the collateral if they prove that Solvers havn't done settled their claimed orders.
 
+Initially, Cata Labs will prove every single order for completeness.
 
 ## Broadcast Orders
 
 The first step of any order is broadcasting it. For solvers this can be seen as the 0'th step, since it is required before solvers can collect the orders from the order server.
+
+:::tip[Proof of Work]
+Submitting orders can easily be used to DDoS the order server. As a protection, the order server requires submitting a piece of PoW to rate-limit submissions.
+:::
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
