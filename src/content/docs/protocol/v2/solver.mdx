@@ -11,7 +11,7 @@ If you aren't interested in the order structure in Solidity, skip to [From Vm](#
 
 Catalyst is ERC-7683-ish compatible. The implementation differs in 2 ways:
 
-1. A Catalyst Order Key is returned on `initiate(...)`. For implementations that wants to very that an order was correctly collected, this adds an option for further data validation. This change is compatible with ERC-7683 since it does not change function signatures and ERC-7683 specifies that the function has no return.
+1. A Catalyst Order Key is returned on `initiate(...)`. For implementations that wants to verify that an order was correctly collected, this adds an option for further data validation. This change is compatible with ERC-7683 since it does not change function signatures and ERC-7683 specifies that the function has no return.
 2. In the struct `Output` both the element `token` and `recipient` are encoded as `bytes32` instead of `address`. Solidity ABI encodes structs such that they fill 32 bytes. As a result, all returned objects of `ResolvedCrossChainOrder` remains compatible with implementations that assumes these are `address` (except these values are truncated).
 
 There are 3 order structures in play.
