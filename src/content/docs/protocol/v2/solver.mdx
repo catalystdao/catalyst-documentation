@@ -525,13 +525,13 @@ websocketServer.onRequestForQuote((order) => {
   const quoted = orderEvaluations(order);
   if (quoted !== undefined)
     // 3. Respond to the request for quote.
-    websocketServer.respond(quoted);
+    fetch(API_URL + "quotes/", data, {method: "post"});
 });
 ```
 
 ### Return Signed Orders (WIP)
 
-The UI compares all received quotes from solvers and chooses the quote from the best solver. Once the user's deposit is confirmed, the UI requests the solver for a signed order. The signer has to send back a signed order that matches with quote given (within expiry). It is important that the returned order is exclusive to the user & the UI's executor (see code). This is important since the Cross Cats UI can guarantee that the assets will be delivered through a UI controlled but user owned Bitcoin address.
+The Order Server compares all received quotes from solvers and chooses the quote from the best solver. Once the user's deposit is confirmed, the Order Server requests the solver for a signed order. The signer has to send back a signed order that matches with quote given (within expiry). It is important that the returned order is exclusive to the user & the Order Server's executor (see code). This is important since the Cross Cats Order Server can guarantee that the assets will be delivered through a Order Server controlled but user owned Bitcoin address.
 
 ```typescript
 const websocketServer;
@@ -548,16 +548,16 @@ websocketServer.onRequestForOrder((request) => {
   const signedOrder = signOrderRequest(order);
   if (quoted === undefined) {
     // 3. Respond to the request for quote.
-    websocketServer.respond("no");
+    fetch(API_URL + "quotes/", JSON.stringify({answer: "no"}), {method: "post"});
   } else {
-    websocketServer.respond(signedOrder);
+    fetch(API_URL + "quotes/", JSON.stringify(signedOrder), {method: "post"});
   }
 });
 ```
 
 Once the signedOrder is sent & it correctly matches the expected quote, the vast vast majority of orders will be filled.
 
-TODO: The UI may respond back with a transaction hash.
+TODO: The Order Server may respond back with a transaction hash.
 
 ## Prove Orders (WIP)
 
