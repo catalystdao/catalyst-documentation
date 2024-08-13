@@ -182,7 +182,7 @@ def get_orders():
 </TabItem>
 </Tabs>
 
-<GetQuotes client:visible/>
+<GetQuotes client:load/>
 
 #### Subscribe to orders (WIP)
 
@@ -223,7 +223,7 @@ async function initiateOrder() {
 
   // TODO: Set approvals for the reactorAddress for all inputs & collateral.
 
-  // The order arrives almost exactly ready to use,
+  // The order arrives almost ready to use,
   // we just need to remove the type from the orderdata.
   const {type: _, ...cleanedOrderData} = order.order.orderData;
   const cleanedOrder = {...order.order, orderData: cleanedOrderData};
