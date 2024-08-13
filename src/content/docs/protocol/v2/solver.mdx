@@ -8,18 +8,18 @@ sidebar:
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import GetQuotes from '../../../../components/solver/GetQuotes.svelte';
 
-If you aren't interested in the order structure in Solidity, skip to [From Vm](#from-vm). For API documentation, refer to the [API Swagger documentation](https://catalyst-order-server-0140d799e2f7.herokuapp.com/api
+If you aren't interested in the order structure in Solidity, skip to [From VM](#from-evm). For API documentation, refer to the [API Swagger documentation](https://catalyst-order-server-0140d799e2f7.herokuapp.com/api
 ).
 
-Catalyst is ERC-7683-ish compatible. The implementation differs in 2 ways:
+Catalyst is [ERC-7683](https://www.erc7683.org)* compatible. *The implementation differs in 2 ways:
 
-1. A Catalyst Order Key is returned on `initiate(...)`. For implementations that wants to verify that an order was correctly collected, this adds an option for further data validation. This change is compatible with ERC-7683 since it does not change function signatures and ERC-7683 specifies that the function has no return.
-2. In the struct `Output` both the element `token` and `recipient` are encoded as `bytes32` instead of `address`. Solidity ABI encodes structs such that they fill 32 bytes. As a result, all returned objects of `ResolvedCrossChainOrder` remains compatible with implementations that assumes these are `address` (except these values are truncated).
+1. A Catalyst [OrderKey](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/Structs.sol#L41-L65) is returned on `initiate(...)`. For implementations that wants to verify that orders were correctly collected, this adds options for further data validation. This change is compatible with ERC-7683 since it does not change any function signatures and ERC-7683 specifies that the function has no return.
+2. ERC-7683 defines the 2 elements of `Output`, `token` and `recipient` to be type `address`. The type of both elements have been changed to `bytes32`. Solidity ABI encoding encodes structs elements such that they fill 32 bytes. As a result, all returned objects of `ResolvedCrossChainOrder` remains compatible with implementations that assumes these are `address` (except these values are truncated).
 
-There are 3 order structures in play.
- 1. CrossChainOrder is a generic **input** order with an ERC-7683 compatible structure. Importantly, orderData contains the secret sauce and surely differs between ERC-7683 supporting implementations.
- 2. ResolvedCrossChainOrder is a **output** description that roughly describes the value of a cross-chain order at a specific moment in time. It is ERC-7683 compliant* and allows solvers to easily compare resolution of order across protocols.
- 3. Catalyst Order Keys are used to keep track of a Catalyst order through its **lifetime**. It contains Catalyst specific context and describes orders in depth. The hash of this struct is used to index the state progress of orders.
+Cross Cats uses 3 order structures:
+ 1. [CrossChainOrder](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L6-L27) is a generic **input** order with an ERC-7683 compatible structure. Importantly, orderData contains the secret sauce and surely differs between ERC-7683 supporting implementations.
+ 2. [ResolvedCrossChainOrder](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L29-L52) is a **quote** description that describes the value of a cross-chain order at a specific moment in time. It is ERC-7683 compliant* and allows solvers to easily compare resolution of order across protocols.
+ 3. Catalyst [OrderKey](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/Structs.sol#L41-L65) are used to keep track of a Catalyst order through its **lifetime**. It contains Catalyst specific context and describes orders in depth. The hash of this struct is used to index the state progress of orders.
 
 The generic CrossChainOrder can be seen below. `CrossChainOrder.orderData` is an ABI encoded order struct.
 ```solidity
@@ -34,8 +34,9 @@ struct CrossChainOrder {
 }
 ```
 
-Currently, Cross-Cats supports 2 order structs: `LimitOrderData` and `DutchOrderData` for many inputs (same chain) to many outputs (different chains) and Dutch Auctions (1 to 1), respectively.
+Currently, Cross-Cats supports 2 order structs:
 ```solidity
+/// @notice Supports many inputs (same chain) to many outputs (different chains)
 struct LimitOrderData {
     uint32 proofDeadline;
     uint32 challengeDeadline;
@@ -47,7 +48,7 @@ struct LimitOrderData {
     Input[] inputs;
     Output[] outputs;
 }
-
+/// @notice Supports Dutch Auctions on both input and output (1 to 1).
 struct DutchOrderData {
     bytes32 verificationContext;
     address verificationContract;
@@ -65,11 +66,11 @@ struct DutchOrderData {
     Output output;
 }
 
+// With the input and output struct defined as:
 struct Input {
     address token;
     uint256 amount;
 }
-
 struct Output {
     bytes32 token;
     uint256 amount;
@@ -78,13 +79,12 @@ struct Output {
 }
 ```
 
-Users will generate these order descriptions and then sign them with Permit2, generating an approval & order description with a single signature.
+Users will generate a `CrossChainOrder` with the appropriate order data and sign them with Permit2, generating an approval & order description with a single signature. The signed struct with be a new struct where `
+orderData` will be of the order type struct.
 
+## From EVM
 
-
-## From VM
-
-Cross Cats has directionality. That means the ways orders are initiated depends on the inputs chain (where the user is swapped out of). In the current iteration, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains will generally be supported in a similar manner but non-VM chains behave slightly different.
+Cross Cats has directionality. That means the ways orders are initiated depends on the initiating chain (where the user is swapping out of). In the current iteration, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains (including EVM) will generally be initiated in a similarly and all non-VM chains (including Bitcoin) will be initiated in a similarly but different from VM chains.
 
 On VM chains, assets can be pulled from the user through approvals. This is not possible on non-VM chains. As a result, the order of operations is slightly different. The following section describes orders originating from a VM chain, the section [From Bitcoin](#from-bitcoin) describes orders originating from Bitcoin.
 
@@ -194,13 +194,13 @@ Unlike the API endpoint, orders delivered over the websocket connected are not f
 
 ### Evaluate Orders
 
-After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficient to validate the quote and check that the solver supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId`. These parameters will always be present.
+After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficient to validate the quote and check that the solver supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId` along with their respective tokens `input|output[].token` These parameters will always be present regardless of order type.
 
 Some orders may be exclusive. If `getOrderData.order.orderData.verificationContract` is defined and not `address(0)`, it will be exclusive until `getOrderData.order.orderData.slopeStartingTime`. In these cases, if they aren't exclusive to you wait until `getOrderData.order.orderData.slopeStartingTime` before initiating the order.
 
 ### Initiate Orders
 
-After fetching and validatnig an order, it has to be submitted on-chain. Catalyst Orders arrive signed: `getOrderData.signature`. The signature is multi-use. It is a permit2 signature and allows our contracts to pull the submittor's tokens and ensures that the user approves the order. If orders are not exclusive, they are initiated on a first come first serve basis.
+After fetching and validatnig an order, it has to be submitted on-chain. Catalyst Orders arrive signed: `getOrderData.signature`. The signature is multi-purpose. It is a permit2 signature and allows our contracts to pull the submittor's tokens and ensures that the user approves of the order. If an order is not exclusive, it will be initiated on a first come first serve basis.
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
@@ -228,7 +228,7 @@ async function initiateOrder() {
   const {type: _, ...cleanedOrderData} = order.order.orderData;
   const cleanedOrder = {...order.order, orderData: cleanedOrderData};
   const signature = order.signature;
-  const fillerData = "0x"; // We will touch on the later.
+  const fillerData = "0x"; // #custom-fillerdata--underwriting
 
   // Call the reactor to initiate the order.
   return reactor.initiate(cleanedOrder, signature, fillerData)
@@ -249,7 +249,6 @@ reactor_abi = "..."
 signer_private_key = "your_private_key_here"
 signer_address = web3.eth.account.from_key(signer_private_key).address
 
-
 def initiate_order():
     # Get an order
     orders = get_orders()
@@ -268,7 +267,7 @@ def initiate_order():
     cleaned_order_data.pop('type')
     cleaned_order = {**order['order'], 'orderData': cleaned_order_data}
     signature = order['signature']
-    filler_data = "0x" # We will touch on the later.
+    filler_data = "0x" # #custom-fillerdata--underwriting
 
     # Build the transaction
     txn = reactor.functions.initiate(cleaned_order, signature, filler_data).build_transaction({
@@ -291,10 +290,10 @@ def initiate_order():
 
 If `fillerData` is not provided, the input (user provided assets) will be sent to the caller. This is likely desired and as such there may be no further need to customize `fillerData`.
 
-However, if you want to send the input to another address OR enable underwriting you need to use customized `fillerData`. Currently only 1 custom version is supposed, v1. It is structured by 1 version byte (`0x01`), `fillerAddress`, `orderPurchaseDeadline`, and `orderDiscount`:
-- `fillerAddress` can be set to another address and indicates the (recipient of input assets)
-- `orderPurchaseDeadline` allows someone else to buy the order before this time. Buy here means paying all of the inputs assets & potential collateral to you.
-- `orderDiscount` gives buyers a small discount on the inputs. Is of `2**16-1`. To provide 1% discount: `0.01*(2**16-1)=655`. For chains with slow blocks (Bitcoin) this can be used to pay the solver using only 0-1 confirmations while assuring the user that they get high finality (6 confirmations).
+However, if you want to send the input to another address OR enable underwriting you need to use customized `fillerData`. Currently only 1 custom version is supported: v1. It is structured by 1 version byte (`0x01`), `fillerAddress`, `orderPurchaseDeadline`, and `orderDiscount`:
+- `fillerAddress` is the recipient of the input assets & collateral.
+- `orderPurchaseDeadline` allows someone else to buy the order before this time. Buy here means paying all of the inputs assets & collateral to `fillerAddress`.
+- `orderDiscount` gives buyers a small discount on the inputs. Is of `2**16-1`. To provide 1% discount: `0.01*(2**16-1)=655`. For chains with slow blocks (Bitcoin) this can be used to pay the solver after 0-1 confirmations while ensuring the user that they get high finality (3-6 confirmations).
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
@@ -420,12 +419,11 @@ def fill_single_chain_order(order):
 ### Bitcoin Deliveries
 
 To identify whether an order contains a Bitcoin transaction, check the output token: `getOrderData.order.orderData.outputs[].token`. If the output is Bitcoin, the following must hold:
-- The first 12 bytes can be anything and are not read.
-- The 13'th byte (or 20'th from right) must be 0xBB.
-- Byte 14 through 30 must be 0.
-- Byte The 2 bytes 31 and 32 contains an address version identifier. Decode as uint16.
+- The first 30 bytes should be equal to `0x000000000000000000000000BB0000000000000000000000000000000000`. The 13'th byte is `0xBB`.
+- The 31'th byte is reserved and not checked.
+- The 32'th byte contains an address version identifier. Decode as uint8.
 
-If the transaction is to Bitcoin, the address (`getOrderData.order.orderData.outputs[].recipient`) will contain the relevant hash or witness.
+If the transaction is to Bitcoin, the address (`getOrderData.order.orderData.outputs[].recipient`) will contain the relevant destination hash or witness which is not the address!
 
 <table>
   <thead>
@@ -486,25 +484,28 @@ If the transaction is to Bitcoin, the address (`getOrderData.order.orderData.out
 
 The below tutorials assume that you are implementing this from the perspective of a solver. As a result, you are interested in converting an expected output script into a Bitcoin address that can be provided to your wallet.
 
-- **P2PKH**. The recipient is the public key hash. The script hash needs to be encoded with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Select the first 20 bytes and prepend with 00. Encode with Base58Check.
+- **P2PKH**. The recipient is the public key hash. The public key hash needs to be encoded with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Select the first 20 bytes and prepend with 00. Encode with Base58Check.
 - **P2SH**. The recipient is the script hash. The script hash needs to be encoded with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Select the first 20 bytes and prepend with 05. Encode with Base58Check.
 - **P2WPKH**. The recipient is the witness. The witness needs to be encoded with [Bech32](https://github.com/bitcoinjs/bech32). Select the first 20 bytes. Encode with Bech32. Prepend with bc1q.
 - **P2WSH**. The recipient is the witness hash. The witness hash needs to be encoded with [Bech32](https://github.com/bitcoinjs/bech32). Select the first 32 bytes. Encode with Bech32. Prepend with bc1q.
 - **P2WTR**. The recipient is the witness hash. The witness hash needs to be encoded with [Bech32m](https://en.bitcoin.it/wiki/BIP_0350#Bech32m). Select the first 32 bytes. Encode with Bech32m. Prepend with bc1p.
 
-Once the address is generate, make a transaction that has an **exact** output that matches any outputs from the initiated order. There is no limit as to how the transaction is organised, it may have any inputs and outputs as long as one output matched exactly the one described by the order's output. This allows for transaction flexibility like batch filling, consolidation, and more.
+Nested witness outputs are **P2SH**.
+
+Once the address is generated, make a transaction that has 1 **exact** output that matches the relevant output from the initiated order. There is no limit as to how the transaction is organised, it may have any inputs and outputs as long as one output matched exactly the one described by the order's output. This allows for transaction flexibility like batch filling, consolidation, and more.
 
 ## From Bitcoin
 
-While Bitcoin has scripts, Bitcoin scripts are only contains spending conditions so unlike a VM chain, we can't pull funds from the user after a signed message. As a result, the order flow is flipped and the solver signed the VM order.
+While Bitcoin has scripts, Bitcoin scripts only contains spending conditions so unlike a VM chain, we can't pull funds from the user after a signed message. As a result, the order flow is flipped and the solver signed the VM order.
+While it is technically possible to create unique conditional deposits addresses, no wallets support custom scripts.
 
 #### Encoding a Bitcoin Address
 
-Your solver needs to be able to generate a Bitcoin deposit address. It is technically possible to use the same address for every single order. If you do this, it is very important that the amounts are unique for every single order. It is recommended to use different addresses for every order. Bitcoin does not charge extract to collect UTXOs from different addresses.
+Your solver needs to be able to generate a Bitcoin deposit address. It is technically possible to use the same address for every single order. If you do this, it is very important that the amounts are unique for every single order. It is recommended to use different addresses for every order. Bitcoin does not charge extra to collect UTXOs from different addresses.
 
 The Bitcoin address is encoded in 2 fields: `token` and `address`. The token field is used to block tokens from filling Bitcoin orders and to encode the address version. See this [table](#bitcoin-deliveries) for converting address types to versions.
 
-The `address` is used to encode either the public key hash, script hash, or witness hash. The table mentioned above contains the encoding schemes for various Bitcoin address versions. Hashes of 20 bytes (P2PKH, P2SH, and P2WSH) should be padded with 0s on the right side. (`0xabcdef...00000`)
+The `address` is used to encode either the public key hash, script hash, or witness hash. The table mentioned above contains the encoding schemes for various Bitcoin address versions. Hashes of 20 bytes (P2PKH, P2SH, and P2WPKH) should be padded with 0s on the right side. (`0xabcdef...00000`)
 
 ### Quote Open Order (WIP)
 
@@ -554,11 +555,13 @@ websocketServer.onRequestForOrder((request) => {
 });
 ```
 
-Once
+Once the signedOrder is sent & it correctly matches the expected quote, the vast vast majority of orders will be filled.
+
+TODO: The UI may respond back with a transaction hash.
 
 ## Prove Orders (WIP)
 
-If a Solvers' orders get challenged, they need to prove delivery. In exchange for these proofs, Solvers collect the collateral provided by Challengers.
+If Solvers' orders get challenged, they need to prove delivery. In exchange for these proofs, Solvers collect the collateral provided by Challengers.
 
 Initially, Cata Labs will prove every single order for completeness.
 
