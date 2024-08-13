@@ -3,9 +3,7 @@
   const API_URL = "https://catalyst-order-server-0140d799e2f7.herokuapp.com/";
 
   async function getOrders(): Promise<GetOrdersEvent> {
-    const orderServerResponse = await fetch(API_URL + "orders/", {
-      method: "post",
-    });
+    const orderServerResponse = await fetch(API_URL + "orders/");
     const fetchedOrders = (await orderServerResponse.json()) as GetOrdersEvent;
 
     return fetchedOrders;
@@ -14,7 +12,7 @@
   let request: undefined | Promise<GetOrdersEvent> = undefined;
 </script>
 
-<!-- <a
+<a
   style="font: inherit;align-items: flex-start;
   text-align: center;
   cursor: default;
@@ -49,9 +47,9 @@
   rel="noopener noreferrer"
 >
   getOrders()
-</a> -->
+</a>
 
-{#await request}
+<!-- {#await request}
   <button disabled>Waiting</button>
 {:then}
   <button
@@ -68,4 +66,4 @@
   {#await request then quotes}
     <div>{JSON.stringify(quotes)}</div>
   {/await}
-{/if}
+{/if} -->
