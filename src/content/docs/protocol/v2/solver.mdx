@@ -419,7 +419,7 @@ def fill_single_chain_order(order):
 ### Bitcoin Deliveries
 
 To identify whether an order contains a Bitcoin transaction, check the output token: `getOrderData.order.orderData.outputs[].token`. If the output is Bitcoin, the following must hold:
-- The first 30 bytes should be equal to `0x000000000000000000000000BB0000000000000000000000000000000000`. The 13'th byte is `0xBB`.
+- The first 30 bytes should be equal to `0x000000000000000000000000BB0000000000000000000000000000000000`. Notice the 13'th byte is `0xBB`.
 - The 31'th byte is reserved and not checked.
 - The 32'th byte contains an address version identifier. Decode as uint8.
 
