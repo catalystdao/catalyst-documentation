@@ -139,7 +139,7 @@ type CrossChainOrder = {
 
 const API_URL = "https://orders.catalyst.exchange/"
 
-type getOrderData = {
+type GetOrderData = {
   order: CrossChainOrder,
   orderKeyHash: string | undefined, // initially but will become always defined.
   quote: {
@@ -154,14 +154,14 @@ type getOrderData = {
   submitTime: number
 }
 
-type getOrdersEvent = {
-  orders: getOrderData[],
+type GetOrdersEvent = {
+  orders: GetOrderData[],
   pagination: any
 }
 
-async function getOrders(): getOrdersEvent {
+async function getOrders(): GetOrdersEvent {
   const orderServerResponse = await fetch(API_URL + "orders/");
-  const fetchedOrders = await orderServerResponse.json() as getOrdersEvent;
+  const fetchedOrders = await orderServerResponse.json() as GetOrdersEvent;
 
   return fetchedOrders;
 }
@@ -194,13 +194,13 @@ Unlike the API endpoint, orders delivered over the websocket connected are not f
 
 ### Evaluate Orders
 
-After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `getOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficient to validate the quote and check that the solver supports the origin chain: `getOrderData.order.originChainId` and the outputs chains: `getOrderData.order.orderData.outputs[...].chainId` along with their respective tokens `input|output[].token` These parameters will always be present regardless of order type.
+After fetching an order, it is expected that the solver evaluates the order. There are several helpful context pointers in the returned order, like `GetOrderData.quote` which returns the price context used to price the inputs and outputs. If you trust the order server, it is sufficient to validate the quote and check that the solver supports the origin chain: `GetOrderData.order.originChainId` and the outputs chains: `GetOrderData.order.orderData.outputs[...].chainId` along with their respective tokens `input|output[].token` These parameters will always be present regardless of order type.
 
-Some orders may be exclusive. If `getOrderData.order.orderData.verificationContract` is defined and not `address(0)`, it will be exclusive until `getOrderData.order.orderData.slopeStartingTime`. In these cases, if they aren't exclusive to you wait until `getOrderData.order.orderData.slopeStartingTime` before initiating the order.
+Some orders may be exclusive. If `GetOrderData.order.orderData.verificationContract` is defined and not `address(0)`, it will be exclusive until `GetOrderData.order.orderData.slopeStartingTime`. In these cases, if they aren't exclusive to you wait until `GetOrderData.order.orderData.slopeStartingTime` before initiating the order.
 
 ### Initiate Orders
 
-After fetching and validatnig an order, it has to be submitted on-chain. Catalyst Orders arrive signed: `getOrderData.signature`. The signature is multi-purpose. It is a permit2 signature and allows our contracts to pull the submittor's tokens and ensures that the user approves of the order. If an order is not exclusive, it will be initiated on a first come first serve basis.
+After fetching and validatnig an order, it has to be submitted on-chain. Catalyst Orders arrive signed: `GetOrderData.signature`. The signature is multi-purpose. It is a permit2 signature and allows our contracts to pull the submittor's tokens and ensures that the user approves of the order. If an order is not exclusive, it will be initiated on a first come first serve basis.
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
@@ -334,7 +334,7 @@ Asset delivery depends on whether the destination is a VM chain or Bitcoin. For 
 
 ### EVM deliveries
 
-Call the destination chain oracle `getOrderData.order.orderData.remoteOracle`. You can get remote chain from each output `getOrderData.order.orderData.outputs[].chainId`.
+Call the destination chain oracle `GetOrderData.order.orderData.remoteOracle`. You can get remote chain from each output `GetOrderData.order.orderData.outputs[].chainId`.
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
@@ -418,12 +418,12 @@ def fill_single_chain_order(order):
 
 ### Bitcoin Deliveries
 
-To identify whether an order contains a Bitcoin transaction, check the output token: `getOrderData.order.orderData.outputs[].token`. If the output is Bitcoin, the following must hold:
+To identify whether an order contains a Bitcoin transaction, check the output token: `GetOrderData.order.orderData.outputs[].token`. If the output is Bitcoin, the following must hold:
 - The first 30 bytes should be equal to `0x000000000000000000000000BB0000000000000000000000000000000000`. Notice the 13'th byte is `0xBB`.
 - The 31'th byte is reserved and not checked.
 - The 32'th byte contains an address version identifier. Decode as uint8.
 
-If the transaction is to Bitcoin, the address (`getOrderData.order.orderData.outputs[].recipient`) will contain the relevant destination hash or witness which is not the address!
+If the transaction is to Bitcoin, the address (`GetOrderData.order.orderData.outputs[].recipient`) will contain the relevant destination hash or witness which is not the address!
 
 <table>
   <thead>

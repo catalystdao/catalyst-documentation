@@ -1,17 +1,17 @@
 <script lang="ts">
-  import type { getOrdersEvent } from "./QuoteCommon";
+  import type { GetOrdersEvent } from "./QuoteCommon";
   const API_URL = "https://catalyst-order-server-0140d799e2f7.herokuapp.com/";
 
-  async function getOrders(): Promise<getOrdersEvent> {
+  async function getOrders(): Promise<GetOrdersEvent> {
     const orderServerResponse = await fetch(API_URL + "orders/", {
       method: "post",
     });
-    const fetchedOrders = (await orderServerResponse.json()) as getOrdersEvent;
+    const fetchedOrders = (await orderServerResponse.json()) as GetOrdersEvent;
 
     return fetchedOrders;
   }
 
-  let request: undefined | Promise<getOrdersEvent> = undefined;
+  let request: undefined | Promise<GetOrdersEvent> = undefined;
 </script>
 
 <!-- <a

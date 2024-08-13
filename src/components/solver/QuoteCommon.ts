@@ -38,7 +38,7 @@ export type CrossChainOrder = {
   orderContext: DutchAuctionData | LimitOrderData;
 };
 
-export type getOrderData = {
+export type GetOrderData = {
   order: CrossChainOrder;
   orderKeyHash: string | undefined; // initially but will become always defined.
   quote: {
@@ -53,7 +53,7 @@ export type getOrderData = {
   submitTime: number;
 };
 
-export type getOrdersEvent = {
-  orders: getOrderData[];
+export type GetOrdersEvent = {
+  orders: GetOrderData[];
   pagination: any;
 };
