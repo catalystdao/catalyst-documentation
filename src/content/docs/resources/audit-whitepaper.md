@@ -1,6 +1,6 @@
 ---
 title: "Audits & Whitepaper"
-description: "Catalyst contracts has been audited a total of 6 separate times, with Generalised incentives and Catalyst both having been audited thrice. Catalyst has published 1 Whitepaper: Asynchronous Autonomous Market Making via a Unit of Liquidity"
+description: "Catalyst contracts have been audited a total of 6 separate times, with Generalised incentives and Catalyst both having been audited thrice. Catalyst has published 1 Whitepaper: Asynchronous Autonomous Market Making via a Unit of Liquidity"
 sidebar:
   order: 1
 ---
