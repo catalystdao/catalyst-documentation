@@ -45,7 +45,7 @@ contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
 The integration is less opinionated than other cross-chain endpoint, as we need to define some boilercode. First, lets set our escrow endpoint. Below we present 2 options
 
 1. Set the escrow explicitly. This defines a single escrow which you may interact in. This may be desired to reduce complexity but also introduces some vendor lock-in.
-2. Define a list of escrow that are allowed. This allows you to pick and chose which AMB is best suited for a certain connection. This introduces some additional complexity but mitigates vendor lock-in.
+2. Define a list of escrow that are allowed. This allows you to pick and choose which AMB is best suited for a certain connection. This introduces some additional complexity but mitigates vendor lock-in.
 
 ```solidity
 contract YourContract is ICrossChainReceiver, IMessageEscrowStructs {
@@ -147,7 +147,7 @@ For more information, check the relevant [natspecs](https://github.com/catalystd
 
 ### Sending Messages
 
-We havn't actually sent any messages yet. Lets do that. For simplicity, this section assumes that you used solution 1.
+We haven't actually sent any messages yet. Lets do that. For simplicity, this section assumes that you used solution 1.
 
 ```solidity
 
