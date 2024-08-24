@@ -2,13 +2,13 @@
 title: "Cross Cats: Solving Liquidity x Bitcoin"
 description: "Catalyst v2 will support Bitcoin swaps. This is facilitated through intent based swaps that are verified through an on-chain Bitcoin SPV client. This provides: Fast settlement, Competitive rates, and near full security."
 sidebar:
-  order: 7
+  order: 1
 ---
 
 Cross-Cats is an intent-based cross-chain swap protocol built with flexibility in mind. The core idea is to allow anyone to create a request for anything provable. At launch, EVM settlements and Bitcoin transactions will be part of the provable set. Bitcoin transactions are proven using a Bitcoin SPV (light client) and allows VM chain payments to be conditional on Bitcoin transactions.
 
 
-```d2 animateInterval=10000
+```d2 animateInterval=5000
 style.fill: transparent
 direction: right
 

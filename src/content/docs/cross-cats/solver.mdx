@@ -1,27 +1,22 @@
 ---
 title: "Becoming a Cross Cats solver"
-description: "Cross Cats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can sacrafise some margin on quick payouts by using the underwriting network to their advantage."
+description: "Cross Cats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
 sidebar:
-  order: 8
+  order: 3
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-import GetQuotes from '../../../../components/solver/GetQuotes.svelte';
+import GetQuotes from '../../../components/solver/GetQuotes.svelte';
 
 If you aren't interested in the order structure in Solidity, skip to [From VM](#from-evm). For API documentation, refer to the [API Swagger documentation](https://catalyst-order-server-0140d799e2f7.herokuapp.com/api
 ).
 
-Catalyst is [ERC-7683](https://www.erc7683.org)* compatible. *The implementation differs in 2 ways:
-
-1. A Catalyst [OrderKey](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/Structs.sol#L41-L65) is returned on `initiate(...)`. For implementations that wants to verify that orders were correctly collected, this adds options for further data validation. This change is compatible with ERC-7683 since it does not change any function signatures and ERC-7683 specifies that the function has no return.
-2. ERC-7683 defines the 2 elements of `Output`, `token` and `recipient` to be type `address`. The type of both elements have been changed to `bytes32`. Solidity ABI encoding encodes structs elements such that they fill 32 bytes. As a result, all returned objects of `ResolvedCrossChainOrder` remains compatible with implementations that assumes these are `address` (except these values are truncated).
-
 Cross Cats uses 3 order structures:
  1. [CrossChainOrder](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L6-L27) is a generic **input** order with an ERC-7683 compatible structure. Importantly, orderData contains the secret sauce and surely differs between ERC-7683 supporting implementations.
- 2. [ResolvedCrossChainOrder](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L29-L52) is a **quote** description that describes the value of a cross-chain order at a specific moment in time. It is ERC-7683 compliant* and allows solvers to easily compare resolution of order across protocols.
- 3. Catalyst [OrderKey](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/Structs.sol#L41-L65) are used to keep track of a Catalyst order through its **lifetime**. It contains Catalyst specific context and describes orders in depth. The hash of this struct is used to index the state progress of orders.
+ 2. [ResolvedCrossChainOrder](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L29-L52) is a **quote** description that describes the value of a cross-chain order at a specific moment in time. It is ERC-7683 compliant[*](/cross-cats/erc7683) and allows solvers to easily compare resolution of order across protocols.
+ 3. Catalyst [OrderKey](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/Structs.sol#L41-L65) are used to keep track of a Catalyst order through its **lifetime**. It contains Catalyst specific context and describes orders in depth.
 
-The generic CrossChainOrder can be seen below. `CrossChainOrder.orderData` is an ABI encoded order struct.
+The generic ERC7683 CrossChainOrder can be seen below. `CrossChainOrder.orderData` is an ABI encoded order struct.
 ```solidity
 struct CrossChainOrder {
     address settlementContract;
@@ -34,9 +29,9 @@ struct CrossChainOrder {
 }
 ```
 
-Currently, Cross-Cats supports 2 order structs:
+Importantly, the field `orderData` is encoded uniquely by Cross-Cats. Currently, 2 order structs are supported:
 ```solidity
-/// @notice Supports many inputs (same chain) to many outputs (different chains)
+/// @notice Simpler and slightly cheaper for order types with fixed inputs and outputs.
 struct LimitOrderData {
     uint32 proofDeadline;
     uint32 challengeDeadline;
@@ -44,11 +39,10 @@ struct LimitOrderData {
     uint256 fillerCollateralAmount;
     uint256 challengerCollateralAmount;
     address localOracle;
-    bytes32 remoteOracle;
     Input[] inputs;
-    Output[] outputs;
+    OutputDescription[] outputs;
 }
-/// @notice Supports Dutch Auctions on both input and output (1 to 1).
+/// @notice Supports Dutch Auctions on both input and output and support for additional custom order verification.
 struct DutchOrderData {
     bytes32 verificationContext;
     address verificationContract;
@@ -58,29 +52,39 @@ struct DutchOrderData {
     uint256 fillerCollateralAmount;
     uint256 challengerCollateralAmount;
     address localOracle;
-    bytes32 remoteOracle;
     uint32 slopeStartingTime;
-    int256 inputSlope;
-    int256 outputSlope;
-    Input input;
-    Output output;
+    /// @dev Input rate of change.
+    int256[] inputSlopes;
+    /// @dev Output rate of change.
+    int256[] outputSlopes;
+    Input[] inputs;
+    OutputDescription[] outputs;
 }
 
-// With the input and output struct defined as:
+// With the input and output structs defined as:
 struct Input {
     address token;
     uint256 amount;
 }
-struct Output {
+
+struct OutputDescription {
+    /// @dev Contract on the destination that tells whether an order was filled.
+    /// Format is bytes32() slice of the encoded bytearray from the messaging protocol (or bytes32(0) if local)
+    bytes32 remoteOracle;
+    /// @dev The address of the ERC20 token on the destination chain
+    /// @dev address(0) used as a sentinel for the native token
     bytes32 token;
+    /// @dev The amount of the token to be sent
     uint256 amount;
+    /// @dev The address to receive the output tokens
     bytes32 recipient;
+    /// @dev The destination chain for this output
     uint32 chainId;
+    bytes remoteCall;
 }
 ```
 
-Users will generate a `CrossChainOrder` with the appropriate order data and sign them with Permit2, generating an approval & order description with a single signature. The signed struct with be a new struct where `
-orderData` will be of the order type struct.
+Users will generate a `CrossChainOrder` with the appropriate order data and sign it with Permit2, thus generating an approval & order description with a single signature. The signed struct with be a new struct where `orderData` will be an abi.encoded order type.
 
 ## From EVM
 
@@ -99,17 +103,18 @@ The order server stores orders in their dictionary format. This allows integrato
 // Lets define the 2 Order data types.
 type DutchAuctionData = {
   type: "DutchAuction", // should not be submitted on-chain but can be used to differentiate order types.
+  verificationContext: string;
+  verificationContract: string;
   proofDeadline: number,
   challengeDeadline: number,
   collateralToken: string,
   fillerCollateralAmount: string,
   challengerCollateralAmount: string,
   localOracle: string,
-  remoteOracle: string,
   slopeStartingTime: number,
-  inputSlope: string,
-  outputSlope: string,
-  inputs: {}[], // Even though `inputs` is provided as an array, to submit on-chain it needs to be provided as a single input named `input`
+  inputSlopes: string[],
+  outputSlopes: string[],
+  inputs: {}[],
   outputs: {}[]
 }
 
@@ -121,7 +126,6 @@ type LimitOrderData = {
   fillerCollateralAmount: string,
   challengerCollateralAmount: string,
   localOracle: string,
-  remoteOracle: string,
   inputs: {}[],
   outputs: {}[]
 }
@@ -141,7 +145,7 @@ const API_URL = "https://orders.catalyst.exchange/"
 
 type GetOrderData = {
   order: CrossChainOrder,
-  orderKeyHash: string | undefined, // initially but will become always defined.
+  orderKeyHash: string
   quote: {
     fromAssets: string[],
     toAssets: string[],
@@ -334,7 +338,7 @@ Asset delivery depends on whether the destination is a VM chain or Bitcoin. For 
 
 ### EVM deliveries
 
-Call the destination chain oracle `GetOrderData.order.orderData.remoteOracle`. You can get remote chain from each output `GetOrderData.order.orderData.outputs[].chainId`.
+Call the destination chain oracle `GetOrderData.order.orderData.outputs[].remoteOracle` on the remote chain `GetOrderData.order.orderData.outputs[].chainId`.
 
 <Tabs syncKey="lang">
 <TabItem label="Typescript">
@@ -350,14 +354,18 @@ const oracleAbi = "...";
 // For simplicity, this function assumes that all outputs goes to
 // the same chain but it may not be the case.
 async function fillSingleChainOrder(order: CrossChainOrder) {
-  const oracle = new ethers.Contract(order.orderData.remoteOracle, oracleAbi, signer);
 
   let recordedChain;
+  let recordedOracle;
   for (const output of order.orderData.outputs) {
     if (recordedChain === undefined) recordedChain = output.chainId;
+    if (recodedOracle === undefined) recodedOracle = output.remoteOracle
     if (recordedChain !== output.chainId)
       throw Error(`Mixed ChainIds, seen ${recordedChain} and ${output.chainId}`);
+    if (recodedOracle !== output.remoteOracle)
+      throw Error(`Mixed Oracles, seen ${recodedOracle} and ${output.remoteOracle}`);
   }
+  const oracle = new ethers.Contract(recordedOracle, oracleAbi, signer);
 
   // TODO: Set approvals for the oracleAddress for the value of the output.
 
@@ -383,17 +391,22 @@ oracleAbi = "...";
 # For simplicity, this function assumes that all outputs goes to the same chain but it may not be the case.
 def fill_single_chain_order(order):
     oracle_address = order['orderData']['remoteOracle']
-    oracle = web3.eth.contract(address=oracle_address, abi=oracle_abi)
 
     recordedChain = "";
+    recordedOracle = "";
     for (output in order['orderData']['outputs']):
       if (recordedChain == ""):
         recordedChain = output.chainId
+      if (recordedOracle == ""):
+          recordedOracle = output.remoteOracle
       if (recordedChain != output.chainId):
         raise Exception(f"Mixed ChainIds, seen {recordedChain} and {output.chainId}");
+      if (recordedOracle != output.remoteOracle):
+        raise Exception(f"Mixed Oracles, seen {recordedOracle} and {output.remoteOracle}");
+
+    oracle = web3.eth.contract(address=recordedOracle, abi=oracle_abi)
 
     # TODO: Set approvals for the oracleAddress for the value of the output.
-
 
     # We need to provide fill times. These have to be set to proofTime.
     # These are used to ensure you can't reuse fills.
@@ -420,7 +433,7 @@ def fill_single_chain_order(order):
 
 To identify whether an order contains a Bitcoin transaction, check the output token: `GetOrderData.order.orderData.outputs[].token`. If the output is Bitcoin, the following must hold:
 - The first 30 bytes should be equal to `0x000000000000000000000000BC0000000000000000000000000000000000`. Notice the 13'th byte is `0xBC`.
-- The 31'th byte is reserved and not checked.
+- The 31'th byte is the number of confirmations before the order can be verified on-chain. 0 implies 1.
 - The 32'th byte contains an address version identifier. Decode as uint8.
 
 If the transaction is to Bitcoin, the address (`GetOrderData.order.orderData.outputs[].recipient`) will contain the relevant destination hash or witness which is not the address!

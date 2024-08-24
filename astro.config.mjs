@@ -47,9 +47,16 @@ export default defineConfig({
           },
         },
         {
-          label: "Protocol",
+          label: "V1: Cross-Chain AMM",
           autogenerate: {
             directory: "protocol",
+          },
+        },
+        {
+          label: "Cross-Cats: Cross-Chain Intents",
+          badge: "Closed Alpha",
+          autogenerate: {
+            directory: "cross-cats",
           },
         },
         {
@@ -66,7 +73,6 @@ export default defineConfig({
         },
         {
           label: "Underwriter",
-          badge: "Open Beta!",
           autogenerate: {
             directory: "underwriter",
           },

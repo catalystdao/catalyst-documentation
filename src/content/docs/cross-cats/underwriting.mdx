@@ -1,0 +1,14 @@
+---
+title: "Underwriting & Purchasing Orders"
+description: "Security, speed, and cost. Underwriting allows customizing these parameters exactly providing a 2 fold improvement: 1. Faster solver payouts allowing for greater capital velocity. 2. Faster user payouts improving the user experience."
+sidebar:
+  order: 21
+---
+
+Catalyst will support underwriting. In-code it is referred to as purchasing an order since this is exactly what happens.
+
+When a filler is initiating
+
+```solidity
+function purchaseOrder(OrderKey calldata orderKey, bytes calldata fillerData, uint256 minDiscount) external;
+````
