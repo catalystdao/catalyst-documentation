@@ -226,24 +226,24 @@ Cross-Cats is designed for cross-chain intents. Never the less, the majorty of t
 
 ### Initiation (order claim)
 
-An order is initiated by the user signing an order description. An example of an order description is _My 1 Ether (Ethereum) for 3000 USD (Base)_. The signed order is a permit2 witness allowing the solver to submit the order to the Reactor and collect the **input** (1 Ether) from the user. Importantly, during this step some collateral is collected from the solver. This ensures the solver has some skin in the game and goes through with the order. The collateral is paid back when the input is released to the solver.
+An order is initiated by the user signing an order description. An example of an order description is _My 1 Ether (Ethereum) for 3000 USD (Base)_. The signed order is a permit2 witness allowing the solver to submit the order to the Reactor and collect the **input** (1 Ether) from the user. Importantly, during this step some collateral is collected from the solver. This ensures the solver has some skin in the game and settles the order. The collateral is paid back when the input is released to the solver.
 
-To improve the user and solver experience, an order server sits between the user and solver and aids with order validation, propergation, and quoting.
+To improve the user and solver experience, an order server sits between the user and solver and aids with order validation, propagation, and quoting.
 
 ### Output Payment (to user)
 
-The payment pathway depends on the order intent. For a **VM to VM** swap, the solver calls the oracle contract on the destination chain which sends & records the token payment to the user. For **VM to Bitcoin** swap, the solver makes the payment described in the order. In other words, make a Bitcoin transaction that has **a** TXO that matches the order description.
+The payment pathway depends on the order intent. For a **VM to VM** swap, the solver calls the oracle contract on the destination chain which sends & records the token payment to the user. For **VM to Bitcoin** swap, the solver makes the payment described in the order. In other words, make a Bitcoin transaction that has **a** TXO that matches the order description. If needed, the payment can then be validated using an SPV client.
 
 ### Input Payment (to solver)
 
 Cross Cats has 3 payment release schemes to optimise the solver experience.
 
-1. The default operation is optimistic resolution. This assumes that the resolver delivered the payment to the user. After a dispute window (configured by the user), the payment will be released. If the order is disputed the operation falls back to option 2.
-2. Explicit validation. At anytime, orders can be proven. This requires that someone send the proof from the remote chains to the source chain. This is costly but is in many cases faster than optimistic resolution. Additionally, through batch verification the cost can be reduced at a slight increase in verification speed.
-3. Underwriting. The last release scheme isn't a payment proof scheme as much as it is a responsibility delegration scheme. If configured, an order can be bought by someone else at any point priorer to the release of the input (proof / fraud). This allows the initial solver to immediately get their capital back and off-hand the payment validation to a third party.
+1. Optimistic resolution. This assumes that the resolver delivered the payment to the user. After a dispute window (configured by the user), the payment will be released. If the order is disputed the operation falls back to option 2.
+2. Explicit validation. At anytime, orders can be proven. This requires that someone send the proof from the remote chains to the source chain. This is more costly than optimistic resolution but may be significantly faster than optimistic resolution. Additionally, through batch verification the cost can be reduced at a slight increase in verification speed.
+3. Underwriting. The last release scheme isn't a payment proof scheme as much as it is a responsibility delegration scheme. If configured, an order can be bought by someone else at any point priorer to the release of the input (proof / fraud). This allows the initial solver to immediately get their capital back and hand off the payment validation to a third party.
 
 
-By using these 3 in conjunction with each other solvers only have to lock liquidity for a small amount of time while the security of the system can remain highly secure. At the same time, speed, security, and cost can be rebalanced based on the specific needs of a user or chain conditions.
+By using these 3 in conjunction with each other, solvers only have to lock liquidity for a small period of time while not sacrificing any system security. At the same time, speed, security, and cost can be rebalanced based on the specific needs of a user or chain conditions.
 
 ## Bitcoin & Pseudo Solving
 
@@ -253,32 +253,32 @@ VM to Bitcoin swaps are relatively straight forward:
 3. Solver delivers assets
 4. Solver is paid.
 
-However this flow breaks on step 2 when the user wants to go from Bitcoin to VM. (sell Bitcoin). There is no way to pull assets from a user. To solve this issue, the user becomes a **pseudo solver** & relying on release scheme 3. Pseudo solving works by asking solvers for short-lived Bitcoin short quotes. These orders are after validation & selection signed by the solver. The user then quickly claims the order.
+However this flow breaks on step 2 when the user wants to go from Bitcoin to VM. (sell Bitcoin). There is no way to pull assets from a user. To solve this issue, the user becomes a **pseudo solver** & relies on release scheme 3. Pseudo solving works by asking solvers for short-lived Bitcoin short quotes. These orders are after validation & selection signed by the solver. The user then quickly claims the order.
 
 Say the user wants to swap 1 Bitcoin for 50000 USDC. Using the order server, they need to collect & claim a signed order of the opposite: 50000 USDC for 1 Bitcoin. Once this order is filled, they get the input (50000 USDC) which matches their desire.
 
 Important to notice, this adds a delay between when the price risk begins for the solver (issuance of signed order) to when it resolves (0-1 block confirmations of Bitcoin TXO). These values are best migrated by the following configuration:
 1. Short initiation time. Using a source chain with a low block time, the initiation time can be kept to an absolute minimum.
 2. Short proof time. The user may only have 1 or 2 Blocks to get their transaction confirmed.
-3. High pseudo solver collateral. By requiring a lot of collateral, the cost of hedging / non-execution can be covered.
+3. Designing a compatibility layer between the UI and the Order Server that only requests binding order when it is known that the user can get their Bitcoins filled.
 
-In a future version, VM to Bitcoin swaps will upgrade to an price oracle book scheme that further minimizes time between start of price risk to end of price risk.
+In a future version, VM to Bitcoin swaps will upgrade to a price oracle book scheme that further minimizes time between start of price risk to end of price risk.
 
 # Key Integration Metrics
 
-Cross-Cats has been designed to optimise integration metrics like cost of capital, speed, human, developer, cost, price risk, capital risk, and more. Below are the most notiable metrics. If any metrics that are important to you are missing reach out and the documentation will be updated.
+Cross-Cats has been designed to optimise integration metrics like cost of capital, speed, human, developer, cost, price risk, and capital risk. Below are the most notiable metrics. If important metrics are missing feel free to reach out and the documentation will be updated.
 
 ## Locked Capital & Underwriting
 
-There is no need to pre-lock capital into Cross-Cats. Capital is only locked during the actual order flow. In the beginning orders will batch verified which will take between 2 and 4 hours (TBD). During this period there is **PRICE CERTANCY** but assets are temporarily locked.
+There is no need to pre-lock capital into Cross-Cats. Capital is only locked during the actual order flow. In the beginning orders will be batch verified which will take between 2 and 4 hours (TBD). During this period there is **PRICE CERTANCY** but assets are temporarily locked.
 
-The user will not experience any these delays.
+The user will not experience any delays.
 
 Additionally, underwriting will be available for some routes in which case assets will be available 1-5 minutes after asset delivery. This includes Bitcoin deliveries.
 
 ### Price (un)Certainty
 
-For VM to VM swaps and VM to Bitcoin swaps, the price uncertainty window is the time it takes from the moment your system commits to the order (or when the claim transaction is initiated) to when the order claim arrives on-chain and is successfully mined. On fast chains this is at most 2-3 seconds but may be up-to 12 seconds. Cleverly timing the commitment can reduce beyond the block time.
+For VM to VM swaps and VM to Bitcoin swaps, the price uncertainty window is the time it takes from the moment your system commits to the order (or when the claim transaction is initiated) to when the order claim arrives on-chain and is successfully mined. On fast chains this is at most 2-3 seconds but may be up-to 12 seconds. Cleverly timing the commitment can reduce the uncertainty period below the block time.
 
 For Bitcoin to VM swaps the price uncertainty window is from when the order is signed to when the user initiates the Bitcoin transaction and it gets your desired number of confirmations. This may vary from 30 seconds to 10 minutes.
 
