@@ -5,10 +5,53 @@ sidebar:
   order: 21
 ---
 
-Catalyst will support underwriting. In-code it is referred to as purchasing an order since this is exactly what happens.
+Cross Cats manages assets in 2 ways:
+- Inputs are collected from the recipient of an order. For EVM -> BTC the signer is the user while for BTC -> VM, the signer is the Solver. These outputs are held in the Cross Cats reactor until the necessary resolution criteria are fulfilled.
+- Outputs are sent directly from the filler to the recipient. They are never held by Cross Cats.
 
-When a filler is initiating
+An important differentiator is that VM assets can be inputs and outputs while non-VM assets like Bitcoin can ONLY be outputs. As a result, non-VM to non-VM swaps are not supported since they would require VM assets to be input. Since Outputs are never held by Catalyst and are directly delivered, there is no need to underwrite deliveries. The recipient is already getting their assets at the highest speed possible.
+
+Cross Cats support underwriting inputs, this allows the filler to receive the inputs before full finality is reached. This is helpful for users going from a non-VM chain like Bitcoin to a VM chain since the Bitcoin has to be in the outputs. As a result, the user becomes the filler and has to wait for finality before they receive their tokens. For solvers, they have access to their capital faster which improves their capital utilisation.
+
+## Quick Overview
+
+In-code underwriting is called purchasing an order since this is exactly what happens. An order has a `fillerAddress` configured. Once an order has been correctly finalized, the `fillerAddress` will be sent the inputs.
+
+Purchasing the order from the `fillerAddress` requires sending the inputs (minus a discount) to `fillerAddress`. In exchange, the underwriter gets to set `fillerAddress` to their address thus when the order is finalized they receive the inputs and they gain the discount. Any collateral is exchanged 1:1.
 
 ```solidity
 function purchaseOrder(OrderKey calldata orderKey, bytes calldata fillerData, uint256 minDiscount) external;
 ````
+The `purchaseOrder` function is called.
+
+Before an underwriter underwrites/purchases an order, it is important to validate that the outputs have been delivered such that they trust them. The underwriter does not gain the entirety of the outputs and won't be able to pay for sending the outputs to the user out of their slice.
+
+## Underwriting Bitcoin Outputs
+
+Bitcoin underwriter has 2 levels:
+1. Inclusion probability.
+2. Pre-confirmations
+
+Initially, Catalyst will operate exclusively on level 1.
+
+### Inclusion probability
+
+Bitcoin transactions have several parameters that describe how and when a transaction may be included:
+- RBF: If a transaction has replace-by-fee enabled it can easily be double spent. As a result, this should always be disabled.
+- Transaction fee, sat/vB: A higher fee increases the inclusion likelihood. Additionally, If RBF is disabled miners are less incentivized to cheat by including a transaction that has a higher fee since the fee is already high.
+- Parents / Children: If the transaction has several children that pay for parents or unconfirmed parents it changes the inclusion likelihoods.
+- Age: Transactions that have been in the memory pool for longer are more likely to not be replaced.
+- Size: Replacing transactions has a cost and for smaller transactions, it isn't worth it.
+- Propagation: By monitoring memory pools all over the world double spending can be observed.
+
+By evaluating these parameters over time along with pen-testing, a configuration that leads to a high likelihood of inclusion can be found.
+
+### Pre-confirmations
+
+The "public memory" pool isn't the be-all and end-all. Transactions are only included if miners include them and miners have their only memory pool that they rely on. By searching miner memory pools for double spends, it can be guaranteed to a higher degree that transactions won't be included. Excluding double spending here leans toward weak pre-confirmations.
+
+Strong pre-confirmations are achieved when whole blocks are sorted. This requires excluding blocks that include private double spends. This requires on-boarding a significant amount of miners to ensure the blockchain without double spending remains the highest and also increases miner costs because of orphaned blocks.
+
+## Underwriting VM Outputs.
+
+Most virtual machine chains have significantly faster block times than Bitcoin. As a result, there is no need to worry about pre-confirmations. Additionally, the biggest time-saving component is the delay between the delivery of outputs and to finality/messaging delay. This may be between 12, 30, and 2 hours.
