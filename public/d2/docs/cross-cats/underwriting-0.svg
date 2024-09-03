@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" d2Version="0.6.5" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1048 1383"><svg id="d2-svg" width="1048" height="1383" viewBox="-101 -172 1048 1383"><style type="text/css"><![CDATA[
+.d2-1989894245 .text {
+	font-family: "d2-1989894245-font-regular";
+}
+@font-face {
+	font-family: d2-1989894245-font-regular;
+	src: url("data:application/font-woff;base64,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");
+}
+@keyframes dashdraw {
+	from {
+		stroke-dashoffset: 0;
+	}
+}
+
+.d2-1989894245 .text-bold {
+	font-family: "d2-1989894245-font-bold";
+}
+@font-face {
+	font-family: d2-1989894245-font-bold;
+	src: url("data:application/font-woff;base64,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");
+}
+.d2-1989894245 .text-italic {
+	font-family: "d2-1989894245-font-italic";
+}
+@font-face {
+	font-family: d2-1989894245-font-italic;
+	src: url("data:application/font-woff;base64,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");
+}]]></style><style type="text/css"><![CDATA[.shape {
+  shape-rendering: geometricPrecision;
+  stroke-linejoin: round;
+}
+.connection {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.blend {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+		.d2-1989894245 .fill-N1{fill:#0A0F25;}
+		.d2-1989894245 .fill-N2{fill:#676C7E;}
+		.d2-1989894245 .fill-N3{fill:#9499AB;}
+		.d2-1989894245 .fill-N4{fill:#CFD2DD;}
+		.d2-1989894245 .fill-N5{fill:#DEE1EB;}
+		.d2-1989894245 .fill-N6{fill:#EEF1F8;}
+		.d2-1989894245 .fill-N7{fill:#FFFFFF;}
+		.d2-1989894245 .fill-B1{fill:#0D32B2;}
+		.d2-1989894245 .fill-B2{fill:#0D32B2;}
+		.d2-1989894245 .fill-B3{fill:#E3E9FD;}
+		.d2-1989894245 .fill-B4{fill:#E3E9FD;}
+		.d2-1989894245 .fill-B5{fill:#EDF0FD;}
+		.d2-1989894245 .fill-B6{fill:#F7F8FE;}
+		.d2-1989894245 .fill-AA2{fill:#4A6FF3;}
+		.d2-1989894245 .fill-AA4{fill:#EDF0FD;}
+		.d2-1989894245 .fill-AA5{fill:#F7F8FE;}
+		.d2-1989894245 .fill-AB4{fill:#EDF0FD;}
+		.d2-1989894245 .fill-AB5{fill:#F7F8FE;}
+		.d2-1989894245 .stroke-N1{stroke:#0A0F25;}
+		.d2-1989894245 .stroke-N2{stroke:#676C7E;}
+		.d2-1989894245 .stroke-N3{stroke:#9499AB;}
+		.d2-1989894245 .stroke-N4{stroke:#CFD2DD;}
+		.d2-1989894245 .stroke-N5{stroke:#DEE1EB;}
+		.d2-1989894245 .stroke-N6{stroke:#EEF1F8;}
+		.d2-1989894245 .stroke-N7{stroke:#FFFFFF;}
+		.d2-1989894245 .stroke-B1{stroke:#0D32B2;}
+		.d2-1989894245 .stroke-B2{stroke:#0D32B2;}
+		.d2-1989894245 .stroke-B3{stroke:#E3E9FD;}
+		.d2-1989894245 .stroke-B4{stroke:#E3E9FD;}
+		.d2-1989894245 .stroke-B5{stroke:#EDF0FD;}
+		.d2-1989894245 .stroke-B6{stroke:#F7F8FE;}
+		.d2-1989894245 .stroke-AA2{stroke:#4A6FF3;}
+		.d2-1989894245 .stroke-AA4{stroke:#EDF0FD;}
+		.d2-1989894245 .stroke-AA5{stroke:#F7F8FE;}
+		.d2-1989894245 .stroke-AB4{stroke:#EDF0FD;}
+		.d2-1989894245 .stroke-AB5{stroke:#F7F8FE;}
+		.d2-1989894245 .background-color-N1{background-color:#0A0F25;}
+		.d2-1989894245 .background-color-N2{background-color:#676C7E;}
+		.d2-1989894245 .background-color-N3{background-color:#9499AB;}
+		.d2-1989894245 .background-color-N4{background-color:#CFD2DD;}
+		.d2-1989894245 .background-color-N5{background-color:#DEE1EB;}
+		.d2-1989894245 .background-color-N6{background-color:#EEF1F8;}
+		.d2-1989894245 .background-color-N7{background-color:#FFFFFF;}
+		.d2-1989894245 .background-color-B1{background-color:#0D32B2;}
+		.d2-1989894245 .background-color-B2{background-color:#0D32B2;}
+		.d2-1989894245 .background-color-B3{background-color:#E3E9FD;}
+		.d2-1989894245 .background-color-B4{background-color:#E3E9FD;}
+		.d2-1989894245 .background-color-B5{background-color:#EDF0FD;}
+		.d2-1989894245 .background-color-B6{background-color:#F7F8FE;}
+		.d2-1989894245 .background-color-AA2{background-color:#4A6FF3;}
+		.d2-1989894245 .background-color-AA4{background-color:#EDF0FD;}
+		.d2-1989894245 .background-color-AA5{background-color:#F7F8FE;}
+		.d2-1989894245 .background-color-AB4{background-color:#EDF0FD;}
+		.d2-1989894245 .background-color-AB5{background-color:#F7F8FE;}
+		.d2-1989894245 .color-N1{color:#0A0F25;}
+		.d2-1989894245 .color-N2{color:#676C7E;}
+		.d2-1989894245 .color-N3{color:#9499AB;}
+		.d2-1989894245 .color-N4{color:#CFD2DD;}
+		.d2-1989894245 .color-N5{color:#DEE1EB;}
+		.d2-1989894245 .color-N6{color:#EEF1F8;}
+		.d2-1989894245 .color-N7{color:#FFFFFF;}
+		.d2-1989894245 .color-B1{color:#0D32B2;}
+		.d2-1989894245 .color-B2{color:#0D32B2;}
+		.d2-1989894245 .color-B3{color:#E3E9FD;}
+		.d2-1989894245 .color-B4{color:#E3E9FD;}
+		.d2-1989894245 .color-B5{color:#EDF0FD;}
+		.d2-1989894245 .color-B6{color:#F7F8FE;}
+		.d2-1989894245 .color-AA2{color:#4A6FF3;}
+		.d2-1989894245 .color-AA4{color:#EDF0FD;}
+		.d2-1989894245 .color-AA5{color:#F7F8FE;}
+		.d2-1989894245 .color-AB4{color:#EDF0FD;}
+		.d2-1989894245 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}@media screen and (prefers-color-scheme:dark){
+		.d2-1989894245 .fill-N1{fill:#CDD6F4;}
+		.d2-1989894245 .fill-N2{fill:#BAC2DE;}
+		.d2-1989894245 .fill-N3{fill:#A6ADC8;}
+		.d2-1989894245 .fill-N4{fill:#585B70;}
+		.d2-1989894245 .fill-N5{fill:#45475A;}
+		.d2-1989894245 .fill-N6{fill:#313244;}
+		.d2-1989894245 .fill-N7{fill:#1E1E2E;}
+		.d2-1989894245 .fill-B1{fill:#CBA6f7;}
+		.d2-1989894245 .fill-B2{fill:#CBA6f7;}
+		.d2-1989894245 .fill-B3{fill:#6C7086;}
+		.d2-1989894245 .fill-B4{fill:#585B70;}
+		.d2-1989894245 .fill-B5{fill:#45475A;}
+		.d2-1989894245 .fill-B6{fill:#313244;}
+		.d2-1989894245 .fill-AA2{fill:#f38BA8;}
+		.d2-1989894245 .fill-AA4{fill:#45475A;}
+		.d2-1989894245 .fill-AA5{fill:#313244;}
+		.d2-1989894245 .fill-AB4{fill:#45475A;}
+		.d2-1989894245 .fill-AB5{fill:#313244;}
+		.d2-1989894245 .stroke-N1{stroke:#CDD6F4;}
+		.d2-1989894245 .stroke-N2{stroke:#BAC2DE;}
+		.d2-1989894245 .stroke-N3{stroke:#A6ADC8;}
+		.d2-1989894245 .stroke-N4{stroke:#585B70;}
+		.d2-1989894245 .stroke-N5{stroke:#45475A;}
+		.d2-1989894245 .stroke-N6{stroke:#313244;}
+		.d2-1989894245 .stroke-N7{stroke:#1E1E2E;}
+		.d2-1989894245 .stroke-B1{stroke:#CBA6f7;}
+		.d2-1989894245 .stroke-B2{stroke:#CBA6f7;}
+		.d2-1989894245 .stroke-B3{stroke:#6C7086;}
+		.d2-1989894245 .stroke-B4{stroke:#585B70;}
+		.d2-1989894245 .stroke-B5{stroke:#45475A;}
+		.d2-1989894245 .stroke-B6{stroke:#313244;}
+		.d2-1989894245 .stroke-AA2{stroke:#f38BA8;}
+		.d2-1989894245 .stroke-AA4{stroke:#45475A;}
+		.d2-1989894245 .stroke-AA5{stroke:#313244;}
+		.d2-1989894245 .stroke-AB4{stroke:#45475A;}
+		.d2-1989894245 .stroke-AB5{stroke:#313244;}
+		.d2-1989894245 .background-color-N1{background-color:#CDD6F4;}
+		.d2-1989894245 .background-color-N2{background-color:#BAC2DE;}
+		.d2-1989894245 .background-color-N3{background-color:#A6ADC8;}
+		.d2-1989894245 .background-color-N4{background-color:#585B70;}
+		.d2-1989894245 .background-color-N5{background-color:#45475A;}
+		.d2-1989894245 .background-color-N6{background-color:#313244;}
+		.d2-1989894245 .background-color-N7{background-color:#1E1E2E;}
+		.d2-1989894245 .background-color-B1{background-color:#CBA6f7;}
+		.d2-1989894245 .background-color-B2{background-color:#CBA6f7;}
+		.d2-1989894245 .background-color-B3{background-color:#6C7086;}
+		.d2-1989894245 .background-color-B4{background-color:#585B70;}
+		.d2-1989894245 .background-color-B5{background-color:#45475A;}
+		.d2-1989894245 .background-color-B6{background-color:#313244;}
+		.d2-1989894245 .background-color-AA2{background-color:#f38BA8;}
+		.d2-1989894245 .background-color-AA4{background-color:#45475A;}
+		.d2-1989894245 .background-color-AA5{background-color:#313244;}
+		.d2-1989894245 .background-color-AB4{background-color:#45475A;}
+		.d2-1989894245 .background-color-AB5{background-color:#313244;}
+		.d2-1989894245 .color-N1{color:#CDD6F4;}
+		.d2-1989894245 .color-N2{color:#BAC2DE;}
+		.d2-1989894245 .color-N3{color:#A6ADC8;}
+		.d2-1989894245 .color-N4{color:#585B70;}
+		.d2-1989894245 .color-N5{color:#45475A;}
+		.d2-1989894245 .color-N6{color:#313244;}
+		.d2-1989894245 .color-N7{color:#1E1E2E;}
+		.d2-1989894245 .color-B1{color:#CBA6f7;}
+		.d2-1989894245 .color-B2{color:#CBA6f7;}
+		.d2-1989894245 .color-B3{color:#6C7086;}
+		.d2-1989894245 .color-B4{color:#585B70;}
+		.d2-1989894245 .color-B5{color:#45475A;}
+		.d2-1989894245 .color-B6{color:#313244;}
+		.d2-1989894245 .color-AA2{color:#f38BA8;}
+		.d2-1989894245 .color-AA4{color:#45475A;}
+		.d2-1989894245 .color-AA5{color:#313244;}
+		.d2-1989894245 .color-AB4{color:#45475A;}
+		.d2-1989894245 .color-AB5{color:#313244;}.appendix text.text{fill:#CDD6F4}.md{--color-fg-default:#CDD6F4;--color-fg-muted:#BAC2DE;--color-fg-subtle:#A6ADC8;--color-canvas-default:#1E1E2E;--color-canvas-subtle:#313244;--color-border-default:#CBA6f7;--color-border-muted:#CBA6f7;--color-neutral-muted:#313244;--color-accent-fg:#CBA6f7;--color-accent-emphasis:#CBA6f7;--color-attention-subtle:#BAC2DE;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-B2{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-B3{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B4{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B6{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AA2{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AA4{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AA5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AB4{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AB5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N1{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N2{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N6{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N7{fill:url(#streaks-darker);mix-blend-mode:lighten}.light-code{display: none}.dark-code{display: block}}]]></style><style type="text/css">.md em,
+.md dfn {
+  font-family: "d2-1989894245-font-italic";
+}
+
+.md b,
+.md strong {
+  font-family: "d2-1989894245-font-bold";
+}
+
+.md code,
+.md kbd,
+.md pre,
+.md samp {
+  font-family: "d2-1989894245-font-mono";
+  font-size: 1em;
+}
+
+.md {
+  tab-size: 4;
+}
+
+/* variables are provided in d2renderers/d2svg/d2svg.go */
+
+.md {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  color: var(--color-fg-default);
+  background-color: transparent; /* we don't want to define the background color */
+  font-family: "d2-1989894245-font-regular";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.md details,
+.md figcaption,
+.md figure {
+  display: block;
+}
+
+.md summary {
+  display: list-item;
+}
+
+.md [hidden] {
+  display: none !important;
+}
+
+.md a {
+  background-color: transparent;
+  color: var(--color-accent-fg);
+  text-decoration: none;
+}
+
+.md a:active,
+.md a:hover {
+  outline-width: 0;
+}
+
+.md abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.md dfn {
+  font-style: italic;
+}
+
+.md h1 {
+  margin: 0.67em 0;
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.md mark {
+  background-color: var(--color-attention-subtle);
+  color: var(--color-text-primary);
+}
+
+.md small {
+  font-size: 90%;
+}
+
+.md sub,
+.md sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.md sub {
+  bottom: -0.25em;
+}
+
+.md sup {
+  top: -0.5em;
+}
+
+.md img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: var(--color-canvas-default);
+}
+
+.md figure {
+  margin: 1em 40px;
+}
+
+.md hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--color-border-muted);
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: var(--color-border-default);
+  border: 0;
+}
+
+.md input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.md [type="button"],
+.md [type="reset"],
+.md [type="submit"] {
+  -webkit-appearance: button;
+}
+
+.md [type="button"]::-moz-focus-inner,
+.md [type="reset"]::-moz-focus-inner,
+.md [type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+.md [type="button"]:-moz-focusring,
+.md [type="reset"]:-moz-focusring,
+.md [type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+.md [type="checkbox"],
+.md [type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.md [type="number"]::-webkit-inner-spin-button,
+.md [type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.md [type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+.md [type="search"]::-webkit-search-cancel-button,
+.md [type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.md ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54;
+}
+
+.md ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+.md a:hover {
+  text-decoration: underline;
+}
+
+.md hr::before {
+  display: table;
+  content: "";
+}
+
+.md hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.md table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.md td,
+.md th {
+  padding: 0;
+}
+
+.md details summary {
+  cursor: pointer;
+}
+
+.md details:not([open]) > *:not(summary) {
+  display: none !important;
+}
+
+.md kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  color: var(--color-fg-default);
+  vertical-align: middle;
+  background-color: var(--color-canvas-subtle);
+  border: solid 1px var(--color-neutral-muted);
+  border-bottom-color: var(--color-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
+}
+
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  font-family: "font-semibold";
+}
+
+.md h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.md h3 {
+  font-size: 1.25em;
+}
+
+.md h4 {
+  font-size: 1em;
+}
+
+.md h5 {
+  font-size: 0.875em;
+}
+
+.md h6 {
+  font-size: 0.85em;
+  color: var(--color-fg-muted);
+}
+
+.md p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.md blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--color-fg-muted);
+  border-left: 0.25em solid var(--color-border-default);
+}
+
+.md ul,
+.md ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.md ol ol,
+.md ul ol {
+  list-style-type: lower-roman;
+}
+
+.md ul ul ol,
+.md ul ol ol,
+.md ol ul ol,
+.md ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.md dd {
+  margin-left: 0;
+}
+
+.md pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  word-wrap: normal;
+}
+
+.md ::placeholder {
+  color: var(--color-fg-subtle);
+  opacity: 1;
+}
+
+.md input::-webkit-outer-spin-button,
+.md input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.md::before {
+  display: table;
+  content: "";
+}
+
+.md::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.md > *:first-child {
+  margin-top: 0 !important;
+}
+
+.md > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.md a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.md .absent {
+  color: var(--color-danger-fg);
+}
+
+.md .anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.md .anchor:focus {
+  outline: none;
+}
+
+.md p,
+.md blockquote,
+.md ul,
+.md ol,
+.md dl,
+.md table,
+.md pre,
+.md details {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.md blockquote > :first-child {
+  margin-top: 0;
+}
+
+.md blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.md sup > a::before {
+  content: "[";
+}
+
+.md sup > a::after {
+  content: "]";
+}
+
+.md h1:hover .anchor,
+.md h2:hover .anchor,
+.md h3:hover .anchor,
+.md h4:hover .anchor,
+.md h5:hover .anchor,
+.md h6:hover .anchor {
+  text-decoration: none;
+}
+
+.md h1 tt,
+.md h1 code,
+.md h2 tt,
+.md h2 code,
+.md h3 tt,
+.md h3 code,
+.md h4 tt,
+.md h4 code,
+.md h5 tt,
+.md h5 code,
+.md h6 tt,
+.md h6 code {
+  padding: 0 0.2em;
+  font-size: inherit;
+}
+
+.md ul.no-list,
+.md ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.md ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.md ol[type="a"] {
+  list-style-type: lower-alpha;
+}
+
+.md ol[type="i"] {
+  list-style-type: lower-roman;
+}
+
+.md div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.md ul ul,
+.md ul ol,
+.md ol ol,
+.md ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.md li > p {
+  margin-top: 16px;
+}
+
+.md li + li {
+  margin-top: 0.25em;
+}
+
+.md dl {
+  padding: 0;
+}
+
+.md dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-family: "font-semibold";
+}
+
+.md dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.md table th {
+  font-family: "font-semibold";
+}
+
+.md table th,
+.md table td {
+  padding: 6px 13px;
+  border: 1px solid var(--color-border-default);
+}
+
+.md table tr {
+  background-color: var(--color-canvas-default);
+  border-top: 1px solid var(--color-border-muted);
+}
+
+.md table tr:nth-child(2n) {
+  background-color: var(--color-canvas-subtle);
+}
+
+.md table img {
+  background-color: transparent;
+}
+
+.md img[align="right"] {
+  padding-left: 20px;
+}
+
+.md img[align="left"] {
+  padding-right: 20px;
+}
+
+.md span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.md span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+}
+
+.md span.frame span img {
+  display: block;
+  float: left;
+}
+
+.md span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--color-fg-default);
+}
+
+.md span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.md span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.md span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.md span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.md span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.md span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.md span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.md span.float-left span {
+  margin: 13px 0 0;
+}
+
+.md span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.md span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.md code,
+.md tt {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: var(--color-neutral-muted);
+  border-radius: 6px;
+}
+
+.md code br,
+.md tt br {
+  display: none;
+}
+
+.md del code {
+  text-decoration: inherit;
+}
+
+.md pre code {
+  font-size: 100%;
+}
+
+.md pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.md .highlight {
+  margin-bottom: 16px;
+}
+
+.md .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.md .highlight pre,
+.md pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: var(--color-canvas-subtle);
+  border-radius: 6px;
+}
+
+.md pre code,
+.md pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.md .csv-data td,
+.md .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.md .csv-data .blob-num {
+  padding: 10px 8px 9px;
+  text-align: right;
+  background: var(--color-canvas-default);
+  border: 0;
+}
+
+.md .csv-data tr {
+  border-top: 0;
+}
+
+.md .csv-data th {
+  font-family: "font-semibold";
+  background: var(--color-canvas-subtle);
+  border-top: 0;
+}
+
+.md .footnotes {
+  font-size: 12px;
+  color: var(--color-fg-muted);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.md .footnotes ol {
+  padding-left: 16px;
+}
+
+.md .footnotes li {
+  position: relative;
+}
+
+.md .footnotes li:target::before {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -24px;
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--color-accent-emphasis);
+  border-radius: 6px;
+}
+
+.md .footnotes li:target {
+  color: var(--color-fg-default);
+}
+
+.md .task-list-item {
+  list-style-type: none;
+}
+
+.md .task-list-item label {
+  font-weight: 400;
+}
+
+.md .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.md .task-list-item + .task-list-item {
+  margin-top: 3px;
+}
+
+.md .task-list-item .handle {
+  display: none;
+}
+
+.md .task-list-item-checkbox {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.md .contains-task-list:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em 0.25em 0.2em;
+}
+</style><style type="text/css"><![CDATA[@keyframes d2Transition-d2-1989894245-0 {
+		0%, 0.000000% {
+				opacity: 0;
+		}
+		0.000000%, 19.993333% {
+				opacity: 1;
+		}
+		20.000000%, 100% {
+				opacity: 0;
+		}
+}@keyframes d2Transition-d2-1989894245-1 {
+		0%, 19.993333% {
+				opacity: 0;
+		}
+		20.000000%, 39.993333% {
+				opacity: 1;
+		}
+		40.000000%, 100% {
+				opacity: 0;
+		}
+}@keyframes d2Transition-d2-1989894245-2 {
+		0%, 39.993333% {
+				opacity: 0;
+		}
+		40.000000%, 59.993333% {
+				opacity: 1;
+		}
+		60.000000%, 100% {
+				opacity: 0;
+		}
+}@keyframes d2Transition-d2-1989894245-3 {
+		0%, 59.993333% {
+				opacity: 0;
+		}
+		60.000000%, 79.993333% {
+				opacity: 1;
+		}
+		80.000000%, 100% {
+				opacity: 0;
+		}
+}@keyframes d2Transition-d2-1989894245-4 {
+		0%, 79.993333% {
+				opacity: 0;
+		}
+		80.000000%, 100.000000% {
+				opacity: 1;
+		}
+}]]></style><g style="animation: d2Transition-d2-1989894245-0 15000ms infinite"  class="d2-1989894245" width="1048" height="1383" viewBox="-101 -172 1048 1383"><rect x="-101.000000" y="-172.000000" width="1048.000000" height="1383.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="266.000000" y="-31.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Index</text></g><g id="User"><g class="shape" ><rect x="0.000000" y="740.000000" width="216.000000" height="285.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="108.000000" y="777.000000" class="text fill-N1" style="text-anchor:middle;font-size:32px">User</text></g><g id="Order Server"><g class="shape" ><rect x="396.000000" y="990.000000" width="137.000000" height="120.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="464.500000" y="1055.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Order Server</text></g><g id="Solver"><g class="shape" ><rect x="300.000000" y="584.000000" width="216.000000" height="332.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /><rect x="290.000000" y="594.000000" width="216.000000" height="332.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="627.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Solver</text></g><g id="Underwriter"><g class="shape" ><rect x="297.000000" y="0.000000" width="203.000000" height="186.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="33.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Underwriter</text></g><g id="Reactor"><g class="shape" ><rect x="297.000000" y="297.000000" width="203.000000" height="186.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="398.500000" y="470.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Reactor</text></g><g id="SPV Oracle"><g class="shape" ><rect x="99.000000" y="208.000000" width="122.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="160.000000" y="246.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">SPV Oracle</text></g><g id="User.Input"><g class="shape" ><rect x="60.000000" y="899.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="101.500000" y="937.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="User.Output" style='opacity:0.100000'><g class="shape" ><rect x="60.000000" y="800.000000" width="96.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="108.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Solver.Input" style='opacity:0.100000'><g class="shape" ><rect x="350.000000" y="654.000000" width="83.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="391.500000" y="692.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Solver.Output"><g class="shape" ><rect x="350.000000" y="800.000000" width="96.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Underwriter.Input"><g class="shape" ><rect x="357.000000" y="60.000000" width="83.000000" height="66.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="98.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Reactor.Input" style='opacity:0.100000'><g class="shape" ><rect x="357.000000" y="357.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="398.500000" y="395.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="(User &lt;-&gt; Order Server)[0]" style='opacity:0.100000'><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 144.000000 1029.000000 L 144.000000 1043.000000 S 144.000000 1053.000000 154.000000 1053.000000 L 392.000000 1053.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="256.500000" y="1042.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.1 Quote</text></g><g id="(Order Server &lt;-&gt; Solver)[0]" style='opacity:0.100000'><path d="M 468.000000 986.000000 L 468.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="505.500000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.2 Quote</text></g><g id="(User -&gt; Order Server)[0]" style='opacity:0.100000'><path d="M 72.000000 1027.000000 L 72.000000 1071.000000 S 72.000000 1081.000000 82.000000 1081.000000 L 392.000000 1081.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="206.500000" y="1103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.1 Send Signed Order</text></g><g id="(Order Server -&gt; Solver)[0]" style='opacity:0.100000'><path d="M 432.000000 988.000000 L 432.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="335.000000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.2 Broadcast Signed Order</text></g><g id="(Solver -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 398.000000 582.000000 L 398.000000 487.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="484.500000" y="539.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.1 Submit Signed Order</text></g><g id="(User.Input -&gt; Reactor.Input)[0]" style='opacity:0.100000'><path d="M 145.000000 912.000000 L 243.000000 912.000000 S 253.000000 912.000000 253.000000 902.000000 L 253.000000 400.000000 S 253.000000 390.000000 263.000000 390.000000 L 353.000000 390.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="203.000000" y="660.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.2 Pull Input</text></g><g id="(Solver.Output -&gt; User.Output)[0]" style='opacity:0.100000'><path d="M 348.000000 833.000000 L 160.000000 833.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="205.000000" y="855.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">4.1 Fill Order</text></g><g id="(Underwriter -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 449.000000 188.000000 L 449.000000 293.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="518.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.1 Purchase Order</text></g><g id="(Underwriter.Input -&gt; Solver.Input)[0]" style='opacity:0.100000'><path d="M 442.000000 93.000000 L 563.000000 93.000000 S 573.000000 93.000000 573.000000 103.000000 L 573.000000 677.000000 S 573.000000 687.000000 563.000000 687.000000 L 437.000000 687.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="713.000000" y="399.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.2 Pull Inputs from underwriter to solver</text></g><g id="(Underwriter -&gt; SPV Oracle)[0]" style='opacity:0.100000'><path d="M 295.000000 93.000000 L 170.000000 93.000000 S 160.000000 93.000000 160.000000 103.000000 L 160.000000 204.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="171.500000" y="82.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.1 Submit Proof</text></g><g id="(SPV Oracle -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 160.000000 276.000000 L 160.000000 333.000000 S 160.000000 343.000000 170.000000 343.000000 L 293.000000 343.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="194.000000" y="365.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.2 Prove Bitcoin Transaction</text></g><g id="(Reactor.Input -&gt; Underwriter.Input)[0]" style='opacity:0.100000'><path d="M 398.000000 355.000000 L 398.000000 130.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1989894245)" /><text x="327.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.3 Pay underwriter</text></g><mask id="d2-1989894245" maskUnits="userSpaceOnUse" x="-101" y="-172" width="1048" height="1383">
+<rect x="-101" y="-172" width="1048" height="1383" fill="white"></rect>
+<rect x="221.000000" y="-71.000000" width="90" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="78.000000" y="745.000000" width="60" height="42" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="418.500000" y="1039.500000" width="92" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="361.000000" y="599.000000" width="74" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="328.000000" y="5.000000" width="141" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="353.500000" y="442.000000" width="90" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="121.500000" y="230.500000" width="77" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="921.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="676.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="82.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="379.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="225.000000" y="1026.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="474.000000" y="948.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="133.000000" y="1087.000000" width="147" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="244.000000" y="948.000000" width="182" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="404.000000" y="523.000000" width="161" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="159.000000" y="644.000000" width="88" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="163.000000" y="839.000000" width="84" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="455.000000" y="231.000000" width="126" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="579.000000" y="383.000000" width="268" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="116.000000" y="66.000000" width="111" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="99.000000" y="349.000000" width="190" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="262.000000" y="231.000000" width="130" height="21" fill="rgba(0,0,0,0.75)"></rect>
+</mask></g><g style="animation: d2Transition-d2-1989894245-1 15000ms infinite"  class="d2-1989894245" width="1048" height="1383" viewBox="-101 -172 1048 1383"><rect x="-101.000000" y="-172.000000" width="1048.000000" height="1383.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="266.500000" y="-31.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Setup</text></g><g id="User"><g class="shape" ><rect x="0.000000" y="740.000000" width="216.000000" height="285.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="108.000000" y="777.000000" class="text fill-N1" style="text-anchor:middle;font-size:32px">User</text></g><g id="Order Server"><g class="shape" ><rect x="396.000000" y="990.000000" width="137.000000" height="120.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="464.500000" y="1055.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Order Server</text></g><g id="Solver"><g class="shape" ><rect x="300.000000" y="584.000000" width="216.000000" height="332.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /><rect x="290.000000" y="594.000000" width="216.000000" height="332.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="627.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Solver</text></g><g id="Underwriter"><g class="shape" ><rect x="297.000000" y="0.000000" width="203.000000" height="186.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="33.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Underwriter</text></g><g id="Reactor"><g class="shape" ><rect x="297.000000" y="297.000000" width="203.000000" height="186.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="398.500000" y="470.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Reactor</text></g><g id="SPV Oracle"><g class="shape" ><rect x="99.000000" y="208.000000" width="122.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="160.000000" y="246.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">SPV Oracle</text></g><g id="User.Input"><g class="shape" ><rect x="60.000000" y="899.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="101.500000" y="937.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="User.Output" style='opacity:0.100000'><g class="shape" ><rect x="60.000000" y="800.000000" width="96.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="108.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Solver.Input" style='opacity:0.100000'><g class="shape" ><rect x="350.000000" y="654.000000" width="83.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="391.500000" y="692.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Solver.Output"><g class="shape" ><rect x="350.000000" y="800.000000" width="96.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Underwriter.Input"><g class="shape" ><rect x="357.000000" y="60.000000" width="83.000000" height="66.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="98.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Reactor.Input" style='opacity:0.100000'><g class="shape" ><rect x="357.000000" y="357.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="398.500000" y="395.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="(User &lt;-&gt; Order Server)[0]"><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 144.000000 1029.000000 L 144.000000 1043.000000 S 144.000000 1053.000000 154.000000 1053.000000 L 392.000000 1053.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="256.500000" y="1042.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.1 Quote</text></g><g id="(Order Server &lt;-&gt; Solver)[0]"><path d="M 468.000000 986.000000 L 468.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="505.500000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.2 Quote</text></g><g id="(User -&gt; Order Server)[0]"><path d="M 72.000000 1027.000000 L 72.000000 1071.000000 S 72.000000 1081.000000 82.000000 1081.000000 L 392.000000 1081.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="206.500000" y="1103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.1 Send Signed Order</text></g><g id="(Order Server -&gt; Solver)[0]"><path d="M 432.000000 988.000000 L 432.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="335.000000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.2 Broadcast Signed Order</text></g><g id="(Solver -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 398.000000 582.000000 L 398.000000 487.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="484.500000" y="539.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.1 Submit Signed Order</text></g><g id="(User.Input -&gt; Reactor.Input)[0]" style='opacity:0.100000'><path d="M 145.000000 912.000000 L 243.000000 912.000000 S 253.000000 912.000000 253.000000 902.000000 L 253.000000 400.000000 S 253.000000 390.000000 263.000000 390.000000 L 353.000000 390.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="203.000000" y="660.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.2 Pull Input</text></g><g id="(Solver.Output -&gt; User.Output)[0]" style='opacity:0.100000'><path d="M 348.000000 833.000000 L 160.000000 833.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="205.000000" y="855.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">4.1 Fill Order</text></g><g id="(Underwriter -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 449.000000 188.000000 L 449.000000 293.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="518.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.1 Purchase Order</text></g><g id="(Underwriter.Input -&gt; Solver.Input)[0]" style='opacity:0.100000'><path d="M 442.000000 93.000000 L 563.000000 93.000000 S 573.000000 93.000000 573.000000 103.000000 L 573.000000 677.000000 S 573.000000 687.000000 563.000000 687.000000 L 437.000000 687.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="713.000000" y="399.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.2 Pull Inputs from underwriter to solver</text></g><g id="(Underwriter -&gt; SPV Oracle)[0]" style='opacity:0.100000'><path d="M 295.000000 93.000000 L 170.000000 93.000000 S 160.000000 93.000000 160.000000 103.000000 L 160.000000 204.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="171.500000" y="82.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.1 Submit Proof</text></g><g id="(SPV Oracle -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 160.000000 276.000000 L 160.000000 333.000000 S 160.000000 343.000000 170.000000 343.000000 L 293.000000 343.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="194.000000" y="365.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.2 Prove Bitcoin Transaction</text></g><g id="(Reactor.Input -&gt; Underwriter.Input)[0]" style='opacity:0.100000'><path d="M 398.000000 355.000000 L 398.000000 130.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2887169094)" /><text x="327.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.3 Pay underwriter</text></g><mask id="d2-2887169094" maskUnits="userSpaceOnUse" x="-101" y="-172" width="1048" height="1383">
+<rect x="-101" y="-172" width="1048" height="1383" fill="white"></rect>
+<rect x="218.000000" y="-71.000000" width="97" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="78.000000" y="745.000000" width="60" height="42" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="418.500000" y="1039.500000" width="92" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="361.000000" y="599.000000" width="74" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="328.000000" y="5.000000" width="141" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="353.500000" y="442.000000" width="90" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="121.500000" y="230.500000" width="77" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="921.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="676.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="82.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="379.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="225.000000" y="1026.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="474.000000" y="948.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="133.000000" y="1087.000000" width="147" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="244.000000" y="948.000000" width="182" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="404.000000" y="523.000000" width="161" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="159.000000" y="644.000000" width="88" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="163.000000" y="839.000000" width="84" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="455.000000" y="231.000000" width="126" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="579.000000" y="383.000000" width="268" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="116.000000" y="66.000000" width="111" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="99.000000" y="349.000000" width="190" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="262.000000" y="231.000000" width="130" height="21" fill="rgba(0,0,0,0.75)"></rect>
+</mask></g><g style="animation: d2Transition-d2-1989894245-2 15000ms infinite"  class="d2-1989894245" width="1048" height="1383" viewBox="-101 -172 1048 1383"><rect x="-101.000000" y="-172.000000" width="1048.000000" height="1383.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="266.500000" y="-31.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Initiation</text></g><g id="User"><g class="shape" ><rect x="0.000000" y="740.000000" width="216.000000" height="285.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="108.000000" y="777.000000" class="text fill-N1" style="text-anchor:middle;font-size:32px">User</text></g><g id="Order Server"><g class="shape" ><rect x="396.000000" y="990.000000" width="137.000000" height="120.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="464.500000" y="1055.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Order Server</text></g><g id="Solver"><g class="shape" ><rect x="290.000000" y="594.000000" width="216.000000" height="332.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="627.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Solver</text></g><g id="Underwriter"><g class="shape" ><rect x="297.000000" y="0.000000" width="203.000000" height="186.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="33.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Underwriter</text></g><g id="Reactor"><g class="shape" ><rect x="297.000000" y="297.000000" width="203.000000" height="186.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="398.500000" y="470.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Reactor</text></g><g id="SPV Oracle"><g class="shape" ><rect x="99.000000" y="208.000000" width="122.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="160.000000" y="246.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">SPV Oracle</text></g><g id="User.Input" style='opacity:0.100000'><g class="shape" ><rect x="60.000000" y="899.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="101.500000" y="937.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="User.Output" style='opacity:0.100000'><g class="shape" ><rect x="60.000000" y="800.000000" width="96.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="108.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Solver.Input" style='opacity:0.100000'><g class="shape" ><rect x="350.000000" y="654.000000" width="83.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="391.500000" y="692.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Solver.Output"><g class="shape" ><rect x="350.000000" y="800.000000" width="96.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Underwriter.Input"><g class="shape" ><rect x="357.000000" y="60.000000" width="83.000000" height="66.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="98.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Reactor.Input"><g class="shape" ><rect x="357.000000" y="357.000000" width="83.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="395.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="(User &lt;-&gt; Order Server)[0]" style='opacity:0.100000'><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 144.000000 1029.000000 L 144.000000 1043.000000 S 144.000000 1053.000000 154.000000 1053.000000 L 392.000000 1053.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="256.500000" y="1042.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.1 Quote</text></g><g id="(Order Server &lt;-&gt; Solver)[0]" style='opacity:0.100000'><path d="M 468.000000 986.000000 L 468.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="505.500000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.2 Quote</text></g><g id="(User -&gt; Order Server)[0]" style='opacity:0.100000'><path d="M 72.000000 1027.000000 L 72.000000 1071.000000 S 72.000000 1081.000000 82.000000 1081.000000 L 392.000000 1081.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="206.500000" y="1103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.1 Send Signed Order</text></g><g id="(Order Server -&gt; Solver)[0]" style='opacity:0.100000'><path d="M 432.000000 988.000000 L 432.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="335.000000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.2 Broadcast Signed Order</text></g><g id="(Solver -&gt; Reactor)[0]"><path d="M 398.000000 592.000000 L 398.000000 487.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="484.500000" y="544.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.1 Submit Signed Order</text></g><g id="(User.Input -&gt; Reactor.Input)[0]"><path d="M 145.000000 912.000000 L 243.000000 912.000000 S 253.000000 912.000000 253.000000 902.000000 L 253.000000 400.000000 S 253.000000 390.000000 263.000000 390.000000 L 353.000000 390.000000" fill="none" class="connection animated-connection stroke-B1" style="stroke-width:2;stroke-dasharray:10.000000,9.865639;stroke-dashoffset:-198.656393;animation: dashdraw 4.932820s linear infinite;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="203.000000" y="660.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.2 Pull Input</text></g><g id="(Solver.Output -&gt; User.Output)[0]" style='opacity:0.100000'><path d="M 348.000000 833.000000 L 160.000000 833.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="205.000000" y="855.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">4.1 Fill Order</text></g><g id="(Underwriter -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 449.000000 188.000000 L 449.000000 293.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="518.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.1 Purchase Order</text></g><g id="(Underwriter.Input -&gt; Solver.Input)[0]" style='opacity:0.100000'><path d="M 442.000000 93.000000 L 563.000000 93.000000 S 573.000000 93.000000 573.000000 103.000000 L 573.000000 677.000000 S 573.000000 687.000000 563.000000 687.000000 L 437.000000 687.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="713.000000" y="399.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.2 Pull Inputs from underwriter to solver</text></g><g id="(Underwriter -&gt; SPV Oracle)[0]" style='opacity:0.100000'><path d="M 295.000000 93.000000 L 170.000000 93.000000 S 160.000000 93.000000 160.000000 103.000000 L 160.000000 204.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="171.500000" y="82.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.1 Submit Proof</text></g><g id="(SPV Oracle -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 160.000000 276.000000 L 160.000000 333.000000 S 160.000000 343.000000 170.000000 343.000000 L 293.000000 343.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="194.000000" y="365.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.2 Prove Bitcoin Transaction</text></g><g id="(Reactor.Input -&gt; Underwriter.Input)[0]" style='opacity:0.100000'><path d="M 398.000000 355.000000 L 398.000000 130.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-746048819)" /><text x="327.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.3 Pay underwriter</text></g><mask id="d2-746048819" maskUnits="userSpaceOnUse" x="-101" y="-172" width="1048" height="1383">
+<rect x="-101" y="-172" width="1048" height="1383" fill="white"></rect>
+<rect x="193.000000" y="-71.000000" width="147" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="78.000000" y="745.000000" width="60" height="42" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="418.500000" y="1039.500000" width="92" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="361.000000" y="599.000000" width="74" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="328.000000" y="5.000000" width="141" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="353.500000" y="442.000000" width="90" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="121.500000" y="230.500000" width="77" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="921.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="676.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="82.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="379.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="225.000000" y="1026.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="474.000000" y="948.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="133.000000" y="1087.000000" width="147" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="244.000000" y="948.000000" width="182" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="404.000000" y="528.000000" width="161" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="159.000000" y="644.000000" width="88" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="163.000000" y="839.000000" width="84" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="455.000000" y="231.000000" width="126" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="579.000000" y="383.000000" width="268" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="116.000000" y="66.000000" width="111" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="99.000000" y="349.000000" width="190" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="262.000000" y="231.000000" width="130" height="21" fill="rgba(0,0,0,0.75)"></rect>
+</mask></g><g style="animation: d2Transition-d2-1989894245-3 15000ms infinite"  class="d2-1989894245" width="1048" height="1383" viewBox="-101 -172 1048 1383"><rect x="-101.000000" y="-172.000000" width="1048.000000" height="1383.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="266.000000" y="-31.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Completion</text></g><g id="User"><g class="shape" ><rect x="0.000000" y="740.000000" width="216.000000" height="285.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="108.000000" y="777.000000" class="text fill-N1" style="text-anchor:middle;font-size:32px">User</text></g><g id="Order Server"><g class="shape" ><rect x="396.000000" y="990.000000" width="137.000000" height="120.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="464.500000" y="1055.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Order Server</text></g><g id="Solver"><g class="shape" ><rect x="290.000000" y="594.000000" width="216.000000" height="332.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="627.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Solver</text></g><g id="Underwriter"><g class="shape" ><rect x="297.000000" y="0.000000" width="203.000000" height="186.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="33.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Underwriter</text></g><g id="Reactor"><g class="shape" ><rect x="297.000000" y="297.000000" width="203.000000" height="186.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="398.500000" y="470.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Reactor</text></g><g id="SPV Oracle"><g class="shape" ><rect x="99.000000" y="208.000000" width="122.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="160.000000" y="246.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">SPV Oracle</text></g><g id="User.Input" style='opacity:0.100000'><g class="shape" ><rect x="60.000000" y="899.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="101.500000" y="937.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="User.Output"><g class="shape" ><rect x="60.000000" y="800.000000" width="96.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="108.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Solver.Input"><g class="shape" ><rect x="350.000000" y="654.000000" width="83.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="391.500000" y="692.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Solver.Output" style='opacity:0.100000'><g class="shape" ><rect x="350.000000" y="800.000000" width="96.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Underwriter.Input" style='opacity:0.100000'><g class="shape" ><rect x="357.000000" y="60.000000" width="83.000000" height="66.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="98.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Reactor.Input"><g class="shape" ><rect x="357.000000" y="357.000000" width="83.000000" height="66.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="395.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="(User &lt;-&gt; Order Server)[0]" style='opacity:0.100000'><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 144.000000 1029.000000 L 144.000000 1043.000000 S 144.000000 1053.000000 154.000000 1053.000000 L 392.000000 1053.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="256.500000" y="1042.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.1 Quote</text></g><g id="(Order Server &lt;-&gt; Solver)[0]" style='opacity:0.100000'><path d="M 468.000000 986.000000 L 468.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="505.500000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.2 Quote</text></g><g id="(User -&gt; Order Server)[0]" style='opacity:0.100000'><path d="M 72.000000 1027.000000 L 72.000000 1071.000000 S 72.000000 1081.000000 82.000000 1081.000000 L 392.000000 1081.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="206.500000" y="1103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.1 Send Signed Order</text></g><g id="(Order Server -&gt; Solver)[0]" style='opacity:0.100000'><path d="M 432.000000 988.000000 L 432.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="335.000000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.2 Broadcast Signed Order</text></g><g id="(Solver -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 398.000000 592.000000 L 398.000000 487.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="484.500000" y="544.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.1 Submit Signed Order</text></g><g id="(User.Input -&gt; Reactor.Input)[0]" style='opacity:0.100000'><path d="M 145.000000 912.000000 L 243.000000 912.000000 S 253.000000 912.000000 253.000000 902.000000 L 253.000000 400.000000 S 253.000000 390.000000 263.000000 390.000000 L 353.000000 390.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="203.000000" y="660.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.2 Pull Input</text></g><g id="(Solver.Output -&gt; User.Output)[0]"><path d="M 348.000000 833.000000 L 160.000000 833.000000" fill="none" class="connection animated-connection stroke-B1" style="stroke-width:2;stroke-dasharray:10.000000,9.865639;stroke-dashoffset:-198.656393;animation: dashdraw 4.932820s linear infinite;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="205.000000" y="855.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">4.1 Fill Order</text></g><g id="(Underwriter -&gt; Reactor)[0]"><path d="M 449.000000 188.000000 L 449.000000 293.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="518.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.1 Purchase Order</text></g><g id="(Underwriter.Input -&gt; Solver.Input)[0]"><path d="M 442.000000 93.000000 L 563.000000 93.000000 S 573.000000 93.000000 573.000000 103.000000 L 573.000000 677.000000 S 573.000000 687.000000 563.000000 687.000000 L 437.000000 687.000000" fill="none" class="connection animated-connection stroke-B1" style="stroke-width:2;stroke-dasharray:10.000000,9.865639;stroke-dashoffset:-198.656393;animation: dashdraw 4.932820s linear infinite;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="713.000000" y="399.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.2 Pull Inputs from underwriter to solver</text></g><g id="(Underwriter -&gt; SPV Oracle)[0]" style='opacity:0.100000'><path d="M 295.000000 93.000000 L 170.000000 93.000000 S 160.000000 93.000000 160.000000 103.000000 L 160.000000 204.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="171.500000" y="82.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.1 Submit Proof</text></g><g id="(SPV Oracle -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 160.000000 276.000000 L 160.000000 333.000000 S 160.000000 343.000000 170.000000 343.000000 L 293.000000 343.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="194.000000" y="365.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.2 Prove Bitcoin Transaction</text></g><g id="(Reactor.Input -&gt; Underwriter.Input)[0]" style='opacity:0.100000'><path d="M 398.000000 355.000000 L 398.000000 130.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-4222990809)" /><text x="327.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.3 Pay underwriter</text></g><mask id="d2-4222990809" maskUnits="userSpaceOnUse" x="-101" y="-172" width="1048" height="1383">
+<rect x="-101" y="-172" width="1048" height="1383" fill="white"></rect>
+<rect x="170.000000" y="-71.000000" width="192" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="78.000000" y="745.000000" width="60" height="42" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="418.500000" y="1039.500000" width="92" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="361.000000" y="599.000000" width="74" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="328.000000" y="5.000000" width="141" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="353.500000" y="442.000000" width="90" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="121.500000" y="230.500000" width="77" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="921.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="676.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="82.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="379.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="225.000000" y="1026.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="474.000000" y="948.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="133.000000" y="1087.000000" width="147" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="244.000000" y="948.000000" width="182" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="404.000000" y="528.000000" width="161" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="159.000000" y="644.000000" width="88" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="163.000000" y="839.000000" width="84" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="455.000000" y="231.000000" width="126" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="579.000000" y="383.000000" width="268" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="116.000000" y="66.000000" width="111" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="99.000000" y="349.000000" width="190" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="262.000000" y="231.000000" width="130" height="21" fill="rgba(0,0,0,0.75)"></rect>
+</mask></g><g style="animation: d2Transition-d2-1989894245-4 15000ms infinite"  class="d2-1989894245" width="1048" height="1383" viewBox="-101 -172 1048 1383"><rect x="-101.000000" y="-172.000000" width="1048.000000" height="1383.000000" rx="0.000000" fill="transparent" stroke-width="0" /><g id="title"><g class="shape" ></g><text x="266.000000" y="-31.000000" class="text fill-N1" style="text-anchor:middle;font-size:40px">Finalisation</text></g><g id="User"><g class="shape" ><rect x="0.000000" y="740.000000" width="216.000000" height="285.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="108.000000" y="777.000000" class="text fill-N1" style="text-anchor:middle;font-size:32px">User</text></g><g id="Order Server"><g class="shape" ><rect x="396.000000" y="990.000000" width="137.000000" height="120.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="464.500000" y="1055.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Order Server</text></g><g id="Solver"><g class="shape" ><rect x="290.000000" y="594.000000" width="216.000000" height="332.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="627.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Solver</text></g><g id="Underwriter"><g class="shape" ><rect x="297.000000" y="0.000000" width="203.000000" height="186.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="33.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Underwriter</text></g><g id="Reactor"><g class="shape" ><rect x="297.000000" y="297.000000" width="203.000000" height="186.000000" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="398.500000" y="470.000000" class="text fill-N1" style="text-anchor:middle;font-size:28px">Reactor</text></g><g id="SPV Oracle"><g class="shape" ><rect x="99.000000" y="208.000000" width="122.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="160.000000" y="246.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">SPV Oracle</text></g><g id="User.Input" style='opacity:0.100000'><g class="shape" ><rect x="60.000000" y="899.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="101.500000" y="937.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="User.Output"><g class="shape" ><rect x="60.000000" y="800.000000" width="96.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="108.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Solver.Input"><g class="shape" ><rect x="350.000000" y="654.000000" width="83.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="391.500000" y="692.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Solver.Output" style='opacity:0.100000'><g class="shape" ><rect x="350.000000" y="800.000000" width="96.000000" height="66.000000" fill="#fbe1e3" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.000000" y="838.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Output</text></g><g id="Underwriter.Input"><g class="shape" ><rect x="357.000000" y="60.000000" width="83.000000" height="66.000000" fill="#e5ffe7" class=" stroke-B1" style="stroke-width:2;" /></g><text x="398.500000" y="98.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="Reactor.Input" style='opacity:0.100000'><g class="shape" ><rect x="357.000000" y="357.000000" width="83.000000" height="66.000000" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="398.500000" y="395.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Input</text></g><g id="(User &lt;-&gt; Order Server)[0]" style='opacity:0.100000'><marker id="mk-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 144.000000 1029.000000 L 144.000000 1043.000000 S 144.000000 1053.000000 154.000000 1053.000000 L 392.000000 1053.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="256.500000" y="1042.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.1 Quote</text></g><g id="(Order Server &lt;-&gt; Solver)[0]" style='opacity:0.100000'><path d="M 468.000000 986.000000 L 468.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-start="url(#mk-2451250203)" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="505.500000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">1.2 Quote</text></g><g id="(User -&gt; Order Server)[0]" style='opacity:0.100000'><path d="M 72.000000 1027.000000 L 72.000000 1071.000000 S 72.000000 1081.000000 82.000000 1081.000000 L 392.000000 1081.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="206.500000" y="1103.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.1 Send Signed Order</text></g><g id="(Order Server -&gt; Solver)[0]" style='opacity:0.100000'><path d="M 432.000000 988.000000 L 432.000000 930.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="335.000000" y="964.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">2.2 Broadcast Signed Order</text></g><g id="(Solver -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 398.000000 592.000000 L 398.000000 487.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="484.500000" y="544.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.1 Submit Signed Order</text></g><g id="(User.Input -&gt; Reactor.Input)[0]" style='opacity:0.100000'><path d="M 145.000000 912.000000 L 243.000000 912.000000 S 253.000000 912.000000 253.000000 902.000000 L 253.000000 400.000000 S 253.000000 390.000000 263.000000 390.000000 L 353.000000 390.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="203.000000" y="660.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">3.2 Pull Input</text></g><g id="(Solver.Output -&gt; User.Output)[0]" style='opacity:0.100000'><path d="M 348.000000 833.000000 L 160.000000 833.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="205.000000" y="855.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">4.1 Fill Order</text></g><g id="(Underwriter -&gt; Reactor)[0]" style='opacity:0.100000'><path d="M 449.000000 188.000000 L 449.000000 293.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="518.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.1 Purchase Order</text></g><g id="(Underwriter.Input -&gt; Solver.Input)[0]" style='opacity:0.100000'><path d="M 442.000000 93.000000 L 563.000000 93.000000 S 573.000000 93.000000 573.000000 103.000000 L 573.000000 677.000000 S 573.000000 687.000000 563.000000 687.000000 L 437.000000 687.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="713.000000" y="399.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">5.2 Pull Inputs from underwriter to solver</text></g><g id="(Underwriter -&gt; SPV Oracle)[0]"><path d="M 295.000000 93.000000 L 170.000000 93.000000 S 160.000000 93.000000 160.000000 103.000000 L 160.000000 204.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="171.500000" y="82.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.1 Submit Proof</text></g><g id="(SPV Oracle -&gt; Reactor)[0]"><path d="M 160.000000 276.000000 L 160.000000 333.000000 S 160.000000 343.000000 170.000000 343.000000 L 293.000000 343.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="194.000000" y="365.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.2 Prove Bitcoin Transaction</text></g><g id="(Reactor.Input -&gt; Underwriter.Input)[0]"><path d="M 398.000000 355.000000 L 398.000000 130.000000" fill="none" class="connection animated-connection stroke-B1" style="stroke-width:2;stroke-dasharray:10.000000,9.865639;stroke-dashoffset:-198.656393;animation: dashdraw 4.932820s linear infinite;" marker-end="url(#mk-3488378134)" mask="url(#d2-1078695359)" /><text x="327.000000" y="247.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">6.3 Pay underwriter</text></g><mask id="d2-1078695359" maskUnits="userSpaceOnUse" x="-101" y="-172" width="1048" height="1383">
+<rect x="-101" y="-172" width="1048" height="1383" fill="white"></rect>
+<rect x="171.000000" y="-71.000000" width="190" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="78.000000" y="745.000000" width="60" height="42" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="418.500000" y="1039.500000" width="92" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="361.000000" y="599.000000" width="74" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="328.000000" y="5.000000" width="141" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="353.500000" y="442.000000" width="90" height="36" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="121.500000" y="230.500000" width="77" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="921.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="82.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="676.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="372.500000" y="822.500000" width="51" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="82.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="379.500000" y="379.500000" width="38" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="225.000000" y="1026.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="474.000000" y="948.000000" width="63" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="133.000000" y="1087.000000" width="147" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="244.000000" y="948.000000" width="182" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="404.000000" y="528.000000" width="161" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="159.000000" y="644.000000" width="88" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="163.000000" y="839.000000" width="84" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="455.000000" y="231.000000" width="126" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="579.000000" y="383.000000" width="268" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="116.000000" y="66.000000" width="111" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="99.000000" y="349.000000" width="190" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="262.000000" y="231.000000" width="130" height="21" fill="rgba(0,0,0,0.75)"></rect>
+</mask></g></svg></svg>
