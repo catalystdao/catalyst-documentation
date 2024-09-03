@@ -32,305 +32,1476 @@ Cross Cats support underwriting inputs, this allows the filler to receive the in
 ## Quick Overview
 
 <Tabs>
-<TabItem label="USDC -> BTC">
+  <TabItem label="USDC -> BTC">
+    <Tabs>
+    <TabItem label="Index">
+      ```d2
+      style.fill: transparent
+      direction: right
 
-```d2 animateInterval=3000
-style.fill: transparent
-direction: right
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
 
-title: Index {
-  near: top-center
-  shape: text
-  style: {
-    font-size: 40
-  }
-}
+      vars: {
+        default-opacity: 0.1
+      }
 
-vars: {
-  default-opacity: 0.1
-}
+      User: {
+        Input: {
+          style.opacity: 1
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
 
-User: {
-  Input: {
-    style.opacity: 1
-  }
-  Output: {
-    style.opacity: ${default-opacity}
-  }
-}
+      Order Server
 
-Order Server
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
 
-Solver: Solver {
-  style.multiple: true
-  Input: {
-    style.opacity: ${default-opacity}
-    style.fill: "#fbe1e3"
-  }
-  Output: {
-    style.opacity: 1
-    style.fill: "#fbe1e3"
-  }
-  style.fill: "#fbe1e3"
-}
-Underwriter: {
-  Input: {
-    style.opacity: 1
-    style.fill: "#e5ffe7"
-  }
-  style.fill: "#e5ffe7"
-}
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
 
-# On chain:
-Reactor: {
-  Input: {style.opacity: ${default-opacity}}
-}
-SPV Oracle
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
 
-# Step 1. Get a quote for the user.
-User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
-Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+      # Step 2. Broadcasting Signed Order.
+      User -> Order Server: 2.1 Send Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 2.2 Broadcast Signed Order {style.opacity: ${default-opacity}}
 
-# Step 2. Broadcasting Signed Order.
-User -> Order Server: 2.1 Send Signed Order {style.opacity: ${default-opacity}}
-Order Server -> Solver: 2.2 Broadcast Signed Order {style.opacity: ${default-opacity}}
+      # Step 3. Solver initiates order
+      Solver -> Reactor: 3.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      User.Input -> Reactor.Input: 3.2 Pull Input {style.opacity: ${default-opacity}}
 
-# Step 3. Solver initiates order
-Solver -> Reactor: 3.1 Submit Signed Order {style.opacity: ${default-opacity}}
-User.Input -> Reactor.Input: 3.2 Pull Input {style.opacity: ${default-opacity}}
+      # Step 4. Solver delivers tokens
+      Solver.Output -> User.Output: 4.1 Fill Order {style.opacity: ${default-opacity}}
 
-# Step 4. Solver delivers tokens
-Solver.Output -> User.Output: 4.1 Fill Order {style.opacity: ${default-opacity}}
+      # Step 5. Underwrite
+      Underwriter -> Reactor: 5.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> Solver.Input: 5.2 Pull Inputs from underwriter to solver {style.opacity: ${default-opacity}}
 
-# Step 5. Underwrite
-Underwriter -> Reactor: 5.1 Purchase Order {style.opacity: ${default-opacity}}
-Underwriter.Input -> Solver.Input: 5.2 Pull Inputs from underwriter to solver {style.opacity: ${default-opacity}}
+      # Step 6. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 6.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 6.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 6.3 Pay underwriter {style.opacity: ${default-opacity}}
 
-# Step 6. Bitcoin Confirmed
-Underwriter -> SPV Oracle: 6.1 Submit Proof {style.opacity: ${default-opacity}}
-SPV Oracle -> Reactor: 6.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
-Reactor.Input -> Underwriter.Input: 6.3 Pay underwriter {style.opacity: ${default-opacity}}
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+          (User -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Reactor.Input.style.opacity: 1
+          User.Input.style.opacity: ${default-opacity}
+          (User.Input -> Reactor.Input)[0].style.opacity: 1
+          (User.Input -> Reactor.Input)[0].style.animated: true
+          (Solver -> Reactor)[0].style.opacity: 1
+          Reactor.Input.style.fill: "#fbe1e3"
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> Solver.Input)[0].style.opacity: 1
+          (Underwriter.Input -> Solver.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
 
-scenarios: {
-  Setup: {
-    title.label: Setup
-    Solver: Solver {style.multiple: true}
-    (Order Server <-> Solver)[0].style.opacity: 1
-    (User <-> Order Server)[0].style.opacity: 1
-    (User -> Order Server)[0].style.opacity: 1
-    (Order Server -> Solver)[0].style.opacity: 1
-  }
-  Initiation: {
-    title.label: Initiation
-    Solver: Solver {
-      style.multiple: false
-      Input.style.fill: "#fbe1e3"
-    }
-    Reactor.Input.style.opacity: 1
-    User.Input.style.opacity: ${default-opacity}
-    (User.Input -> Reactor.Input)[0].style.opacity: 1
-    (User.Input -> Reactor.Input)[0].style.animated: true
-    (Solver -> Reactor)[0].style.opacity: 1
-    Reactor.Input.style.fill: "#fbe1e3"
-  }
-  Completion: {
-    title.label: Completion
-    Solver: Solver {style.multiple: false}
-    Solver.Input.style.opacity: ${default-opacity}
-    (Underwriter.Input -> Solver.Input)[0].style.opacity: 1
-    (Underwriter.Input -> Solver.Input)[0].style.animated: true
-    User.Input.style.opacity: 1
-    Underwriter.Input.style.opacity: ${default-opacity}
-    Reactor.Input.style.opacity: 1
-    Reactor.Input.style.fill: "#e5ffe7"
+          (Solver.Output -> User.Output)[0].style.opacity: 1
+          (Solver.Output -> User.Output)[0].style.animated: true
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Output.style.opacity: 1
 
-    (Solver.Output -> User.Output)[0].style.opacity: 1
-    (Solver.Output -> User.Output)[0].style.animated: true
-    Solver.Output.style.opacity: ${default-opacity}
-    User.Output.style.opacity: 1
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Setup">
 
-    (Underwriter -> Reactor)[0].style.opacity: 1
-    Solver.Input.style.opacity: 1
-    User.Output.style.opacity: 1
-    Solver.Output.style.opacity: ${default-opacity}
-    User.Input.style.opacity: ${default-opacity}
-  }
-  Finalisation: {
-    title.label: Finalisation
-    Solver: Solver {style.multiple: false}
-    Solver.Input.style.opacity: ${default-opacity}
-    (Underwriter -> SPV Oracle)[0].style.opacity: 1
-    (SPV Oracle -> Reactor)[0].style.opacity: 1
-    (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
-    (Reactor.Input -> Underwriter.Input)[0].style.animated: true
-    Underwriter.Input.style.opacity: 1
-    Solver.Input.style.opacity: 1
-    User.Output.style.opacity: 1
-    Solver.Output.style.opacity: ${default-opacity}
-    User.Input.style.opacity: ${default-opacity}
-  }
-}
-```
+      ```d2 target=Setup
+      style.fill: transparent
+      direction: right
 
-</TabItem>
-<TabItem label="BTC -> USDC">
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
 
-```d2 animateInterval=3000
-style.fill: transparent
-direction: right
+      vars: {
+        default-opacity: 0.1
+      }
 
-title: Index {
-  near: top-center
-  shape: text
-  style: {
-    font-size: 40
-  }
-}
+      User: {
+        Input: {
+          style.opacity: 1
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
 
-vars: {
-  default-opacity: 0.1
-}
+      Order Server
 
-User: {
-  Input: {
-    style.opacity: ${default-opacity}
-  }
-  Output: {
-    style.opacity: 1
-  }
-}
-Deposit Address: {
-  shape: page
-  Output: {
-    style.opacity: ${default-opacity}
-  }
-}
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
 
-Order Server
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
 
-Solver: Solver {
-  style.multiple: true
-  Input: {
-    style.opacity: 1
-    style.fill: "#fbe1e3"
-  }
-  Output: {
-    style.opacity: ${default-opacity}
-    style.fill: "#fbe1e3"
-  }
-  style.fill: "#fbe1e3"
-}
-Underwriter: {
-  Input: {
-    style.opacity: 1
-    style.fill: "#e5ffe7"
-  }
-  style.fill: "#e5ffe7"
-}
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
 
-# On chain:
-Reactor: {
-  Input: {style.opacity: ${default-opacity}}
-}
-SPV Oracle
+      # Step 2. Broadcasting Signed Order.
+      User -> Order Server: 2.1 Send Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 2.2 Broadcast Signed Order {style.opacity: ${default-opacity}}
 
-# Step 1. Get a quote for the user.
-User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
-Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+      # Step 3. Solver initiates order
+      Solver -> Reactor: 3.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      User.Input -> Reactor.Input: 3.2 Pull Input {style.opacity: ${default-opacity}}
 
-# Step 2. Sign a message to generate deposit address
-User -> Deposit Address: 2. Sign message to generate key {style.opacity: ${default-opacity}}
+      # Step 4. Solver delivers tokens
+      Solver.Output -> User.Output: 4.1 Fill Order {style.opacity: ${default-opacity}}
 
-# Step 3. Send BTC
-User.Output -> Deposit Address.Output: 3. Send BTC {style.opacity: 0.11}
+      # Step 5. Underwrite
+      Underwriter -> Reactor: 5.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> Solver.Input: 5.2 Pull Inputs from underwriter to solver {style.opacity: ${default-opacity}}
 
-# Step 4. Request signed order.
-User -> Order Server: 4.1 Request Signed Order {style.opacity: ${default-opacity}}
-Order Server -> Solver: 4.2 Request Signed Order {style.opacity: ${default-opacity}}
-Solver -> Order Server: 4.3 Signed Order {style.opacity: ${default-opacity}}
-Order Server -> User: 4.4 Signed Order {style.opacity: 0.11}
+      # Step 6. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 6.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 6.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 6.3 Pay underwriter {style.opacity: ${default-opacity}}
 
-# Step 5. Submit Signed Order
-User -> Reactor: 5.1 Submit Signed Order {style.opacity: ${default-opacity}}
-Solver.Input -> Reactor.Input: 5.2 Pull Input Tokens {style.opacity: 0.11}
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+          (User -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Reactor.Input.style.opacity: 1
+          User.Input.style.opacity: ${default-opacity}
+          (User.Input -> Reactor.Input)[0].style.opacity: 1
+          (User.Input -> Reactor.Input)[0].style.animated: true
+          (Solver -> Reactor)[0].style.opacity: 1
+          Reactor.Input.style.fill: "#fbe1e3"
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> Solver.Input)[0].style.opacity: 1
+          (Underwriter.Input -> Solver.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
 
-# Step 6. Send BTC to Solver
-Deposit Address.Output -> Solver.Output: 6. Send Bitcoins {style.opacity: ${default-opacity}}
+          (Solver.Output -> User.Output)[0].style.opacity: 1
+          (Solver.Output -> User.Output)[0].style.animated: true
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Output.style.opacity: 1
 
-# Step 7. Underwrite
-Underwriter -> Reactor: 7.1 Purchase Order {style.opacity: ${default-opacity}}
-Underwriter.Input -> User.Input: 7.2 Pull Inputs from underwriter to user {style.opacity: ${default-opacity}}
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Initiation">
+      ```d2 target=Initiation
+      style.fill: transparent
+      direction: right
 
-# Step 8. Bitcoin Confirmed
-Underwriter -> SPV Oracle: 8.1 Submit Proof {style.opacity: ${default-opacity}}
-SPV Oracle -> Reactor: 8.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
-Reactor.Input -> Underwriter.Input: 8.3 Pay underwriter {style.opacity: ${default-opacity}}
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
 
-scenarios: {
-  Setup: {
-    title.label: Setup
-    Solver: Solver {style.multiple: true}
-    (User -> Deposit Address)[0].style.opacity: 1
-    (Order Server <-> Solver)[0].style.opacity: 1
-    (User <-> Order Server)[0].style.opacity: 1
-  }
-  Initiation: {
-    title.label: Initiation
-    Solver: Solver {
-      style.multiple: false
-      Input.style.fill: "#fbe1e3"
-    }
-    Solver.Input.style.opacity: ${default-opacity}
-    Reactor.Input.style.opacity: 1
-    (Solver -> Order Server)[0].style.opacity: 1
-    (Order Server -> Solver)[0].style.opacity: 1
-    (Order Server -> User)[0].style.opacity: 1
-    (Solver.Input -> Reactor.Input)[0].style.opacity: 1
-    (Solver.Input -> Reactor.Input)[0].style.animated: true
-    (User -> Reactor)[0].style.opacity: 1
-    (User.Output -> Deposit Address.Output)[0].style.opacity: 1
-    (User.Output -> Deposit Address.Output)[0].style.animated: true
-    (User -> Order Server)[0].style.opacity: 1
-    User.Output.style.opacity: ${default-opacity}
-    Deposit Address.Output.style.opacity: 1
-  }
-  Completion: {
-    title.label: Completion
-    Solver: Solver {style.multiple: false}
-    Solver.Input.style.opacity: ${default-opacity}
-    (Underwriter.Input -> User.Input)[0].style.opacity: 1
-    (Underwriter.Input -> User.Input)[0].style.animated: true
-    User.Input.style.opacity: 1
-    Underwriter.Input.style.opacity: ${default-opacity}
-    Reactor.Input.style.opacity: 1
-    Reactor.Input.style.fill: "#e5ffe7"
-    (Deposit Address.Output -> Solver.Output)[0].style.opacity: 1
-    (Deposit Address.Output -> Solver.Output)[0].style.animated: true
+      vars: {
+        default-opacity: 0.1
+      }
 
-    (Underwriter -> Reactor)[0].style.opacity: 1
-    Solver.Output.style.opacity: 1
-    User.Output.style.opacity: ${default-opacity}
-  }
-  Finalisation: {
-    title.label: Finalisation
-    Solver: Solver {style.multiple: false}
-    Solver.Input.style.opacity: ${default-opacity}
-    (Underwriter -> SPV Oracle)[0].style.opacity: 1
-    (SPV Oracle -> Reactor)[0].style.opacity: 1
-    (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
-    (Reactor.Input -> Underwriter.Input)[0].style.animated: true
-    Underwriter.Input.style.opacity: 1
-    User.Input.style.opacity: 1
-    Solver.Output.style.opacity: 1
-    User.Output.style.opacity: ${default-opacity}
-  }
-}
-```
+      User: {
+        Input: {
+          style.opacity: 1
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
 
-</TabItem>
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Broadcasting Signed Order.
+      User -> Order Server: 2.1 Send Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 2.2 Broadcast Signed Order {style.opacity: ${default-opacity}}
+
+      # Step 3. Solver initiates order
+      Solver -> Reactor: 3.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      User.Input -> Reactor.Input: 3.2 Pull Input {style.opacity: ${default-opacity}}
+
+      # Step 4. Solver delivers tokens
+      Solver.Output -> User.Output: 4.1 Fill Order {style.opacity: ${default-opacity}}
+
+      # Step 5. Underwrite
+      Underwriter -> Reactor: 5.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> Solver.Input: 5.2 Pull Inputs from underwriter to solver {style.opacity: ${default-opacity}}
+
+      # Step 6. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 6.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 6.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 6.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+          (User -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Reactor.Input.style.opacity: 1
+          User.Input.style.opacity: ${default-opacity}
+          (User.Input -> Reactor.Input)[0].style.opacity: 1
+          (User.Input -> Reactor.Input)[0].style.animated: true
+          (Solver -> Reactor)[0].style.opacity: 1
+          Reactor.Input.style.fill: "#fbe1e3"
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> Solver.Input)[0].style.opacity: 1
+          (Underwriter.Input -> Solver.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+
+          (Solver.Output -> User.Output)[0].style.opacity: 1
+          (Solver.Output -> User.Output)[0].style.animated: true
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Output.style.opacity: 1
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Completion">
+      ```d2 target=Completion
+      style.fill: transparent
+      direction: right
+
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      User: {
+        Input: {
+          style.opacity: 1
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
+
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Broadcasting Signed Order.
+      User -> Order Server: 2.1 Send Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 2.2 Broadcast Signed Order {style.opacity: ${default-opacity}}
+
+      # Step 3. Solver initiates order
+      Solver -> Reactor: 3.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      User.Input -> Reactor.Input: 3.2 Pull Input {style.opacity: ${default-opacity}}
+
+      # Step 4. Solver delivers tokens
+      Solver.Output -> User.Output: 4.1 Fill Order {style.opacity: ${default-opacity}}
+
+      # Step 5. Underwrite
+      Underwriter -> Reactor: 5.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> Solver.Input: 5.2 Pull Inputs from underwriter to solver {style.opacity: ${default-opacity}}
+
+      # Step 6. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 6.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 6.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 6.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+          (User -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Reactor.Input.style.opacity: 1
+          User.Input.style.opacity: ${default-opacity}
+          (User.Input -> Reactor.Input)[0].style.opacity: 1
+          (User.Input -> Reactor.Input)[0].style.animated: true
+          (Solver -> Reactor)[0].style.opacity: 1
+          Reactor.Input.style.fill: "#fbe1e3"
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> Solver.Input)[0].style.opacity: 1
+          (Underwriter.Input -> Solver.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+
+          (Solver.Output -> User.Output)[0].style.opacity: 1
+          (Solver.Output -> User.Output)[0].style.animated: true
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Output.style.opacity: 1
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Finalisation">
+      ```d2 target=Finalisation
+      style.fill: transparent
+      direction: right
+
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      User: {
+        Input: {
+          style.opacity: 1
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
+
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Broadcasting Signed Order.
+      User -> Order Server: 2.1 Send Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 2.2 Broadcast Signed Order {style.opacity: ${default-opacity}}
+
+      # Step 3. Solver initiates order
+      Solver -> Reactor: 3.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      User.Input -> Reactor.Input: 3.2 Pull Input {style.opacity: ${default-opacity}}
+
+      # Step 4. Solver delivers tokens
+      Solver.Output -> User.Output: 4.1 Fill Order {style.opacity: ${default-opacity}}
+
+      # Step 5. Underwrite
+      Underwriter -> Reactor: 5.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> Solver.Input: 5.2 Pull Inputs from underwriter to solver {style.opacity: ${default-opacity}}
+
+      # Step 6. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 6.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 6.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 6.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+          (User -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Reactor.Input.style.opacity: 1
+          User.Input.style.opacity: ${default-opacity}
+          (User.Input -> Reactor.Input)[0].style.opacity: 1
+          (User.Input -> Reactor.Input)[0].style.animated: true
+          (Solver -> Reactor)[0].style.opacity: 1
+          Reactor.Input.style.fill: "#fbe1e3"
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> Solver.Input)[0].style.opacity: 1
+          (Underwriter.Input -> Solver.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+
+          (Solver.Output -> User.Output)[0].style.opacity: 1
+          (Solver.Output -> User.Output)[0].style.animated: true
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Output.style.opacity: 1
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          Solver.Input.style.opacity: 1
+          User.Output.style.opacity: 1
+          Solver.Output.style.opacity: ${default-opacity}
+          User.Input.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    </Tabs>
+  </TabItem>
+  <TabItem label="BTC -> USDC">
+    <Tabs>
+    <TabItem label="Index">
+      ```d2
+      style.fill: transparent
+      direction: right
+
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      User: {
+        Input: {
+          style.opacity: ${default-opacity}
+        }
+        Output: {
+          style.opacity: 1
+        }
+      }
+      Deposit Address: {
+        shape: page
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
+
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Sign a message to generate deposit address
+      User -> Deposit Address: 2. Sign message to generate key {style.opacity: ${default-opacity}}
+
+      # Step 3. Send BTC
+      User.Output -> Deposit Address.Output: 3. Send BTC {style.opacity: 0.11}
+
+      # Step 4. Request signed order.
+      User -> Order Server: 4.1 Request Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 4.2 Request Signed Order {style.opacity: ${default-opacity}}
+      Solver -> Order Server: 4.3 Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> User: 4.4 Signed Order {style.opacity: 0.11}
+
+      # Step 5. Submit Signed Order
+      User -> Reactor: 5.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      Solver.Input -> Reactor.Input: 5.2 Pull Input Tokens {style.opacity: 0.11}
+
+      # Step 6. Send BTC to Solver
+      Deposit Address.Output -> Solver.Output: 6. Send Bitcoins {style.opacity: ${default-opacity}}
+
+      # Step 7. Underwrite
+      Underwriter -> Reactor: 7.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> User.Input: 7.2 Pull Inputs from underwriter to user {style.opacity: ${default-opacity}}
+
+      # Step 8. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 8.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 8.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 8.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (User -> Deposit Address)[0].style.opacity: 1
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Solver.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          (Solver -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+          (Order Server -> User)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.animated: true
+          (User -> Reactor)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.animated: true
+          (User -> Order Server)[0].style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+          Deposit Address.Output.style.opacity: 1
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> User.Input)[0].style.opacity: 1
+          (Underwriter.Input -> User.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+          (Deposit Address.Output -> Solver.Output)[0].style.opacity: 1
+          (Deposit Address.Output -> Solver.Output)[0].style.animated: true
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          User.Input.style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Setup">
+      ```d2 target=Setup
+      style.fill: transparent
+      direction: right
+
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      User: {
+        Input: {
+          style.opacity: ${default-opacity}
+        }
+        Output: {
+          style.opacity: 1
+        }
+      }
+      Deposit Address: {
+        shape: page
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
+
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Sign a message to generate deposit address
+      User -> Deposit Address: 2. Sign message to generate key {style.opacity: ${default-opacity}}
+
+      # Step 3. Send BTC
+      User.Output -> Deposit Address.Output: 3. Send BTC {style.opacity: 0.11}
+
+      # Step 4. Request signed order.
+      User -> Order Server: 4.1 Request Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 4.2 Request Signed Order {style.opacity: ${default-opacity}}
+      Solver -> Order Server: 4.3 Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> User: 4.4 Signed Order {style.opacity: 0.11}
+
+      # Step 5. Submit Signed Order
+      User -> Reactor: 5.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      Solver.Input -> Reactor.Input: 5.2 Pull Input Tokens {style.opacity: 0.11}
+
+      # Step 6. Send BTC to Solver
+      Deposit Address.Output -> Solver.Output: 6. Send Bitcoins {style.opacity: ${default-opacity}}
+
+      # Step 7. Underwrite
+      Underwriter -> Reactor: 7.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> User.Input: 7.2 Pull Inputs from underwriter to user {style.opacity: ${default-opacity}}
+
+      # Step 8. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 8.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 8.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 8.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (User -> Deposit Address)[0].style.opacity: 1
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Solver.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          (Solver -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+          (Order Server -> User)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.animated: true
+          (User -> Reactor)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.animated: true
+          (User -> Order Server)[0].style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+          Deposit Address.Output.style.opacity: 1
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> User.Input)[0].style.opacity: 1
+          (Underwriter.Input -> User.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+          (Deposit Address.Output -> Solver.Output)[0].style.opacity: 1
+          (Deposit Address.Output -> Solver.Output)[0].style.animated: true
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          User.Input.style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Initiation">
+      ```d2 target=Initiation
+      style.fill: transparent
+      direction: right
+
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      User: {
+        Input: {
+          style.opacity: ${default-opacity}
+        }
+        Output: {
+          style.opacity: 1
+        }
+      }
+      Deposit Address: {
+        shape: page
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
+
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Sign a message to generate deposit address
+      User -> Deposit Address: 2. Sign message to generate key {style.opacity: ${default-opacity}}
+
+      # Step 3. Send BTC
+      User.Output -> Deposit Address.Output: 3. Send BTC {style.opacity: 0.11}
+
+      # Step 4. Request signed order.
+      User -> Order Server: 4.1 Request Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 4.2 Request Signed Order {style.opacity: ${default-opacity}}
+      Solver -> Order Server: 4.3 Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> User: 4.4 Signed Order {style.opacity: 0.11}
+
+      # Step 5. Submit Signed Order
+      User -> Reactor: 5.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      Solver.Input -> Reactor.Input: 5.2 Pull Input Tokens {style.opacity: 0.11}
+
+      # Step 6. Send BTC to Solver
+      Deposit Address.Output -> Solver.Output: 6. Send Bitcoins {style.opacity: ${default-opacity}}
+
+      # Step 7. Underwrite
+      Underwriter -> Reactor: 7.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> User.Input: 7.2 Pull Inputs from underwriter to user {style.opacity: ${default-opacity}}
+
+      # Step 8. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 8.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 8.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 8.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (User -> Deposit Address)[0].style.opacity: 1
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Solver.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          (Solver -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+          (Order Server -> User)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.animated: true
+          (User -> Reactor)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.animated: true
+          (User -> Order Server)[0].style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+          Deposit Address.Output.style.opacity: 1
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> User.Input)[0].style.opacity: 1
+          (Underwriter.Input -> User.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+          (Deposit Address.Output -> Solver.Output)[0].style.opacity: 1
+          (Deposit Address.Output -> Solver.Output)[0].style.animated: true
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          User.Input.style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Completion">
+      ```d2 target=Completion
+      style.fill: transparent
+      direction: right
+
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      User: {
+        Input: {
+          style.opacity: ${default-opacity}
+        }
+        Output: {
+          style.opacity: 1
+        }
+      }
+      Deposit Address: {
+        shape: page
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
+
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Sign a message to generate deposit address
+      User -> Deposit Address: 2. Sign message to generate key {style.opacity: ${default-opacity}}
+
+      # Step 3. Send BTC
+      User.Output -> Deposit Address.Output: 3. Send BTC {style.opacity: 0.11}
+
+      # Step 4. Request signed order.
+      User -> Order Server: 4.1 Request Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 4.2 Request Signed Order {style.opacity: ${default-opacity}}
+      Solver -> Order Server: 4.3 Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> User: 4.4 Signed Order {style.opacity: 0.11}
+
+      # Step 5. Submit Signed Order
+      User -> Reactor: 5.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      Solver.Input -> Reactor.Input: 5.2 Pull Input Tokens {style.opacity: 0.11}
+
+      # Step 6. Send BTC to Solver
+      Deposit Address.Output -> Solver.Output: 6. Send Bitcoins {style.opacity: ${default-opacity}}
+
+      # Step 7. Underwrite
+      Underwriter -> Reactor: 7.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> User.Input: 7.2 Pull Inputs from underwriter to user {style.opacity: ${default-opacity}}
+
+      # Step 8. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 8.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 8.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 8.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (User -> Deposit Address)[0].style.opacity: 1
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Solver.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          (Solver -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+          (Order Server -> User)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.animated: true
+          (User -> Reactor)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.animated: true
+          (User -> Order Server)[0].style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+          Deposit Address.Output.style.opacity: 1
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> User.Input)[0].style.opacity: 1
+          (Underwriter.Input -> User.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+          (Deposit Address.Output -> Solver.Output)[0].style.opacity: 1
+          (Deposit Address.Output -> Solver.Output)[0].style.animated: true
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          User.Input.style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Finalisation">
+      ```d2 target=Finalisation
+      style.fill: transparent
+      direction: right
+
+      title: Index {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      User: {
+        Input: {
+          style.opacity: ${default-opacity}
+        }
+        Output: {
+          style.opacity: 1
+        }
+      }
+      Deposit Address: {
+        shape: page
+        Output: {
+          style.opacity: ${default-opacity}
+        }
+      }
+
+      Order Server
+
+      Solver: Solver {
+        style.multiple: true
+        Input: {
+          style.opacity: 1
+          style.fill: "#fbe1e3"
+        }
+        Output: {
+          style.opacity: ${default-opacity}
+          style.fill: "#fbe1e3"
+        }
+        style.fill: "#fbe1e3"
+      }
+      Underwriter: {
+        Input: {
+          style.opacity: 1
+          style.fill: "#e5ffe7"
+        }
+        style.fill: "#e5ffe7"
+      }
+
+      # On chain:
+      Reactor: {
+        Input: {style.opacity: ${default-opacity}}
+      }
+      SPV Oracle
+
+      # Step 1. Get a quote for the user.
+      User <-> Order Server: 1.1 Quote {style.opacity: ${default-opacity}}
+      Order Server <-> Solver: 1.2 Quote {style.opacity: ${default-opacity}}
+
+      # Step 2. Sign a message to generate deposit address
+      User -> Deposit Address: 2. Sign message to generate key {style.opacity: ${default-opacity}}
+
+      # Step 3. Send BTC
+      User.Output -> Deposit Address.Output: 3. Send BTC {style.opacity: 0.11}
+
+      # Step 4. Request signed order.
+      User -> Order Server: 4.1 Request Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> Solver: 4.2 Request Signed Order {style.opacity: ${default-opacity}}
+      Solver -> Order Server: 4.3 Signed Order {style.opacity: ${default-opacity}}
+      Order Server -> User: 4.4 Signed Order {style.opacity: 0.11}
+
+      # Step 5. Submit Signed Order
+      User -> Reactor: 5.1 Submit Signed Order {style.opacity: ${default-opacity}}
+      Solver.Input -> Reactor.Input: 5.2 Pull Input Tokens {style.opacity: 0.11}
+
+      # Step 6. Send BTC to Solver
+      Deposit Address.Output -> Solver.Output: 6. Send Bitcoins {style.opacity: ${default-opacity}}
+
+      # Step 7. Underwrite
+      Underwriter -> Reactor: 7.1 Purchase Order {style.opacity: ${default-opacity}}
+      Underwriter.Input -> User.Input: 7.2 Pull Inputs from underwriter to user {style.opacity: ${default-opacity}}
+
+      # Step 8. Bitcoin Confirmed
+      Underwriter -> SPV Oracle: 8.1 Submit Proof {style.opacity: ${default-opacity}}
+      SPV Oracle -> Reactor: 8.2 Prove Bitcoin Transaction {style.opacity: ${default-opacity}}
+      Reactor.Input -> Underwriter.Input: 8.3 Pay underwriter {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        Setup: {
+          title.label: Setup
+          Solver: Solver {style.multiple: true}
+          (User -> Deposit Address)[0].style.opacity: 1
+          (Order Server <-> Solver)[0].style.opacity: 1
+          (User <-> Order Server)[0].style.opacity: 1
+        }
+        Initiation: {
+          title.label: Initiation
+          Solver: Solver {
+            style.multiple: false
+            Input.style.fill: "#fbe1e3"
+          }
+          Solver.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          (Solver -> Order Server)[0].style.opacity: 1
+          (Order Server -> Solver)[0].style.opacity: 1
+          (Order Server -> User)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.opacity: 1
+          (Solver.Input -> Reactor.Input)[0].style.animated: true
+          (User -> Reactor)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.opacity: 1
+          (User.Output -> Deposit Address.Output)[0].style.animated: true
+          (User -> Order Server)[0].style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+          Deposit Address.Output.style.opacity: 1
+        }
+        Completion: {
+          title.label: Completion
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter.Input -> User.Input)[0].style.opacity: 1
+          (Underwriter.Input -> User.Input)[0].style.animated: true
+          User.Input.style.opacity: 1
+          Underwriter.Input.style.opacity: ${default-opacity}
+          Reactor.Input.style.opacity: 1
+          Reactor.Input.style.fill: "#e5ffe7"
+          (Deposit Address.Output -> Solver.Output)[0].style.opacity: 1
+          (Deposit Address.Output -> Solver.Output)[0].style.animated: true
+
+          (Underwriter -> Reactor)[0].style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+        Finalisation: {
+          title.label: Finalisation
+          Solver: Solver {style.multiple: false}
+          Solver.Input.style.opacity: ${default-opacity}
+          (Underwriter -> SPV Oracle)[0].style.opacity: 1
+          (SPV Oracle -> Reactor)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.opacity: 1
+          (Reactor.Input -> Underwriter.Input)[0].style.animated: true
+          Underwriter.Input.style.opacity: 1
+          User.Input.style.opacity: 1
+          Solver.Output.style.opacity: 1
+          User.Output.style.opacity: ${default-opacity}
+        }
+      }
+      ```
+    </TabItem>
+    </Tabs>
+  </TabItem>
 </Tabs>
-
-The above diagram animates between all system states. Reloading the page or opening the SVG in a separate tab may be required for the animation to show.
 
 In-code underwriting is called `purchaseOrder` since this is exactly what happens. Orders have a `fillerAddress` configured. The `fillerAddress` is the destination for the inputs once an order has been correctly finalized.
 
