@@ -11,7 +11,7 @@ We are contributing to 3 fundamental pillars:
 
 1. **Chains** We're building for a future where developers are empowered to create the perfect chain that is best suited for their needs—and connect them to the broader crypto ecosystem. With Catalyst, the multi-chain future is an open future—where economic trade is borderless.
 2. **Tools** We're building fundamentals for native multi-chain applications. The goal is for anyone to build a cross-chain application that scales.
-3. **dApps** We're building applications that facilitate the creation of new applications. Our goal is to weave the web of applications tighter by building to allow for interopability between cross-chain applications.
+3. **dApps** We're building applications that facilitate the creation of new applications. Our goal is to weave the web of applications tighter by building to allow for interoperability between cross-chain applications.
 
 **Our first contribution** is a global liquidity layer for all chains—available automatically at launch.
 

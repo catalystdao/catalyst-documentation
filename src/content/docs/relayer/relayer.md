@@ -1,6 +1,6 @@
 ---
 title: "Generalised Relayer"
-description: "Generalised Relayer is a reference relayer for Generalised Incentives. The relayer standardies communication between incentive, packet, and proof collection. This allows a single implementation to relay for many different bridges."
+description: "Generalised Relayer is a reference relayer for Generalised Incentives. The relayer standardises communication between incentive, packet, and proof collection. This allows a single implementation to relay for many different bridges."
 sidebar:
   order: 1
 ---

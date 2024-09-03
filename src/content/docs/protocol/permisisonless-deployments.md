@@ -24,4 +24,4 @@ For new chains: any new chain built using supported modular chain tooling (e.g.,
 
 ## Deploying Catalyst
 
-You can find the deployment instructions on the relevant github pages. This pages will be updated with better instructions in the future.
+You can find the deployment instructions on the relevant github pages. These pages will be updated with better instructions in the future.
