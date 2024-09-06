@@ -22,5 +22,6 @@
     "starlight-links-validator": "^0.10.1",
     "svelte": "^4.2.18",
     "typescript": "^5.5.4"
-  }
+  },
+  "packageManager": "pnpm@8.6.1+sha1.435b3c83c7de5c455ad80fd63ee7ecf3b67b949b"
 }
