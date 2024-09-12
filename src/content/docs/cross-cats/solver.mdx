@@ -614,26 +614,28 @@ If the transaction is directed to Bitcoin, the address (`GetOrderData.order.orde
       <td>3</td>
       <td>P2WPKH</td>
       <td>Bech32</td>
-      <td>bc1q</td>
+      <td>bc1q**</td>
       <td>20</td>
     </tr>
     <tr>
       <td>4</td>
       <td>P2WSH</td>
       <td>Bech32</td>
-      <td>bc1q</td>
+      <td>bc1q**</td>
       <td>32</td>
     </tr>
     <tr>
       <td>5</td>
       <td>P2TR</td>
       <td>Bech32m</td>
-      <td>bc1p</td>
+      <td>bc1p**</td>
       <td>32</td>
     </tr>
   </tbody>
 </table>
-*Note: Prefixes are not fixed; they are determined by the encoding scheme.
+\* Prefixes are determined by the encoding scheme.
+\
+\*\* Part of the prefix – 1q/1p – is determined by the encoding scheme.
 
 The following guidelines assume you are implementing this from the perspective of a solver. You need to convert the expected output script into a Bitcoin address that can be used with your wallet:
 
