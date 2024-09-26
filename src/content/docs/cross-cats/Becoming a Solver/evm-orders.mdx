@@ -1,0 +1,785 @@
+---
+title: "Initiating EVM Orders"
+description: "Cross Cats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
+sidebar:
+  order: 4
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+On VM chains, assets can be pulled from users via approvals – a feature not available on non-VM chains – instead the sequence of operation has been modified to allow the user to push assets to the solver. This section outlines how orders are handled when originating from a VM chain, while the section [From Bitcoin](#from-bitcoin) covers orders originating from Bitcoin.
+
+### Collecting Orders
+
+The order server stores orders in a dictionary format, allowing for straightforward parsing by integrators and provides a high level of transparency in the implementation.
+
+<Tabs syncKey="lang">
+  <TabItem label="Typescript">
+
+  ```typescript
+    // The type parameter (DutchAuctionData.type) should not be submitted on-chain but can be used to differentiate order types.
+    type DutchAuctionData = {
+      type: "DutchAuction"; // Not to be submitted
+      verificationContext: string;
+      verificationContract: string;
+      proofDeadline: number;
+      challengeDeadline: number;
+      collateralToken: string;
+      fillerCollateralAmount: string;
+      challengerCollateralAmount: string;
+      localOracle: string;
+      slopeStartingTime: number;
+      inputSlopes: string[];
+      outputSlopes: string[];
+      inputs: {}[];
+      outputs: {}[];
+    };
+
+    type LimitOrderData = {
+      type: "LimitOrder"; // Not to be submitted
+      proofDeadline: number;
+      challengeDeadline: number;
+      collateralToken: string;
+      fillerCollateralAmount: string;
+      challengerCollateralAmount: string;
+      localOracle: string;
+      inputs: {}[];
+      outputs: {}[];
+    };
+
+    // With the CrossChainOrder defined as such:
+    type CrossChainOrder = {
+      settlementContract: string;
+      swapper: string;
+      nonce: string;
+      originChainId: number;
+      initiateDeadline: number;
+      fillDeadline: number;
+      orderData: DutchAuctionData | LimitOrderData;
+    };
+
+    type OrderDto = {
+      order: CrossChainOrder;
+      quote: {
+        fromAsset: string;
+        toAsset: string;
+        toPrice: string;
+        fromPrice: string;
+        intermediary: "USD" | "EUR" | "BTC" | string; // explicit string types here are examples.
+        discount: string;
+      };
+      signature: string;
+      submitTime: number;
+    };
+
+    type PaginationMeta = {
+      total: number;
+      limit: number;
+      offset: number;
+    };
+
+    type GetOrdersResponse = {
+      data: OrderDto[];
+      pagination: PaginationMeta;
+    };
+
+    async function getOrders(): GetOrdersResponse {
+      const API_URI = "https://crosscats-api-staging.catalyst.exchange";
+      const API_KEY = "your_api_key_here";
+
+      const orderServerResponse = await fetch<GetOrdersResponse>(
+        API_URI + "/orders",
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            Accept: "application/json",
+          },
+        }
+      );
+      if (!orderServerResponse.ok) {
+        throw new Error(`HTTP error! status: ${orderServerResponse.status}`);
+      }
+
+      const fetchedOrders = await orderServerResponse.json();
+      return fetchedOrders;
+    }
+  ```
+
+  </TabItem>
+  <TabItem label="Python">
+
+  ```python
+    import requests
+
+    def get_orders():
+        response = requests.get(API_URL + "orders/")
+        fetched_orders = response.json()
+        return fetched_orders
+  ```
+
+  </TabItem>
+</Tabs>
+
+#### Subscribe to orders
+
+Subscribing to orders allow you to listen directly to the order flow. This section outlines how to subscribe to new orders using a WebSocket connection, allowing for real-time updates without the need to continuously poll the order server. By leveraging a WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of increased complexity due to the need for a persistent connection and local filtering of incoming data.
+
+Instead of polling for new orders, you can establish a WebSocket connection to the Catalyst order server. The server provides a WebSocket endpoint that pushes new order data to subscribers in real time. However, unlike polling, the data received through WebSocket is not pre-filtered. This means every order event will be pushed to your application, and it’s up to your implementation to manage and filter these events locally.
+
+Below is a simplified implementation in pure JavaScript that demonstrates how to connect to the WebSocket server, handle incoming messages, respond to ping events, and automatically attempt to reconnect if the connection is lost.
+
+```typescript
+const WebSocket = require("ws");
+
+// Configuration variables
+const wsUri = process.env.ORDER_SERVER_WS_URI; // Set your WebSocket server URI
+const apiKey = process.env.ORDER_SERVER_API_KEY; // Set your API key
+const reconnectInterval = 5000; // Reconnect interval in milliseconds
+
+let ws;
+
+// Function to connect to the WebSocket server
+function connectToOrderServer() {
+  ws = new WebSocket(wsUri, {
+    headers: {
+      "x-api-key": apiKey,
+    },
+  });
+
+  ws.on("open", () => {
+    console.log("Connected to WebSocket server");
+  });
+
+  ws.on("message", (data) => {
+    try {
+      const parsedData = JSON.parse(data.toString());
+      console.log("Received message:", parsedData);
+
+      switch (parsedData.event) {
+        case "ping":
+          handleReceivePing();
+          break;
+        case "quote-request":
+          handleReceiveQuoteRequest(parsedData, ws);
+          break;
+        case "order":
+          handleReceiveOrder(parsedData, ws);
+          break;
+        default:
+          console.log("Unknown message type:", parsedData);
+      }
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+    }
+  });
+
+  ws.on("error", (error) => {
+    console.error("WebSocket error:", error);
+  });
+
+  ws.on("close", () => {
+    console.log("Disconnected from WebSocket");
+    reconnect();
+  });
+}
+
+// Function to handle ping messages, you will be automatically disconnected if you don't respond to ping messages
+function handleReceivePing() {
+  ws.send(JSON.stringify({ event: "pong" }));
+}
+
+// Function to handle quote requests
+function handleReceiveQuoteRequest(data, ws) {
+  console.log("Handling quote request:", data);
+  // Add your custom handling logic here
+}
+
+// Function to handle orders
+function handleReceiveOrder(data, ws) {
+  console.log("Handling order:", data);
+  // Add your custom handling logic here
+}
+
+// Function to attempt reconnection
+function reconnect() {
+  console.log("Attempting to reconnect...");
+  setTimeout(() => {
+    ws.close(); // Close any existing connection
+    connectToOrderServer(); // Attempt to reconnect
+  }, reconnectInterval);
+}
+
+// Start listening to the order server
+connectToOrderServer();
+```
+
+### Evaluate Orders
+
+After fetching an order, the solver must thoroughly evaluate it to determine its viability and potential execution. To facilitate this evaluation, several contextual pointers are available within the returned order data. Key aspects to consider include:
+
+1. **Quote Validation**: Use the `OrderDto.quote` field to access the price context, which provides the pricing details for the inputs and outputs of the order. If you trust the order server, you can primarily rely on this quote to validate the order’s pricing. However, it’s crucial to verify that the solver supports the specific origin chain (`OrderDto.order.originChainId`) and output chains (`OrderDto.order.orderData.outputs[...].chainId`) as well as their respective tokens (`input[].token` and `output[].token`). These parameters are guaranteed to be present across all order types.
+
+2. **Solver-Exclusive Orders**: Some orders may initially be restricted to specific solvers. This is indicated by the `OrderDto.order.orderData.verificationContract` field. If this field is defined and not equal to `address(0)`, the order is exclusive to the designated solver until the `slopeStartingTime` elapses, after which the order becomes available for anyone to fulfill.
+
+3. **Mutually Exclusive Orders**: Be aware of potential conflicts between orders. If you encounter two orders with the same `OrderDto.order.swapper` and `OrderDto.order.nonce`, these orders are mutually exclusive, meaning only one of them can be submitted on-chain. This mechanism prevents double submissions and ensures the integrity of the order processing.
+
+Evaluating orders carefully ensures that solvers can accurately determine the feasibility of executing an order, adhere to exclusivity rules, and avoid conflicts, thereby maintaining the integrity and efficiency of the order fulfillment process.
+
+### Initiate Orders
+
+Once an order has been fetched and validated, the next step is to submit it on-chain. Catalyst Orders are accompanied by a signature (`OrderDto.signature`) that serves a dual purpose:
+
+1. **Permit2 Signature**: This signature acts as a Permit2, authorizing the Catalyst contracts to withdraw the submitter's tokens directly. This streamlines the process by eliminating the need for separate approval transactions.
+
+2. **User Authorization**: The signature also confirms that the user has approved the order, ensuring consent and alignment with the terms of execution.
+
+Orders are processed on a first-come, first-served basis, emphasizing the importance of swift submission to secure the desired transaction. By leveraging the Permit2 signature mechanism, Catalyst simplifies the initiation process, reducing overhead and ensuring seamless order execution.
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+// This tutorial uses ethersjs but you can easily replace it by similar libraries.
+import { ethers } from "ethers";
+
+const reactorAbi = "...";
+const signer = "ethers.signer...";
+
+async function initiateOrder() {
+  // Get an order
+  const orders = await getOrders();
+  const order = orders.orders[0];
+
+  // Define the reactor we will call. You can get the reactor address from the order
+  const reactorAddress = order.order.settlementContract;
+  const reactor = new ethers.Contract(reactorAddress, reactorAbi, signer);
+
+  // TODO: Set approvals for the reactorAddress for all inputs & collateral.
+
+  // The order arrives almost ready to use,
+  // we just need to remove the type from the orderdata.
+  const { type: _, ...cleanedOrderData } = order.order.orderData;
+  const cleanedOrder = { ...order.order, orderData: cleanedOrderData };
+  const signature = order.signature;
+  const fillerData = "0x"; // #custom-fillerdata--underwriting
+
+  // Call the reactor to initiate the order.
+  return reactor.initiate(cleanedOrder, signature, fillerData);
+}
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+from web3 import Web3
+
+rpc_url = ""
+web3 = Web3(Web3.HTTPProvider(eth_node_url))
+
+# Your ABI and signer details
+reactor_abi = "..."
+signer_private_key = "your_private_key_here"
+signer_address = web3.eth.account.from_key(signer_private_key).address
+
+def initiate_order():
+    # Get an order
+    orders = get_orders()
+    order = orders['orders'][0]
+
+    # Define the reactor we will call. You can get the reactor address from the order
+    reactor_address = order['order']['settlementContract']
+    reactor = web3.eth.contract(address=reactor_address, abi=reactor_abi)
+
+    # TODO: Set approvals for the reactorAddress for all inputs & collateral.
+    # This will depend on the specific ERC20 tokens you're using,
+    # you need to call approve() on the ERC20 token contracts
+
+    # Clean the order data by removing the type field
+    cleaned_order_data = order['order']['orderData'].copy()
+    cleaned_order_data.pop('type')
+    cleaned_order = {**order['order'], 'orderData': cleaned_order_data}
+    signature = order['signature']
+    filler_data = "0x" # #custom-fillerdata--underwriting
+
+    # Build the transaction
+    txn = reactor.functions.initiate(cleaned_order, signature, filler_data).build_transaction({
+        'from': signer_address,
+        'nonce': web3.eth.get_transaction_count(signer_address)
+    })
+    # Sign the transaction
+    signed_txn = web3.eth.account.sign_transaction(txn, private_key=signer_private_key)
+    # Send the transaction
+    tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+    # Wait for the transaction receipt
+    receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+    return receipt
+```
+
+</TabItem>
+</Tabs>
+
+#### Custom FillerData & Underwriting
+
+By default, if `fillerData` is not specified, the input assets (provided by the user) are sent directly to the caller. This behavior is generally suitable for most use cases, eliminating the need for additional customization.
+
+However, if there is a need to direct the input assets to another address or to enable underwriting, a customized `fillerData` must be utilized. Currently, only one custom version (`v1`) is supported. The `v1` structure includes:
+
+- **Version Byte (0x01)**: Identifies the custom data version.
+- **fillerAddress**: The address that will receive the input assets and collateral.
+- **orderPurchaseDeadline**: A timestamp that allows an alternative buyer to purchase the order before this time. "Buying" the order in this context means transferring all of the input assets and collateral to the `fillerAddress`.
+- **orderDiscount**: Provides buyers with a discount on the inputs, represented as a fraction of 2^16 - 1. For example, to offer a 1% discount, the value would be calculated as `0.01 * (2^16 - 1) = 655`. This feature is particularly useful for chains with slower block confirmations (e.g., Bitcoin), enabling the solver to be paid after 0-1 confirmations while assuring the user of higher finality (3-6 confirmations).
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+const fillerDataVersion = "0x01";
+const fillerAddress = "0x....".replace("0x", "");
+// fillerAddress.length === 20*2;
+const orderPurchaseDeadline = Number(1723199919)
+  .toString(16)
+  .padStart("0", 4 * 2);
+//orderPurchaseDeadline.length === 4*2
+const orderDiscount = Math.floor(0.01 * (2 ** 16 - 1))
+  .toString(16)
+  .padStart("0", 2 * 2);
+// orderDiscount.length === 2*2
+
+const fillerData =
+  fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+fillerDataVersion = "0x01";
+fillerAddress = '0x....'.replace("0x", "");
+# len(fillerAddress) === 20*2;
+orderPurchaseDeadline = hex(1723199919).replace("0x", "").zfill(4*2);
+# len(orderPurchaseDeadline) === 4*2
+const orderDiscount = hex(int(0.01*(2**16-1))).replace("0x", "").zfill(2*2);
+# len(orderDiscount) === 2*2
+
+fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+```
+
+</TabItem>
+</Tabs>
+
+## Delivery
+
+The delivery of assets varies based on the destination type: VM chains or Bitcoin.
+
+### EVM deliveries
+
+For EVM (Ethereum Virtual Machine) chains, you must interact with the specified oracle on the destination chain. Use the following details from the order to make the necessary call:
+
+- **Oracle Address**: Found in `OrderDto.order.orderData.outputs[].remoteOracle`.
+- **Destination Chain**: Identified by `OrderDto.order.orderData.outputs[].chainId`.
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+// It is assumed you are continuing from the above steps.
+import { ethers } from "ethers";
+
+const oracleAbi = "...";
+
+// The oracle allows filling multiple outputs from different orders
+// in a single transaction. They do have to go to the same chain.
+// For simplicity, this function assumes that all outputs goes to
+// the same chain but it may not be the case.
+async function fillSingleChainOrder(order: CrossChainOrder) {
+  let recordedChain;
+  let recordedOracle;
+  for (const output of order.orderData.outputs) {
+    if (recordedChain === undefined) recordedChain = output.chainId;
+    if (recodedOracle === undefined) recodedOracle = output.remoteOracle;
+    if (recordedChain !== output.chainId)
+      throw Error(
+        `Mixed ChainIds, seen ${recordedChain} and ${output.chainId}`
+      );
+    if (recodedOracle !== output.remoteOracle)
+      throw Error(
+        `Mixed Oracles, seen ${recodedOracle} and ${output.remoteOracle}`
+      );
+  }
+  const oracle = new ethers.Contract(recordedOracle, oracleAbi, signer);
+
+  // TODO: Set approvals for the oracleAddress for the value of the output.
+
+  // We need to provide fill times. These have to be set to proofTime.
+  // These are used to ensure you can't reuse fills.
+  const fillTimes = order.orderData.outputs.map(
+    (_) => order.orderData.proofDeadline
+  );
+
+  // Call the reactor to initiate the order.
+  return oracle.fill(outputs, fillTimes);
+}
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+# It is assumed you are continuing from the above steps.
+
+oracleAbi = "...";
+
+# The oracle allows filling multiple outputs from different orders in a single transaction.
+# They do have to go to the same chain.
+# For simplicity, this function assumes that all outputs goes to the same chain but it may not be the case.
+def fill_single_chain_order(order):
+    oracle_address = order['orderData']['remoteOracle']
+
+    recordedChain = "";
+    recordedOracle = "";
+    for (output in order['orderData']['outputs']):
+      if (recordedChain == ""):
+        recordedChain = output.chainId
+      if (recordedOracle == ""):
+          recordedOracle = output.remoteOracle
+      if (recordedChain != output.chainId):
+        raise Exception(f"Mixed ChainIds, seen {recordedChain} and {output.chainId}");
+      if (recordedOracle != output.remoteOracle):
+        raise Exception(f"Mixed Oracles, seen {recordedOracle} and {output.remoteOracle}");
+
+    oracle = web3.eth.contract(address=recordedOracle, abi=oracle_abi)
+
+    # TODO: Set approvals for the oracleAddress for the value of the output.
+
+    # We need to provide fill times. These have to be set to proofTime.
+    # These are used to ensure you can't reuse fills.
+    fillTimes = [order.orderData.proofDeadline for _ in order.orderData.outputs]
+
+    # Build the transaction
+    txn = oracle.functions.fill(order.orderData.outputs, fillTimes).build_transaction({
+        'from': signer_address,
+        'nonce': web3.eth.get_transaction_count(signer_address)
+    })
+    # Sign the transaction
+    signed_txn = web3.eth.account.sign_transaction(txn, private_key=signer_private_key)
+    # Send the transaction
+    tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+    # Wait for the transaction receipt
+    receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+    return receipt
+```
+
+</TabItem>
+</Tabs>
+
+### Bitcoin Deliveries
+
+To determine whether an order involves a Bitcoin transaction, check the `GetOrderData.order.orderData.outputs[].token` field. If the token indicates Bitcoin, ensure the following conditions are met:
+
+- The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`. The 13th byte is `0xBC`.
+- The 31st byte indicates the number of confirmations required before the order can be verified on-chain. For example:
+  - `0x00` and `0x01` represent 1 confirmation.
+  - `0x02` represents 2 confirmations.
+  - `0x03` represents 3 confirmations, and so on.
+- The 32nd byte contains an address version identifier, which should be decoded as `uint8`.
+
+If the transaction is directed to Bitcoin, the address (`GetOrderData.order.orderData.outputs[].recipient`) will contain a relevant destination hash or witness, not the address itself. This value must be used along with the address version identifier to decode the address.
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Name</th>
+      <th>Encoding Scheme</th>
+      <th>Prefix</th>
+      <th>Hash Length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>Ignore</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>P2PKH</td>
+      <td>Base58Check(00+PKH)</td>
+      <td>1*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>P2SH</td>
+      <td>Base58Check(05+SH)</td>
+      <td>3*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>P2WPKH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>P2WSH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>P2TR</td>
+      <td>Bech32m</td>
+      <td>bc1p**</td>
+      <td>32</td>
+    </tr>
+  </tbody>
+</table>
+\* Prefixes are determined by the encoding scheme.
+\
+\*\* Part of the prefix – 1q/1p – is determined by the encoding scheme.
+
+The following guidelines assume you are implementing this from the perspective of a solver. You need to convert the expected output script into a Bitcoin address that can be used with your wallet:
+
+- **P2PKH (Pay-to-PubKey-Hash)**:
+
+  - The recipient is the public key hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `00`, and encode with Base58Check.
+
+- **P2SH (Pay-to-Script-Hash)**:
+
+  - The recipient is the script hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `05`, and encode with Base58Check.
+
+- **P2WPKH (Pay-to-Witness-PubKey-Hash)**:
+
+  - The recipient is the witness. Encode the first 20 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
+
+- **P2WSH (Pay-to-Witness-Script-Hash)**:
+
+  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
+
+- **P2TR (Pay-to-Taproot)**:
+
+  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32m](https://en.bitcoin.it/wiki/BIP_0350#Bech32m). Prepend with `bc1p`.
+
+- **Nested Witness Addresses/Outputs**:
+  - These are **P2SH** addresses and should be treated like any other **P2SH** address.
+
+Once the address is generated, create a Bitcoin transaction with at least one output that **exactly** matches the described output from the initiated order. The transaction can have any number of inputs and outputs, as long as one output precisely matches the one specified by the order's output. This flexibility allows for batch filling, consolidation, and more. While having multiple matching outputs is permitted, it benefits only the user to ensure the order’s conditions are met.
+
+## From Bitcoin
+
+Bitcoin operates differently from VM chains in terms of script functionality. Bitcoin scripts only define spending conditions, meaning that, unlike VM chains, we cannot pull funds from a user after they have signed a message. Consequently, the order flow is reversed, and the solver is responsible for signing the VM order. While it's technically feasible to create unique conditional deposit addresses, most wallets do not support pulling from custom scripts.
+
+### Encoding a Bitcoin Address
+
+Your solver must be capable of generating a Bitcoin deposit address. Although it's possible to use the same address for every order, it is crucial to ensure that each order amount is unique if you choose this approach. It is generally recommended to use different addresses for each order. Bitcoin does not impose additional fees for collecting UTXOs from multiple addresses.
+
+Bitcoin addresses are encoded in two fields: `token` and `address`.
+
+- **`token`**: This field serves to differentiate VM tokens from Bitcoin orders and encode the address version. Refer to the [Bitcoin Deliveries](#bitcoin-deliveries) table for details on converting address types to versions.
+
+- **`address`**: This field encodes the public key hash, script hash, or witness hash. Use the encoding schemes listed in the [Bitcoin Deliveries](#bitcoin-deliveries) table for various address versions. For addresses involving hashes of 20 bytes (P2PKH, P2SH, and P2WPKH), ensure to pad the hashes with zeros on the right side (e.g., `0xabcdef...00000`).
+
+### Quote Open Order (WIP)
+
+For solvers handling BTC to VM conversions, quoting orders for comparison with other solvers is essential. To begin quoting:
+
+1. **Subscription**: Solvers must subscribe to quote requests from the order server.
+2. **Response**: When a quote request is received, the solver must respond with a quote that remains valid for at least 60 seconds. If a signed order is requested within 30 seconds of the quote, the solver should provide a signed order with a lifetime of 30 seconds.
+
+Failure to respond with a signed order that matches or improves upon the quote within the 30-second window may result in blacklisting of the solver.
+
+Ensure your quoting mechanism is robust and timely to maintain competitive standing and avoid potential blacklisting.
+
+```typescript
+export interface CatalystEvent<T> {
+  event: string;
+  data: T;
+}
+
+export interface CatalystQuoteRequestData {
+  quoteRequestId: string;
+  fromChain: string;
+  toChain: string;
+  fromAsset: string;
+  toAsset: string;
+  expirationTime: string;
+  amount: string;
+}
+
+async function handleReceiveQuoteRequest(
+  parsedData: CatalystEvent<CatalystQuoteRequestData>,
+  ws: WebSocket
+) {
+  try {
+    // an example of your custom function that will get the quote
+    const quote = await getSolverQuote(
+      parsedData.data.fromAsset,
+      parsedData.data.toAsset,
+      parsedData.data.amount
+    );
+
+    ws.send(
+      JSON.stringify({
+        event: "solver-quote",
+        data: {
+          origin: "your_identifier", // required
+          quoteRequestId: parsedData.data.quoteRequestId, // required
+          ...quote,
+        },
+      })
+    );
+  } catch (error) {
+    console.error("Error simulating quote:", error);
+  }
+}
+```
+
+### Return Signed Orders (WIP)
+
+Once the Order Server has evaluated all quotes from solvers, it selects the most favorable quote. After the user's deposit is confirmed, the Order Server will request the selected solver to provide a signed order.
+
+### Responsibilities of the Solver:
+
+1. **Provide a Signed Order**: The solver must return a signed order that aligns with the quoted terms and remains valid within the specified expiry period.
+
+2. **Order Exclusivity**: It is crucial that the signed order is exclusive to the user and the Order Server’s executor. This exclusivity ensures that the order cannot be fulfilled by other solvers or reused.
+
+3. **Asset Delivery Assurance**: The Cross Cats Order Server guarantees asset delivery through a Bitcoin address controlled by the Order Server but owned by the user. This setup ensures that the assets are securely delivered as promised.
+
+Ensuring these conditions helps maintain the integrity and efficiency of the order fulfillment process. It is essential that solvers adhere strictly to these requirements to ensure smooth operations and avoid any potential issues.
+
+```typescript
+export interface CatalystEvent<T> {
+  event: string;
+  data: T;
+}
+
+export interface CrossChainOrder {
+  settlementContract: string;
+  swapper: string;
+  nonce: string;
+  originChainId: number;
+  initiateDeadline: number;
+  fillDeadline: number;
+  orderData: DutchOrderData | LimitOrderData;
+}
+
+export interface QuoteContext {
+  toAsset: string;
+  toPrice: string;
+  discount: string;
+  fromAsset: string;
+  fromPrice: string;
+  intermediary: string;
+}
+
+export interface CatalystOrderData {
+  order: CrossChainOrder;
+  quote: QuoteContext;
+  signature: string;
+}
+
+async function signOrderRequest(signOrderRequest: any): any | undefined {
+  const evaluationResponse = orderEvaluations(signOrderRequest);
+  if (evaluationResponse === undefined) return undefined;
+  ...
+}
+
+async function handleReceiveOrder(
+  parsedData: CatalystEvent<CatalystOrderData>,
+  ws: WebSocket
+) {
+  try {
+    // an example of your custom function that will get the quote
+    const signedOrder = await signOrderRequest(...);
+
+    ws.send(
+      JSON.stringify({
+        event: "solver-order-signed",
+        data: {
+          origin: "your_identifier", // required
+          ...signedOrder, // TODO: determine shape of signed order
+        },
+      })
+    );
+  } catch (error) {
+    console.error("Error signing order:", error);
+  }
+}
+```
+
+Once the signedOrder is sent & it correctly matches the expected quote, the vast vast majority of orders will be filled.
+
+TODO: The Order Server may respond back with a transaction hash.
+
+## Prove Orders (WIP)
+
+If Solvers' orders get challenged, they need to prove delivery. In exchange for these proofs, Solvers collect the collateral provided by Challengers.
+
+Initially, Cata Labs will prove every single order for completeness.
+
+## Challenger (Has to be moved)
+
+Challengers work to ensure that solvers stay honest. Solvers submit collateral when claiming transaction. If Solvers aren't honest, Challengers can claim the collateral if they prove that Solvers havn't done settled their claimed orders.
+
+Initially, Cata Labs will prove every single order for completeness.
+
+## Broadcast Orders (Depreciated)
+
+The first step of any order is broadcasting it. For solvers this can be seen as the 0'th step, since it is required before solvers can collect the orders from the order server.
+
+:::tip[Proof of Work]
+Submitting orders can easily be used to DDoS the order server. As a protection, the order server requires submitting a piece of PoW to rate-limit submissions.
+:::
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+async function submitOrder(): bool {
+  const order: CrossChainorder;
+  const signature: string;
+  const body = {
+    order,
+    signature,
+  };
+  const response = await fecth(API_URL + "orders/submit", {
+    method: "POST",
+    body,
+  });
+  const parsedResponse = (await response.json()) as { success: bool };
+
+  return parsedResponse.success;
+}
+```
+
+</TabItem>
+<TabItem label="Python">
+
+```python
+import requests
+import json
+
+API_URL = "https://crosscats-api-staging.catalyst.exchange/"
+
+def submit_order(): bool:
+    order = {}
+    signature = "0x..."
+    data = {
+      "order": order,
+      "signature": signature
+    }
+    response = requests.post(API_URL+ "orders/submit", json=data)
+    fetched_orders = response.json()
+    return fetched_orders.get("success")
+```
+
+</TabItem>
+</Tabs>

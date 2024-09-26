@@ -1,0 +1,145 @@
+---
+title: "Bitcoin Primer"
+description: "What is Bitcoin? What is a Bitcoin Block? What is a Bitcoin transaction?  And how do Cross Cats prove Bitcoin fulfillments? This page contains all information required to understand how Cross Cats interact with BTC."
+sidebar:
+  order: 2
+---
+
+Bitcoin is regarded as the origin blockchain or cryptocurrency. While the last core upgrade to the Bitcoin network was in 2010 several smaller upgrades have been made adjacent to the core protocol, the most significant of these are [Segwit](https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki) and [Taproot](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki).
+
+### Bitcoin Blocks
+
+A Bitcoin block can be thought of as a container attesting to a validity of several transactions. It starts with `0xD9B4BEF9` and then continues describing the new state of the network, including listing all newly included transaction. The Bitcoin block also describes a block header. The block header is a self-contained description of the newly added state. If you only cared about a subset of all transaction in a block, the block header is a more efficient description of the block itself.
+
+For the purpose of validating transactions outside the _noise_ of the core network, block headers are perfect. Satoshi Nakamoto designed block headers to be self describing, that is, if you have a list of block headers it is possible to verify if a new block header belongs to the list. A block header is 80 bytes and consist of:
+
+`Version(4B) | PrevBlock(32B) | MerkleRoot(32B) | Time(4B) | Bits(4B) | Nonce(4B)`
+> https://en.bitcoin.it/wiki/Block_hashing_algorithm
+
+By checking if the hash of the bitcoin hash is sufficiently _low_ compared to the specified `Bits`, the header can be authenticated to be correctly mined. By checking if `PrevBlock` is the same hash as the leading transaction in your list, it can be verified to extend your list. Lastly, `Bits` has to be checked if it follows the difficulty rules.
+
+You will have noticed that these checks do not assert any validity whether the included transactions within are valid. The performed checks can be viewed as the least amount of work required to authenticate a Bitcoin block. This technique is very fittingly called Simplified Payment Validation.
+
+### Bitcoin Transaction
+
+This section has not been written yet.
+
+#### Bitcoin Outputs:
+
+Transaction Outputs contains the spending conditions written in Bitcoin Script. Legacy transaction contains the entirety of the spending condition within the transaction itself while Segwit transaction places the spending condition in the witness and only stores the hash of it in the output. The Bitcoin blockchain itself has no concept of addresses, instead output scripts have been standardized into 7 defined transaction types with 5 still in general use today. P2PK and P2MS are generally not used.
+
+While non-standard scripts may be spendable by a user's privatekey they are unlikely to be recognised by their wallet wallet. Additionally, most custom scripts are implemented through P2SH to allow wallets to pay into it.
+
+To determine whether an order involves a Bitcoin transaction, check the `GetOrderData.order.orderData.outputs[].token` field. If the token indicates Bitcoin, ensure the following conditions are met:
+
+- The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`. The 13th byte is `0xBC`.
+- The 31st byte indicates the number of confirmations required before the order can be verified on-chain. For example:
+  - `0x00` and `0x01` represent 1 confirmation.
+  - `0x02` represents 2 confirmations.
+  - `0x03` represents 3 confirmations, and so on.
+- The 32nd byte contains an address version identifier, which should be decoded as `uint8`.
+
+If the transaction is directed to Bitcoin, the address (`GetOrderData.order.orderData.outputs[].recipient`) will contain a relevant destination hash or witness, not the address itself. This value must be used along with the address version identifier to decode the address.
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Name</th>
+      <th>Encoding Scheme</th>
+      <th>Prefix</th>
+      <th>Hash Length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>Ignore</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>P2PKH</td>
+      <td>Base58Check(00+PKH)</td>
+      <td>1*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>P2SH</td>
+      <td>Base58Check(05+SH)</td>
+      <td>3*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>P2WPKH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>P2WSH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>P2TR</td>
+      <td>Bech32m</td>
+      <td>bc1p**</td>
+      <td>32</td>
+    </tr>
+  </tbody>
+</table>
+\* Prefixes are determined by the encoding scheme.
+\
+\*\* Part of the prefix – 1q/1p – is determined by the encoding scheme.
+
+The following guidelines assume you are implementing this from the perspective of a solver. You need to convert the expected output script into a Bitcoin address that can be used with your wallet:
+
+- **P2PKH (Pay-to-PubKey-Hash)**:
+
+  - The recipient is the public key hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `00`, and encode with Base58Check.
+
+- **P2SH (Pay-to-Script-Hash)**:
+
+  - The recipient is the script hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `05`, and encode with Base58Check.
+
+- **P2WPKH (Pay-to-Witness-PubKey-Hash)**:
+
+  - The recipient is the witness. Encode the first 20 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
+
+- **P2WSH (Pay-to-Witness-Script-Hash)**:
+
+  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
+
+- **P2TR (Pay-to-Taproot)**:
+
+  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32m](https://en.bitcoin.it/wiki/BIP_0350#Bech32m). Prepend with `bc1p`.
+
+- **Nested Witness Addresses/Outputs**:
+  - These are **P2SH** addresses and should be treated like any other **P2SH** address.
+
+Once the address is generated, create a Bitcoin transaction with at least one output that **exactly** matches the described output from the initiated order. The transaction can have any number of inputs and outputs, as long as one output precisely matches the one specified by the order's output. This flexibility allows for batch filling, consolidation, and more. While having multiple matching outputs is permitted, it benefits only the user to ensure the order’s conditions are met.
+
+#### Bitcoin Inputs
+
+
+## From Bitcoin
+
+Bitcoin operates differently from VM chains in terms of script functionality. Bitcoin scripts only define spending conditions, meaning that, unlike VM chains, we cannot pull funds from a user after they have signed a message. Consequently, the order flow is reversed, and the solver is responsible for signing the VM order. While it's technically feasible to create unique conditional deposit addresses, most wallets do not support pulling from custom scripts.
+
+### Encoding a Bitcoin Address
+
+Your solver must be capable of generating a Bitcoin deposit address. Although it's possible to use the same address for every order, it is crucial to ensure that each order amount is unique if you choose this approach. It is generally recommended to use different addresses for each order. Bitcoin does not impose additional fees for collecting UTXOs from multiple addresses.
+
+Bitcoin addresses are encoded in two fields: `token` and `address`.
+
+- **`token`**: This field serves to differentiate VM tokens from Bitcoin orders and encode the address version. Refer to the Bitcoin Deliveries table for details on converting address types to versions.
+
+- **`address`**: This field encodes the public key hash, script hash, or witness hash. Use the encoding schemes listed in the Bitcoin Deliveries table for various address versions. For addresses involving hashes of 20 bytes (P2PKH, P2SH, and P2WPKH), ensure to pad the hashes with zeros on the right side (e.g., `0xabcdef...00000`).

@@ -6,19 +6,18 @@ sidebar:
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
-import GetQuotes from "../../../components/solver/GetQuotes.svelte";
 
 ## Introduction
 
-> If you aren't interested in the order structure in Solidity, skip to [From VM](#from-evm). For API documentation, refer to the [API Swagger documentation](https://catalyst-order-server-0140d799e2f7.herokuapp.com/api).
+> If you are not interested in the on-chain order structure, skip to [From VM](#from-evm). For API documentation, refer to the [API Swagger documentation](https://catalyst-order-server-0140d799e2f7.herokuapp.com/api).
 
 Cross Cats utilizes three main order structures:
 
-1.  [CrossChainOrder](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L6-L27) This is a generic input order with an ERC-7683 compatible structure. The key component here is orderData, which contains the core functionality and varies significantly across ERC-7683 supporting implementations.
-2.  [ResolvedCrossChainOrder](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L29-L52) This structure provides a quote description, detailing the value of a cross-chain order at a specific point in time. It is also ERC-7683 compliant\*, allowing solvers to efficiently compare the resolution of orders across various protocols.
-3.  [OrderKey](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/Structs.sol#L41-L65) These are used to monitor a Catalyst order throughout its lifecycle. It includes Catalyst-specific context and provides an in-depth description of the orders.
+1.  [**CrossChainOrder**](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L6-L27) is a generic input order with an ERC-7683 compatible structure. The key component here is orderData, which contains the core functionality and varies significantly across ERC-7683 supporting implementations.
+2.  [**ResolvedCrossChainOrder**](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L29-L52) provides a quote description, detailing the value of a cross-chain order at a specific point in time. It is also ERC-7683 compliant\*, allowing solvers to efficiently compare the resolution of orders across various protocols.
+3.  [**OrderKey**](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/Structs.sol#L41-L65) is used to monitor a Catalyst order throughout its lifecycle. It includes Catalyst-specific context and provides an in-depth description of an order.
 
-> Below is the generic ERC-7683 CrossChainOrder structure. The `CrossChainOrder.orderData` field is an ABI-encoded order struct.
+Below is the generic ERC-7683 CrossChainOrder structure. The `CrossChainOrder.orderData` field is an ABI-encoded order struct.
 
 ```solidity
 struct CrossChainOrder {
@@ -32,11 +31,11 @@ struct CrossChainOrder {
 }
 ```
 
-The `orderData` field is uniquely encoded by Cross Cats. Currently, two order structs are supported:
+The `orderData` field is uniquely encoded by Cross Cats. Currently, two orderdata structs are supported:
 
 ```solidity
 /// @notice Simpler and slightly cheaper for order types with fixed inputs and outputs.
-struct LimitOrderData {
+struct CatalystLimitOrderData {
     uint32 proofDeadline;
     uint32 challengeDeadline;
     address collateralToken;
@@ -47,7 +46,7 @@ struct LimitOrderData {
     OutputDescription[] outputs;
 }
 /// @notice Supports Dutch Auctions on both input and output and support for additional custom order verification.
-struct DutchOrderData {
+struct CatalystDutchOrderData {
     bytes32 verificationContext;
     address verificationContract;
     uint32 proofDeadline;
@@ -57,9 +56,9 @@ struct DutchOrderData {
     uint256 challengerCollateralAmount;
     address localOracle;
     uint32 slopeStartingTime;
-    /// @dev Input rate of change.
+    /** @dev Input rate of change. */
     int256[] inputSlopes;
-    /// @dev Output rate of change.
+    /** @dev Output rate of change. */
     int256[] outputSlopes;
     Input[] inputs;
     OutputDescription[] outputs;
@@ -72,150 +71,146 @@ struct Input {
 }
 
 struct OutputDescription {
-    /// @dev Contract on the destination that tells whether an order was filled.
-    /// Format is bytes32() slice of the encoded bytearray from the messaging protocol (or bytes32(0) if local)
+    /** @dev Contract on the destination that tells whether an order was filled.
+     * Format is bytes32() slice of the encoded bytearray from the messaging protocol.
+     * If local: bytes32(uint256(uint160(address(localOracle)))). */
     bytes32 remoteOracle;
-    /// @dev The address of the ERC20 token on the destination chain
-    /// @dev address(0) used as a sentinel for the native token
+    /** @dev The address of the token on the destination chain. */
     bytes32 token;
-    /// @dev The amount of the token to be sent
+    /** @dev The amount of the token to be sent. */
     uint256 amount;
-    /// @dev The address to receive the output tokens
+    /** @dev The address to receive the output tokens. */
     bytes32 recipient;
-    /// @dev The destination chain for this output
+    /** @dev The destination chain for this output. */
     uint32 chainId;
+    /** @dev Additional data that is relevant for the caller.  */
     bytes remoteCall;
 }
 ```
 
-Users generate a `CrossChainOrder` with the appropriate order data and sign it using Permit2, thereby creating an approval and order description with a single signature. The signed struct will be a new structure where `orderData` is an ABI-encoded order type.
+Users generate a `CrossChainOrder` with the appropriate order data and sign it as a Permit2 witness, thereby approving both the order description and its associated inputs with a single signature. The signed struct will be a new structure where `orderData` is an ABI-encoded order type.
 
 ## From EVM
 
 Cross Cats has directionality. That means the ways orders are initiated depends on the initiating chain (where the user is swapping out of). In the current iteration, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains (including EVM) will generally be initiated similarly and all non-VM chains (including Bitcoin) will be initiated similarly but different from VM chains.
 
-On VM chains, assets can be pulled from users via approvals—a feature not available on non-VM chains
-As a result, the sequence of operations differs slightly.
-This section outlines how orders are handled when originating from a VM chain, while the section [From Bitcoin](#from-bitcoin) covers orders originating from Bitcoin.
+On VM chains, assets can be pulled from users via approvals – a feature not available on non-VM chains – instead the sequence of operation has been modified to allow the user to push assets to the solver. This section outlines how orders are handled when originating from a VM chain, while the section [From Bitcoin](#from-bitcoin) covers orders originating from Bitcoin.
 
-### Get Orders
+### Collecting Orders
 
-The order server stores orders in a dictionary format, allowing for straightforward parsing by integrators and providing a high level of transparency in the implementation.
+The order server stores orders in a dictionary format, allowing for straightforward parsing by integrators and provides a high level of transparency in the implementation.
 
 <Tabs syncKey="lang">
-<TabItem label="Typescript">
+  <TabItem label="Typescript">
 
-```typescript
-// The type parameter {}.type should not be submitted on-chain but can be used to differentiate order types.
-type DutchAuctionData = {
-  type: "DutchAuction"; // Not to be submitted
-  verificationContext: string;
-  verificationContract: string;
-  proofDeadline: number;
-  challengeDeadline: number;
-  collateralToken: string;
-  fillerCollateralAmount: string;
-  challengerCollateralAmount: string;
-  localOracle: string;
-  slopeStartingTime: number;
-  inputSlopes: string[];
-  outputSlopes: string[];
-  inputs: {}[];
-  outputs: {}[];
-};
+  ```typescript
+    // The type parameter (DutchAuctionData.type) should not be submitted on-chain but can be used to differentiate order types.
+    type DutchAuctionData = {
+      type: "DutchAuction"; // Not to be submitted
+      verificationContext: string;
+      verificationContract: string;
+      proofDeadline: number;
+      challengeDeadline: number;
+      collateralToken: string;
+      fillerCollateralAmount: string;
+      challengerCollateralAmount: string;
+      localOracle: string;
+      slopeStartingTime: number;
+      inputSlopes: string[];
+      outputSlopes: string[];
+      inputs: {}[];
+      outputs: {}[];
+    };
 
-type LimitOrderData = {
-  type: "LimitOrder"; // Not to be submitted
-  proofDeadline: number;
-  challengeDeadline: number;
-  collateralToken: string;
-  fillerCollateralAmount: string;
-  challengerCollateralAmount: string;
-  localOracle: string;
-  inputs: {}[];
-  outputs: {}[];
-};
+    type LimitOrderData = {
+      type: "LimitOrder"; // Not to be submitted
+      proofDeadline: number;
+      challengeDeadline: number;
+      collateralToken: string;
+      fillerCollateralAmount: string;
+      challengerCollateralAmount: string;
+      localOracle: string;
+      inputs: {}[];
+      outputs: {}[];
+    };
 
-// With the CrossChainOrder defined as such:
-type CrossChainOrder = {
-  settlementContract: string;
-  swapper: string;
-  nonce: string;
-  originChainId: number;
-  initiateDeadline: number;
-  fillDeadline: number;
-  orderData: DutchAuctionData | LimitOrderData;
-};
+    // With the CrossChainOrder defined as such:
+    type CrossChainOrder = {
+      settlementContract: string;
+      swapper: string;
+      nonce: string;
+      originChainId: number;
+      initiateDeadline: number;
+      fillDeadline: number;
+      orderData: DutchAuctionData | LimitOrderData;
+    };
 
-type OrderDto = {
-  order: CrossChainOrder;
-  quote: {
-    fromAsset: string;
-    toAsset: string;
-    toPrice: string;
-    fromPrice: string;
-    intermediary: "USD" | "EUR" | "BTC" | string; // explicit string types here are examples.
-    discount: string;
-  };
-  signature: string;
-  submitTime: number;
-};
+    type OrderDto = {
+      order: CrossChainOrder;
+      quote: {
+        fromAsset: string;
+        toAsset: string;
+        toPrice: string;
+        fromPrice: string;
+        intermediary: "USD" | "EUR" | "BTC" | string; // explicit string types here are examples.
+        discount: string;
+      };
+      signature: string;
+      submitTime: number;
+    };
 
-type PaginationMeta = {
-  total: number;
-  limit: number;
-  offset: number;
-};
+    type PaginationMeta = {
+      total: number;
+      limit: number;
+      offset: number;
+    };
 
-type GetOrdersResponse = {
-  data: OrderDto[];
-  pagination: PaginationMeta;
-};
+    type GetOrdersResponse = {
+      data: OrderDto[];
+      pagination: PaginationMeta;
+    };
 
-async function getOrders(): GetOrdersResponse {
-  const API_URI = "https://crosscats-api-staging.catalyst.exchange";
-  const API_KEY = "your_api_key_here";
+    async function getOrders(): GetOrdersResponse {
+      const API_URI = "https://crosscats-api-staging.catalyst.exchange";
+      const API_KEY = "your_api_key_here";
 
-  const orderServerResponse = await fetch<GetOrdersResponse>(
-    API_URI + "/orders",
-    {
-      headers: {
-        "x-api-key": API_KEY,
-        Accept: "application/json",
-      },
+      const orderServerResponse = await fetch<GetOrdersResponse>(
+        API_URI + "/orders",
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            Accept: "application/json",
+          },
+        }
+      );
+      if (!orderServerResponse.ok) {
+        throw new Error(`HTTP error! status: ${orderServerResponse.status}`);
+      }
+
+      const fetchedOrders = await orderServerResponse.json();
+      return fetchedOrders;
     }
-  );
-  if (!orderServerResponse.ok) {
-    throw new Error(`HTTP error! status: ${orderServerResponse.status}`);
-  }
+  ```
 
-  const fetchedOrders = await orderServerResponse.json();
-  return fetchedOrders;
-}
-```
+  </TabItem>
+  <TabItem label="Python">
 
-</TabItem>
-<TabItem label="Python">
+  ```python
+    import requests
 
-```python
-import requests
+    def get_orders():
+        response = requests.get(API_URL + "orders/")
+        fetched_orders = response.json()
+        return fetched_orders
+  ```
 
-def get_orders():
-    response = requests.get(API_URL + "orders/")
-    fetched_orders = response.json()
-    return fetched_orders
-```
-
-</TabItem>
+  </TabItem>
 </Tabs>
-
-{/* <GetQuotes client:load /> */}
 
 #### Subscribe to orders
 
-This section outlines how to subscribe to new orders using a WebSocket connection, allowing for real-time updates without the need to continuously poll the order server. By leveraging a WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of increased complexity due to the need for a persistent connection and local filtering of incoming data.
+Subscribing to orders allow you to listen directly to the order flow. This section outlines how to subscribe to new orders using a WebSocket connection, allowing for real-time updates without the need to continuously poll the order server. By leveraging a WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of increased complexity due to the need for a persistent connection and local filtering of incoming data.
 
-How It Works
 Instead of polling for new orders, you can establish a WebSocket connection to the Catalyst order server. The server provides a WebSocket endpoint that pushes new order data to subscribers in real time. However, unlike polling, the data received through WebSocket is not pre-filtered. This means every order event will be pushed to your application, and it’s up to your implementation to manage and filter these events locally.
 
 Below is a simplified implementation in pure JavaScript that demonstrates how to connect to the WebSocket server, handle incoming messages, respond to ping events, and automatically attempt to reconnect if the connection is lost.
