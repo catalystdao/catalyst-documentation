@@ -24,22 +24,22 @@ You will have noticed that these checks do not assert any validity whether the i
 
 This section has not been written yet.
 
-#### Bitcoin Outputs:
+#### Transaction Outputs
 
-Transaction Outputs contains the spending conditions written in Bitcoin Script. Legacy transaction contains the entirety of the spending condition within the transaction itself while Segwit transaction places the spending condition in the witness and only stores the hash of it in the output. The Bitcoin blockchain itself has no concept of addresses, instead output scripts have been standardized into 7 defined transaction types with 5 still in general use today. P2PK and P2MS are generally not used.
+Transaction Outputs contains the spending conditions written in Bitcoin Script. Legacy transaction contains the entirety of the spending condition within the output itself while Segwit transaction places the spending condition in the witness and only stores the hash of it in the output. The Bitcoin blockchain itself has no concept of addresses, instead output scripts have been standardized into 7 defined transaction types with 5 still in general use today. The 2 that are generally not used anymore are P2PK and P2MS.
 
 While non-standard scripts may be spendable by a user's privatekey they are unlikely to be recognised by their wallet wallet. Additionally, most custom scripts are implemented through P2SH to allow wallets to pay into it.
 
-To determine whether an order involves a Bitcoin transaction, check the `GetOrderData.order.orderData.outputs[].token` field. If the token indicates Bitcoin, ensure the following conditions are met:
+Each standardised transaction type describes what the output looks like. The script below is a legacy `P2PKH` output script:
 
-- The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`. The 13th byte is `0xBC`.
-- The 31st byte indicates the number of confirmations required before the order can be verified on-chain. For example:
-  - `0x00` and `0x01` represent 1 confirmation.
-  - `0x02` represents 2 confirmations.
-  - `0x03` represents 3 confirmations, and so on.
-- The 32nd byte contains an address version identifier, which should be decoded as `uint8`.
+> `OP_DUB | OP_HASH160 | PUSH_20 | {publicKeyHash} | OP_EQUALVERIFY | OP_CHECKSIG`
 
-If the transaction is directed to Bitcoin, the address (`GetOrderData.order.orderData.outputs[].recipient`) will contain a relevant destination hash or witness, not the address itself. This value must be used along with the address version identifier to decode the address.
+If you need to pay to a `P2PKH` address, the output script needs to have the above format. Additionally, `publicKeyHash` defines who the spender is. To fully generate an output script you thus need the target `publicKeyHash`. This is what the address is. A `P2PKH` address is `00 + publicKeyHash` encoded with `Base58Check`. A Bitcoin address has 2 purposes:
+
+1. Identify which output script needs to be used.
+2. Identify which variable elements needs to be filled
+
+The below table have enumerated the 5 transaction types from 1 to 5.
 
 <table>
   <thead>
@@ -96,50 +96,16 @@ If the transaction is directed to Bitcoin, the address (`GetOrderData.order.orde
     </tr>
   </tbody>
 </table>
-\* Prefixes are determined by the encoding scheme.
+\* Prefix is determined by the encoding scheme.
 \
 \*\* Part of the prefix – 1q/1p – is determined by the encoding scheme.
 
-The following guidelines assume you are implementing this from the perspective of a solver. You need to convert the expected output script into a Bitcoin address that can be used with your wallet:
+#### Transaction Inputs
 
-- **P2PKH (Pay-to-PubKey-Hash)**:
+Transaction inputs link to other transactions' outputs along with the unlock conditions fulfilled. For a `P2PKH` transaction this is the publickey & signature of the transaction.
 
-  - The recipient is the public key hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `00`, and encode with Base58Check.
+Importantly, the sum of all inputs must be greater than the outputs. The difference between the 2 is the fee and will be claimed by the miner.
 
-- **P2SH (Pay-to-Script-Hash)**:
+## Proving Bitcoin Transactions
 
-  - The recipient is the script hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `05`, and encode with Base58Check.
-
-- **P2WPKH (Pay-to-Witness-PubKey-Hash)**:
-
-  - The recipient is the witness. Encode the first 20 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
-
-- **P2WSH (Pay-to-Witness-Script-Hash)**:
-
-  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
-
-- **P2TR (Pay-to-Taproot)**:
-
-  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32m](https://en.bitcoin.it/wiki/BIP_0350#Bech32m). Prepend with `bc1p`.
-
-- **Nested Witness Addresses/Outputs**:
-  - These are **P2SH** addresses and should be treated like any other **P2SH** address.
-
-Once the address is generated, create a Bitcoin transaction with at least one output that **exactly** matches the described output from the initiated order. The transaction can have any number of inputs and outputs, as long as one output precisely matches the one specified by the order's output. This flexibility allows for batch filling, consolidation, and more. While having multiple matching outputs is permitted, it benefits only the user to ensure the order’s conditions are met.
-
-#### Bitcoin Inputs
-
-
-## From Bitcoin
-
-Bitcoin operates differently from VM chains in terms of script functionality. Bitcoin scripts only define spending conditions, meaning that, unlike VM chains, we cannot pull funds from a user after they have signed a message. Consequently, the order flow is reversed, and the solver is responsible for signing the VM order. While it's technically feasible to create unique conditional deposit addresses, most wallets do not support pulling from custom scripts.
-
-### Encoding a Bitcoin Address
-
-Your solver must be capable of generating a Bitcoin deposit address. Although it's possible to use the same address for every order, it is crucial to ensure that each order amount is unique if you choose this approach. It is generally recommended to use different addresses for each order. Bitcoin does not impose additional fees for collecting UTXOs from multiple addresses.
-
-Bitcoin addresses are encoded in two fields: `token` and `address`.
-
-- **`token`**: This field serves to differentiate VM tokens from Bitcoin orders and encode the address version. Refer to the Bitcoin Deliveries table for details on converting address types to versions.
-
-- **`address`**: This field encodes the public key hash, script hash, or witness hash. Use the encoding schemes listed in the Bitcoin Deliveries table for various address versions. For addresses involving hashes of 20 bytes (P2PKH, P2SH, and P2WPKH), ensure to pad the hashes with zeros on the right side (e.g., `0xabcdef...00000`).
+This section has not been written yet.

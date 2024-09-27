@@ -1,5 +1,5 @@
 ---
-title: "Introduction to solving"
+title: "Solving for Cross Cats"
 description: "Cross Cats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
 sidebar:
   order: 3
@@ -89,3 +89,158 @@ struct OutputDescription {
 Users generate a `CrossChainOrder` with the appropriate order data and sign it as a Permit2 witness, thereby approving both the order description and its associated inputs with a single signature. The signed struct will be a new structure where `orderData` is an ABI-encoded order type.
 
 Cross Cats has directionality. That means the ways orders are initiated depends on the initiating chain (where the user is swapping out of). In the current iteration, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains (including EVM) will generally be initiated similarly and all non-VM chains (including Bitcoin) will be initiated similarly but different from VM chains.
+
+### Evaluate Orders
+
+After fetching an order, the solver must thoroughly evaluate it to determine its viability and potential execution. To facilitate this evaluation, several contextual pointers are available within the returned order data. Key aspects to consider include:
+
+1. **Quote Validation**: Use the `OrderDto.quote` field to access the price context, which provides the pricing details for the inputs and outputs of the order. If you trust the order server, you can primarily rely on this quote to validate the order’s pricing. However, it’s crucial to verify that the solver supports the specific origin chain (`OrderDto.order.originChainId`) and output chains (`OrderDto.order.orderData.outputs[...].chainId`) as well as their respective tokens (`input[].token` and `output[].token`). These parameters are guaranteed to be present across all order types.
+
+2. **Solver-Exclusive Orders**: Some orders may initially be restricted to specific solvers. This is indicated by the `OrderDto.order.orderData.verificationContract` field. If this field is defined and not equal to `address(0)`, the order is exclusive to the designated solver until the `slopeStartingTime` elapses, after which the order becomes available for anyone to fulfill.
+
+3. **Mutually Exclusive Orders**: Be aware of potential conflicts between orders. If you encounter two orders with the same `OrderDto.order.swapper` and `OrderDto.order.nonce`, these orders are mutually exclusive, meaning only one of them can be submitted on-chain. This mechanism prevents double submissions and ensures the integrity of the order processing.
+
+Evaluating orders carefully ensures that solvers can accurately determine the feasibility of executing an order, adhere to exclusivity rules, and avoid conflicts, thereby maintaining the integrity and efficiency of the order fulfillment process.
+
+### Initiate Orders
+
+Once an order has been fetched and validated, the next step is to submit it on-chain. Catalyst Orders are accompanied by a signature (`OrderDto.signature`) that serves a dual purpose:
+
+1. **Permit2 Signature**: This signature acts as a Permit2, authorizing the Catalyst contracts to withdraw the submitter's tokens directly. This streamlines the process by eliminating the need for separate approval transactions.
+
+2. **User Authorization**: The signature also confirms that the user has approved the order, ensuring consent and alignment with the terms of execution.
+
+Orders are processed on a first-come, first-served basis, emphasizing the importance of swift submission to secure the desired transaction. By leveraging the Permit2 signature mechanism, Catalyst simplifies the initiation process, reducing overhead and ensuring seamless order execution.
+
+<Tabs syncKey="lang">
+  <TabItem label="Typescript">
+
+  ```typescript
+  // This tutorial uses ethersjs but you can easily replace it by similar libraries.
+  import { ethers } from "ethers";
+
+  const reactorAbi = "...";
+  const signer = "ethers.signer...";
+
+  async function initiateOrder() {
+    // Get an order
+    const orders = await getOrders();
+    const order = orders.orders[0];
+
+    // Define the reactor we will call. You can get the reactor address from the order
+    const reactorAddress = order.order.settlementContract;
+    const reactor = new ethers.Contract(reactorAddress, reactorAbi, signer);
+
+    // TODO: Set approvals for the reactorAddress for all inputs & collateral.
+
+    // The order arrives almost ready to use,
+    // we just need to remove the type from the orderdata.
+    const { type: _, ...cleanedOrderData } = order.order.orderData;
+    const cleanedOrder = { ...order.order, orderData: cleanedOrderData };
+    const signature = order.signature;
+    const fillerData = "0x"; // #custom-fillerdata--underwriting
+
+    // Call the reactor to initiate the order.
+    return reactor.initiate(cleanedOrder, signature, fillerData);
+  }
+  ```
+
+  </TabItem>
+  <TabItem label="Python">
+
+  ```python
+  from web3 import Web3
+
+  rpc_url = ""
+  web3 = Web3(Web3.HTTPProvider(eth_node_url))
+
+  # Your ABI and signer details
+  reactor_abi = "..."
+  signer_private_key = "your_private_key_here"
+  signer_address = web3.eth.account.from_key(signer_private_key).address
+
+  def initiate_order():
+      # Get an order
+      orders = get_orders()
+      order = orders['orders'][0]
+
+      # Define the reactor we will call. You can get the reactor address from the order
+      reactor_address = order['order']['settlementContract']
+      reactor = web3.eth.contract(address=reactor_address, abi=reactor_abi)
+
+      # TODO: Set approvals for the reactorAddress for all inputs & collateral.
+      # This will depend on the specific ERC20 tokens you're using,
+      # you need to call approve() on the ERC20 token contracts
+
+      # Clean the order data by removing the type field
+      cleaned_order_data = order['order']['orderData'].copy()
+      cleaned_order_data.pop('type')
+      cleaned_order = {**order['order'], 'orderData': cleaned_order_data}
+      signature = order['signature']
+      filler_data = "0x" # #custom-fillerdata--underwriting
+
+      # Build the transaction
+      txn = reactor.functions.initiate(cleaned_order, signature, filler_data).build_transaction({
+          'from': signer_address,
+          'nonce': web3.eth.get_transaction_count(signer_address)
+      })
+      # Sign the transaction
+      signed_txn = web3.eth.account.sign_transaction(txn, private_key=signer_private_key)
+      # Send the transaction
+      tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+      # Wait for the transaction receipt
+      receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+      return receipt
+  ```
+
+  </TabItem>
+</Tabs>
+
+#### Custom FillerData & Underwriting
+
+By default, if `fillerData` is not specified, the input assets (provided by the user) are sent directly to the caller. This behavior is generally suitable for most use cases, eliminating the need for additional customization.
+
+However, if there is a need to direct the input assets to another address or to enable underwriting, a customized `fillerData` must be utilized. Currently, only one custom version (`v1`) is supported. The `v1` structure includes:
+
+- **Version Byte (0x01)**: Identifies the custom data version.
+- **fillerAddress**: The address that will receive the input assets and collateral.
+- **orderPurchaseDeadline**: A timestamp that allows an alternative buyer to purchase the order before this time. "Buying" the order in this context means transferring all of the input assets and collateral to the `fillerAddress`.
+- **orderDiscount**: Provides buyers with a discount on the inputs, represented as a fraction of 2^16 - 1. For example, to offer a 1% discount, the value would be calculated as `0.01 * (2^16 - 1) = 655`. This feature is particularly useful for chains with slower block confirmations (e.g., Bitcoin), enabling the solver to be paid after 0-1 confirmations while assuring the user of higher finality (3-6 confirmations).
+
+<Tabs syncKey="lang">
+<TabItem label="Typescript">
+
+```typescript
+const fillerDataVersion = "0x01";
+const fillerAddress = "0x....".replace("0x", "");
+// fillerAddress.length === 20*2;
+const orderPurchaseDeadline = Number(1723199919)
+  .toString(16)
+  .padStart("0", 4 * 2);
+//orderPurchaseDeadline.length === 4*2
+const orderDiscount = Math.floor(0.01 * (2 ** 16 - 1))
+  .toString(16)
+  .padStart("0", 2 * 2);
+// orderDiscount.length === 2*2
+
+const fillerData =
+  fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+```
+
+</TabItem>
+  <TabItem label="Python">
+
+  ```python
+  fillerDataVersion = "0x01";
+  fillerAddress = '0x....'.replace("0x", "");
+  # len(fillerAddress) === 20*2;
+  orderPurchaseDeadline = hex(1723199919).replace("0x", "").zfill(4*2);
+  # len(orderPurchaseDeadline) === 4*2
+  const orderDiscount = hex(int(0.01*(2**16-1))).replace("0x", "").zfill(2*2);
+  # len(orderDiscount) === 2*2
+
+  fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+  ```
+
+  </TabItem>
+</Tabs>
