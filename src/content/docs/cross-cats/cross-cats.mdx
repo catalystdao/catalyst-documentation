@@ -5,218 +5,1291 @@ sidebar:
   order: 1
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 Cross-Cats is an intent-based cross-chain swap protocol built with flexibility in mind. The core idea is to allow anyone to create a request for anything provable. At launch, EVM settlements and Bitcoin transactions will be part of the provable set. Bitcoin transactions are proven using a Bitcoin SPV client and allows VM chain payments to be conditional on Bitcoin transactions.
+<Tabs>
+  <TabItem label="Index">
+    ```d2 target=root
+      style.fill: transparent
+      direction: right
 
-```d2 animateInterval=5000
-  style.fill: transparent
-  direction: right
-
-  vars: {
-    default-opacity: 0.1
-  }
-
-  title: System Overview {
-    near: top-center
-    shape: text
-    style: {
-      font-size: 40
-    }
-  }
-
-  Order Server: {shape: cloud}
-
-  Source Chain: {
-    User: {
-      shape: person
-    }
-    Solver: {
-      style.fill-pattern: none
-    }
-    Reactor: {shape: page}
-    Oracle: {
-      style.opacity: ${default-opacity}
-      shape: page
-    }
-    Challenger: {style.opacity: ${default-opacity}}
-    SPV: {
-      style.opacity: ${default-opacity}
-      shape: page
-    }
-
-    Solver -> Reactor: 3. resolve() => Quote
-    Solver -> Reactor: 4.1. initiate()
-    User -> Reactor: 4.2. Tokens
-
-    # Optimistic Payout
-    Solver <-> Reactor: O.6.1. optimisticPayout() {style.opacity: ${default-opacity}}
-
-    # Challenge Parts
-    Challenger -> Reactor: C.6.1. dispute() {style.opacity: ${default-opacity}}
-
-    # - Challenged Rejected (VM)
-    Oracle -> Reactor: C.9.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
-    Reactor -> Solver: C.9.3. payout Tokens {style.opacity: ${default-opacity}}
-
-    # - Challenged Rejected (Bitcoin)
-    Solver -> SPV: C.7.1. verify() {style.opacity: ${default-opacity}}
-    SPV -> Reactor: C.7.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
-    Reactor -> Solver: C.7.3. payout Tokens {style.opacity: ${default-opacity}}
-
-    # - Challenged Accepted
-    Challenger -> Reactor: C.7.1. completeDispute() {style.opacity: ${default-opacity}}
-    Reactor -> Challenger: C.7.2. Reward {style.opacity: ${default-opacity}}
-    Reactor -> User: C.7.3. Tokens {style.opacity: ${default-opacity}}
-  }
-
-  Source Chain.User -> Order Server: 1. Sign Message {style.animated: false}
-  Order Server -> Source Chain.Solver: 2. Signed Orders
-
-  Destination Chain: {
-    Oracle: {
-      shape: page
-    }
-    Solver
-    SPV: {
-      style.opacity: ${default-opacity}
-      shape: page
-    }
-    User: {
-      shape: person
-    }
-
-    # Ordinary
-    Solver -> Oracle: 5.1. fill()
-    Solver -> User: 5.2. Tokens
-
-    # Challenged submit proof (VM)
-    Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
-
-    # Challenged submit proof (Bitcoin)
-    Solver -> SPV: C.7.1: verify() {style.opacity: ${default-opacity}}
-    SPV -> Oracle: C.7.2. Send fill details {style.opacity: ${default-opacity}}
-  }
-
-  Bitcoin: {
-    Solver: {
-      style.opacity: ${default-opacity}
-    }
-    User: {
-      shape: person
-      style.opacity: ${default-opacity}
-    }
-
-    Solver -> User: 5.1 transfer {style.opacity: ${default-opacity}}
-    style.opacity: ${default-opacity}
-  }
-
-  Bitcoin -> Destination Chain.SPV: Bitcoin Headers {
-    style.opacity: ${default-opacity}
-    style.stroke-dash: 4
-  }
-  Bitcoin -> Source Chain.SPV: Bitcoin Headers {
-    style.opacity: ${default-opacity}
-    style.stroke-dash: 4
-  }
-
-  Proof: "AMB\n" {
-    shape: cloud
-    style.opacity: ${default-opacity}
-  }
-
-  Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
-  Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
-
-  scenarios: {
-    optimistic resolution: {
-      title.label: Optimistic Resolution
-      Source Chain: {
-        (Solver <-> Reactor)[0].style.opacity: 1
-
-        (Solver <-> Reactor)[0].style.stroke-width: 3
+      vars: {
+        default-opacity: 0.1
       }
-    }
-    challenged: {
-      title.label: Challenged
-      Source Chain.Challenger.style.opacity: 1
-      Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
-      Source Chain.(Challenger -> Reactor)[0]: C.6.1. dispute()
 
-      Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
+      title: System Overview {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      Order Server: {shape: cloud}
+
+      Source Chain: {
+        User: {
+          shape: person
+        }
+        Solver: {
+          style.fill-pattern: none
+        }
+        Reactor: {shape: page}
+        Oracle: {
+          style.opacity: ${default-opacity}
+          shape: page
+        }
+        Challenger: {style.opacity: ${default-opacity}}
+        SPV: {
+          style.opacity: ${default-opacity}
+          shape: page
+        }
+
+        Solver -> Reactor: 3. resolve() => Quote
+        Solver -> Reactor: 4.1. initiate()
+        User -> Reactor: 4.2. Tokens
+
+        # Optimistic Payout
+        Solver <-> Reactor: O.6.1. optimisticPayout() {style.opacity: ${default-opacity}}
+
+        # Challenge Parts
+        Challenger -> Reactor: C.6.1. dispute() {style.opacity: ${default-opacity}}
+
+        # - Challenged Rejected (VM)
+        Oracle -> Reactor: C.9.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+        Reactor -> Solver: C.9.3. payout Tokens {style.opacity: ${default-opacity}}
+
+        # - Challenged Rejected (Bitcoin)
+        Solver -> SPV: C.7.1. verify() {style.opacity: ${default-opacity}}
+        SPV -> Reactor: C.7.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+        Reactor -> Solver: C.7.3. payout Tokens {style.opacity: ${default-opacity}}
+
+        # - Challenged Accepted
+        Challenger -> Reactor: C.7.1. completeDispute() {style.opacity: ${default-opacity}}
+        Reactor -> Challenger: C.7.2. Reward {style.opacity: ${default-opacity}}
+        Reactor -> User: C.7.3. Tokens {style.opacity: ${default-opacity}}
+      }
+
+      Source Chain.User -> Order Server: 1. Sign Message {style.animated: false}
+      Order Server -> Source Chain.Solver: 2. Signed Orders
+
+      Destination Chain: {
+        Oracle: {
+          shape: page
+        }
+        Solver
+        SPV: {
+          style.opacity: ${default-opacity}
+          shape: page
+        }
+        User: {
+          shape: person
+        }
+
+        # Ordinary
+        Solver -> Oracle: 5.1. fill()
+        Solver -> User: 5.2. Tokens
+
+        # Challenged submit proof (VM)
+        Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
+
+        # Challenged submit proof (Bitcoin)
+        Solver -> SPV: C.7.1: verify() {style.opacity: ${default-opacity}}
+        SPV -> Oracle: C.7.2. Send fill details {style.opacity: ${default-opacity}}
+      }
+
+      Bitcoin: {
+        Solver: {
+          style.opacity: ${default-opacity}
+        }
+        User: {
+          shape: person
+          style.opacity: ${default-opacity}
+        }
+
+        Solver -> User: 5.1 transfer {style.opacity: ${default-opacity}}
+        style.opacity: ${default-opacity}
+      }
+
+      Bitcoin -> Destination Chain.SPV: Bitcoin Headers {
+        style.opacity: ${default-opacity}
+        style.stroke-dash: 4
+      }
+      Bitcoin -> Source Chain.SPV: Bitcoin Headers {
+        style.opacity: ${default-opacity}
+        style.stroke-dash: 4
+      }
+
+      Proof: "AMB\n" {
+        shape: cloud
+        style.opacity: ${default-opacity}
+      }
+
+      Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
+      Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
 
       scenarios: {
-        challenged uncontested: {
-          title.label: Challenged Uncontested
-          Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
-          Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
-          Source Chain.(Challenger -> Reactor)[1]: C.7.1. completeDispute()
+        optimistic resolution: {
+          title.label: Optimistic Resolution
+          Source Chain: {
+            (Solver <-> Reactor)[0].style.opacity: 1
 
-          Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
-          Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
-          Source Chain.(Reactor -> User)[0].style.opacity: 1
-          Destination Chain.style.opacity: ${default-opacity}
-          Destination Chain.*.style.opacity: ${default-opacity}
-          Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+            (Solver <-> Reactor)[0].style.stroke-width: 3
+          }
         }
-        order fill proven (VM): {
-          title.label: Order Fill Proven (VM)
-          Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+        challenged: {
+          title.label: Challenged
+          Source Chain.Challenger.style.opacity: 1
+          Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
+          Source Chain.(Challenger -> Reactor)[0]: C.6.1. dispute()
 
-          Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
-          Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
-          Destination Chain.Oracle.style.opacity: 1
-          Proof.style.opacity: 1
-          (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
-          (Proof -> Source Chain.oracle)[0].style.opacity: 1
-          Source Chain.Oracle.style.opacity: 1
-          Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
-          Source Chain.(Reactor -> Solver)[0].style.opacity: 1
-        }
-        order fill proven, (BTC): {
-          Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
-          Destination Chain.style.opacity: ${default-opacity}
-          Destination Chain.*.style.opacity: ${default-opacity}
-          Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
-          Bitcoin.style.opacity: 1
-          Bitcoin.*.style.opacity: 1
-          Bitcoin.(* -> *)[*].style.opacity: 1
+          Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
 
           scenarios: {
-            local SPV client: {
-              title.label: Local SPV Client
-              (Bitcoin -> Source Chain.SPV)[0].style.opacity: 1
-              Source Chain.SPV.style.opacity: 1
+            challenged uncontested: {
+              title.label: Challenged Uncontested
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+              Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
+              Source Chain.(Challenger -> Reactor)[1]: C.7.1. completeDispute()
 
-              Source Chain.(Solver -> SPV)[0].style.opacity: 1
-              Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
-              Source Chain.(SPV -> Reactor)[0].style.opacity: 1
-              Source Chain.(Reactor -> Solver)[1].style.opacity: 1
+              Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
+              Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
+              Source Chain.(Reactor -> User)[0].style.opacity: 1
+              Destination Chain.style.opacity: ${default-opacity}
+              Destination Chain.*.style.opacity: ${default-opacity}
+              Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
             }
-            remote SPV client: {
-              title.label: Remote SPV Client
-              (Bitcoin -> Destination Chain.SPV)[0].style.opacity: 1
-              Destination Chain.SPV.style.opacity: 1
+            order fill proven (VM): {
+              title.label: Order Fill Proven (VM)
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
 
-              Destination Chain.style.opacity: 1
-              Destination Chain.Solver.style.opacity: 1
-              Destination Chain.(Solver -> SPV)[0].style.opacity: 1
-              Destination Chain.SPV.style.opacity: 1
-
+              Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
+              Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
               Destination Chain.Oracle.style.opacity: 1
-              Destination Chain.(SPV -> Oracle)[0].style.opacity: 1
-              (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
-
               Proof.style.opacity: 1
+              (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+              (Proof -> Source Chain.oracle)[0].style.opacity: 1
               Source Chain.Oracle.style.opacity: 1
-              (Proof -> Source Chain.Oracle)[0].style.opacity: 1
               Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
               Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+            }
+            order fill proven (BTC): {
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+              Destination Chain.style.opacity: ${default-opacity}
+              Destination Chain.*.style.opacity: ${default-opacity}
+              Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+              Bitcoin.style.opacity: 1
+              Bitcoin.*.style.opacity: 1
+              Bitcoin.(* -> *)[*].style.opacity: 1
+
+              scenarios: {
+                local SPV client: {
+                  title.label: Local SPV Client
+                  (Bitcoin -> Source Chain.SPV)[0].style.opacity: 1
+                  Source Chain.SPV.style.opacity: 1
+
+                  Source Chain.(Solver -> SPV)[0].style.opacity: 1
+                  Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
+                  Source Chain.(SPV -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Reactor -> Solver)[1].style.opacity: 1
+                }
+                remote SPV client: {
+                  title.label: Remote SPV Client
+                  (Bitcoin -> Destination Chain.SPV)[0].style.opacity: 1
+                  Destination Chain.SPV.style.opacity: 1
+
+                  Destination Chain.style.opacity: 1
+                  Destination Chain.Solver.style.opacity: 1
+                  Destination Chain.(Solver -> SPV)[0].style.opacity: 1
+                  Destination Chain.SPV.style.opacity: 1
+
+                  Destination Chain.Oracle.style.opacity: 1
+                  Destination Chain.(SPV -> Oracle)[0].style.opacity: 1
+                  (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+
+                  Proof.style.opacity: 1
+                  Source Chain.Oracle.style.opacity: 1
+                  (Proof -> Source Chain.Oracle)[0].style.opacity: 1
+                  Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                }
+              }
             }
           }
         }
       }
-    }
-  }
-```
+    ```
+  </TabItem>
+  <TabItem label="Optimistic">
+    ```d2 target="optimistic resolution"
+      style.fill: transparent
+      direction: right
+
+      vars: {
+        default-opacity: 0.1
+      }
+
+      title: System Overview {
+        near: top-center
+        shape: text
+        style: {
+          font-size: 40
+        }
+      }
+
+      Order Server: {shape: cloud}
+
+      Source Chain: {
+        User: {
+          shape: person
+        }
+        Solver: {
+          style.fill-pattern: none
+        }
+        Reactor: {shape: page}
+        Oracle: {
+          style.opacity: ${default-opacity}
+          shape: page
+        }
+        Challenger: {style.opacity: ${default-opacity}}
+        SPV: {
+          style.opacity: ${default-opacity}
+          shape: page
+        }
+
+        Solver -> Reactor: 3. resolve() => Quote
+        Solver -> Reactor: 4.1. initiate()
+        User -> Reactor: 4.2. Tokens
+
+        # Optimistic Payout
+        Solver <-> Reactor: O.6.1. optimisticPayout() {style.opacity: ${default-opacity}}
+
+        # Challenge Parts
+        Challenger -> Reactor: C.6.1. dispute() {style.opacity: ${default-opacity}}
+
+        # - Challenged Rejected (VM)
+        Oracle -> Reactor: C.9.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+        Reactor -> Solver: C.9.3. payout Tokens {style.opacity: ${default-opacity}}
+
+        # - Challenged Rejected (Bitcoin)
+        Solver -> SPV: C.7.1. verify() {style.opacity: ${default-opacity}}
+        SPV -> Reactor: C.7.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+        Reactor -> Solver: C.7.3. payout Tokens {style.opacity: ${default-opacity}}
+
+        # - Challenged Accepted
+        Challenger -> Reactor: C.7.1. completeDispute() {style.opacity: ${default-opacity}}
+        Reactor -> Challenger: C.7.2. Reward {style.opacity: ${default-opacity}}
+        Reactor -> User: C.7.3. Tokens {style.opacity: ${default-opacity}}
+      }
+
+      Source Chain.User -> Order Server: 1. Sign Message {style.animated: false}
+      Order Server -> Source Chain.Solver: 2. Signed Orders
+
+      Destination Chain: {
+        Oracle: {
+          shape: page
+        }
+        Solver
+        SPV: {
+          style.opacity: ${default-opacity}
+          shape: page
+        }
+        User: {
+          shape: person
+        }
+
+        # Ordinary
+        Solver -> Oracle: 5.1. fill()
+        Solver -> User: 5.2. Tokens
+
+        # Challenged submit proof (VM)
+        Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
+
+        # Challenged submit proof (Bitcoin)
+        Solver -> SPV: C.7.1: verify() {style.opacity: ${default-opacity}}
+        SPV -> Oracle: C.7.2. Send fill details {style.opacity: ${default-opacity}}
+      }
+
+      Bitcoin: {
+        Solver: {
+          style.opacity: ${default-opacity}
+        }
+        User: {
+          shape: person
+          style.opacity: ${default-opacity}
+        }
+
+        Solver -> User: 5.1 transfer {style.opacity: ${default-opacity}}
+        style.opacity: ${default-opacity}
+      }
+
+      Bitcoin -> Destination Chain.SPV: Bitcoin Headers {
+        style.opacity: ${default-opacity}
+        style.stroke-dash: 4
+      }
+      Bitcoin -> Source Chain.SPV: Bitcoin Headers {
+        style.opacity: ${default-opacity}
+        style.stroke-dash: 4
+      }
+
+      Proof: "AMB\n" {
+        shape: cloud
+        style.opacity: ${default-opacity}
+      }
+
+      Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
+      Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
+
+      scenarios: {
+        optimistic resolution: {
+          title.label: Optimistic Resolution
+          Source Chain: {
+            (Solver <-> Reactor)[0].style.opacity: 1
+
+            (Solver <-> Reactor)[0].style.stroke-width: 3
+          }
+        }
+        challenged: {
+          title.label: Challenged
+          Source Chain.Challenger.style.opacity: 1
+          Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
+          Source Chain.(Challenger -> Reactor)[0]: C.6.1. dispute()
+
+          Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
+
+          scenarios: {
+            challenged uncontested: {
+              title.label: Challenged Uncontested
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+              Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
+              Source Chain.(Challenger -> Reactor)[1]: C.7.1. completeDispute()
+
+              Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
+              Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
+              Source Chain.(Reactor -> User)[0].style.opacity: 1
+              Destination Chain.style.opacity: ${default-opacity}
+              Destination Chain.*.style.opacity: ${default-opacity}
+              Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+            }
+            order fill proven (VM): {
+              title.label: Order Fill Proven (VM)
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+
+              Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
+              Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
+              Destination Chain.Oracle.style.opacity: 1
+              Proof.style.opacity: 1
+              (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+              (Proof -> Source Chain.oracle)[0].style.opacity: 1
+              Source Chain.Oracle.style.opacity: 1
+              Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+              Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+            }
+            order fill proven (BTC): {
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+              Destination Chain.style.opacity: ${default-opacity}
+              Destination Chain.*.style.opacity: ${default-opacity}
+              Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+              Bitcoin.style.opacity: 1
+              Bitcoin.*.style.opacity: 1
+              Bitcoin.(* -> *)[*].style.opacity: 1
+
+              scenarios: {
+                local SPV client: {
+                  title.label: Local SPV Client
+                  (Bitcoin -> Source Chain.SPV)[0].style.opacity: 1
+                  Source Chain.SPV.style.opacity: 1
+
+                  Source Chain.(Solver -> SPV)[0].style.opacity: 1
+                  Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
+                  Source Chain.(SPV -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Reactor -> Solver)[1].style.opacity: 1
+                }
+                remote SPV client: {
+                  title.label: Remote SPV Client
+                  (Bitcoin -> Destination Chain.SPV)[0].style.opacity: 1
+                  Destination Chain.SPV.style.opacity: 1
+
+                  Destination Chain.style.opacity: 1
+                  Destination Chain.Solver.style.opacity: 1
+                  Destination Chain.(Solver -> SPV)[0].style.opacity: 1
+                  Destination Chain.SPV.style.opacity: 1
+
+                  Destination Chain.Oracle.style.opacity: 1
+                  Destination Chain.(SPV -> Oracle)[0].style.opacity: 1
+                  (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+
+                  Proof.style.opacity: 1
+                  Source Chain.Oracle.style.opacity: 1
+                  (Proof -> Source Chain.Oracle)[0].style.opacity: 1
+                  Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                }
+              }
+            }
+          }
+        }
+      }
+    ```
+  </TabItem>
+  <TabItem label="Challenged">
+    <Tabs>
+      <TabItem label="Challenged Uncontested">
+        ```d2 target="challenged.challenged uncontested"
+          style.fill: transparent
+          direction: right
+
+          vars: {
+            default-opacity: 0.1
+          }
+
+          title: System Overview {
+            near: top-center
+            shape: text
+            style: {
+              font-size: 40
+            }
+          }
+
+          Order Server: {shape: cloud}
+
+          Source Chain: {
+            User: {
+              shape: person
+            }
+            Solver: {
+              style.fill-pattern: none
+            }
+            Reactor: {shape: page}
+            Oracle: {
+              style.opacity: ${default-opacity}
+              shape: page
+            }
+            Challenger: {style.opacity: ${default-opacity}}
+            SPV: {
+              style.opacity: ${default-opacity}
+              shape: page
+            }
+
+            Solver -> Reactor: 3. resolve() => Quote
+            Solver -> Reactor: 4.1. initiate()
+            User -> Reactor: 4.2. Tokens
+
+            # Optimistic Payout
+            Solver <-> Reactor: O.6.1. optimisticPayout() {style.opacity: ${default-opacity}}
+
+            # Challenge Parts
+            Challenger -> Reactor: C.6.1. dispute() {style.opacity: ${default-opacity}}
+
+            # - Challenged Rejected (VM)
+            Oracle -> Reactor: C.9.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+            Reactor -> Solver: C.9.3. payout Tokens {style.opacity: ${default-opacity}}
+
+            # - Challenged Rejected (Bitcoin)
+            Solver -> SPV: C.7.1. verify() {style.opacity: ${default-opacity}}
+            SPV -> Reactor: C.7.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+            Reactor -> Solver: C.7.3. payout Tokens {style.opacity: ${default-opacity}}
+
+            # - Challenged Accepted
+            Challenger -> Reactor: C.7.1. completeDispute() {style.opacity: ${default-opacity}}
+            Reactor -> Challenger: C.7.2. Reward {style.opacity: ${default-opacity}}
+            Reactor -> User: C.7.3. Tokens {style.opacity: ${default-opacity}}
+          }
+
+          Source Chain.User -> Order Server: 1. Sign Message {style.animated: false}
+          Order Server -> Source Chain.Solver: 2. Signed Orders
+
+          Destination Chain: {
+            Oracle: {
+              shape: page
+            }
+            Solver
+            SPV: {
+              style.opacity: ${default-opacity}
+              shape: page
+            }
+            User: {
+              shape: person
+            }
+
+            # Ordinary
+            Solver -> Oracle: 5.1. fill()
+            Solver -> User: 5.2. Tokens
+
+            # Challenged submit proof (VM)
+            Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
+
+            # Challenged submit proof (Bitcoin)
+            Solver -> SPV: C.7.1: verify() {style.opacity: ${default-opacity}}
+            SPV -> Oracle: C.7.2. Send fill details {style.opacity: ${default-opacity}}
+          }
+
+          Bitcoin: {
+            Solver: {
+              style.opacity: ${default-opacity}
+            }
+            User: {
+              shape: person
+              style.opacity: ${default-opacity}
+            }
+
+            Solver -> User: 5.1 transfer {style.opacity: ${default-opacity}}
+            style.opacity: ${default-opacity}
+          }
+
+          Bitcoin -> Destination Chain.SPV: Bitcoin Headers {
+            style.opacity: ${default-opacity}
+            style.stroke-dash: 4
+          }
+          Bitcoin -> Source Chain.SPV: Bitcoin Headers {
+            style.opacity: ${default-opacity}
+            style.stroke-dash: 4
+          }
+
+          Proof: "AMB\n" {
+            shape: cloud
+            style.opacity: ${default-opacity}
+          }
+
+          Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
+          Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
+
+          scenarios: {
+            optimistic resolution: {
+              title.label: Optimistic Resolution
+              Source Chain: {
+                (Solver <-> Reactor)[0].style.opacity: 1
+
+                (Solver <-> Reactor)[0].style.stroke-width: 3
+              }
+            }
+            challenged: {
+              title.label: Challenged
+              Source Chain.Challenger.style.opacity: 1
+              Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
+              Source Chain.(Challenger -> Reactor)[0]: C.6.1. dispute()
+
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
+
+              scenarios: {
+                challenged uncontested: {
+                  title.label: Challenged Uncontested
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                  Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
+                  Source Chain.(Challenger -> Reactor)[1]: C.7.1. completeDispute()
+
+                  Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
+                  Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
+                  Source Chain.(Reactor -> User)[0].style.opacity: 1
+                  Destination Chain.style.opacity: ${default-opacity}
+                  Destination Chain.*.style.opacity: ${default-opacity}
+                  Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                }
+                order fill proven (VM): {
+                  title.label: Order Fill Proven (VM)
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+
+                  Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
+                  Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
+                  Destination Chain.Oracle.style.opacity: 1
+                  Proof.style.opacity: 1
+                  (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+                  (Proof -> Source Chain.oracle)[0].style.opacity: 1
+                  Source Chain.Oracle.style.opacity: 1
+                  Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                }
+                order fill proven (BTC): {
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                  Destination Chain.style.opacity: ${default-opacity}
+                  Destination Chain.*.style.opacity: ${default-opacity}
+                  Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                  Bitcoin.style.opacity: 1
+                  Bitcoin.*.style.opacity: 1
+                  Bitcoin.(* -> *)[*].style.opacity: 1
+
+                  scenarios: {
+                    local SPV client: {
+                      title.label: Local SPV Client
+                      (Bitcoin -> Source Chain.SPV)[0].style.opacity: 1
+                      Source Chain.SPV.style.opacity: 1
+
+                      Source Chain.(Solver -> SPV)[0].style.opacity: 1
+                      Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
+                      Source Chain.(SPV -> Reactor)[0].style.opacity: 1
+                      Source Chain.(Reactor -> Solver)[1].style.opacity: 1
+                    }
+                    remote SPV client: {
+                      title.label: Remote SPV Client
+                      (Bitcoin -> Destination Chain.SPV)[0].style.opacity: 1
+                      Destination Chain.SPV.style.opacity: 1
+
+                      Destination Chain.style.opacity: 1
+                      Destination Chain.Solver.style.opacity: 1
+                      Destination Chain.(Solver -> SPV)[0].style.opacity: 1
+                      Destination Chain.SPV.style.opacity: 1
+
+                      Destination Chain.Oracle.style.opacity: 1
+                      Destination Chain.(SPV -> Oracle)[0].style.opacity: 1
+                      (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+
+                      Proof.style.opacity: 1
+                      Source Chain.Oracle.style.opacity: 1
+                      (Proof -> Source Chain.Oracle)[0].style.opacity: 1
+                      Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                      Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ```
+      </TabItem>
+      <TabItem label="VM Proof">
+        ```d2 target="challenged.order fill proven (VM)"
+          style.fill: transparent
+          direction: right
+
+          vars: {
+            default-opacity: 0.1
+          }
+
+          title: System Overview {
+            near: top-center
+            shape: text
+            style: {
+              font-size: 40
+            }
+          }
+
+          Order Server: {shape: cloud}
+
+          Source Chain: {
+            User: {
+              shape: person
+            }
+            Solver: {
+              style.fill-pattern: none
+            }
+            Reactor: {shape: page}
+            Oracle: {
+              style.opacity: ${default-opacity}
+              shape: page
+            }
+            Challenger: {style.opacity: ${default-opacity}}
+            SPV: {
+              style.opacity: ${default-opacity}
+              shape: page
+            }
+
+            Solver -> Reactor: 3. resolve() => Quote
+            Solver -> Reactor: 4.1. initiate()
+            User -> Reactor: 4.2. Tokens
+
+            # Optimistic Payout
+            Solver <-> Reactor: O.6.1. optimisticPayout() {style.opacity: ${default-opacity}}
+
+            # Challenge Parts
+            Challenger -> Reactor: C.6.1. dispute() {style.opacity: ${default-opacity}}
+
+            # - Challenged Rejected (VM)
+            Oracle -> Reactor: C.9.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+            Reactor -> Solver: C.9.3. payout Tokens {style.opacity: ${default-opacity}}
+
+            # - Challenged Rejected (Bitcoin)
+            Solver -> SPV: C.7.1. verify() {style.opacity: ${default-opacity}}
+            SPV -> Reactor: C.7.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+            Reactor -> Solver: C.7.3. payout Tokens {style.opacity: ${default-opacity}}
+
+            # - Challenged Accepted
+            Challenger -> Reactor: C.7.1. completeDispute() {style.opacity: ${default-opacity}}
+            Reactor -> Challenger: C.7.2. Reward {style.opacity: ${default-opacity}}
+            Reactor -> User: C.7.3. Tokens {style.opacity: ${default-opacity}}
+          }
+
+          Source Chain.User -> Order Server: 1. Sign Message {style.animated: false}
+          Order Server -> Source Chain.Solver: 2. Signed Orders
+
+          Destination Chain: {
+            Oracle: {
+              shape: page
+            }
+            Solver
+            SPV: {
+              style.opacity: ${default-opacity}
+              shape: page
+            }
+            User: {
+              shape: person
+            }
+
+            # Ordinary
+            Solver -> Oracle: 5.1. fill()
+            Solver -> User: 5.2. Tokens
+
+            # Challenged submit proof (VM)
+            Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
+
+            # Challenged submit proof (Bitcoin)
+            Solver -> SPV: C.7.1: verify() {style.opacity: ${default-opacity}}
+            SPV -> Oracle: C.7.2. Send fill details {style.opacity: ${default-opacity}}
+          }
+
+          Bitcoin: {
+            Solver: {
+              style.opacity: ${default-opacity}
+            }
+            User: {
+              shape: person
+              style.opacity: ${default-opacity}
+            }
+
+            Solver -> User: 5.1 transfer {style.opacity: ${default-opacity}}
+            style.opacity: ${default-opacity}
+          }
+
+          Bitcoin -> Destination Chain.SPV: Bitcoin Headers {
+            style.opacity: ${default-opacity}
+            style.stroke-dash: 4
+          }
+          Bitcoin -> Source Chain.SPV: Bitcoin Headers {
+            style.opacity: ${default-opacity}
+            style.stroke-dash: 4
+          }
+
+          Proof: "AMB\n" {
+            shape: cloud
+            style.opacity: ${default-opacity}
+          }
+
+          Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
+          Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
+
+          scenarios: {
+            optimistic resolution: {
+              title.label: Optimistic Resolution
+              Source Chain: {
+                (Solver <-> Reactor)[0].style.opacity: 1
+
+                (Solver <-> Reactor)[0].style.stroke-width: 3
+              }
+            }
+            challenged: {
+              title.label: Challenged
+              Source Chain.Challenger.style.opacity: 1
+              Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
+              Source Chain.(Challenger -> Reactor)[0]: C.6.1. dispute()
+
+              Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
+
+              scenarios: {
+                challenged uncontested: {
+                  title.label: Challenged Uncontested
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                  Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
+                  Source Chain.(Challenger -> Reactor)[1]: C.7.1. completeDispute()
+
+                  Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
+                  Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
+                  Source Chain.(Reactor -> User)[0].style.opacity: 1
+                  Destination Chain.style.opacity: ${default-opacity}
+                  Destination Chain.*.style.opacity: ${default-opacity}
+                  Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                }
+                order fill proven (VM): {
+                  title.label: Order Fill Proven (VM)
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+
+                  Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
+                  Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
+                  Destination Chain.Oracle.style.opacity: 1
+                  Proof.style.opacity: 1
+                  (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+                  (Proof -> Source Chain.oracle)[0].style.opacity: 1
+                  Source Chain.Oracle.style.opacity: 1
+                  Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                }
+                order fill proven (BTC): {
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                  Destination Chain.style.opacity: ${default-opacity}
+                  Destination Chain.*.style.opacity: ${default-opacity}
+                  Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                  Bitcoin.style.opacity: 1
+                  Bitcoin.*.style.opacity: 1
+                  Bitcoin.(* -> *)[*].style.opacity: 1
+
+                  scenarios: {
+                    local SPV client: {
+                      title.label: Local SPV Client
+                      (Bitcoin -> Source Chain.SPV)[0].style.opacity: 1
+                      Source Chain.SPV.style.opacity: 1
+
+                      Source Chain.(Solver -> SPV)[0].style.opacity: 1
+                      Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
+                      Source Chain.(SPV -> Reactor)[0].style.opacity: 1
+                      Source Chain.(Reactor -> Solver)[1].style.opacity: 1
+                    }
+                    remote SPV client: {
+                      title.label: Remote SPV Client
+                      (Bitcoin -> Destination Chain.SPV)[0].style.opacity: 1
+                      Destination Chain.SPV.style.opacity: 1
+
+                      Destination Chain.style.opacity: 1
+                      Destination Chain.Solver.style.opacity: 1
+                      Destination Chain.(Solver -> SPV)[0].style.opacity: 1
+                      Destination Chain.SPV.style.opacity: 1
+
+                      Destination Chain.Oracle.style.opacity: 1
+                      Destination Chain.(SPV -> Oracle)[0].style.opacity: 1
+                      (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+
+                      Proof.style.opacity: 1
+                      Source Chain.Oracle.style.opacity: 1
+                      (Proof -> Source Chain.Oracle)[0].style.opacity: 1
+                      Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                      Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ```
+      </TabItem>
+      <TabItem label="BTC Proof">
+        <Tabs>
+          <TabItem label="Local SPV Client">
+            ```d2 target="challenged.order fill proven (BTC).local SPV client"
+              style.fill: transparent
+              direction: right
+
+              vars: {
+                default-opacity: 0.1
+              }
+
+              title: System Overview {
+                near: top-center
+                shape: text
+                style: {
+                  font-size: 40
+                }
+              }
+
+              Order Server: {shape: cloud}
+
+              Source Chain: {
+                User: {
+                  shape: person
+                }
+                Solver: {
+                  style.fill-pattern: none
+                }
+                Reactor: {shape: page}
+                Oracle: {
+                  style.opacity: ${default-opacity}
+                  shape: page
+                }
+                Challenger: {style.opacity: ${default-opacity}}
+                SPV: {
+                  style.opacity: ${default-opacity}
+                  shape: page
+                }
+
+                Solver -> Reactor: 3. resolve() => Quote
+                Solver -> Reactor: 4.1. initiate()
+                User -> Reactor: 4.2. Tokens
+
+                # Optimistic Payout
+                Solver <-> Reactor: O.6.1. optimisticPayout() {style.opacity: ${default-opacity}}
+
+                # Challenge Parts
+                Challenger -> Reactor: C.6.1. dispute() {style.opacity: ${default-opacity}}
+
+                # - Challenged Rejected (VM)
+                Oracle -> Reactor: C.9.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+                Reactor -> Solver: C.9.3. payout Tokens {style.opacity: ${default-opacity}}
+
+                # - Challenged Rejected (Bitcoin)
+                Solver -> SPV: C.7.1. verify() {style.opacity: ${default-opacity}}
+                SPV -> Reactor: C.7.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+                Reactor -> Solver: C.7.3. payout Tokens {style.opacity: ${default-opacity}}
+
+                # - Challenged Accepted
+                Challenger -> Reactor: C.7.1. completeDispute() {style.opacity: ${default-opacity}}
+                Reactor -> Challenger: C.7.2. Reward {style.opacity: ${default-opacity}}
+                Reactor -> User: C.7.3. Tokens {style.opacity: ${default-opacity}}
+              }
+
+              Source Chain.User -> Order Server: 1. Sign Message {style.animated: false}
+              Order Server -> Source Chain.Solver: 2. Signed Orders
+
+              Destination Chain: {
+                Oracle: {
+                  shape: page
+                }
+                Solver
+                SPV: {
+                  style.opacity: ${default-opacity}
+                  shape: page
+                }
+                User: {
+                  shape: person
+                }
+
+                # Ordinary
+                Solver -> Oracle: 5.1. fill()
+                Solver -> User: 5.2. Tokens
+
+                # Challenged submit proof (VM)
+                Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
+
+                # Challenged submit proof (Bitcoin)
+                Solver -> SPV: C.7.1: verify() {style.opacity: ${default-opacity}}
+                SPV -> Oracle: C.7.2. Send fill details {style.opacity: ${default-opacity}}
+              }
+
+              Bitcoin: {
+                Solver: {
+                  style.opacity: ${default-opacity}
+                }
+                User: {
+                  shape: person
+                  style.opacity: ${default-opacity}
+                }
+
+                Solver -> User: 5.1 transfer {style.opacity: ${default-opacity}}
+                style.opacity: ${default-opacity}
+              }
+
+              Bitcoin -> Destination Chain.SPV: Bitcoin Headers {
+                style.opacity: ${default-opacity}
+                style.stroke-dash: 4
+              }
+              Bitcoin -> Source Chain.SPV: Bitcoin Headers {
+                style.opacity: ${default-opacity}
+                style.stroke-dash: 4
+              }
+
+              Proof: "AMB\n" {
+                shape: cloud
+                style.opacity: ${default-opacity}
+              }
+
+              Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
+              Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
+
+              scenarios: {
+                optimistic resolution: {
+                  title.label: Optimistic Resolution
+                  Source Chain: {
+                    (Solver <-> Reactor)[0].style.opacity: 1
+
+                    (Solver <-> Reactor)[0].style.stroke-width: 3
+                  }
+                }
+                challenged: {
+                  title.label: Challenged
+                  Source Chain.Challenger.style.opacity: 1
+                  Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Challenger -> Reactor)[0]: C.6.1. dispute()
+
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
+
+                  scenarios: {
+                    challenged uncontested: {
+                      title.label: Challenged Uncontested
+                      Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                      Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
+                      Source Chain.(Challenger -> Reactor)[1]: C.7.1. completeDispute()
+
+                      Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
+                      Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
+                      Source Chain.(Reactor -> User)[0].style.opacity: 1
+                      Destination Chain.style.opacity: ${default-opacity}
+                      Destination Chain.*.style.opacity: ${default-opacity}
+                      Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                    }
+                    order fill proven (VM): {
+                      title.label: Order Fill Proven (VM)
+                      Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+
+                      Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
+                      Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
+                      Destination Chain.Oracle.style.opacity: 1
+                      Proof.style.opacity: 1
+                      (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+                      (Proof -> Source Chain.oracle)[0].style.opacity: 1
+                      Source Chain.Oracle.style.opacity: 1
+                      Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                      Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                    }
+                    order fill proven (BTC): {
+                      Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                      Destination Chain.style.opacity: ${default-opacity}
+                      Destination Chain.*.style.opacity: ${default-opacity}
+                      Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                      Bitcoin.style.opacity: 1
+                      Bitcoin.*.style.opacity: 1
+                      Bitcoin.(* -> *)[*].style.opacity: 1
+
+                      scenarios: {
+                        local SPV client: {
+                          title.label: Local SPV Client
+                          (Bitcoin -> Source Chain.SPV)[0].style.opacity: 1
+                          Source Chain.SPV.style.opacity: 1
+
+                          Source Chain.(Solver -> SPV)[0].style.opacity: 1
+                          Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
+                          Source Chain.(SPV -> Reactor)[0].style.opacity: 1
+                          Source Chain.(Reactor -> Solver)[1].style.opacity: 1
+                        }
+                        remote SPV client: {
+                          title.label: Remote SPV Client
+                          (Bitcoin -> Destination Chain.SPV)[0].style.opacity: 1
+                          Destination Chain.SPV.style.opacity: 1
+
+                          Destination Chain.style.opacity: 1
+                          Destination Chain.Solver.style.opacity: 1
+                          Destination Chain.(Solver -> SPV)[0].style.opacity: 1
+                          Destination Chain.SPV.style.opacity: 1
+
+                          Destination Chain.Oracle.style.opacity: 1
+                          Destination Chain.(SPV -> Oracle)[0].style.opacity: 1
+                          (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+
+                          Proof.style.opacity: 1
+                          Source Chain.Oracle.style.opacity: 1
+                          (Proof -> Source Chain.Oracle)[0].style.opacity: 1
+                          Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                          Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ```
+          </TabItem>
+          <TabItem label="Remote SPV client">
+            ```d2 target="challenged.order fill proven (BTC).remote SPV client"
+              style.fill: transparent
+              direction: right
+
+              vars: {
+                default-opacity: 0.1
+              }
+
+              title: System Overview {
+                near: top-center
+                shape: text
+                style: {
+                  font-size: 40
+                }
+              }
+
+              Order Server: {shape: cloud}
+
+              Source Chain: {
+                User: {
+                  shape: person
+                }
+                Solver: {
+                  style.fill-pattern: none
+                }
+                Reactor: {shape: page}
+                Oracle: {
+                  style.opacity: ${default-opacity}
+                  shape: page
+                }
+                Challenger: {style.opacity: ${default-opacity}}
+                SPV: {
+                  style.opacity: ${default-opacity}
+                  shape: page
+                }
+
+                Solver -> Reactor: 3. resolve() => Quote
+                Solver -> Reactor: 4.1. initiate()
+                User -> Reactor: 4.2. Tokens
+
+                # Optimistic Payout
+                Solver <-> Reactor: O.6.1. optimisticPayout() {style.opacity: ${default-opacity}}
+
+                # Challenge Parts
+                Challenger -> Reactor: C.6.1. dispute() {style.opacity: ${default-opacity}}
+
+                # - Challenged Rejected (VM)
+                Oracle -> Reactor: C.9.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+                Reactor -> Solver: C.9.3. payout Tokens {style.opacity: ${default-opacity}}
+
+                # - Challenged Rejected (Bitcoin)
+                Solver -> SPV: C.7.1. verify() {style.opacity: ${default-opacity}}
+                SPV -> Reactor: C.7.2. proveOrderFulfilment() {style.opacity: ${default-opacity}}
+                Reactor -> Solver: C.7.3. payout Tokens {style.opacity: ${default-opacity}}
+
+                # - Challenged Accepted
+                Challenger -> Reactor: C.7.1. completeDispute() {style.opacity: ${default-opacity}}
+                Reactor -> Challenger: C.7.2. Reward {style.opacity: ${default-opacity}}
+                Reactor -> User: C.7.3. Tokens {style.opacity: ${default-opacity}}
+              }
+
+              Source Chain.User -> Order Server: 1. Sign Message {style.animated: false}
+              Order Server -> Source Chain.Solver: 2. Signed Orders
+
+              Destination Chain: {
+                Oracle: {
+                  shape: page
+                }
+                Solver
+                SPV: {
+                  style.opacity: ${default-opacity}
+                  shape: page
+                }
+                User: {
+                  shape: person
+                }
+
+                # Ordinary
+                Solver -> Oracle: 5.1. fill()
+                Solver -> User: 5.2. Tokens
+
+                # Challenged submit proof (VM)
+                Solver -> Oracle: C.7.1. submit() {style.opacity: ${default-opacity}}
+
+                # Challenged submit proof (Bitcoin)
+                Solver -> SPV: C.7.1: verify() {style.opacity: ${default-opacity}}
+                SPV -> Oracle: C.7.2. Send fill details {style.opacity: ${default-opacity}}
+              }
+
+              Bitcoin: {
+                Solver: {
+                  style.opacity: ${default-opacity}
+                }
+                User: {
+                  shape: person
+                  style.opacity: ${default-opacity}
+                }
+
+                Solver -> User: 5.1 transfer {style.opacity: ${default-opacity}}
+                style.opacity: ${default-opacity}
+              }
+
+              Bitcoin -> Destination Chain.SPV: Bitcoin Headers {
+                style.opacity: ${default-opacity}
+                style.stroke-dash: 4
+              }
+              Bitcoin -> Source Chain.SPV: Bitcoin Headers {
+                style.opacity: ${default-opacity}
+                style.stroke-dash: 4
+              }
+
+              Proof: "AMB\n" {
+                shape: cloud
+                style.opacity: ${default-opacity}
+              }
+
+              Destination Chain.Oracle -> Proof: C.8.1. Collect event {style.opacity: ${default-opacity}}
+              Proof -> Source Chain.Oracle: C.9.1. receiveMessage() {style.opacity: ${default-opacity}}
+
+              scenarios: {
+                optimistic resolution: {
+                  title.label: Optimistic Resolution
+                  Source Chain: {
+                    (Solver <-> Reactor)[0].style.opacity: 1
+
+                    (Solver <-> Reactor)[0].style.stroke-width: 3
+                  }
+                }
+                challenged: {
+                  title.label: Challenged
+                  Source Chain.Challenger.style.opacity: 1
+                  Source Chain.(Challenger -> Reactor)[0].style.opacity: 1
+                  Source Chain.(Challenger -> Reactor)[0]: C.6.1. dispute()
+
+                  Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 3
+
+                  scenarios: {
+                    challenged uncontested: {
+                      title.label: Challenged Uncontested
+                      Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                      Source Chain.(Challenger -> Reactor)[1].style.opacity: 1
+                      Source Chain.(Challenger -> Reactor)[1]: C.7.1. completeDispute()
+
+                      Source Chain.(Challenger -> Reactor)[1].style.stroke-width: 3
+                      Source Chain.(Reactor -> Challenger)[0].style.opacity: 1
+                      Source Chain.(Reactor -> User)[0].style.opacity: 1
+                      Destination Chain.style.opacity: ${default-opacity}
+                      Destination Chain.*.style.opacity: ${default-opacity}
+                      Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                    }
+                    order fill proven (VM): {
+                      title.label: Order Fill Proven (VM)
+                      Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+
+                      Destination Chain.(Solver -> Oracle)[1].style.opacity: 1
+                      Destination Chain.(Solver -> Oracle)[1].style.stroke-width: 3
+                      Destination Chain.Oracle.style.opacity: 1
+                      Proof.style.opacity: 1
+                      (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+                      (Proof -> Source Chain.oracle)[0].style.opacity: 1
+                      Source Chain.Oracle.style.opacity: 1
+                      Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                      Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                    }
+                    order fill proven (BTC): {
+                      Source Chain.(Challenger -> Reactor)[0].style.stroke-width: 2
+                      Destination Chain.style.opacity: ${default-opacity}
+                      Destination Chain.*.style.opacity: ${default-opacity}
+                      Destination Chain.(* -> *)[*].style.opacity: ${default-opacity}
+                      Bitcoin.style.opacity: 1
+                      Bitcoin.*.style.opacity: 1
+                      Bitcoin.(* -> *)[*].style.opacity: 1
+
+                      scenarios: {
+                        local SPV client: {
+                          title.label: Local SPV Client
+                          (Bitcoin -> Source Chain.SPV)[0].style.opacity: 1
+                          Source Chain.SPV.style.opacity: 1
+
+                          Source Chain.(Solver -> SPV)[0].style.opacity: 1
+                          Source Chain.(Solver -> SPV)[0].style.stroke-width: 3
+                          Source Chain.(SPV -> Reactor)[0].style.opacity: 1
+                          Source Chain.(Reactor -> Solver)[1].style.opacity: 1
+                        }
+                        remote SPV client: {
+                          title.label: Remote SPV Client
+                          (Bitcoin -> Destination Chain.SPV)[0].style.opacity: 1
+                          Destination Chain.SPV.style.opacity: 1
+
+                          Destination Chain.style.opacity: 1
+                          Destination Chain.Solver.style.opacity: 1
+                          Destination Chain.(Solver -> SPV)[0].style.opacity: 1
+                          Destination Chain.SPV.style.opacity: 1
+
+                          Destination Chain.Oracle.style.opacity: 1
+                          Destination Chain.(SPV -> Oracle)[0].style.opacity: 1
+                          (Destination Chain.Oracle -> Proof)[0].style.opacity: 1
+
+                          Proof.style.opacity: 1
+                          Source Chain.Oracle.style.opacity: 1
+                          (Proof -> Source Chain.Oracle)[0].style.opacity: 1
+                          Source Chain.(Oracle -> Reactor)[0].style.opacity: 1
+                          Source Chain.(Reactor -> Solver)[0].style.opacity: 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ```
+          </TabItem>
+        </Tabs>
+      </TabItem>
+    </Tabs>
+  </TabItem>
+</Tabs>
 
 The above diagram animates between all system states. Reloading the page or opening the SVG in a separate tab may be required for the animation to show.
 
