@@ -1,0 +1,105 @@
+---
+title: "Fulfilling BTC Orders"
+description: "Cross Cats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
+sidebar:
+  order: 7
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+To determine whether an order involves a Bitcoin transaction, check the `GetOrderData.order.orderData.outputs[].token` field. If the token indicates Bitcoin, ensure the following conditions are met:
+
+- The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`. The 13th byte is `0xBC`.
+- The 31st byte indicates the number of confirmations required before the order can be verified on-chain. For example:
+  - `0x00` and `0x01` represent 1 confirmation.
+  - `0x02` represents 2 confirmations.
+  - `0x03` represents 3 confirmations, and so on.
+- The 32nd byte contains an address version identifier, which should be decoded as `uint8`.
+
+If the transaction is directed to Bitcoin, the address (`GetOrderData.order.orderData.outputs[].recipient`) will contain a relevant destination hash or witness, not the address itself. This value must be used along with the address version identifier to decode the address.
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Name</th>
+      <th>Encoding Scheme</th>
+      <th>Prefix</th>
+      <th>Hash Length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>Ignore</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>P2PKH</td>
+      <td>Base58Check(00+PKH)</td>
+      <td>1*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>P2SH</td>
+      <td>Base58Check(05+SH)</td>
+      <td>3*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>P2WPKH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>P2WSH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>P2TR</td>
+      <td>Bech32m</td>
+      <td>bc1p**</td>
+      <td>32</td>
+    </tr>
+  </tbody>
+</table>
+\* Prefixes are determined by the encoding scheme.
+\
+\*\* Part of the prefix – 1q/1p – is determined by the encoding scheme.
+
+The following guidelines assume you are implementing this from the perspective of a solver. You need to convert the expected output script into a Bitcoin address that can be used with your wallet:
+
+- **P2PKH (Pay-to-PubKey-Hash)**:
+
+  - The recipient is the public key hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `00`, and encode with Base58Check.
+
+- **P2SH (Pay-to-Script-Hash)**:
+
+  - The recipient is the script hash. Encode the first 20 bytes with [Base58Check](https://rosettacode.org/wiki/Base58Check_encoding). Prepend with `05`, and encode with Base58Check.
+
+- **P2WPKH (Pay-to-Witness-PubKey-Hash)**:
+
+  - The recipient is the witness. Encode the first 20 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
+
+- **P2WSH (Pay-to-Witness-Script-Hash)**:
+
+  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32](https://github.com/bitcoinjs/bech32). Prepend with `bc1q`.
+
+- **P2TR (Pay-to-Taproot)**:
+
+  - The recipient is the witness hash. Encode the first 32 bytes with [Bech32m](https://en.bitcoin.it/wiki/BIP_0350#Bech32m). Prepend with `bc1p`.
+
+- **Nested Witness Addresses/Outputs**:
+  - These are **P2SH** addresses and should be treated like any other **P2SH** address.
+
+Once the address is generated, create a Bitcoin transaction with at least one output that **exactly** matches the described output from the initiated order. The transaction can have any number of inputs and outputs, as long as one output precisely matches the one specified by the order's output. This flexibility allows for batch filling, consolidation, and more.
