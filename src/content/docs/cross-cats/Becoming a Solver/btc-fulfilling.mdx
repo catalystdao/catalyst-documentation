@@ -7,10 +7,6 @@ sidebar:
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-The delivery of assets varies based on the destination type: VM chains or Bitcoin.
-
-### Bitcoin Deliveries
-
 To determine whether an order involves a Bitcoin transaction, check the `GetOrderData.order.orderData.outputs[].token` field. If the token indicates Bitcoin, ensure the following conditions are met:
 
 - The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`. The 13th byte is `0xBC`.
@@ -106,4 +102,4 @@ The following guidelines assume you are implementing this from the perspective o
 - **Nested Witness Addresses/Outputs**:
   - These are **P2SH** addresses and should be treated like any other **P2SH** address.
 
-Once the address is generated, create a Bitcoin transaction with at least one output that **exactly** matches the described output from the initiated order. The transaction can have any number of inputs and outputs, as long as one output precisely matches the one specified by the order's output. This flexibility allows for batch filling, consolidation, and more. While having multiple matching outputs is permitted, it benefits only the user to ensure the order’s conditions are met.
+Once the address is generated, create a Bitcoin transaction with at least one output that **exactly** matches the described output from the initiated order. The transaction can have any number of inputs and outputs, as long as one output precisely matches the one specified by the order's output. This flexibility allows for batch filling, consolidation, and more.

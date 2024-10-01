@@ -13,15 +13,15 @@ On VM chains, assets can be pulled from users via approvals – a feature not av
 
 The simplest way to collect orderflow from EVM is via polling. The order server stores orders in a dictionary format, allowing for straightforward parsing by integrators and provides a high level of transparency in the implementation.
 
-:::tip[Only order originating from a VM chains can be pulled]
-The order server only stores user signed orders. Since users can only sign order originating from VM chains, orders originating from non-vm chains – including from Bitcoin – cannot be polled.
+:::tip[Only order originating from VM chains can be pulled]
+The order server only stores user signed orders. Since users can only sign order originating from VM chains, orders originating from non-vm chains – including from Bitcoin – cannot be pulled.
 :::
 
 <Tabs syncKey="lang">
   <TabItem label="Typescript">
 
   ```typescript
-    // The type parameter (DutchAuctionData.type) should not be submitted on-chain but can be used to differentiate order types.
+    // The type parameter (DutchAuctionData.type) is not be submitted on-chain but is used to differentiate order types.
     type DutchAuctionData = {
       type: "DutchAuction"; // Not to be submitted
       verificationContext: string;
@@ -134,7 +134,7 @@ Instead of polling for new orders, you can establish a WebSocket connection to t
 Below is a simplified implementation in pure JavaScript that demonstrates how to connect to the WebSocket server, handle incoming messages, respond to ping events, and automatically attempt to reconnect if the connection is lost.
 
 :::caution[Quote requests are optional but required for BTC to USDC]
-It is optional to implement handle the `quote-request` and `quote-request-binding` event, however, if you want to solve BTC to USDC you have to respond to the `quote-request-binding` event. The response you make to this event is binding for 30 seconds. If you receive a message with the event `non-vm-order` you have to fill it – by filling empty slots & signing it – or you may get blacklisted.
+It is optional to handle `quote-request` and `quote-request-binding` event, however, if you want to solve BTC to USDC you have to respond to the `quote-request-binding` event. The response you make to this event is binding for 30 seconds. If you receive a message with the event `non-vm-order` you have to fill it – by correcting empty slots & signing it – or you may get blacklisted.
 :::
 
 (TODO update typescript block)

@@ -11,7 +11,7 @@ There are 2 different initiation paths, EVM and Bitcoin. Generally, all orders h
 
 ## EVM initiation
 
-After collecting order – either through pulling or websockets – order and verifying it, the next step is to submit it on-chain. Catalyst Orders are accompanied by a user signature (`OrderDto.signature`) that serves a dual purpose:
+After collecting an order – either through pulling or websockets – and verifying it, the next step is to submit it on-chain. Catalyst Orders are accompanied by a user signature (`OrderDto.signature`) that serves a dual purpose:
 
 1. **Permit2 Signature**: This signature acts as a Permit2 allowance, authorizing the Catalyst contracts to withdraw the submitter's tokens directly. This streamlines the process by eliminating the need for separate approval transactions.
 
@@ -105,7 +105,7 @@ Orders are processed on a first-come, first-served basis, emphasizing the import
 
 #### Custom FillerData & Underwriting
 
-By default, if `fillerData` is not specified, the input assets (provided by the user) are sent directly to the caller. This behavior is generally suitable for most use cases, eliminating the need for additional customization.
+By default, if `fillerData` is not specified, the input assets (provided by the user) are sent directly to the caller (`msg.sender`). This behavior is generally suitable for most use cases, eliminating the need for additional customization.
 
 However, if there is a need to direct the input assets to another address or to enable underwriting, a customized `fillerData` must be utilized. Currently, only one custom version (`v1`) is supported. The `v1` structure includes:
 
@@ -114,55 +114,65 @@ However, if there is a need to direct the input assets to another address or to 
 - **orderPurchaseDeadline**: A timestamp that allows an alternative buyer to purchase the order before this time. "Buying" the order in this context means transferring all of the input assets and collateral to the `fillerAddress`.
 - **orderDiscount**: Provides buyers with a discount on the inputs, represented as a fraction of 2^16 - 1. For example, to offer a 1% discount, the value would be calculated as `0.01 * (2^16 - 1) = 655`. This feature is particularly useful for chains with slower block confirmations (e.g., Bitcoin), enabling the solver to be paid after 0-1 confirmations while assuring the user of higher finality (3-6 confirmations).
 
+Another version (`v2`) allows for adding additional logic when the inputs are paid. You can find more information on `v2` in our smart contracts or by reaching out.
+
 <Tabs syncKey="lang">
-<TabItem label="Typescript">
+  <TabItem label="Typescript">
 
-```typescript
-const fillerDataVersion = "0x01";
-const fillerAddress = "0x....".replace("0x", "");
-// fillerAddress.length === 20*2;
-const orderPurchaseDeadline = Number(1723199919)
-  .toString(16)
-  .padStart("0", 4 * 2);
-//orderPurchaseDeadline.length === 4*2
-const orderDiscount = Math.floor(0.01 * (2 ** 16 - 1))
-  .toString(16)
-  .padStart("0", 2 * 2);
-// orderDiscount.length === 2*2
+  ```typescript
+  const fillerDataVersion = "0x01";
+  const fillerAddress = "0x....".replace("0x", "");
+  // fillerAddress.length === 20*2;
+  const orderPurchaseDeadline = Number(1723199919)
+    .toString(16)
+    .padStart("0", 4 * 2);
+  //orderPurchaseDeadline.length === 4*2
+  const orderDiscount = Math.floor(0.01 * (2 ** 16 - 1))
+    .toString(16)
+    .padStart("0", 2 * 2);
+  // orderDiscount.length === 2*2
 
-const fillerData =
-  fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
-```
+  const fillerData =
+    fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+  ```
 
-</TabItem>
-<TabItem label="Python">
+  </TabItem>
+  <TabItem label="Python">
 
-```python
-fillerDataVersion = "0x01";
-fillerAddress = '0x....'.replace("0x", "");
-# len(fillerAddress) === 20*2;
-orderPurchaseDeadline = hex(1723199919).replace("0x", "").zfill(4*2);
-# len(orderPurchaseDeadline) === 4*2
-const orderDiscount = hex(int(0.01*(2**16-1))).replace("0x", "").zfill(2*2);
-# len(orderDiscount) === 2*2
+  ```python
+  fillerDataVersion = "0x01";
+  fillerAddress = '0x....'.replace("0x", "");
+  # len(fillerAddress) === 20*2;
+  orderPurchaseDeadline = hex(1723199919).replace("0x", "").zfill(4*2);
+  # len(orderPurchaseDeadline) === 4*2
+  const orderDiscount = hex(int(0.01*(2**16-1))).replace("0x", "").zfill(2*2);
+  # len(orderDiscount) === 2*2
 
-fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
-```
+  fillerData = fillerDataVersion + fillerAddress + orderPurchaseDeadline + orderDiscount;
+  ```
 
-</TabItem>
+  </TabItem>
 </Tabs>
 
 ## Bitcoin Initiation
 
 Bitcoin operates differently from VM chains in terms of script functionality. Bitcoin scripts only define spending conditions, meaning that, unlike VM chains, we cannot pull funds from a user after they have signed a message. Consequently, the order flow is reversed, and the solver is responsible for signing the VM order.
 
+Additionally, as previous chapters have described you cannot pull for BTC -> EVM orders. Instead you have to respond to the `quote-request-binding` event and get selected for a `non-vm-order` event.
+
 ### Encode your Bitcoin address
 
-Your solver must be capable of generating a Bitcoin deposit address. Although it's possible to use the same address for every order, it is crucial to ensure that each order amount is unique if you choose this approach. It is generally recommended to use different addresses for each order. Bitcoin does not impose additional fees for collecting UTXOs from multiple addresses.
+Your solver must be capable of generating 1 or multiple Bitcoin deposit address. Cross Cats supports all 5 address types in common use: P2PKH, P2SH, P2WPKH, P2WSH, and P2TR. We recommend using either P2WPKH, P2TR, or P2WSH.
+
+:::caution[Ensure that amount + address is unique]
+To prove if an output has been paid, we look for an exact amount of Bitcoin sent to a specific address. Any transaction that matches both and is included in a block 3 days before the `fillDeadline` allows the order to be proven.
+
+If the same address is used every order, it becomes crucial to ensure that the **amount** is unique. It is generally recommended to use different addresses for each order. Bitcoin does not impose additional fees for collecting UTXOs from multiple addresses.
+:::
 
 Bitcoin addresses are encoded in two fields: `token` and `address`.
 
-- **`token`**: This field serves to differentiate VM tokens from Bitcoin orders, encode relevant context like confirmations and address version. Refer to the [UTXO type table](/cross-cats/bitcoin-primer/#utxo-type-table) for details on converting address types to versions.
+- **`token`**: This field serves to differentiate VM tokens from Bitcoin orders, encode relevant context like confirmations and address version. Refer to the [UTXO type table](/cross-cats/bitcoin-primer/#utxo-type-table) for details on converting address types to versions. The field should consists of the bitcoin signifier (BC in the 12'th byte), number of confirmations in the 31st, UTXO type in the 32'th, and otherwise 0s.
 
 - **`address`**: This field encodes the public key hash, script hash, or witness hash. Use the decoding schemes listed in the [UTXO type table](/cross-cats/bitcoin-primer/#utxo-type-table) for various address versions. For addresses involving hashes of 20 bytes (P2PKH, P2SH, and P2WPKH), end pad the hashes with zeros (e.g., `0xabcdef...00000`).
 
@@ -171,7 +181,7 @@ Bitcoin addresses are encoded in two fields: `token` and `address`.
 For solvers handling BTC to VM conversions, quoting orders for comparison with other solvers is essential. To begin quoting:
 
 1. **Subscription**: Solvers must subscribe to quote requests from the order server.
-2. **Response**: When a quote request is received, the solver must respond with a quote that remains valid for at least 60 seconds. If a signed order is requested within 30 seconds of the quote, the solver should provide a signed order with a lifetime of 30 seconds.
+2. **Response**: When a quote request is received, the solver must respond with a quote that remains valid for at least 60 seconds. If a signed order is requested within 30 seconds of the quote, the solver should provide a signed order with a lifetime of 30 seconds. The 60 seconds is the sum of these.
 
 Failure to respond with a signed order that matches or improves upon the quote within the 30-second window may result in blacklisting of the solver.
 
