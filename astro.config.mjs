@@ -11,6 +11,8 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   redirects: {
     "/resources/whitepaper": "/resources/audit-whitepaper#Papers",
+    "/cross-cats/": "/cross-cats/cross-cats/",
+    "/cross-cats/solver/": "/cross-cats/becoming-a-solver/introduction/"
   },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
