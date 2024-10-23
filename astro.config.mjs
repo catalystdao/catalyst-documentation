@@ -12,7 +12,7 @@ export default defineConfig({
   redirects: {
     "/resources/whitepaper": "/resources/audit-whitepaper#Papers",
     "/cross-cats/": "/cross-cats/cross-cats/",
-    "/cross-cats/solver/": "/cross-cats/becoming-a-solver/introduction/"
+    "/cross-cats/solver/": "/cross-cats/becoming-a-solver/introduction/",
   },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
@@ -55,8 +55,8 @@ export default defineConfig({
           },
         },
         {
-          label: "Cross-Cats: Cross-Chain Intents",
-          badge: "Closed Alpha",
+          label: "CrossCats: Cross-Chain Intents",
+          badge: "Closed Beta",
           autogenerate: {
             directory: "cross-cats",
           },

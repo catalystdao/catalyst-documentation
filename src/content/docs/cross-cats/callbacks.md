@@ -1,18 +1,18 @@
 ---
 title: "Asset Delivery Callbacks"
-description: "Cross-Cats supports callbacks on both output delivery and input delivery."
+description: "CrossCats supports callbacks on both output delivery and input delivery."
 sidebar:
   order: 101
 ---
 
-Cross-Cats supporting making external on delivery of assets. However, there are several important implementation quirks that you need to be aware of.
+CrossCats supporting making external on delivery of assets. However, there are several important implementation quirks that you need to be aware of.
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
 /**
- * @notice Implement callback handling for Cross cats payouts, both outputs and inputs.
+ * @notice Implement callback handling for CrossCats payouts, both outputs and inputs.
  * @dev Callbacks are opt-in. If you opt-in, take care to not revert.
  * Funds are likely in danger if the calls revert. Please be careful.
  *

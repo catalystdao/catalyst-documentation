@@ -18,16 +18,16 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Order Key: Specific order structure that is used to move storage into calldata. Contains the vast majority of all information relevant for the order. Importantly, it contains the registered inputs & outputs.
 - Quote: Qualified guess for what the best order that will be accepted.
 - Solver: Entity collecting order flow and completing orders.
-- User: The person interacting with the cross-cats UI. Creator of Order Flow.
+- User: The person interacting with the CrossCats UI. Creator of Order Flow.
 - Recipient: Will receive outputs. Is likely to be either a solver or a user but may be neither.
 
-#### Cross Cats manages assets in 2 ways:
-- Inputs are collected from the signer of an order. For EVM -> BTC the signer is the user while for BTC -> VM, the signer is the Solver. These outputs are held in the Cross Cats reactor until the necessary resolution criteria are fulfilled.
-- Outputs are sent directly from the filler to the recipient. They are never held by Cross Cats.
+#### CrossCats manages assets in 2 ways:
+- Inputs are collected from the signer of an order. For EVM -> BTC the signer is the user while for BTC -> VM, the signer is the Solver. These outputs are held in the CrossCats reactor until the necessary resolution criteria are fulfilled.
+- Outputs are sent directly from the filler to the recipient. They are never held by CrossCats.
 
 An important differentiator is that VM assets can be inputs and outputs while non-VM assets like Bitcoin can **only** be outputs. As a result, non-VM to non-VM swaps are not supported since they would require VM assets to be input. Since Outputs are never held by Catalyst and are directly delivered, there is no need to underwrite deliveries. The recipient is already getting their assets at the highest speed possible.
 
-Cross Cats support underwriting inputs, this allows the filler to receive the inputs before full finality is reached. This is helpful for users going from a non-VM chain like Bitcoin to a VM chain since the Bitcoin has to be in the outputs. As a result, the user becomes the filler and has to wait for finality before they receive their tokens. For solvers, they have access to their capital faster which improves their capital utilisation.
+CrossCats support underwriting inputs, this allows the filler to receive the inputs before full finality is reached. This is helpful for users going from a non-VM chain like Bitcoin to a VM chain since the Bitcoin has to be in the outputs. As a result, the user becomes the filler and has to wait for finality before they receive their tokens. For solvers, they have access to their capital faster which improves their capital utilisation.
 
 ## Quick Overview
 

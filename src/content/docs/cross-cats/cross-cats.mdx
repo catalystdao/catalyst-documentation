@@ -1,5 +1,5 @@
 ---
-title: "Cross Cats: Solving Liquidity x Bitcoin"
+title: "CrossCats: Solving Liquidity x Bitcoin"
 description: "Catalyst v2 will support Bitcoin swaps. This is facilitated through intent based swaps that are verified through an on-chain Bitcoin SPV client. This provides: Fast settlement, Competitive rates, and near full security."
 sidebar:
   order: 1
@@ -7,7 +7,7 @@ sidebar:
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Cross-Cats is an intent-based cross-chain swap protocol built with flexibility in mind. The core idea is to allow anyone to create a request for anything provable. At launch, EVM settlements and Bitcoin transactions will be part of the provable set. Bitcoin transactions are proven using a Bitcoin SPV client and allows VM chain payments to be conditional on Bitcoin transactions.
+CrossCats is an intent-based cross-chain swap protocol built with flexibility in mind. The core idea is to allow anyone to create a request for anything provable. At launch, EVM settlements and Bitcoin transactions will be part of the provable set. Bitcoin transactions are proven using a Bitcoin SPV client and allows VM chain payments to be conditional on Bitcoin transactions.
 <Tabs>
   <TabItem label="Index">
     ```d2 target=root
@@ -1293,7 +1293,7 @@ Cross-Cats is an intent-based cross-chain swap protocol built with flexibility i
 
 ## System Overview
 
-Cross-Cats is designed for cross-chain intents. Nevertheless, the majority of logic exists on the source chain. **Source Chain** here refers to the chain where the order was **Initiated** by a solver. **Remote Chain** refers to the chain (or chains) where proofs are sent from. This includes asset deliveries.
+CrossCats is designed for cross-chain intents. Nevertheless, the majority of logic exists on the source chain. **Source Chain** here refers to the chain where the order was **Initiated** by a solver. **Remote Chain** refers to the chain (or chains) where proofs are sent from. This includes asset deliveries.
 
 ### Initiation (order claim)
 
@@ -1307,7 +1307,7 @@ The payment pathway depends on the order intent. For a **VM to VM** swap, the so
 
 ### Input Payment (to solver)
 
-Cross Cats has 3 payment release schemes to optimise the solver experience.
+CrossCats has 3 payment release schemes to optimise the solver experience.
 
 1. Optimistic resolution. This assumes that the resolver delivered the payment to the user. After a dispute window (configured by the user), the payment will be released. If the order is disputed, the operation falls back to option 2.
 2. Explicit validation. At any time, orders can be proven. This requires that someone send the proof from the remote chains to the source chain. This is more costly than optimistic resolution, but may be significantly faster than optimistic resolution. Additionally, through batch verification, the cost can be reduced at a slight increase in verification speed.
@@ -1336,14 +1336,14 @@ In a future version, VM to Bitcoin swaps will upgrade to an oracle book scheme t
 
 ## Key differentiators
 
-Cross-Cats has been designed to optimise solver integration metrics:
+CrossCats has been designed to optimise solver integration metrics:
 - Cost of capital – Capital is only held for the duration of a swap and can be underwritten to further decrease the lock duration.
 - Speed – Minimizing settlement overhead, users receive their assets immediately, while solvers can opt in to underwriting for quick input payout.
 - Price Risk – Price Risk is minimized by letting solvers commit to swaps & providing strong order guarantees.
 
 ### Locked Capital & Underwriting
 
-Cross-Cats has no concept of pre-locking liquidity. Capital is only locked during the actual order flow. Additionally, Users will immediately receive their assets as deliveries are directly from the solver to the user.
+CrossCats has no concept of pre-locking liquidity. Capital is only locked during the actual order flow. Additionally, Users will immediately receive their assets as deliveries are directly from the solver to the user.
 
 Additionally, for routes supported by underwriters input assets will be available 1-5 minutes after asset delivery. This includes Bitcoin routes for users.
 
@@ -1353,4 +1353,4 @@ For VM to VM swaps and VM to Bitcoin swaps, the price uncertainty window is the 
 
 For Bitcoin to VM swaps the price uncertainty window is from when the order is signed to when the user initiates the Bitcoin transaction and it gets your desired number of confirmations. This may vary from 30 seconds to 60 seconds.
 
-Cross-Cats has developed a user owned pseudo escrow, that allows the Order Server to give a soft commitment to solvers that a Bitcoin UTXO will be generated. Given that a solver trusts this promise, the price uncertainty window is as low as 30 seconds or shorter.
+CrossCats has developed a user owned pseudo escrow, that allows the Order Server to give a soft commitment to solvers that a Bitcoin UTXO will be generated. Given that a solver trusts this promise, the price uncertainty window is as low as 30 seconds or shorter.

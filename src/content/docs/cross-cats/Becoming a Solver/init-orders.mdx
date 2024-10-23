@@ -1,6 +1,6 @@
 ---
 title: "Initiating Orders"
-description: "Cross Cats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
+description: "CrossCats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
 sidebar:
   order: 5
 ---
@@ -162,7 +162,7 @@ Additionally, as previous chapters have described you cannot pull for BTC -> EVM
 
 ### Encode your Bitcoin address
 
-Your solver must be capable of generating 1 or multiple Bitcoin deposit address. Cross Cats supports all 5 address types in common use: P2PKH, P2SH, P2WPKH, P2WSH, and P2TR. We recommend using either P2WPKH, P2TR, or P2WSH.
+Your solver must be capable of generating 1 or multiple Bitcoin deposit address. CrossCats supports all 5 address types in common use: P2PKH, P2SH, P2WPKH, P2WSH, and P2TR. We recommend using either P2WPKH, P2TR, or P2WSH.
 
 :::caution[Ensure that amount + address is unique]
 To prove if an output has been paid, we look for an exact amount of Bitcoin sent to a specific address. Any transaction that matches both and is included in a block 3 days before the `fillDeadline` allows the order to be proven.
@@ -241,7 +241,7 @@ Once the Order Server has evaluated all quotes from solvers, it selects the most
 
 2. **Order Exclusivity**: It is crucial that the signed order is exclusive to the user and the Order Server’s executor. This exclusivity ensures that the order cannot be fulfilled by other solvers or reused. (TODO)
 
-3. **Asset Delivery Assurance**: The Cross Cats Order Server guarantees asset delivery through a Bitcoin address controlled by the Order Server but owned by the user. This setup ensures that the assets are securely delivered as promised.
+3. **Asset Delivery Assurance**: The CrossCats Order Server guarantees asset delivery through a Bitcoin address controlled by the Order Server but owned by the user. This setup ensures that the assets are securely delivered as promised.
 
 Ensuring these conditions helps maintain the integrity and efficiency of the order fulfillment process. It is essential that solvers adhere strictly to these requirements to ensure smooth operations and avoid any potential issues.
 

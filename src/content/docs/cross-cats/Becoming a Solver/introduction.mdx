@@ -1,6 +1,6 @@
 ---
-title: "Solving for Cross Cats"
-description: "Cross Cats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
+title: "Solving for CrossCats"
+description: "CrossCats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
 sidebar:
   order: 3
 ---
@@ -9,7 +9,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 > If you are not interested in the on-chain order structure, skip to [Init Orders](/cross-cats/becoming-a-solver/init-orders). For API documentation, refer to the [API Swagger documentation](https://catalyst-order-server-0140d799e2f7.herokuapp.com/api).
 
-Cross Cats utilizes three main order structures:
+CrossCats utilizes three main order structures:
 
 1.  [**CrossChainOrder**](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L6-L27) is a generic input order with an ERC-7683 compatible structure. The key component here is orderData, which contains the core functionality and varies significantly across ERC-7683 supporting implementations.
 2.  [**ResolvedCrossChainOrder**](https://github.com/catalystdao/cross-cats/blob/7e07281eef10ffadc10f9f75eb42d1c2419224ca/src/interfaces/ISettlementContract.sol#L29-L52) provides a quote description, detailing the value of a cross-chain order at a specific point in time. It is also ERC-7683 compliant\*, allowing solvers to efficiently compare the resolution of orders across various protocols.
@@ -29,7 +29,7 @@ struct CrossChainOrder {
 }
 ```
 
-The `orderData` field is uniquely encoded by Cross Cats. Currently, two orderdata structs are supported:
+The `orderData` field is uniquely encoded by CrossCats. Currently, two orderdata structs are supported:
 
 ```solidity
 /// @notice Simpler and slightly cheaper for order types with fixed inputs and outputs.
@@ -88,4 +88,4 @@ struct OutputDescription {
 
 Users generate a `CrossChainOrder` with the appropriate order data and sign it as a Permit2 witness, thereby approving both the order description and its associated inputs with a single signature. The signed struct will be a new structure where `orderData` is an ABI-encoded order type.
 
-Cross Cats has directionality. That means the ways orders are initiated depends on the initiating chain (where the user is swapping out of). In the current iteration, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains (including EVM) will generally be initiated similarly and all non-VM chains (including Bitcoin) will be initiated similarly but different from VM chains.
+CrossCats has directionality. That means the ways orders are initiated depends on the initiating chain (where the user is swapping out of). In the current iteration, there are 2 important origin types: EVM and Bitcoin. In the future, all virtual machine chains (including EVM) will generally be initiated similarly and all non-VM chains (including Bitcoin) will be initiated similarly but different from VM chains.
