@@ -11,6 +11,8 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   redirects: {
     "/resources/whitepaper": "/resources/audit-whitepaper#Papers",
+    "/cross-cats/": "/cross-cats/cross-cats/",
+    "/cross-cats/solver/": "/cross-cats/becoming-a-solver/introduction/"
   },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
@@ -47,9 +49,16 @@ export default defineConfig({
           },
         },
         {
-          label: "Protocol",
+          label: "V1: Cross-Chain AMM",
           autogenerate: {
             directory: "protocol",
+          },
+        },
+        {
+          label: "Cross-Cats: Cross-Chain Intents",
+          badge: "Closed Alpha",
+          autogenerate: {
+            directory: "cross-cats",
           },
         },
         {
@@ -66,7 +75,6 @@ export default defineConfig({
         },
         {
           label: "Underwriter",
-          badge: "Open Beta!",
           autogenerate: {
             directory: "underwriter",
           },
@@ -81,7 +89,7 @@ export default defineConfig({
     }),
     d2({
       skipGeneration: !!process.env["CF_PAGES"] || !process.env["D2"],
-      layout: "elk",
+      layout: "tala",
     }),
     svelte(),
   ],

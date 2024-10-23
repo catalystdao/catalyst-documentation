@@ -17,7 +17,7 @@ UoL allows Catalyst to scale linearly with the number of chains connected: Catal
 
 ### High-level explanation
 
-Imagine Alice wants to trade her Apples for Charlie's Citrons. Both Alice and Charlie have a certain number of values attached to their produce. If Alice has 1 million Apples and only 1 Citron, then 1 Citron is inherently worth more to Alice than 1 Apple, _how else will she get all of their C-vitamins?_
+Imagine Alice wants to trade her Apples for Charlie's Citrons. Both Alice and Charlie have a certain number of values attached to their produce. If Alice has 1 million Apples and only 1 Citron, then 1 Citron is inherently worth more to Alice than 1 Apple, _how else will she get all of her C-vitamins?_
 
 We imagine that Alice has some value function that she uses to evaluate if she should trade her Apples to Citrons. We call that function the marginal price function (of Alice).
 
