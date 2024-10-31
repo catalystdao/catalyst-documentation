@@ -110,3 +110,20 @@ Importantly, the sum of all inputs must be greater than the outputs. The differe
 ## Proving Bitcoin Transactions
 
 This section has not been written yet.
+
+
+## Confirmations
+
+SPV clients are not safe at 1 confirmation, it is required that multiple blocks are built on top. This is because anyone can mine a transaction that passes all SPV checks but contains fraudulent transactions. As a result, an SPV client is at best as good as the blocks built on it.
+
+Additionally, the SPV client used does not validate the actual difficulty adjustments. Instead it verifies the 1/4 law. As a result, each block shall only be assumed to hold 1/4 of the validation power as a fully verified Bitcoin block. As a rule of thumb, the below table can be used to map value to number of confirmations.
+
+| Size | Conf. |
+|-------------|-------|
+| \$0k - \$20k | 2 |
+| \$20k - \$100k | 3 |
+| \$100k - \$200k | 4 |
+| \$200k - \$1m | 5 |
+| \$1m+ | 6 |
+
+Note that starting from 5 confirmations, you get full Bitcoin security as 2 Bitcoin blocks will always reorg the chain to the proper difficulty (assuming the minority chain isn't being mined with 51% of the mining power).
