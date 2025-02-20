@@ -1,7 +1,7 @@
 {
   "name": "catalyst-starlight",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,18 +10,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
-    "@astrojs/starlight": "^0.28.2",
-    "@astrojs/svelte": "^5.7.1",
-    "astro": "^4.15.9",
-    "astro-d2": "^0.5.2",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/starlight": "^0.32.1",
+    "@astrojs/svelte": "^7.0.4",
+    "astro": "^5.3.0",
+    "astro-d2": "^0.7.0",
     "astro-iconify": "^1.2.0",
-    "rehype-mathjax": "^6.0.0",
+    "rehype-mathjax": "^7.0.0",
     "remark-math": "^6.0.0",
     "sharp": "^0.33.5",
-    "starlight-links-validator": "^0.12.1",
-    "svelte": "^4.2.19",
-    "typescript": "^5.6.2"
+    "starlight-links-validator": "^0.14.3",
+    "svelte": "^5.20.2",
+    "typescript": "^5.7.3"
   },
   "packageManager": "pnpm@9.11.0+sha256.1c0e33f70e5df9eede84a357bdfa0b1f9dba6e58194628d48a1055756f553754"
 }

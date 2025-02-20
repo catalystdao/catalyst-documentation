@@ -1,55 +1,166 @@
 ---
-title: Catalyst Knowledge Hub
-description: The Catalyst for Cross-Chain Applications!
+title: Catalyst Intent System
+description: Catalyst Intents standardizes the 3 components to an intent, the input context, the output context, and the verification layer. This allows Catalyst to be efficient, flexible, and extensive.
 hero:
-  tagline: The Catalyst for Cross-Chain Applications
+  tagline: Defining the components that makes intents
   image:
     light: "/src/assets/symbol_dark.svg"
     dark: "/src/assets/symbol_light.svg"
 ---
 
-Welcome to the Catalyst docs! This guide will provide you with a simple, easy-to-understand introduction to Catalyst, explaining its purpose, key features, and benefits.
+All intents, whether Catalyst'tic or not, require 3 components:
+1. Input settlement scheme
+2. Output settlement scheme.
+3. Validation layer.
 
-## What Is Catalyst?
+Historically, these have all been the intertwinced. This presents issues with scaling the system, as adding new validation layers, order types, virtual machine implementations, or supporting upcoming technologies may require larger rewrites of the system.
 
-Catalyst is the permissionless liquidity engine for the modular future. Catalyst consists of multiple complementary liquidity engines like cross-chain automated market marker (AMM) and a cross-chain intent network. The Catalyst AMM can facilitates atomic native asset swaps from different chains while the intent layer can be used on top to optimise settlement speed & provide access to an even wider variety of assets. Catalyst can be deployed on any chain and allows liquidity to be sourced from any other connected ecosystem such as Ethereum, Cosmos and L2s.
+## System Design
+The Catalyst Intent System is an asset flow first system. This allows Catalyst to support varying degrees of asset technologies: fill first, user as solver, and ordinary swaps. As a result, it makes sense to move backwards through the stack, starting with the output settlement scheme.
 
-The vision for Catalyst is to be a permissionless liquidity layer for all chains. Catalyst will have permissionless deployments, meaning that any new chain can automatically have Catalyst contracts deployed with it—connecting the chain with all the other Catalyst deployments on all other chains. The goal of Catalyst is to create an interconnected ecosystem where users can effortlessly access assets and applications across multiple chains, and developers can easily launch new blockchains and connect them to existing networks and their respective users.
+```d2
+style.fill: transparent
+direction: right
 
-## What Is The Modular Future?
+title: Catalyst Overview {
+  near: top-center
+  shape: text
+  style: {
+    font-size: 40
+  }
+}
 
-It’s become trivially easy to launch a new chain. Modular blockchains – a relatively new concept in crypto – are blockchains that are made up of different modules that can be added or removed as needed. Each module performs a specific function, making the blockchain more flexible and adaptable to changing needs, allowing for greater customization and specialization. Modular blockchains can help increase the scalability and efficiency of blockchain networks, allowing more people to begin to adopt and use crypto technology.
+Output Chain.Remote Oracle -> Input Chain.Local Oracle: 4. Relay fill
 
-Modular blockchains are easier to configure and deploy than traditional blockchains, which will enable an explosion in the number of blockchains. As an industry, we are currently connecting chains in the same way we were in 2020, taking 2-3 weeks to establish connections. As new chains continue to launch, they remain siloed and fragmented, hindering trade between them. In fact, there’s not much to do for a modular chain after launch if they can’t connect to another blockchain.
+Input Chain: {
+  User -> Lock: 0. Deposit
+  Settler -> Local Oracle: 5. Check Fill
+  Settler -> Lock: 6. Unlock Funds
+  Lock -> Solver: 7. Payment
+  Local Oracle.shape: page
+  Lock.shape: page
+  Settler.shape: page
+}
 
-Catalyst introduces a new cross-chain paradigm that automatically connects chains as they launch, and efficiently shares liquidity between them – dissolving the barriers between chains as a global liquidity layer.
+Output Chain: {
+  Solver -> Filler: 1. Order Fill
+  Filler -> User: 2. Payment
+  Remote Oracle -> Filler: 3. Check Fill
+  Remote Oracle.shape: page
+  Filler.shape: page
+}
 
-## Why Is Catalyst Needed?
+```
 
-Catalyst has a vision for a global liquidity layer for all chains—available automatically at launch. With an innovation called unit of liquidity, Catalyst can automatically connect to any new chain in a future of continued chain proliferation.
+### Output Settlement
+The standard imposes no interface requirements, order structure, or order type except that an interface to validate payloads is provided:
+```solidity
+interface IPayloadCreator {
+    function arePayloadsValid(
+        bytes[] calldata payloads
+    ) external view returns (bool);
+}
+```
+This allows the output settlement scheme to be incredible flexible, it can support any order type, on any virtual machine, as long as the filled order can be expressed as an opaque bytes array.
 
-1. **Permissionless Liquidity**: Catalyst democratizes access to blockchains by enabling permissionless liquidity. By allowing any new chain to connect with any desired chains (whether it be an established hub like Ethereum or a newer modular chain), Catalyst reduces overhead in expanding into new chains and accessing their liquidity, thereby providing support for the long tail of assets not found on any other on-chain venue.
+For simplicity, lets assume that an output can be expressed as `[token, amount, destination]`. If this output has been filled, then a valid payload could be `bytes(solver | token | amount | destination)`.
 
-2. **Cross-Chain Interoperability**: As the number of blockchain networks continues to grow, it's essential to have a solution that enables seamless communication and liquidity movement between them. Catalyst facilitates cross-chain swaps, allowing users to access applications and assets on different chains without being restricted by their current holdings.
+If the input settlement could validate this call, the inputs could be appropriately paid to the solver. However, this information only exists on the output settlement on the output chain.
 
-3. **Simplified Integration for Developers**: Catalyst streamlines the process for developers to create new chains and connect them to existing networks. This encourages innovation and helps developers scale their projects, ultimately leading to a more diverse and robust ecosystem of applications and services for users.
+### Validation Layer
 
-import Card from '../../components/Card.astro';
-import CardGrid from '../../components/CardGrid.astro';
+The validation layer serves to ferry valid payloads to the input chain. As a result, it is expected that before making messages the validation layer checks if one or more payloads are valid and then ship them to the input chain:
 
-## Our advantages
+```solidity
+function submit(address proofSource, bytes[] calldata payloads) external payable {
+	// Check if the payloads are valid.
+	if (!IPayloadCreator(proofSource).arePayloadsValid(payloads)) revert NotAllPayloadsValid();
 
-<CardGrid stagger>
-	<Card title="Permissionless" icon="mdi:lock-off-outline">
-		New chains are integrated into Catalyst immediately as they are deployed. Cross-chain liquidity pools and cross-chain asset swaps are open for anyone to initialize.
-	</Card>
-	<Card title="Safe by Design" icon="mdi:safe">
-		Catalyst sends one single, lightning-fast cross-chain message and only leverages battle-tested, trust-minimized protocols like IBC.
-	</Card>
-	<Card title="Simple and Sustainable" icon="mdi:recycle">
-	One-click transaction experience using native assets. Capital efficient liquidity provisioning, and sustainable yield through MEV recapture.
-	</Card>
-	<Card title="Fast and Secure" icon="mdi:truck-fast">
-	By using a combination of multiple complementary systems like AMM, underwriting, intents, and more the speed can be optimised without sacrafising security.
-	</Card>
-</CardGrid>
+	// Payloads are good. We can submit them on behalf of proofSource.
+	_submit(proofSource, payloads);
+}
+```
+How validator layers pass the information to the input chain is scoped. They may be using custom message encodings, custom relaying properties, custom interfaces, or other special integration concerns.
+
+On the input chain, it is expected that the validator layer validates the payload(s) through a virtual machine local hash:
+```solidity
+interface IValidationLayer {
+    /**
+     * @notice Check if some data has been attested to.
+     * @param remoteChainId Chain the data supposedly originated from.
+     * @param remoteOracle Identifier for the remote attestation.
+     * @param remoteApplication Identifier for the application that the attestation originated from.
+     * @param dataHash Hash of data.
+     */
+    function isProven(uint256 remoteChainId, bytes32 remoteOracle, bytes32 remoteApplication, bytes32 dataHash) external view returns (bool);
+
+    /**
+     * @notice Check if a series of data has been attested to.
+     * @dev More efficient implementation of isProven. Does not return a boolean, instead reverts if false.
+     * This function returns true if proofSeries is empty.
+     * @param proofSeries remoteOracle, remoteChainId, and dataHash encoded in chucks of 32*4=128 bytes.
+     */
+    function efficientRequireProven(
+        bytes calldata proofSeries
+    ) external view;
+}
+```
+
+Using only the payload hash makes the system more efficient as less data is passed around.
+
+No attempt is made at [standardizing the payload](#standardized-message-format). As a result, there may be incompatibilities between the input and output settlement layer. 
+
+### Input Settlement
+
+While being nesseary for an intent system, Catalyst imposes no restriction on the implementation. Input Settlements can access proven output through the validation layer by either `isProven` or `efficientRequireProven`.
+
+If an order contains multiple outputs and the outputs are filled by different solvers, the filler of the first output in the order specification shall be the canonical solver.
+
+## Unsolved Issues
+
+The following issues are unsolved.
+
+### Standardized Message Format
+Currently, the input settlement scheme and the output settlement scheme has to agree on an order-type specific payload. If a new order type or settlement system requires more functionality beyond the implemented message payload, it requires deploying these components over. This also break composability between these layers.
+
+Assuming the output description can be represented as:
+```solidity
+struct OutputDescription {
+    bytes32 remoteOracle;
+    bytes32 remoteFiller;
+    uint256 chainId;
+    bytes32 token;
+    uint256 amount;
+    bytes32 recipient;
+    bytes remoteCall;
+    bytes fulfillmentContext;
+}
+```
+The proposed message format is the following:
+```
+Encoded FillDescription
+     SOLVER                          0               (32 bytes)
+     + ORDERID                       32              (32 bytes)
+     + TIMESTAMP                     64              (4 bytes)
+     + TOKEN                         68              (32 bytes)
+     + AMOUNT                        100             (32 bytes)
+     + RECIPIENT                     132             (32 bytes)
+     + REMOTE_CALL_LENGTH            164             (2 bytes)
+     + REMOTE_CALL                   166             (LENGTH bytes)
+     + FULFILLMENT_CONTEXT_LENGTH    166+RC_LENGTH   (2 bytes)
+     + FULFILLMENT_CONTEXT           168+RC_LENGTH   (LENGTH bytes)
+```
+
+NOTE! No assumptions are ever made on how validation layers pass messages between each other. They can pack fill descriptions however they like.
+
+### Atomic Swaps and HTLCs as validation layers.
+
+HTCLs works very differently from ordinary intent schemes as they require a round of strong commitments. This pre-bakes certain system assumptions which cannot be abstracted away through the Catalyst Intent System. As a result, these are not considered.
+
+### Integration Overheads
+
+As interfaces and validation layers are not standardized, each new order type, validation layer, or settlement scheme presents additional integration overhead. However, since components are eagerly reused the system complexity scales `O(n)` instead of `O(n^3)` with `n` roughly being equal to the number of components.
+
+### Optimistic Validation layers
+
+The current validation layers mainly support explicit validation. Optimistic validation can be implemented but requires each output to have an on-chain storage. This increases the gas cost.

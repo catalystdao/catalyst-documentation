@@ -10,9 +10,8 @@ import svelte from "@astrojs/svelte";
 // https://astro.build/config
 export default defineConfig({
   redirects: {
-    "/resources/whitepaper": "/resources/audit-whitepaper#Papers",
-    "/cross-cats/": "/cross-cats/cross-cats/",
-    "/cross-cats/solver/": "/cross-cats/becoming-a-solver/introduction/",
+    "/cross-cats/": "/intent/intent/",
+    "/cross-cats/solver/": "/intent/becoming-a-solver/introduction/",
   },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
@@ -33,63 +32,47 @@ export default defineConfig({
       },
       social: {
         github: "https://github.com/catalystdao",
-        discord: "https://discord.gg/nvvN3XbaYG",
       },
       customCss: ["./src/assets/landing.css", "./src/assets/math-fix.css"],
       favicon: "/favicon.ico",
       sidebar: [
         {
-          label: "Overview",
+          label: "Catalyst Intent System",
           link: "/",
         },
         {
-          label: "Introduction",
+          label: "Implementations",
           autogenerate: {
-            directory: "introduction",
+            directory: "implementation",
           },
         },
         {
-          label: "V1: Cross-Chain AMM",
+          label: "Solvers",
+          badge: "Outdated",
+          autogenerate: {
+            directory: "solver",
+          },
+        },
+        {
+          label: "Knowledge Database",
+          collapsed: true,
+          autogenerate: {
+            directory: "knowledge",
+          },
+        },
+        {
+          label: "CatalystAMM",
+          collapsed: true,
+          badge: "Legacy",
           autogenerate: {
             directory: "protocol",
-          },
-        },
-        {
-          label: "CrossCats: Cross-Chain Intents",
-          badge: "Closed Beta",
-          autogenerate: {
-            directory: "cross-cats",
-          },
-        },
-        {
-          label: "Generalised Incentives",
-          autogenerate: {
-            directory: "generalised-incentives",
-          },
-        },
-        {
-          label: "Relayer",
-          autogenerate: {
-            directory: "relayer",
-          },
-        },
-        {
-          label: "Underwriter",
-          autogenerate: {
-            directory: "underwriter",
-          },
-        },
-        {
-          label: "Resources",
-          autogenerate: {
-            directory: "resources",
           },
         },
       ],
     }),
     d2({
       skipGeneration: !!process.env["CF_PAGES"] || !process.env["D2"],
-      layout: "tala",
+      layout: "elk",
     }),
     svelte(),
   ],
