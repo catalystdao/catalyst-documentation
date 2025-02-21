@@ -1,5 +1,6 @@
 ---
 title: "Permissionless Deployments"
+slug: "amm/deployments"
 description: "Anyone can deploy Catalyst to any chain that supports either EVM or CosmWasm."
 sidebar:
   order: 5

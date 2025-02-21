@@ -45,20 +45,20 @@ export default defineConfig({
         {
           label: "Implementations",
           autogenerate: {
-            directory: "implementation",
+            directory: "1-implementation",
           },
         },
         {
           label: "Solvers",
           autogenerate: {
-            directory: "solver",
+            directory: "2-solver",
           },
         },
         {
           label: "Knowledge Database",
           collapsed: true,
           autogenerate: {
-            directory: "knowledge",
+            directory: "7-knowledge",
           },
         },
         {
@@ -66,7 +66,7 @@ export default defineConfig({
           collapsed: true,
           badge: "Legacy",
           autogenerate: {
-            directory: "protocol",
+            directory: "9-amm",
           },
         },
       ],

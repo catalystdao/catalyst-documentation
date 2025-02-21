@@ -1,5 +1,6 @@
 ---
 title: "Transaction Lifecycle"
+slug: "amm/tx-lifecycle"
 description: "A cross-chain Catalyst transaction lifecycle is spread across multiple chains. Lets examine a user swapping a token from Chain A to Chain B."
 sidebar:
   order: 1
@@ -7,7 +8,7 @@ sidebar:
 
 A cross-chain Catalyst transaction lifecycle is spread across multiple chains. Lets examine a user swapping a token from Chain A to Chain B.
 
-```d2
+<!-- ```d2
 style.fill: transparent
 
 direction: right
@@ -42,7 +43,7 @@ Chain B: {
 
 Chain A.garp -> amb: Collect Proof
 Chain B.garp <- amb: Deliver Proof
-```
+``` -->
 
 1. **Assets to Units**. The user deposits their assets into Vault A along with the swap context. The vault converts their tokens into Units by examining the user's deposits and comparing them to the current liquidity within.
 2. **Pack Swap**. The vault sends the swap context to the cross-chain interface (CCI). The CCI packs the swap context into bytes. These bytes will be compatible with any virtual machine (VM) the user may want to receive their assets on.

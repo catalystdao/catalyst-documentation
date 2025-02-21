@@ -1,5 +1,6 @@
 ---
 title: "Swaps Types"
+slug: "amm/swap-types"
 description: "Catalyst supports 4 different types of swaps: Local Swaps, Cross-Chain Swaps, Underwritten Cross-chain swaps, and Logic Dependent Swaps. This allows Catalyst to bring the forefront of cross-chain innovation anywhere."
 sidebar:
   order: 3

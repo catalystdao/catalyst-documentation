@@ -56,7 +56,7 @@ type OrderDto = {
 
 ## Websocket Subscription
 
-The Catalyst order server deliveres orders through a websocket subscription aallowing for real-time updates without the need to continuously poll the order server. By leveraging WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of solvers having to locally filter incoming data.
+The Catalyst order server delivers orders through a websocket subscription aallowing for real-time updates without the need to continuously poll the order server. By leveraging WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of solvers having to locally filter incoming data.
 
 :::note
 The data received through WebSocket is not pre-filtered. This means every order event will be pushed to your 

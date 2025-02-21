@@ -1,5 +1,6 @@
 ---
 title: "Liquidity Swaps"
+slug: "amm/liquidity-swaps"
 description: "Catalyst has a brand new deposit innovation called liquidity swaps that allow for an even easier cross-chain deposit experience."
 sidebar:
   order: 4
