@@ -1,6 +1,6 @@
 ---
 title: "Validation Layers"
-slug: "validation"
+slug: "implementation/validation"
 description: "Each Catalyst System order specifies which components are used for which aspects of the swap. Validation layers can be permissionlessly chosen by the issuer of an intent and anyone can write a validation layer."
 sidebar:
   order: 3

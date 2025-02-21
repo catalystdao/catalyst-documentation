@@ -12,6 +12,8 @@ export default defineConfig({
   redirects: {
     "/cross-cats/": "/intent/intent/",
     "/cross-cats/solver/": "/intent/becoming-a-solver/introduction/",
+    "/validation": "/implementation/validation"
+
   },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {

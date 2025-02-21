@@ -172,9 +172,9 @@ If the same address is used every order, it becomes crucial to ensure that the *
 
 Bitcoin addresses are encoded in two fields: `token` and `address`.
 
-- **`token`**: This field serves to differentiate VM tokens from Bitcoin orders, encode relevant context like confirmations and address version. Refer to the [UTXO type table](/knowledge/bitcoin-primer/#utxo-type-table) for details on converting address types to versions. The field should consists of the bitcoin signifier (BC in the 12'th byte), number of confirmations in the 31st, UTXO type in the 32'th, and otherwise 0s.
+- **`token`**: This field serves to differentiate VM tokens from Bitcoin orders, encode relevant context like confirmations and address version. Refer to the [UTXO type table](/knowledge/bitcoin/#utxo-type-table) for details on converting address types to versions. The field should consists of the bitcoin signifier (BC in the 12'th byte), number of confirmations in the 31st, UTXO type in the 32'th, and otherwise 0s.
 
-- **`address`**: This field encodes the public key hash, script hash, or witness hash. Use the decoding schemes listed in the [UTXO type table](/knowledge/bitcoin-primer/#utxo-type-table) for various address versions. For addresses involving hashes of 20 bytes (P2PKH, P2SH, and P2WPKH), end pad the hashes with zeros (e.g., `0xabcdef...00000`).
+- **`address`**: This field encodes the public key hash, script hash, or witness hash. Use the decoding schemes listed in the [UTXO type table](/knowledge/bitcoin/#utxo-type-table) for various address versions. For addresses involving hashes of 20 bytes (P2PKH, P2SH, and P2WPKH), end pad the hashes with zeros (e.g., `0xabcdef...00000`).
 
 ### Quote Open Order (WIP)
 
