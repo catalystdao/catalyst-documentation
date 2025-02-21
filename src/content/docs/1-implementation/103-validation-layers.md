@@ -90,3 +90,55 @@ bytes32 payloadHash = _proofPayloadHash(orderId, solver, timestamp, output);
 ```
 
 Solvers wanting to support orders using the Polymer validation layer needs to implement the Polymer API to collect relevant event proofs.
+
+
+### Bitcoin (self-serve)
+
+Catalyst has a Bitcoin Simplified Payment Validation (SPV) client implementation. The implementation works both as a Output Settlement implementation and as a validation layer.
+
+The Bitcoin SPV client requires constant upkeep – the block chain has to be updated ~once every 10 minutes or whenever a transaction needs to be proven – to properly validate transaction.
+
+To generate a transaction proof refer to the below code:
+
+```typescript
+import mempoolJS from "@catalabs/mempool.js";
+const mainnet: bool;
+const {
+  bitcoin: { transactions, blocks },
+} = mempoolJS({
+  hostname: "mempool.space",
+  network: mainnet ? undefined : "testnet4",
+});
+
+export async function generateProof(
+  txid: string,
+): Promise<{ blockHeader: string; proof: Proof; rawTx: string }> {
+  const tx = await transactions.getTx({ txid });
+
+  const merkleProof = await transactions.getTxMerkleProof({ txid });
+  // TODO: serialisation version 1.
+  const rawTx = await transactions.getTxHex({ txid });
+
+  const blockHash = await blocks.getBlockHeight({
+    height: merkleProof.block_height,
+  });
+
+  // !: Most endpoints proide transactions witness encoded.
+  // The following function serve to strip the witness data.
+  const rawTxWitnessStripped = removeWitnesses(rawTx);
+
+  const blockHeader = await blocks.getBlockHeader({ hash: blockHash });
+
+  return {
+    blockHeader,
+    proof: {
+      txId: txid,
+      txIndex: merkleProof.pos,
+      siblings: merkleProof.merkle.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+      ),
+    },
+    rawTx: rawTxWitnessStripped,
+  };
+}
+```

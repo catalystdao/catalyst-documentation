@@ -1,115 +1,76 @@
 ---
 title: "Filling EVM Orders"
 slug: "solver/evm"
-description: "CrossCats allows solvers to collect order flow to and from various VM chains and to and from Bitcoin. Compared to competing solution, capital hungry solvers can improve their capital turnaround by using the underwriting network to their advantage."
+description: "To fill Catalyst orders requires supporting Output Settlement interfaces. Each Output Settlement interface is different but most support the generic OutputDescription types and allows filling orders through a shared context."
 sidebar:
   order: 20
-  badge:
-    text: Outdated
-    variant: caution
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-The delivery of assets varies based on the destination type: VM chains or Bitcoin.
+The delivery of assets depends on the Output Settlement Interface associated with an order. The Output Settlement Interface can be read from the order: `orderDto.order.remoteFiller`.
 
-### EVM deliveries
+### BaseFiller based (CoinFiller)
 
-For EVM (Ethereum Virtual Machine) chains, you must interact with the specified oracle on the destination chain. Use the following details from the order to make the necessary call:
+The CoinFiller is the simplest Output Settlement implementation and allows specifying limit orders and dutch auctions.
 
-- **Oracle Address**: Found in `OrderDto.order.orderData.outputs[].remoteOracle`.
-- **Destination Chain**: Identified by `OrderDto.order.orderData.outputs[].chainId`.
+:::caution
+Support is not provided for dutch auctions yet.
+:::
 
-<Tabs syncKey="lang">
-<TabItem label="Typescript">
+To fill an output using Output Settlements based on `BaseFiller` use the associated fill interfaces:
 
-```typescript
-// It is assumed you are continuing from the above steps.
-import { ethers } from "ethers";
+```solidity
+function fill(bytes32 orderId, OutputDescription calldata output, bytes32 proposedSolver) external returns (bytes32) {
+  return _fill(orderId, output, proposedSolver);
+}
 
-const oracleAbi = "...";
+function fillThrow(bytes32[] calldata orderIds, OutputDescription[] calldata outputs, bytes32 filler) external {
+  _fillThrow(orderIds, outputs, filler);
+}
 
-// The oracle allows filling multiple outputs from different orders
-// in a single transaction. They do have to go to the same chain.
-// For simplicity, this function assumes that all outputs goes to
-// the same chain but it may not be the case.
-async function fillSingleChainOrder(order: CrossChainOrder) {
-  let recordedChain;
-  let recordedOracle;
-  for (const output of order.orderData.outputs) {
-    if (recordedChain === undefined) recordedChain = output.chainId;
-    if (recodedOracle === undefined) recodedOracle = output.remoteOracle;
-    if (recordedChain !== output.chainId)
-      throw Error(
-        `Mixed ChainIds, seen ${recordedChain} and ${output.chainId}`
-      );
-    if (recodedOracle !== output.remoteOracle)
-      throw Error(
-        `Mixed Oracles, seen ${recodedOracle} and ${output.remoteOracle}`
-      );
-  }
-  const oracle = new ethers.Contract(recordedOracle, oracleAbi, signer);
-
-  // TODO: Set approvals for the oracleAddress for the value of the output.
-
-  // We need to provide fill times. These have to be set to proofTime.
-  // These are used to ensure you can't reuse fills.
-  const fillTimes = order.orderData.outputs.map(
-    (_) => order.orderData.proofDeadline
-  );
-
-  // Call the reactor to initiate the order.
-  return oracle.fill(outputs, fillTimes);
+function fillSkip(bytes32[] calldata orderIds, OutputDescription[] calldata outputs, bytes32 filler) external {
+    _fillSkip(orderIds, outputs, filler);
 }
 ```
 
-</TabItem>
-<TabItem label="Python">
+Filling a single output description is most efficient with `fill(...)` since it does not contain a for loop. However, it is limited to a single output at a time.
 
-```python
-# It is assumed you are continuing from the above steps.
+For batch filling, `fillThrow` or `fillSkip` may be better.
+- `fillThrow` fills all outputs but if one has been already been filled by another solver the whole call will revert.
 
-oracleAbi = "...";
+  Use it when an output has multiple outputs and you are filling all outputs of an order or none.
 
-# The oracle allows filling multiple outputs from different orders in a single transaction.
-# They do have to go to the same chain.
-# For simplicity, this function assumes that all outputs goes to the same chain but it may not be the case.
-def fill_single_chain_order(order):
-    oracle_address = order['orderData']['remoteOracle']
+- `fillSkip` fills all outputs but if some has already been filled, those will be skipped silently.
 
-    recordedChain = "";
-    recordedOracle = "";
-    for (output in order['orderData']['outputs']):
-      if (recordedChain == ""):
-        recordedChain = output.chainId
-      if (recordedOracle == ""):
-          recordedOracle = output.remoteOracle
-      if (recordedChain != output.chainId):
-        raise Exception(f"Mixed ChainIds, seen {recordedChain} and {output.chainId}");
-      if (recordedOracle != output.remoteOracle):
-        raise Exception(f"Mixed Oracles, seen {recordedOracle} and {output.remoteOracle}");
+  Use it when you are batch filling multiple orders. This allows you to claim as many outputs as possible in one go since even if one order got filled by another solver you will still fill the rest.
 
-    oracle = web3.eth.contract(address=recordedOracle, abi=oracle_abi)
+## Validation Layers
 
-    # TODO: Set approvals for the oracleAddress for the value of the output.
+Once orders have been filled on the output settlement contract, they need to be submitted to the validation layer to be ferried to the input chain. The first step is to generate the associated payload. The [reference payload encoding format](/#standardized-message-format) is:
 
-    # We need to provide fill times. These have to be set to proofTime.
-    # These are used to ensure you can't reuse fills.
-    fillTimes = [order.orderData.proofDeadline for _ in order.orderData.outputs]
-
-    # Build the transaction
-    txn = oracle.functions.fill(order.orderData.outputs, fillTimes).build_transaction({
-        'from': signer_address,
-        'nonce': web3.eth.get_transaction_count(signer_address)
-    })
-    # Sign the transaction
-    signed_txn = web3.eth.account.sign_transaction(txn, private_key=signer_private_key)
-    # Send the transaction
-    tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
-    # Wait for the transaction receipt
-    receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
-    return receipt
+```
+Encoded FillDescription
+     SOLVER                          0               (32 bytes)
+     + ORDERID                       32              (32 bytes)
+     + TIMESTAMP                     64              (4 bytes)
+     + TOKEN                         68              (32 bytes)
+     + AMOUNT                        100             (32 bytes)
+     + RECIPIENT                     132             (32 bytes)
+     + REMOTE_CALL_LENGTH            164             (2 bytes)
+     + REMOTE_CALL                   166             (LENGTH bytes)
+     + FULFILLMENT_CONTEXT_LENGTH    166+RC_LENGTH   (2 bytes)
+     + FULFILLMENT_CONTEXT           168+RC_LENGTH   (LENGTH bytes)
 ```
 
-</TabItem>
-</Tabs>
+It may be beneficial to batch multiple proven outputs to the validation layer.
+
+### Simple Broadcast Interfaces (Wormhole)
+
+For messaging protocols supporting simple broadcast interfaces like Wormhole, the following interface is used:
+
+```solidity
+function submit(address proofSource, bytes[] calldata payloads) public payable returns (uint256 refund);
+```
+
+Where `proofSource = orderDto.order.remoteFiller` and  `payloads` is the encoded OutputDescriptions.
