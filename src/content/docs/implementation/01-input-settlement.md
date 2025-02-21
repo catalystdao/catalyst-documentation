@@ -110,4 +110,11 @@ When integrating CompactSettler, if the settler uses the `withDeposit` extension
 function depositFor(CatalystCompactOrder calldata order, ResetPeriod resetPeriod) external;
 ```
 
-Notice that nonces can not be reused and should be unique.
+When this function is called, the Deposit event will be emitted for permissionless discovery.
+```solidity
+event Deposited(bytes32 orderId, CatalystCompactOrder order);
+```
+
+:::note
+Nonces can not be reused and should be unique.
+:::
