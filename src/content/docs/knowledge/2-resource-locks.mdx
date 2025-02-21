@@ -23,23 +23,26 @@ Depending on the resource lock system, each user chooses an allocator and each l
 
 Think of a lock as a time-bound approval, co-signed by an allocator, to a specific protocol (arbiter).
 
-While resource lock flows can look very different depending on the application, they generally following X steps:
+While resource lock flows can look very different depending on the application, they generally follow 4 steps:
 
+import { Card } from '@astrojs/starlight/components';
 import { Steps } from '@astrojs/starlight/components';
 
-<Steps>
+<Card>
+  <Steps>
 
-0. The **sponsor** makes a deposit into a resource lock, if one does not already exist.
+  0. The **sponsor** makes a deposit into a resource lock, if one does not already exist.
 
-1. The **sponsor** signs a lock that describes a desired outcome.
+  1. The **sponsor** signs a lock that describes a desired outcome.
 
-2. The **allocator** ensures that the appropriate funds exists for the lock to be valid. In other words, if the sponsor has deposited 10 tokens, no set of approved locks shall exceed 10 tokens. The allocator then co-signs the lock.
+  2. The **allocator** ensures that the appropriate funds exists for the lock to be valid. In other words, if the sponsor has deposited 10 tokens, no set of approved locks shall exceed 10 tokens. The allocator then co-signs the lock.
 
-3. Desired event takes place.
+  3. Desired event takes place.
 
-4. The **arbiter** validates that the event has taken place and releases the token to the appropriate recipient.
+  4. The **arbiter** validates that the event has taken place and releases the token to the appropriate recipient.
 
-</Steps>
+  </Steps>
+</Card>
 
 In this flow, 2 signatures and 1 transaction – ignoring the 0'th step – is required; The lock have to be signed by the sponsor, and co-signed by the allocator. Then the arbiter makes the final call whether the desired event took place.
 

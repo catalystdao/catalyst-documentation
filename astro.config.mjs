@@ -50,7 +50,6 @@ export default defineConfig({
         },
         {
           label: "Solvers",
-          badge: "Outdated",
           autogenerate: {
             directory: "solver",
           },

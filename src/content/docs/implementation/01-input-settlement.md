@@ -81,6 +81,21 @@ function finaliseFor(
 
 Notice that the fallback functions exist to fix orders that have been solved by multiple solvers. This is required because we need to hydrate the OutputDescription with the solver to check if the output has been filled on the Validation Layer.
 
+There are 3 ways to finalise an intent:
+1. Self-serve, called by the solver with the tokens paid to the solver. `finaliseSelf`
+2. Self-serve, custom delivery. Called by the solver with the tokens paid to a specific address. `FinaliseTo`
+3. External finalisation with signed message by the solver designating where assets are to be delivered. `finaliseFor`
+
+To use external finalisation, the struct, `AllowOpen` have to be EIP712 signed:
+```solidity
+struct AllowOpen {
+    bytes32 orderId;
+    address originSettler;
+    address destination;
+    bytes call;
+}
+```
+
 ### Registering Intents
 
 For how to register intents with Rhinestone, please refer to their docs.
