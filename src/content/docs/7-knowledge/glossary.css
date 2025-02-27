@@ -1,0 +1,18 @@
+.sl-markdown-content h2 {
+    display: inline;
+    font-size: 1rem;
+}
+  
+.sl-markdown-content p {
+    display: inline;
+}
+
+.sl-markdown-content h2::after {
+    content: ": ";
+}
+
+.sl-markdown-content p::after {
+    content: "";
+    display: block;
+    padding-top: 1rem;
+}

@@ -1,0 +1,48 @@
+---
+title: "Glossary"
+slug: "knowledge/glossary"
+description: "Intent systems and cross-chain bridges uses a lot of loaded nouns. This page explains arbiters, Allocators, sponsors, locks, GMPs, settlers, and much more."
+sidebar:
+  order: 3
+---
+
+import 'glossary.css'
+
+## Arbiter
+Entity, contract or otherwise, capable of determining when the desired action of a resource lock has been fulfilled. may also be an allocator.
+
+## Allocator
+Entity validating that lock does not exceed a user’s current balance. may also be an arbiter. When depositing into a lock, an allocator is chosen.
+
+## Sponsor
+The owner of the tokens to be used for a locks in a resource lock.
+
+## Resource Lock
+A clever 3/3 (or 2/2) multisignature scheme that provides unique balance abstractions. See more.
+
+## Lock
+An allowance issued by a user to an Arbiter. Before locks are valid they have to be signed by the user, and co-signed by the allocator.
+
+## Validator Layer
+Entity capable of validating whether some information happened. Examples: GMP, optimistic proof, or bridges.
+
+## GMP
+Generalised Message Passing. Describes a way to send messages between 2 chains. Examples: Wormhole, LayerZero, Hyperlane, and more.
+
+## Settler
+A contract in a cross-chain intent system that delivers assets. In a resource lock supporting cross-chain intent system, the input/origin settler is often an arbiter.
+
+## Integrator
+Someone issuing intents for a cross-chain intent system.
+
+## Intent
+An issue of a desired action. Intents are often used to describe swaps but can also describe desired cross-chain interactions. Contrary to swaps, intents should generally be composable. Intents are usually self-contained meaning they describe both the desired end state and the payment to someone to reach that state; the output and input respectively.
+
+## Solver
+An actor solving intents for users. They participate in intents system with the goal to earn margins of the difference between the cost of achieving the end state and the inputs. 
+
+## Input
+The starting point. Input assets refers to the assets paid into the intent system. The input chain refers to the chain(s) of the input assets.
+
+## Output
+The end point. Output assets refers to the desired paid tokens to the user (or used within a greater action). Output chain refers to the chain(s) of the output assets.
