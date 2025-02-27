@@ -1,0 +1,179 @@
+---
+title: "Filling BTC Orders"
+slug: "solver/btc"
+description: "Catalyst supports Bitcoin orders. Filling Bitcoin orders is more complicated than EVM orders. If you are interested in filling Bitcoin orders, reach out and we will hook you up."
+sidebar:
+  order: 100
+  badge:
+    text: Not Live
+    variant: danger
+---
+
+Catalyst supports a Bitcoin validation layer. However, filling Bitcoin swaps is technically more involved than EVM swaps. If you are already filling EVM swaps and interested in filling BTC swaps or interested in adding Bitcoin swaps to your app through Catalyst, reach out and we can get you onboarded. 
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+To determine whether an order involves a Bitcoin transaction, check the `orderDto.order.outputs[].token` field. If the token indicates Bitcoin, ensure the following conditions are met:
+
+- The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`. 
+  The 13th byte is `0xBC`.
+
+- The 31st byte indicates the number of confirmations required before the order can be verified on-chain.
+  - `0x00` and `0x01` represent 1 confirmation.
+  - `0x02` represents 2 confirmations.
+  - `0x03` represents 3 confirmations, and so on.
+
+- The 32nd byte contains an address version identifier, which should be decoded as `uint8`.
+
+If the transaction is directed to Bitcoin, the address (`orderDto.order.outputs[].recipient`) will contain a relevant destination hash or witness, not the address itself. This value must be used along with the address version identifier – 32nd byte of token – to decode the address.
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Name</th>
+      <th>Encoding Scheme</th>
+      <th>Prefix</th>
+      <th>Hash Length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>Ignore</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>P2PKH</td>
+      <td>Base58Check(00+PKH)</td>
+      <td>1*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>P2SH</td>
+      <td>Base58Check(05+SH)</td>
+      <td>3*</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>P2WPKH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>P2WSH</td>
+      <td>Bech32</td>
+      <td>bc1q**</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>P2TR</td>
+      <td>Bech32m</td>
+      <td>bc1p**</td>
+      <td>32</td>
+    </tr>
+  </tbody>
+</table>
+\* Prefixes are determined by the encoding scheme.
+\
+\*\* Part of the prefix – 1q/1p – is determined by the encoding scheme.
+
+You can use the below script to get inspiration for how to decode the Bitcoin address from an output description.
+
+```typescript
+import bs58check from 'bs58check';
+import { bech32, bech32m } from 'bech32';
+
+const hexStringToUint8Array = (hexString: string) =>
+  Uint8Array.from(
+    hexString.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+  );
+
+function decodeBitcoinAddress(
+  version: number,
+  recipientHash: string,
+  testnet = false,
+): string {
+  if (version === 1) {
+    const prefix = !testnet ? '00' : '6F';
+    const bytes = hexStringToUint8Array(
+      prefix + recipientHash.replace('0x', '').slice(0, 40)
+    );
+    return bs58check.encode(bytes);
+  }
+  if (version === A2) {
+    const prefix = !testnet ? '05' : 'C4';
+    const bytes = hexStringToUint8Array(
+      prefix + recipientHash.replace('0x', '').slice(0, 40)
+    );
+    return bs58check.encode(bytes);
+  }
+  const prefix = !testnet ? 'bc' : 'tb';
+  if (version === 3) {
+    const bytes = hexStringToUint8Array(
+      recipientHash.replace('0x', '').slice(0, 40)
+    );
+    const words = bech32.toWords(bytes);
+    words.unshift(0x00);
+    return bech32.encode(prefix, words);
+  }
+  const bytes = hexStringToUint8Array(
+    recipientHash.replace('0x', '').slice(0, 64)
+  );
+  if (version === 4) {
+    const words = bech32.toWords(bytes);
+    words.unshift(0x00);
+    return bech32.encode(prefix, words);
+  }
+  if (version === 5) {
+    const words = bech32m.toWords(bytes);
+    words.unshift(0x01);
+    return bech32m.encode(prefix, words);
+  }
+
+  throw Error(`Unsupported Address Type ${version}`);
+}
+```
+
+Once the address is generated, create a Bitcoin transaction with at least one output that **exactly** matches the described output from the initiated order. The transaction can have any number of inputs and outputs, as long as one output precisely matches the one specified by the order's output. This flexibility allows for batch filling, consolidation, and more.
+
+If the calldata is set on the output description, the Bitcoin transaction needs a second output which is exactly the next output index after the output filling the order:
+
+```typescript
+// Assuming you use BitcoinJS PSBT:
+import * as bitcoin from 'bitcoinjs-lib';
+...
+bitcoin.initEccLib(ecc); // For Taproot support.
+
+const mainnet: bool;
+const psbt = new bitcoin.Psbt({
+  network: mainnet ? bitcoin.networks.bitcoin : bitcoin.networks.testnet;
+});
+
+// ... add inputs
+
+// Add the solving output.
+psbt.addOutput({ address: to, value: outputValue });
+
+// The very next output should be an OP_RETURN
+const opReturnData = returnData.replace("0x", "");
+if (opReturnData.length > 0) {
+  const data_embed = bitcoin.payments.embed({
+      data: [hexStringToUint8Array(opReturnData)],
+  });
+  psbt.addOutput({
+    script: data_embed.output!,
+    value: 0n,
+  });
+}
+
+// ... complete transaction 
+```

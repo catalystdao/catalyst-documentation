@@ -1,0 +1,154 @@
+---
+title: "Collecting Orders"
+slug: "solver/orderflow"
+description: "Catalyst has 2 ways of emitting orders: 1. On-chain through the deposit interface or through the Catalyst order server. For ease of integration and to ensure you receive all orders, it is recommended that you connect to the Catalyst order server for events."
+sidebar:
+  order: 2
+  badge:
+    text: in progress
+    variant: note
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+The Catalyst order server is the recommended integration surface. However, if you are interested in the lowest latency, decentralised, and permissionless order discovery, you can read some orders on-chain.
+
+### Types
+
+```typescript
+type OutputDescription = {
+  bytes32 remoteOracle: string;
+  bytes32 remoteFiller: string;
+  uint256 chainId: number;
+  bytes32 token: string;
+  uint256 amount: string;
+  bytes32 recipient: string;
+  bytes remoteCall: string;
+  bytes fulfillmentContext: string;
+};
+
+type CatalystCompactOrder = {
+  user: string;
+  nonce: number;
+  originChainId: number;
+  fillDeadline: number;
+  localOracle: string;
+  inputs: [string, string][];
+  outputs: OutputDescription[];
+};
+
+type OrderDto = {
+  order_type: "CatalystCompactOrder" | ...;
+  order: CatalystCompactOrder | ...;
+  quote: {
+    fromAsset: string;
+    toAsset: string;
+    toPrice: string;
+    fromPrice: string;
+    intermediary: "USD" | "EUR" | "BTC" | string; // explicit types as example
+    discount: string;
+  }[];
+  sponsorSignature: string | "";
+  allocatorSignature: string | "";
+  submitTime: number;
+};
+```
+
+## Websocket Subscription
+
+The Catalyst order server delivers orders through a websocket subscription aallowing for real-time updates without the need to continuously poll the order server. By leveraging WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of solvers having to locally filter incoming data.
+
+:::note
+The data received through WebSocket is not pre-filtered. This means every order event will be pushed to your 
+application, and it is up to your implementation to manage and filter these events locally.
+:::
+
+Below is a simplified implementation in pure JavaScript that demonstrates how to connect to the WebSocket server, handle incoming messages, respond to ping events, and automatically attempt to reconnect if the connection is lost.
+
+
+(TODO update typescript block)
+```typescript
+const WebSocket = require("ws");
+
+// Configuration variables
+const wsUri = process.env.ORDER_SERVER_WS_URI; // Set your WebSocket server URI
+const apiKey = process.env.ORDER_SERVER_API_KEY; // Set your API key
+const reconnectInterval = 5000; // Reconnect interval in milliseconds
+
+// Function to connect to the WebSocket server
+function connectToOrderServer() {
+  const ws = new WebSocket(wsUri, {
+    headers: {
+      "x-api-key": apiKey,
+    },
+  });
+
+  ws.on("open", () => {
+    console.log("Connected to WebSocket server");
+  });
+
+  ws.on("message", (data) => {
+    try {
+      const parsedData = JSON.parse(data.toString());
+      console.log("Received message:", parsedData);
+
+      switch (parsedData.event) {
+        case "ping":
+        // You will be automatically disconnected if you don't respond to ping messages
+          ws.send(JSON.stringify({ event: "pong" }));
+          break;
+        case "order":
+          handleReceiveOrder(parsedData, ws);
+          break;
+        default:
+          console.log("Unknown message type:", parsedData);
+      }
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+    }
+  });
+
+  ws.on("error", (error) => {
+    console.error("WebSocket error:", error);
+  });
+
+  ws.on("close", () => {
+    console.log("Disconnected from WebSocket");
+
+    console.log("Attempting to reconnect...");
+    setTimeout(() => {
+      ws.close(); // Close any existing connection
+      connectToOrderServer(); // Attempt to reconnect
+    }, reconnectInterval);
+  });
+}
+
+// Function to handle orders
+function handleReceiveOrder(data, ws) {
+  console.log("Handling order:", data);
+  // Add your custom handling logic here
+}
+
+// Start listening to the order server
+connectToOrderServer();
+```
+
+## Evaluating Orders
+
+After fetching an order, the solver must thoroughly evaluate it to determine its viability and potential execution. To facilitate this evaluation, several contextual pointers are available within the returned order data. Key aspects to consider include:
+
+1. **Quote Validation**: Use the `OrderDto.quote` field to access the price context, which provides the pricing details for the inputs and outputs of the order. If you trust the order server, you can primarily rely on this quote to validate the order’s pricing. However, it’s crucial to verify that the solver supports the specific origin chain (`OrderDto.order.originChainId`) and output chains (`OrderDto.order.orderData.outputs[...].chainId`) as well as their respective tokens (`input[].token` and `output[].token`). These parameters are guaranteed to be present across all order types.
+
+Evaluating orders carefully ensures that solvers can accurately determine the feasibility of executing an order, adhere to exclusivity rules, and avoid conflicts, thereby maintaining the integrity and efficiency of the order fulfillment process.
+
+## On-chain Order Broadcast
+
+Output settlement schemes supporting on-chain orders like [`CompactSettlerWithDeposit.sol`](/implementation/input/#with-deposit) allows anyone to broadcast and collect orders on-chain through the `Deposit` event:
+
+```solidity
+event Deposited(bytes32 orderId, CatalystCompactOrder order);
+```
+
+:::caution
+When collecting permissionless orders, ensure they are properly validated and co-signed. The order server aids with validation but on-chain potential fraudulent messages can be emitted.
+:::

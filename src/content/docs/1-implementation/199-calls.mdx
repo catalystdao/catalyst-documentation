@@ -1,0 +1,83 @@
+---
+title: "Sub-Calls via Catalyst"
+slug: "implementation/calls"
+description: "By default, Catalyst supports calls on delivery. While the system does not define these, the default output types contain fields to facilitate secondary execution."
+sidebar:
+  order: 99
+---
+
+The default output type of Catalyst, called `OutputDescription` supports secondary calls. This allows you to schedule calldata to be executed after the delivery of the asset.
+
+:::caution[Outputs are filled unorderly]
+Output are filled unorderly. As a result, if you want to receive both Ether and USDC to your destination contract and then execute a call using both Ether and USDC, this may not be possible. This is because either USDC and Ether may arrive before the other and as a result the logic may not correctly execute.
+:::
+
+Natively, Catalyst will deliver the output of `OutputDescription` and then call the destination 
+
+```solidity
+/**
+ * @notice Implement callback handling for Cross cats payouts, both outputs and inputs.
+ * @dev Callbacks are opt-in. If you opt-in, take care to not revert.
+ * Funds are likely in danger if the calls revert. Please be careful.
+ *
+ * If you don't need this functionality, stay away.
+ *
+ * The recipient is called.
+ */
+interface ICrossCatsCallback {
+    /**
+     * @dev If the transaction reverts, 1 million gas is provided.
+     * If the transaction doesn't revert, only enough gas to execute the transaction is given + a buffer of 1/63'th.
+     * The recipient is called.
+     * If the call reverts, funds are still delivered to the recipient.
+     * Please ensure that funds are safely handled on your side.
+     */
+    function outputFilled(bytes32 token, uint256 amount, bytes calldata executionData) external;
+
+    /**
+     * @notice If configured, is called when the input is sent to the filler.
+     */
+    function inputsFilled(uint256[2][] calldata inputs, bytes calldata executionData) external;
+}
+```
+
+Additionally, Catalyst provides a basic multicall handler with the following defines structs:
+
+```solidity
+struct Call {
+    address target;
+    bytes callData;
+    uint256 value;
+}
+
+struct Instructions {
+    // If set to an address (not address(0)), then the tokens sent to this contract on the call
+    // will be approved for this address.
+    address setApprovalsUsingInputsFor;
+    //  Calls that will be attempted.
+    Call[] calls;
+    // Where the tokens go if any part of the call fails.
+    // Leftover tokens are sent here as well if the action succeeds.
+    address fallbackRecipient;
+}
+```
+
+Which when used: `executionData = abi.encode(Instructions)`.
+
+For the default Catalyst `OutputDescription`:
+
+import { Code } from '@astrojs/starlight/components';
+
+export const outputDescription = `
+struct OutputDescription {
+    bytes32 remoteOracle;
+    bytes32 remoteFiller;
+    uint256 chainId;
+    bytes32 token;
+    uint256 amount;
+    bytes32 recipient; // = addressOf(CatsMulticallHandler)
+    bytes remoteCall; // = abi.encode(Instructions)
+    bytes fulfillmentContext;
+}`;
+
+<Code code={outputDescription} lang="solidity" mark={['bytes32 recipient; // = addressOf(CatsMulticallHandler)', 'bytes remoteCall; // = abi.encode(Instructions)']} />
