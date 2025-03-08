@@ -1,9 +1,9 @@
 ---
 title: "Input Settlement"
-slug: "implementation/input"
+slug: "architecture/input"
 description: "Built with resource locks in mind, Catalyst supports a variety of input settlement schemes; TheCompact and Rhinestone both allows for first fill flows and sponsored transactions assuming the user have existing deposits."
 sidebar:
-  order: 1
+  order: 2
 ---
 
 Catalyst currently implements 2 input settlement:

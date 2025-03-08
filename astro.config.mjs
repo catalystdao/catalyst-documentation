@@ -43,15 +43,21 @@ export default defineConfig({
           link: "/",
         },
         {
-          label: "Implementations",
+          label: "System Architecture",
           autogenerate: {
-            directory: "1-implementation",
+            directory: "1-system-architecture",
           },
         },
         {
-          label: "Solvers",
+          label: "For Developers",
           autogenerate: {
-            directory: "2-solver",
+            directory: "2-devs",
+          },
+        },
+        {
+          label: "For Solvers",
+          autogenerate: {
+            directory: "3-solver",
           },
         },
         {
@@ -64,7 +70,7 @@ export default defineConfig({
         {
           label: "CatalystAMM",
           collapsed: true,
-          badge: "Legacy",
+          badge: "Deprecated",
           autogenerate: {
             directory: "9-amm",
           },
