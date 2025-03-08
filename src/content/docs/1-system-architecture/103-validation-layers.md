@@ -1,9 +1,9 @@
 ---
 title: "Validation Layers"
-slug: "implementation/validation"
+slug: "architecture/validation"
 description: "Each Catalyst System order specifies which components are used for which aspects of the swap. Validation layers can be permissionlessly chosen by the issuer of an intent and anyone can write a validation layer."
 sidebar:
-  order: 3
+  order: 4
 ---
 
 Any valdiation layer can be added to Catalyst as long as it supports validating a payload from a remote chain.
