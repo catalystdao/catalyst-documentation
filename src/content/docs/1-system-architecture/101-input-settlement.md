@@ -28,7 +28,7 @@ struct OutputDescription {
     bytes fulfillmentContext;
 }
 ```
-To check if the [encoded output description](/#standardized-message-format) has been validated, the hashed encoded payload should be sent to th appropriate local oracle using the [Validation Layer Interface](/#validation-layer) along with relevant resolution details like who the solver was.
+To check if the encoded output description has been validated, the hashed encoded payload should be sent to th appropriate local oracle using the Validation Layer Interface along with relevant resolution details like who the solver was.
 
 ## CompactSettler (TheCompact & Rhinestone)
 Both Rhinestone and TheCompact works through `CompactSettler.sol`. Being able to solve for one allows you to solve the other, except signature & lock validation differs slightly.

@@ -143,7 +143,7 @@ Evaluating orders carefully ensures that solvers can accurately determine the fe
 
 ## On-chain Order Broadcast
 
-Output settlement schemes supporting on-chain orders like [`CompactSettlerWithDeposit.sol`](/implementation/input/#with-deposit) allows anyone to broadcast and collect orders on-chain through the `Deposit` event:
+Output settlement schemes supporting on-chain orders like [`CompactSettlerWithDeposit.sol`](/architecture/input/#with-deposit) allows anyone to broadcast and collect orders on-chain through the `Deposit` event:
 
 ```solidity
 event Deposited(bytes32 orderId, CatalystCompactOrder order);

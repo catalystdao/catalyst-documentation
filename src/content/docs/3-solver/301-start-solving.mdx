@@ -20,13 +20,13 @@ import { Steps } from '@astrojs/starlight/components';
 
 3. A solver submits the order's output to the output settlement contract, starting the verification layer.
 
-    :::note[[Output Settlement](/implementation/output)]
+    :::note[[Output Settlement](/architecture/output)]
     The output settlement is denoted as the `remoteFiller` in the order struct.
     :::
 
 4. The proof is delivered to the input chain through the validation layer.
 
-    :::note[[Validation layer](/implementation/validation)]
+    :::note[[Validation layer](/architecture/validation)]
     The validation layer is denoted as the `localOracle` and `remoteOracle` in the order struct.
     ::: 
 

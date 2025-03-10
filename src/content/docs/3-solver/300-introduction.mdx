@@ -81,7 +81,7 @@ Catalyst offers two ways of receiving orders:
 
 The Catalyst order server is the recommended integration surface for most solvers. However, if you are interested in the lowest latency, decentralised, and permissionless order discovery, you can read orders on-chain.
 
-[View Order Collection Guide →](#)
+[View Order Collection Guide →](/solver/orderflow)
 
 ## Filling EVM Orders
 
@@ -89,13 +89,13 @@ To fill Catalyst orders, you must support the Output Settlement interfaces. Each
 
 The delivery of assets depends on the Output Settlement Interface associated with an order. The Output Settlement Interface can be read from the order: `orderDto.order.remoteFiller`.
 
-[View EVM Order Filling Guide →](#)
+[View EVM Order Filling Guide →](/solver/evm)
 
 ## Filling BTC Orders
 
 Catalyst supports Bitcoin orders. Filling Bitcoin swaps is technically more involved than EVM swaps. If you are already filling EVM swaps and interested in filling BTC swaps, reach out and we can provide additional guidance.
 
-[View BTC Order Filling Guide →](#)
+[View BTC Order Filling Guide →](/solver/btc)
 
 ## Settling Orders
 
@@ -105,4 +105,4 @@ Settling Catalyst orders may require up to two transactions:
 
 If the validation layer is not self-serve or is being sponsored, only one transaction is needed.
 
-[View Order Settlement Guide →](#)
+[View Order Settlement Guide →](/solver/settlement)
