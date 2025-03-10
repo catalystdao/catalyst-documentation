@@ -23,7 +23,7 @@ export default defineConfig({
       plugins: [starlightLinksValidator()],
       title: "Catalyst Documentation",
       editLink: {
-        baseUrl: `https://github.com/catalystdao/catalyst-documentation/edit/${process.env["CF_PAGES_BRANCH"]}`,
+        baseUrl: `https://github.com/catalystsystem/catalyst-documentation/edit/${process.env["CF_PAGES_BRANCH"]}`,
       },
       logo: {
         light: "/src/assets/logo_dark.svg",
@@ -31,7 +31,7 @@ export default defineConfig({
         replacesTitle: true,
       },
       social: {
-        github: "https://github.com/catalystdao",
+        github: "https://github.com/catalystsystem",
       },
       customCss: ["./src/assets/landing.css", "./src/assets/math-fix.css"],
       favicon: "/favicon.ico",
