@@ -1,7 +1,7 @@
 ---
 title: "Solving on Catalyst"
 slug: "solver/intro"
-description: "All Catalyst orders are permissionlessly solvable. This page introduces you how to being solving for Catalyst."
+description: "All Catalyst orders can be solved permissionlessly. This page introduces you to solving for Catalyst."
 sidebar:
   order: 0
 ---
@@ -15,7 +15,7 @@ sidebar:
 As a solver in the cross-chain ecosystem, you're likely focused on:
 
 - Accessing reliable order flow
-- Minimising user escrow unlock times to reduce inventory requirements
+- Minimizing user escrow unlock times to reduce inventory requirements
 - Having flexibility in your liquidity sources
 
 ### How Catalyst Helps
@@ -29,12 +29,12 @@ As a solver in the cross-chain ecosystem, you're likely focused on:
 
 ## Solving Catalyst
 
-Catalyst is an entirely permissionless system. Since the system is componentized and components have no inherent trust elements to other components, they can be mixed and matched as needed by users. As a result, it is important that you validate orders in their entirety once received.
+Catalyst is an entirely permissionless system. Since the system is componentized and components have no inherent trust elements with other components, they can be mixed and matched as needed by users. As a result, it is important that you validate orders in their entirety once received.
 
 The general Catalyst flow is as follows:
 
-1. The sponsor signs a Catalyst compatible lock and sends it to the Catalyst order server.
-2. The Catalyst order server preliminarily validates the order and gets the allocator co-signature for the order. It is then broadcasted to solvers.
+1. The sponsor signs a Catalyst-compatible lock and sends it to the Catalyst order server.
+2. The Catalyst order server preliminarily validates the order and obtains the allocator co-signature for the order. It is then broadcasted to solvers.
 3. A solver submits the order's output to the output settlement contract, starting the verification layer.
 4. The proof is delivered to the input chain through the validation layer.
 5. The solver submits the order to the input settlement contract, verifying the delivery and unlocking the associated input tokens.
@@ -79,7 +79,7 @@ Catalyst offers two ways of receiving orders:
 1. **Recommended**: Connect to the Catalyst order server via WebSocket
 2. **Alternative**: Monitor on-chain deposits through the deposit interface
 
-The Catalyst order server is the recommended integration surface for most solvers. However, if you are interested in the lowest latency, decentralised, and permissionless order discovery, you can read orders on-chain.
+The Catalyst order server is the recommended integration surface for most solvers. However, if you are interested in the lowest latency, decentralized, and permissionless order discovery, you can read orders on-chain.
 
 [View Order Collection Guide →](/solver/orderflow)
 
@@ -93,7 +93,7 @@ The delivery of assets depends on the Output Settlement Interface associated wit
 
 ## Filling BTC Orders
 
-Catalyst supports Bitcoin orders. Filling Bitcoin swaps is technically more involved than EVM swaps. If you are already filling EVM swaps and interested in filling BTC swaps, reach out and we can provide additional guidance.
+Catalyst supports Bitcoin orders. Filling Bitcoin swaps is technically more involved than EVM swaps. If you are already filling EVM swaps and are interested in filling BTC swaps, reach out and we can provide additional guidance.
 
 [View BTC Order Filling Guide →](/solver/btc)
 
@@ -101,7 +101,7 @@ Catalyst supports Bitcoin orders. Filling Bitcoin swaps is technically more invo
 
 Settling Catalyst orders may require up to two transactions:
 1. Submission of self-serve message validation
-2. Finalising the order on the resource lock
+2. Finalizing the order on the resource lock
 
 If the validation layer is not self-serve or is being sponsored, only one transaction is needed.
 

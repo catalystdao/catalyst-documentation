@@ -1,29 +1,27 @@
 ---
 title: "Resource Locks"
 slug: "knowledge/resource-locks"
-description: "Resource locks allows users to pay after the settlement of their desired asset has taken place. This improve the user experience and makes cross-chain actions more seamless."
+description: "Resource locks allow users to pay after the settlement of their desired asset has taken place. This improves the user experience and makes cross-chain actions more seamless."
 sidebar:
   order: 2
 ---
 
-Resource locks allow users to commit tokens to something/someone without making an on-chain transaction to issue the lock or recover the lock after the lock's expiry. 
-In a resource-lock context, it is important that these tokens are at least inaccessible for a certain period of time, longer than the expected settlement time for a claim.
+Resource locks allow users to commit tokens to something or someone without making an on-chain transaction to issue the lock or recover the lock after its expiry. In a resource-lock context, it is important that these tokens are inaccessible for a certain period, longer than the expected settlement time for a claim.
 
 In a sense, they are a form of credit account allowing users to provide guaranteed allowances to protocols.
 
-
 ## Actors
 
-In a resource lock flow, you have 3 actors:
-1. Sponsor, user, owner; The actor that initially owns the funds in the resource lock.
-2. Allocator, manager, credible commitment; The actor that validates that no conflicting locks are issued.
-3. Arbiter, validator, settlement; The actor that is capable of validating whether a lock has been resolved and can be paid.
+In a resource lock flow, there are three actors:
+1. Sponsor, user, owner: The actor that initially owns the funds in the resource lock.
+2. Allocator, manager, credible commitment: The actor that validates that no conflicting locks are issued.
+3. Arbiter, validator, settlement: The actor that is capable of validating whether a lock has been resolved and can be paid.
 
-Depending on the resource lock system, each user chooses an allocator and each lock chooses the arbiter. When the wording *the arbiter*  is used, it refers specifically to the arbiter of a lock. Not to a general single arbiter that the user has chosen.
+Depending on the resource lock system, each user chooses an allocator, and each lock chooses the arbiter. When the term "the arbiter" is used, it refers specifically to the arbiter of a lock, not to a general single arbiter that the user has chosen.
 
 Think of a lock as a time-bound approval, co-signed by an allocator, to a specific protocol (arbiter).
 
-While resource lock flows can look very different depending on the application, they generally follow 4 steps:
+While resource lock flows can look very different depending on the application, they generally follow four steps:
 
 import { Card } from '@astrojs/starlight/components';
 import { Steps } from '@astrojs/starlight/components';
@@ -35,45 +33,43 @@ import { Steps } from '@astrojs/starlight/components';
 
   1. The **sponsor** signs a lock that describes a desired outcome.
 
-  2. The **allocator** ensures that the appropriate funds exists for the lock to be valid. In other words, if the sponsor has deposited 10 tokens, no set of approved locks shall exceed 10 tokens. The allocator then co-signs the lock.
+  2. The **allocator** ensures that the appropriate funds exist for the lock to be valid. In other words, if the sponsor has deposited 10 tokens, no set of approved locks shall exceed 10 tokens. The allocator then co-signs the lock.
 
-  3. Desired event takes place.
+  3. The desired event takes place.
 
   4. The **arbiter** validates that the event has taken place and releases the token to the appropriate recipient.
 
   </Steps>
 </Card>
 
-In this flow, 2 signatures and 1 transaction – ignoring the 0'th step – is required; The lock have to be signed by the sponsor, and co-signed by the allocator. Then the arbiter makes the final call whether the desired event took place.
+In this flow, two signatures and one transaction – ignoring the 0th step – are required. The lock has to be signed by the sponsor and co-signed by the allocator. Then the arbiter makes the final call on whether the desired event took place.
 
+## Resource-Locked Intents
 
-## Resource-Locked Intents.
+In an intent system, the third step – the execution of the desired event – is usually performed by a fourth actor, often referred to as either the **solver** or the **relayer**.
 
-In an intent system, the 3'th step – the execution of the desired event – is usually performed by a 4'th actor usually referred to as either the **solver** or the **relayer**.
+Additionally, there are generally two ways to build intent systems around resource locks:
 
-Additionally, there are generally 2 ways to build intent systems around resource locks:
+##### Intent system as *executor* (Tribunal)
 
-##### Intent system as *executor* (Tribunual)
+In these flows, the intent system describes how the action takes place on the destination chain. However, the system does not directly validate the resource lock completion.
 
-In these flows, the intent system describes how the action takes place on the destination chain. However, the system does not directly validate the resource lock completion. 
+These systems instead rely on **allocators as arbiters** or resource lock support by **general message passing** (GMP) protocols.
 
-These systems instead rely on **allocators as arbiters** or resource lock support by **general message passing** (GMPs) protocols.
-
-The advantage of such a system is in its simplicity. The third party (whether allocator or GMP) generally handle the entire validation/settlement pipeline and thus solvers only have to concern themselves with filling orders.
+The advantage of such a system is its simplicity. The third party (whether allocator or GMP) generally handles the entire validation/settlement pipeline, and thus solvers only have to concern themselves with filling orders.
 
 ##### Intent system as *arbiter* (Catalyst)
 
-In these flows, the intent system is the arbiter and usually describes how the entire system is constructed: Output settlement, validation, and input settlement. This makes the system more flexible and customizable.
+In these flows, the intent system is the arbiter and usually describes how the entire system is constructed: output settlement, validation, and input settlement. This makes the system more flexible and customizable.
 
 While these systems may also rely on GMPs, they can also use other – potentially cheaper – validation layers like optimistic oracles, storage proofs, or secret reveals (like HTLCs).
 
-The advantage of such a system is indirectly its complexity. Since more logic is explicit defined by the system itself, the expresivity of intents can be greater and more specialised.
+The advantage of such a system is indirectly its complexity. Since more logic is explicitly defined by the system itself, the expressivity of intents can be greater and more specialized.
 
-For more on the resource locks Catalyst support, read the chapter on [Input Settlement Implementations](/architecture/input).
-
+For more on the resource locks Catalyst supports, read the chapter on [Input Settlement Implementations](/architecture/input).
 
 ## Trust Assumptions
 
-In a resource lock system, the actors needs to trust each other but generally no single actor can independently access any funds.
-- The sponsor needs to trust the arbiter such that **issued** locks are not fraudulently *finalised*. However, the arbiter can never access any of the sponsor's funds without a relevant signed lock. The trust assumptions between the sponsor and the arbiter is equivalent to permit/permit2 approvals.
-- The arbiter/solver needs to trust that the allocator does not co-sign overlapping locks that exceed the tokens the user have deposited. Otherwise, a filled intent may not have enough tokens available to resolve the payment to the solver for the fulfillment of the lock.
+In a resource lock system, the actors need to trust each other, but generally, no single actor can independently access any funds.
+- The sponsor needs to trust the arbiter such that **issued** locks are not fraudulently *finalized*. However, the arbiter can never access any of the sponsor's funds without a relevant signed lock. The trust assumptions between the sponsor and the arbiter are equivalent to permit/permit2 approvals.
+- The arbiter/solver needs to trust that the allocator does not co-sign overlapping locks that exceed the tokens the user has deposited. Otherwise, a filled intent may not have enough tokens available to resolve the payment to the solver for the fulfillment of the lock.

@@ -6,29 +6,29 @@ sidebar:
   order: 3
 ---
 
-Catalyst supports 3 order types: Limit order (First come, first serve / gas auction), Dutch Auction (on-chain), and off-chain auctions.
+Catalyst supports three order types: Limit Order (First come, first serve / gas auction), Dutch Auction (on-chain), and off-chain auctions.
 
-Each Output encodes a specific order type. Generally all outputs will be of the same order type. (But this is enforced.)
+Each output encodes a specific order type. Generally, all outputs will be of the same order type. (This is enforced.)
 
-For an order with multiple outputs, the filler of the first output will **ALWAYS** be the recipient of the inputs. The inputs can't be claimed until all outputs are filled.
+For an order with multiple outputs, the filler of the first output will **always** be the recipient of the inputs. The inputs cannot be claimed until all outputs are filled.
 
-The _auction_ happens on-chain with the winner determined by speed.
+The _auction_ happens on-chain, with the winner determined by speed.
 
 ### Limit Order (First come, First serve)
 
-Catalyst limit orders are simple: single price, first execution. That means the amount set in `OutputDescription` is final and will be what you are paying. The Output can be filled once per `orderId` (Output is hashed and stored in a map with `orderId`).
+Catalyst limit orders are simple: single price, first execution. That means the amount set in `OutputDescription` is final and will be what you are paying. The output can be filled once per `orderId` (the output is hashed and stored in a map with `orderId`).
 
 The winner of an order is the first solver to call `fill` and set their identifier for the output.
 
-You can identify Limit Orders by **both** `fillerAddress` and `fulfillmentContext`. `fulfillmentContext` shall be either `0x` or `0x00`.
+You can identify Limit Orders by **both** `fillerAddress` and `fulfillmentContext`. `fulfillmentContext` should be either `0x` or `0x00`.
 
 ### Dutch Auction
 
-Catalyst dutch auctions are slightly more complicated. The fulfillment context will have the slope and stopTime encoded.
+Catalyst Dutch auctions are slightly more complicated. The fulfillment context will have the slope and stopTime encoded.
 
-The winner of an order is the first solver to call `fill` and set their identifier as the output. Notice that the win selection is equivalent to the limit order EXCEPT the earlier the fill is called, the more the solver pays.
+The winner of an order is the first solver to call `fill` and set their identifier as the output. Notice that the win selection is equivalent to the limit order, except the earlier the fill is called, the more the solver pays.
 
-You can identify Limit Orders by **both** `fillerAddress` and `fulfillmentContext`. `fulfillmentContext` shall be either `0x01 | uint256(slope) | uint256(stopTime)` with the final amount being computed as: 
+You can identify Dutch Auctions by **both** `fillerAddress` and `fulfillmentContext`. `fulfillmentContext` should be `0x01 | uint256(slope) | uint256(stopTime)`, with the final amount being computed as:
 
 ```solidity
 uint32 currentTime = uint32(block.timestamp);
@@ -36,16 +36,16 @@ uint256 timeDiff = stopTime - currentTime;
 return amount + slope * timeDiff;
 ```
 
-The auction happens on-chain with the winner determined by speed THUS also price.
+The auction happens on-chain, with the winner determined by speed and thus also price.
 
 ### Off-chain Auctions
 
-Catalyst off-chain auctions allows for complex auction logic at the cost of centralisation. An order can choose an off-chain entity to execute an auction on its behalf.
+Catalyst off-chain auctions allow for complex auction logic at the cost of centralization. An order can choose an off-chain entity to execute an auction on its behalf.
 
-That entity shall then sign and append informatin to the `Output` which the winner of the auction can then redeem on-chain.
+That entity shall then sign and append information to the `Output`, which the winner of the auction can then redeem on-chain.
 
-You can identify Off-chain auctions by their `fillerAddress`
+You can identify off-chain auctions by their `fillerAddress`.
 
-The first off-chain auction will be a classical english auction; The winner will be determined as the first person with the highest bid within the auction window.
+The first off-chain auction will be a classical English auction; the winner will be determined as the person with the highest bid within the auction window.
 
-The auction happens off-chain with the winner determined by the best price within the auction window.
+The auction happens off-chain, with the winner determined by the best price within the auction window.

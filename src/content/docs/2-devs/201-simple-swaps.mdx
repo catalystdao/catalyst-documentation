@@ -1,14 +1,14 @@
 ---
 title: "Swapping via Catalyst"
 slug: "devs/get-started"
-description: "Catalyst is permissionless, no component of the stack requires permissions. You can solve, create intents, and even extend the system to your needs without anyone's permission."
+description: "Catalyst is permissionless; no component of the stack requires permissions. You can solve, create intents, and even extend the system to your needs without anyone's permission."
 sidebar:
   order: 1
 ---
 
-Catalyst is an entirely componentized permissionless system with no inherent trust elements. It is up to integrators to mix and match components as needed. We will provide baselines for generally available components.
+Catalyst is an entirely componentized, permissionless system with no inherent trust elements. It is up to integrators to mix and match components as needed. We will provide baselines for generally available components.
 
-A Catalyst order generally follows the following structure:
+A Catalyst order generally follows this structure:
 
 ```solidity
 struct CatalystCompactOrder {
@@ -22,7 +22,7 @@ struct CatalystCompactOrder {
 }
 ```
 
-Where `uint256[2][] inputs === [uint256 tokenId, uint256 amount][]` and `OutputDescription`:
+Where `uint256[2][] inputs` is equivalent to `[uint256 tokenId, uint256 amount][]` and `OutputDescription` is:
 
 ```solidity
 struct OutputDescription {
@@ -37,7 +37,7 @@ struct OutputDescription {
 }
 ```
 
-The CatalystCompactOrder needs to be appropriately signed. For `TheCompact` settlement interface, use the below transformation:
+The `CatalystCompactOrder` needs to be appropriately signed. For `TheCompact` settlement interface, use the following transformation:
 
 ```solidity
 struct BatchCompact {
@@ -56,18 +56,17 @@ struct CatalystWitness {
 }
 ```
 
-The user (sponsor) shall then sign it as a EIP-712 signed structure.
-
+The user (sponsor) shall then sign it as an EIP-712 signed structure.
 
 ### Order Parameters
 
 #### Inputs
 
-For TheCompact, configure the inputs needs to be provided as an array of [uint256 tokenId, uint256 amount].
-The TokenId refers to the TheCompact encoded tokenId which contains relevant lock details. See [TheCompact](https://github.com/Uniswap/the-compact/blob/c4776fa3264f7c64b26b5800b5f8d8e651089b0a/src/lib/IdLib.sol#L87-L104).
+For `TheCompact`, the inputs need to be provided as an array of `[uint256 tokenId, uint256 amount]`. The `tokenId` refers to the `TheCompact` encoded tokenId, which contains relevant lock details. See [TheCompact](https://github.com/Uniswap/the-compact/blob/c4776fa3264f7c64b26b5800b5f8d8e651089b0a/src/lib/IdLib.sol#L87-L104).
 
 #### Output
-```
+
+```solidity
 struct OutputDescription {
     bytes32 remoteOracle;
     bytes32 remoteFiller;
@@ -80,45 +79,44 @@ struct OutputDescription {
 }
 ```
 
-Note that `OutputDescription.remoteOracle` and `CatalystCompactOrder.localOracle` needs to match. Together, they define the validation layer used. Each order should only use 1 validation layer which can be an aggregation of AMBs.
+Note that `OutputDescription.remoteOracle` and `CatalystCompactOrder.localOracle` need to match. Together, they define the validation layer used. Each order should only use one validation layer, which can be an aggregation of AMBs.
 
-`remoteFiller` specified the output type. For limit orders use the CoinFiller and set `fulfillmentContext` as empty, `0x`. For dutch auctions, use the CoinFiller and set `fulfillmentContext` appropriately.
+`remoteFiller` specifies the output type. For limit orders, use the `CoinFiller` and set `fulfillmentContext` as empty (`0x`). For Dutch auctions, use the `CoinFiller` and set `fulfillmentContext` appropriately.
 
-Specify the token as the bytes32 identifier. For EVM, the address is left padded. `0x000...00abcdef``
+Specify the token as the `bytes32` identifier. For EVM, the address is left-padded, e.g., `0x000...00abcdef`.
 
 ##### RemoteCall
 
-You can schedule additional calls to happen after token delivery. Note, that if you have configured multiple outputs, the order of execution is not respected (may happen over multiple blocks). If remoteCall is provided. recipient is called using the Catalyst interfaces. For arbitrary calls, the Catalyst Multicaller can be used.
-
+You can schedule additional calls to happen after token delivery. Note that if you have configured multiple outputs, the order of execution is not guaranteed (it may happen over multiple blocks). If `remoteCall` is provided, the `recipient` is called using the Catalyst interfaces. For arbitrary calls, the Catalyst Multicaller can be used.
 
 #### Structure
 
 Then configure the relevant order structure:
 
-- address `user`; Pays for the inputs of the order.
-- uint256 `nonce`; Unique order identifier to redeem locks with. If 2 orders share the same nonce and user, only 1 can be redeemed.
-- uint256 originChainId; The chainId (canonical) of the input chain.
-- uint32 fillDeadline; The expiry of the lock. Enough time for the fill AND validation needs to be provided.
-- address localOracle; Address of the validation layer on the origin chain.
-
+- `address user`: Pays for the inputs of the order.
+- `uint256 nonce`: Unique order identifier to redeem locks with. If two orders share the same nonce and user, only one can be redeemed.
+- `uint256 originChainId`: The chainId (canonical) of the input chain.
+- `uint32 fillDeadline`: The expiry of the lock. Enough time for the fill and validation needs to be provided.
+- `address localOracle`: Address of the validation layer on the origin chain.
 
 ### Broadcasting Order
 
-There are 2 ways to manage orders: 1. On-chain deposits and 2. Off-chain relay.
+There are two ways to manage orders: 1. On-chain deposits and 2. Off-chain relay.
 
 #### On-chain deposits
 
 For non-wallet integrators, **on-chain deposits** are the easiest integration. It uses more gas but abstracts all resource lock complexity away:
+
 ```solidity
 function depositFor(CatalystCompactOrder calldata order, ResetPeriod resetPeriod) external;
 ```
+
 `resetPeriod` should exceed the expiry window.
 
-
 #### Off-chain relaying
-For other integrators, **Off-chain relaying** is both the easiest and cheapest integration. Simply use the associated integration endpoint of your wallet of choice and then broadcast the order through the order-server.
+
+For other integrators, **off-chain relaying** is both the easiest and cheapest integration. Simply use the associated integration endpoint of your wallet of choice and then broadcast the order through the order-server.
 
 ```typescript
 TODO: endpoint
 ```
-
