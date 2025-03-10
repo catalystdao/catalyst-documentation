@@ -1,0 +1,108 @@
+---
+title: "Solving on Catalyst"
+slug: "solver/intro"
+description: "All Catalyst orders are permissionlessly solvable. This page introduces you how to being solving for Catalyst."
+sidebar:
+  order: 0
+---
+
+# For Solvers
+
+## Becoming a Solver
+
+### Your Needs
+
+As a solver in the cross-chain ecosystem, you're likely focused on:
+
+- Accessing reliable order flow
+- Minimising user escrow unlock times to reduce inventory requirements
+- Having flexibility in your liquidity sources
+
+### How Catalyst Helps
+
+- **Direct access to [LI.FI](http://li.fi/)'s significant order flow**
+- **Freedom to use any liquidity source** for solving (e.g., DEXs, CEXs, or your own inventory)
+- **Fast user escrow unlock times** (typically within 30 minutes)
+- **Lower capital requirements** due to quick repayment cycles
+
+[Become a Solver →](/solver/start-solving)
+
+## Solving Catalyst
+
+Catalyst is an entirely permissionless system. Since the system is componentized and components have no inherent trust elements to other components, they can be mixed and matched as needed by users. As a result, it is important that you validate orders in their entirety once received.
+
+The general Catalyst flow is as follows:
+
+1. The sponsor signs a Catalyst compatible lock and sends it to the Catalyst order server.
+2. The Catalyst order server preliminarily validates the order and gets the allocator co-signature for the order. It is then broadcasted to solvers.
+3. A solver submits the order's output to the output settlement contract, starting the verification layer.
+4. The proof is delivered to the input chain through the validation layer.
+5. The solver submits the order to the input settlement contract, verifying the delivery and unlocking the associated input tokens.
+
+### Orders
+
+The Catalyst system supports the `CatalystCompactOrder` structure across all VMs:
+
+```solidity
+struct CatalystCompactOrder {
+    address user;
+    uint256 nonce;
+    uint256 originChainId;
+    uint32 fillDeadline;
+    address localOracle;
+    uint256[2][] inputs;
+    OutputDescription[] outputs;
+}
+```
+
+Where `OutputDescription` is defined as:
+
+```solidity
+struct OutputDescription {
+    bytes32 remoteOracle;
+    bytes32 remoteFiller;
+    uint256 chainId;
+    bytes32 token;
+    uint256 amount;
+    bytes32 recipient;
+    bytes remoteCall;
+    bytes fulfillmentContext;
+}
+```
+
+To validate an order, ensure that the sponsor and allocator signatures are valid for the EIP-712 signed structure.
+
+## Collecting Orders
+
+Catalyst offers two ways of receiving orders:
+
+1. **Recommended**: Connect to the Catalyst order server via WebSocket
+2. **Alternative**: Monitor on-chain deposits through the deposit interface
+
+The Catalyst order server is the recommended integration surface for most solvers. However, if you are interested in the lowest latency, decentralised, and permissionless order discovery, you can read orders on-chain.
+
+[View Order Collection Guide →](#)
+
+## Filling EVM Orders
+
+To fill Catalyst orders, you must support the Output Settlement interfaces. Each Output Settlement interface is different, but most support the generic `OutputDescription` types.
+
+The delivery of assets depends on the Output Settlement Interface associated with an order. The Output Settlement Interface can be read from the order: `orderDto.order.remoteFiller`.
+
+[View EVM Order Filling Guide →](#)
+
+## Filling BTC Orders
+
+Catalyst supports Bitcoin orders. Filling Bitcoin swaps is technically more involved than EVM swaps. If you are already filling EVM swaps and interested in filling BTC swaps, reach out and we can provide additional guidance.
+
+[View BTC Order Filling Guide →](#)
+
+## Settling Orders
+
+Settling Catalyst orders may require up to two transactions:
+1. Submission of self-serve message validation
+2. Finalising the order on the resource lock
+
+If the validation layer is not self-serve or is being sponsored, only one transaction is needed.
+
+[View Order Settlement Guide →](#)
