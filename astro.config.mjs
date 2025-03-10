@@ -60,12 +60,6 @@ export default defineConfig({
           },
         },
         {
-          label: "Integrate",
-          autogenerate: {
-            directory: "4-integrate",
-          },
-        },
-        {
           label: "Knowledge Database",
           collapsed: true,
           autogenerate: {

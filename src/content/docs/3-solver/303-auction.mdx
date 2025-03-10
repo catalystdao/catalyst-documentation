@@ -8,7 +8,7 @@ sidebar:
 
 Catalyst supports 3 order types: Limit order (First come, first serve / gas auction), Dutch Auction (on-chain), and off-chain auctions.
 
-Each Output encodes a specific order type. Generally all ouputs will be of the same order type. (But this is enforced.)
+Each Output encodes a specific order type. Generally all outputs will be of the same order type. (But this is enforced.)
 
 For an order with multiple outputs, the filler of the first output will **ALWAYS** be the recipient of the inputs. The inputs can't be claimed until all outputs are filled.
 
@@ -26,7 +26,7 @@ You can identify Limit Orders by **both** `fillerAddress` and `fulfillmentContex
 
 Catalyst dutch auctions are slightly more complicated. The fulfillment context will have the slope and stopTime encoded.
 
-The winner of an order is the first solver to call `fill` and set their identifier as the output. Notice that the win selection is equivilant to the limit order EXCEPT the earlier the fill is called, the more the solver pays.
+The winner of an order is the first solver to call `fill` and set their identifier as the output. Notice that the win selection is equivalent to the limit order EXCEPT the earlier the fill is called, the more the solver pays.
 
 You can identify Limit Orders by **both** `fillerAddress` and `fulfillmentContext`. `fulfillmentContext` shall be either `0x01 | uint256(slope) | uint256(stopTime)` with the final amount being computed as: 
 
