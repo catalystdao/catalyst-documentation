@@ -13,7 +13,6 @@ export default defineConfig({
     "/cross-cats/": "/intent/intent/",
     "/cross-cats/solver/": "/intent/becoming-a-solver/introduction/",
     "/validation": "/implementation/validation"
-
   },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
@@ -52,6 +51,12 @@ export default defineConfig({
           label: "Solvers",
           autogenerate: {
             directory: "2-solver",
+          },
+        },
+        {
+          label: "Integrate",
+          autogenerate: {
+            directory: "4-integrate",
           },
         },
         {

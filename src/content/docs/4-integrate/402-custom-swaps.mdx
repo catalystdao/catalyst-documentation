@@ -1,0 +1,25 @@
+---
+title: "Custom Swaps & Wallet Integrations"
+slug: "integrate/custom"
+description: "Catalyst supports custom swap integrations. This is important for Catalyst to aid with chain abstraction in your application. Whether it be a native wallet integration or a many to many swap."
+sidebar:
+  order: 2
+  badge:
+    text: in progress
+    variant: note
+---
+
+This section assumes you are doing a native wallet integration – Your wallet will escrow funds for the Catalyst system while swaps are ongoing – otherwise see the [simple swap guide](/integrate).
+
+There are 2 ways of doing a native wallet integration:
+
+1. Using an off-the-shelf solution like TheCompact or another _Wallet as a Service_ solution that has already been integration.
+2. Adding support for a new wallet integration.
+
+**Catalyst does currently not support multi chain inputs. If these are needed, reach out and we will enable them. Note that this requires additional off-chain security lifts to be safe.**
+
+### Defining a custom input settlement
+
+If you are using an off-the-shelf solution (**1.**) and the current swap description is insufficient for your needs or you need to support a new wallet interface (**2.**), you need to write a Input Settlement contract to support these features. We recommend getting started by reading and understand the [`CompactSettler.sol`](https://github.com/catalystsystem/catalyst-intent/blob/main/src/settlers/compact/CompactSettler.sol) and then similarly basing your implementation of [`BaseSettler.sol`](https://github.com/catalystsystem/catalyst-intent/blob/main/src/settlers/BaseSettler.sol).
+
+You need to implement a `finalise` interface which when called, validates the order has been filled and then correctly claims the input tokens and sends them to the solver.
