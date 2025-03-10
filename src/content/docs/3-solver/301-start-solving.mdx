@@ -1,12 +1,12 @@
 ---
 title: "Start Solving"
 slug: "solver/start-solving"
-description: "All Catalyst orders are permissionlessly solvable. This page introduces you how to being solving for Catalyst."
+description: "All Catalyst orders can be solved permissionlessly. This page introduces you to how to start solving for Catalyst."
 sidebar:
-  order: 2
---- 
+  order: 1
+---
 
-Catalyst is an entirely permissionless system. Since the system is componentized and components have no inherent trust elements to other components, they can be mixed and matched as wanted by users. As a result, it is important that you validate orders in their entirety once received.
+Catalyst is an entirely permissionless system. Since the system is componentized and components have no inherent trust elements with other components, they can be mixed and matched as desired by users. As a result, it is important that you validate orders in their entirety once received.
 
 The general Catalyst flow is as follows:
 
@@ -14,29 +14,28 @@ import { Steps } from '@astrojs/starlight/components';
 
 <Steps>
 
-1. The sponsor signs a Catalyst compatible lock and sends it to the Catalyst order server.
+1. The sponsor signs a Catalyst-compatible lock and sends it to the Catalyst order server.
 
-2. The Catalyst order server preliminarily validates the order and gets the allocator co-signature for the order. It is then broadcasted to solvers.
+2. The Catalyst order server preliminarily validates the order and obtains the allocator co-signature for the order. It is then broadcasted to solvers.
 
 3. A solver submits the order's output to the output settlement contract, starting the verification layer.
 
-    :::note[[Output Settlement](/implementation/output)]
+    :::note[[Output Settlement](/architecture/output)]
     The output settlement is denoted as the `remoteFiller` in the order struct.
     :::
 
 4. The proof is delivered to the input chain through the validation layer.
 
-    :::note[[Validation layer](/implementation/validation)]
+    :::note[[Validation Layer](/architecture/validation)]
     The validation layer is denoted as the `localOracle` and `remoteOracle` in the order struct.
-    ::: 
+    :::
 
 5. The solver submits the order to the input settlement contract, verifying the delivery and unlocking the associated input tokens.
 
 </Steps>
 
-
 ### Orders
-The Catalyst system does not define a strict order type and as a result there will be differences between how orders are expressed in various systems. Currently only 1 order description is supported across all VMs:
+The Catalyst system does not define a strict order type, and as a result, there will be differences in how orders are expressed in various systems. Currently, only one order description is supported across all VMs:
 
 ```solidity
 struct CatalystCompactOrder {
@@ -65,9 +64,9 @@ struct OutputDescription {
 }
 ```
 
-The `CatalystCompactOrder` will be used to interface all functions on the input chain. Additionally, once hydrated with a signature it allows one to verify the validity of an order.
+The `CatalystCompactOrder` will be used to interface all functions on the input chain. Additionally, once hydrated with a signature, it allows one to verify the validity of an order.
 
-The `CatalystCompactOrder` struct will be signed and stored as a witness in the appropriate lock/claim structure. For TheCompact this is:
+The `CatalystCompactOrder` struct will be signed and stored as a witness in the appropriate lock/claim structure. For TheCompact, this is:
 
 ```solidity
 struct BatchCompact {
@@ -87,4 +86,3 @@ struct CatalystWitness {
 ```
 
 To validate an order, ensure that the sponsor and allocator signatures are valid for this EIP-712 signed structure.
-

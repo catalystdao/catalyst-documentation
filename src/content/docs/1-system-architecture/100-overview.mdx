@@ -3,16 +3,16 @@ title: "Overview"
 slug: "architecture/overview"
 description: "Overview of the Catalyst full-stack intents system"
 sidebar:
-  order: 1
+  order: 0
 ---
 
-Catalyst is modularises three components of the cross-chain intent flow:
+Catalyst modularizes three components of the cross-chain intent flow:
 
 1. **Input settlement scheme** - Handles the source chain funds
 2. **Output settlement scheme** - Handles the destination chain funds
 3. **Validation layer** - Connects the input and output settlement
 
-Historically, these components have been intertwined, presenting issues with scaling. Catalyst's componentized approach allows for greater flexibility and extensibility, allowing for different input and output settlement schemes, and validation layers. This allows Catalyst to support varying degrees of asset technologies: fill first, user as solver, and ordinary swaps.
+Historically, these components have been intertwined, presenting issues with scaling. Catalyst's componentized approach allows for greater flexibility and extensibility, allowing for different input and output settlement schemes and validation layers. This allows Catalyst to support varying degrees of asset technologies: fill first, user as solver, and ordinary swaps.
 
 ## Core Components
 
@@ -25,7 +25,7 @@ The input settlement scheme is responsible for managing user deposits and releas
 
 Both are resource locks supporting fill-first flows, though Catalyst also supports ordinary flows.
 
-Catalyst imposes no restriction on the implementation of input settlements. Input Settlements can access proven output through the validation layer by either `isProven` or `efficientRequireProven`. If an order contains multiple outputs and the outputs are filled by different solvers, the filler of the first output in the order specification shall be the canonical solver.
+Catalyst imposes no restrictions on the implementation of input settlements. Input settlements can access proven output through the validation layer by either `isProven` or `efficientRequireProven`. If an order contains multiple outputs and the outputs are filled by different solvers, the filler of the first output in the order specification shall be the canonical solver.
 
 [Learn more about Input Settlement →](/architecture/input)
 
@@ -39,9 +39,9 @@ interface IPayloadCreator {
     ) external view returns (bool);
 }
 ```
-This allows the output settlement scheme to be incredible flexible, it can support any order type, on any virtual machine, as long as the filled order can be expressed as an opaque bytes array.
+This allows the output settlement scheme to be incredibly flexible; it can support any order type on any virtual machine, as long as the filled order can be expressed as an opaque bytes array.
 
-For simplicity, lets assume that an output can be expressed as `[token, amount, destination]`. If this output has been filled, then a valid payload could be `bytes(solver | token | amount | destination)`.
+For simplicity, let's assume that an output can be expressed as `[token, amount, destination]`. If this output has been filled, then a valid payload could be `bytes(solver | token | amount | destination)`.
 
 If the input settlement could validate this call, the inputs could be appropriately paid to the solver. However, this information only exists on the output settlement on the output chain.
 
@@ -57,7 +57,7 @@ Any validation layer can be added to Catalyst as long as it supports validating 
 - **Polymer** (self-serve)
 - **Bitcoin** (self-serve)
 
-It's expected that before making messages, the validation layer checks if one or more payloads are valid and then ship them to the input chain:
+It's expected that before making messages, the validation layer checks if one or more payloads are valid and then ships them to the input chain:
 ```solidity
 function submit(address proofSource, bytes[] calldata payloads) external payable {
 	// Check if the payloads are valid.
@@ -67,9 +67,9 @@ function submit(address proofSource, bytes[] calldata payloads) external payable
 	_submit(proofSource, payloads);
 }
 ```
-How validator layers pass the information to the input chain is scoped. They may be using custom message encodings, custom relaying properties, custom interfaces, or other special integration concerns.
+How validation layers pass the information to the input chain is scoped. They may use custom message encodings, custom relaying properties, custom interfaces, or other special integration concerns.
 
-On the input chain, it is expected that the validator layer validates the payload(s) through a virtual machine local hash:
+On the input chain, it is expected that the validation layer validates the payload(s) through a virtual machine local hash:
 ```solidity
 interface IValidationLayer {
     /**
@@ -85,7 +85,7 @@ interface IValidationLayer {
      * @notice Check if a series of data has been attested to.
      * @dev More efficient implementation of isProven. Does not return a boolean, instead reverts if false.
      * This function returns true if proofSeries is empty.
-     * @param proofSeries remoteOracle, remoteChainId, and dataHash encoded in chucks of 32*4=128 bytes.
+     * @param proofSeries remoteOracle, remoteChainId, and dataHash encoded in chunks of 32*4=128 bytes.
      */
     function efficientRequireProven(
         bytes calldata proofSeries
@@ -95,24 +95,17 @@ interface IValidationLayer {
 
 Using only the payload hash makes the system more efficient as less data is passed around.
 
-No attempt is made at standardizing the payload. As a result, there may be incompatibilities between the input and output settlement layer. 
+No attempt is made at standardizing the payload. As a result, there may be incompatibilities between the input and output settlement layers.
 
 [Learn more about Validation Layers →](/architecture/validation)
 
-## Sub-Calls via Catalyst
-
-By default, Catalyst supports calls on delivery. This allows you to schedule calldata to be executed after the delivery of assets, enabling more complex cross-chain operations.
-
-The default output type of Catalyst, called `OutputDescription`, supports secondary calls through its `remoteCall` field, allowing for additional execution logic upon delivery.
-
-[Learn more about Sub-Calls →](/architecture/calls)
 
 ## Security Assumptions
 
 The Catalyst system includes resource locks which create trust boundaries between key actors:
 
-- **Sponsors** (users) trust that arbiters won't fraudulently finalize issued locks
-- **Arbiters/solvers** trust allocators not to co-sign overlapping locks exceeding user deposits
+- **Sponsors** (users) trust that arbiters won't fraudulently finalize issued locks.
+- **Arbiters/solvers** trust allocators not to co-sign overlapping locks exceeding user deposits.
 
 No single actor can independently access funds, creating a secure environment for cross-chain transactions.
 
@@ -120,6 +113,6 @@ No single actor can independently access funds, creating a secure environment fo
 
 Catalyst is designed to be highly composable with different components capable of being swapped out as needed:
 
-- **Input Settlement**: New resource lock standards and standard intent interfaces can be integrated
-- **Output Settlement**: New order types and fulfillment mechanisms can be added
-- **Validation Layer**: Different cross-chain messaging protocols and proof layers can be supported
+- **Input Settlement**: New resource lock standards and standard intent interfaces can be integrated.
+- **Output Settlement**: New order types and fulfillment mechanisms can be added.
+- **Validation Layer**: Different cross-chain messaging protocols and proof layers can be supported.

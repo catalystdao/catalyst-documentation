@@ -3,14 +3,14 @@ title: "Why Use Catalyst"
 slug: "devs/why"
 description: "High level overview of the Catalyst system for developers"
 sidebar:
-  order: 1
+  order: 0
 ---
 
 # For Wallet & App Developers
 
 ## Your Needs
 
-As a wallet or application developer, you're likely facing these challenges:
+As a wallet or application developer, you likely face these challenges:
 
 - Providing competitive pricing for cross-chain bridging and swaps
 - Supporting multiple blockchains with minimal technical overhead
@@ -34,8 +34,8 @@ As new blockchains emerge, you can easily expand your cross-chain support withou
 
 Your users benefit from:
 - Gasless swaps
-- Best-in-market fulfilment times
-- Consistent experience across different blockchains
+- Best-in-market fulfillment times
+- A consistent experience across different blockchains
 
 ## Integration Overview
 
@@ -48,3 +48,12 @@ Integrating with Catalyst involves three main steps:
 Our full integration guide provides detailed instructions, code examples, and best practices for implementing each of these steps efficiently.
 
 [Get Started with Integration →](/devs/get-started)
+
+
+## Sub-Calls via Catalyst
+
+By default, Catalyst supports calls on delivery. This allows you to schedule calldata to be executed after the delivery of assets, enabling more complex cross-chain operations.
+
+The default output type of Catalyst, called `OutputDescription`, supports secondary calls through its `remoteCall` field, allowing for additional execution logic upon delivery.
+
+[Learn more about Sub-Calls →](/devs/calls)

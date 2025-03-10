@@ -1,35 +1,35 @@
 ---
 title: "Glossary"
 slug: "knowledge/glossary"
-description: "Intent systems and cross-chain bridges uses a lot of loaded nouns. This page explains arbiters, Allocators, sponsors, locks, GMPs, settlers, and much more."
+description: "Intent systems and cross-chain bridges use many specialized terms. This page explains arbiters, allocators, sponsors, locks, GMPs, settlers, and more."
 sidebar:
   order: 3
 ---
 import 'glossary.css'
 
 ## Arbiter
-Entity, contract or otherwise, capable of determining when the desired action of a resource lock has been fulfilled. may also be an allocator.
+An entity, contract, or mechanism capable of determining when the desired action of a resource lock has been fulfilled. It may also act as an allocator.
 
 ## Allocator
-Entity validating that lock does not exceed a user’s current balance. may also be an arbiter. When depositing into a lock, an allocator is chosen.
+An entity that validates that a lock does not exceed a user’s current balance. It may also act as an arbiter. When depositing into a lock, an allocator is chosen.
 
 ## GMP
-Generalised Message Passing. Describes a way to send messages between 2 chains. Examples: Wormhole, LayerZero, Hyperlane, and more.
+Generalized Message Passing. Describes a method to send messages between two chains. Examples include Wormhole, LayerZero, Hyperlane, and more.
 
 ## Lock
-An allowance issued by a user to an Arbiter. Before locks are valid they have to be signed by the user, and co-signed by the allocator.
+An allowance issued by a user to an arbiter. Before locks are valid, they must be signed by the user and co-signed by the allocator.
 
 ## Input
-The starting point. Input assets refers to the assets paid into the intent system. The input chain refers to the chain(s) of the input assets.
+The starting point. Input assets refer to the assets paid into the intent system. The input chain refers to the chain(s) of the input assets.
 
 ## Integrator
-Someone issuing intents for a cross-chain intent system.
+Someone who issues intents for a cross-chain intent system.
 
 ## Intent
-An issue of a desired action. Intents are often used to describe swaps but can also describe desired cross-chain interactions. Contrary to swaps, intents should generally be composable. Intents are usually self-contained meaning they describe both the desired end state and the payment to someone to reach that state; the output and input respectively.
+An issuance of a desired action. Intents are often used to describe swaps but can also describe desired cross-chain interactions. Unlike swaps, intents should generally be composable. Intents are usually self-contained, meaning they describe both the desired end state and the payment to achieve that state; the output and input, respectively.
 
 ## Output
-The end point. Output assets refers to the desired paid tokens to the user (or used within a greater action). Output chain refers to the chain(s) of the output assets.
+The endpoint. Output assets refer to the desired tokens to be paid to the user (or used within a larger action). The output chain refers to the chain(s) of the output assets.
 
 ## Resource Lock
 A clever 3/3 (or 2/2) multisignature scheme that provides unique balance abstractions. [See more](/knowledge/resource-locks).
@@ -38,10 +38,10 @@ A clever 3/3 (or 2/2) multisignature scheme that provides unique balance abstrac
 A contract in a cross-chain intent system that delivers assets. In a resource lock supporting cross-chain intent system, the input/origin settler is often an arbiter.
 
 ## Solver
-An actor solving intents for users. They participate in intents system with the goal to earn margins of the difference between the cost of achieving the end state and the inputs. 
+An actor that solves intents for users. They participate in the intent system with the goal of earning margins from the difference between the cost of achieving the end state and the inputs.
 
 ## Sponsor
-The owner of the tokens to be used for a locks in a resource lock.
+The owner of the tokens to be used for locks in a resource lock.
 
 ## Validator Layer
-Entity capable of validating whether some information happened. Examples: GMP, optimistic proof, or bridges.
+An entity capable of validating whether certain information has occurred. Examples include GMP, optimistic proof, or bridges.

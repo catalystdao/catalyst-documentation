@@ -1,26 +1,23 @@
 ---
 title: "Sub-Calls via Catalyst"
-slug: "architecture/calls"
-description: "By default, Catalyst supports calls on delivery. While the system does not define these, the default output types contain fields to facilitate secondary execution."
+slug: "devs/calls"
+description: "By default, Catalyst supports calls on delivery. Although the system does not define these, the default output types contain fields to facilitate secondary execution."
 sidebar:
-  order: 5
-badge:
-    text: In Progress
-    variant: note
+  order: 10
 ---
 
-The default output type of Catalyst, called `OutputDescription` supports secondary calls. This allows you to schedule calldata to be executed after the delivery of the asset.
+The default output type of Catalyst, called `OutputDescription`, supports secondary calls. This allows you to schedule calldata to be executed after the delivery of the asset.
 
 :::caution[Outputs are filled unorderly]
-Output are filled unorderly. As a result, if you want to receive both Ether and USDC to your destination contract and then execute a call using both Ether and USDC, this may not be possible. This is because either USDC and Ether may arrive before the other and as a result the logic may not correctly execute.
+Outputs are filled unorderly. As a result, if you want to receive both Ether and USDC to your destination contract and then execute a call using both Ether and USDC, this may not be possible. This is because either USDC or Ether may arrive before the other, and as a result, the logic may not execute correctly.
 :::
 
-Natively, Catalyst will deliver the output of `OutputDescription` and then call the destination 
+Natively, Catalyst will deliver the output of `OutputDescription` and then call the destination.
 
 ```solidity
 /**
  * @notice Implement callback handling for Cross cats payouts, both outputs and inputs.
- * @dev Callbacks are opt-in. If you opt-in, take care to not revert.
+ * @dev Callbacks are opt-in. If you opt-in, take care not to revert.
  * Funds are likely in danger if the calls revert. Please be careful.
  *
  * If you don't need this functionality, stay away.
@@ -30,7 +27,7 @@ Natively, Catalyst will deliver the output of `OutputDescription` and then call 
 interface ICrossCatsCallback {
     /**
      * @dev If the transaction reverts, 1 million gas is provided.
-     * If the transaction doesn't revert, only enough gas to execute the transaction is given + a buffer of 1/63'th.
+     * If the transaction doesn't revert, only enough gas to execute the transaction is given, plus a buffer of 1/63'th.
      * The recipient is called.
      * If the call reverts, funds are still delivered to the recipient.
      * Please ensure that funds are safely handled on your side.
@@ -44,7 +41,7 @@ interface ICrossCatsCallback {
 }
 ```
 
-Additionally, Catalyst provides a basic multicall handler with the following defines structs:
+Additionally, Catalyst provides a basic multicall handler with the following defined structs:
 
 ```solidity
 struct Call {
@@ -57,7 +54,7 @@ struct Instructions {
     // If set to an address (not address(0)), then the tokens sent to this contract on the call
     // will be approved for this address.
     address setApprovalsUsingInputsFor;
-    //  Calls that will be attempted.
+    // Calls that will be attempted.
     Call[] calls;
     // Where the tokens go if any part of the call fails.
     // Leftover tokens are sent here as well if the action succeeds.
@@ -65,7 +62,7 @@ struct Instructions {
 }
 ```
 
-Which when used: `executionData = abi.encode(Instructions)`.
+When used: `executionData = abi.encode(Instructions)`.
 
 For the default Catalyst `OutputDescription`:
 

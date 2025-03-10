@@ -1,9 +1,9 @@
 ---
 title: "Collecting Orders"
 slug: "solver/orderflow"
-description: "Catalyst has 2 ways of emitting orders: 1. On-chain through the deposit interface or through the Catalyst order server. For ease of integration and to ensure you receive all orders, it is recommended that you connect to the Catalyst order server for events."
+description: "Catalyst has two ways of emitting orders: 1. On-chain through the deposit interface or through the Catalyst order server. For ease of integration and to ensure you receive all orders, it is recommended that you connect to the Catalyst order server for events."
 sidebar:
-  order: 3
+  order: 2
   badge:
     text: In Progress
     variant: note
@@ -11,7 +11,7 @@ sidebar:
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-The Catalyst order server is the recommended integration surface. However, if you are interested in the lowest latency, decentralised, and permissionless order discovery, you can read some orders on-chain.
+The Catalyst order server is the recommended integration surface. However, if you are interested in the lowest latency, decentralized, and permissionless order discovery, you can read some orders on-chain.
 
 ### Types
 
@@ -54,19 +54,17 @@ type OrderDto = {
 };
 ```
 
-## Websocket Subscription
+## WebSocket Subscription
 
-The Catalyst order server delivers orders through a websocket subscription aallowing for real-time updates without the need to continuously poll the order server. By leveraging WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of solvers having to locally filter incoming data.
+The Catalyst order server delivers orders through a WebSocket subscription, allowing for real-time updates without the need to continuously poll the order server. By leveraging WebSocket, the Catalyst order server broadcasts new orders as they arrive, offering a significant reduction in latency but at the cost of solvers having to locally filter incoming data.
 
 :::note
-The data received through WebSocket is not pre-filtered. This means every order event will be pushed to your 
-application, and it is up to your implementation to manage and filter these events locally.
+The data received through WebSocket is not pre-filtered. This means every order event will be pushed to your application, and it is up to your implementation to manage and filter these events locally.
 :::
 
 Below is a simplified implementation in pure JavaScript that demonstrates how to connect to the WebSocket server, handle incoming messages, respond to ping events, and automatically attempt to reconnect if the connection is lost.
 
-
-(TODO update typescript block)
+(TODO: update TypeScript block)
 ```typescript
 const WebSocket = require("ws");
 
@@ -94,7 +92,7 @@ function connectToOrderServer() {
 
       switch (parsedData.event) {
         case "ping":
-        // You will be automatically disconnected if you don't respond to ping messages
+          // You will be automatically disconnected if you don't respond to ping messages
           ws.send(JSON.stringify({ event: "pong" }));
           break;
         case "order":
@@ -143,12 +141,12 @@ Evaluating orders carefully ensures that solvers can accurately determine the fe
 
 ## On-chain Order Broadcast
 
-Output settlement schemes supporting on-chain orders like [`CompactSettlerWithDeposit.sol`](/implementation/input/#with-deposit) allows anyone to broadcast and collect orders on-chain through the `Deposit` event:
+Output settlement schemes supporting on-chain orders like [`CompactSettlerWithDeposit.sol`](/architecture/input/#with-deposit) allow anyone to broadcast and collect orders on-chain through the `Deposit` event:
 
 ```solidity
 event Deposited(bytes32 orderId, CatalystCompactOrder order);
 ```
 
 :::caution
-When collecting permissionless orders, ensure they are properly validated and co-signed. The order server aids with validation but on-chain potential fraudulent messages can be emitted.
+When collecting permissionless orders, ensure they are properly validated and co-signed. The order server aids with validation, but on-chain, potential fraudulent messages can be emitted.
 :::
