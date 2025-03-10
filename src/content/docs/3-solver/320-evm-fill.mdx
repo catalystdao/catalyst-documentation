@@ -1,7 +1,7 @@
 ---
 title: "Filling EVM Orders"
 slug: "solver/evm"
-description: "To fill Catalyst orders requires supporting Output Settlement interfaces. Each Output Settlement interface is different but most support the generic OutputDescription types and allows filling orders through a shared context."
+description: "To fill Catalyst orders, you need to support Output Settlement interfaces. Each Output Settlement interface is different, but most support the generic OutputDescription types and allow filling orders through a shared context."
 sidebar:
   order: 20
 ---
@@ -10,15 +10,15 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 The delivery of assets depends on the Output Settlement Interface associated with an order. The Output Settlement Interface can be read from the order: `orderDto.order.remoteFiller`.
 
-### BaseFiller based (CoinFiller)
+### BaseFiller-based (CoinFiller)
 
-The CoinFiller is the simplest Output Settlement implementation and allows specifying limit orders and dutch auctions.
+The CoinFiller is the simplest Output Settlement implementation and allows specifying limit orders and Dutch auctions.
 
 :::caution
-Support is not provided for dutch auctions yet.
+Support for Dutch auctions is not yet provided.
 :::
 
-To fill an output using Output Settlements based on `BaseFiller` use the associated fill interfaces:
+To fill an output using Output Settlements based on `BaseFiller`, use the associated fill interfaces:
 
 ```solidity
 function fill(bytes32 orderId, OutputDescription calldata output, bytes32 proposedSolver) external returns (bytes32) {
@@ -34,20 +34,16 @@ function fillSkip(bytes32[] calldata orderIds, OutputDescription[] calldata outp
 }
 ```
 
-Filling a single output description is most efficient with `fill(...)` since it does not contain a for loop. However, it is limited to a single output at a time.
+Filling a single output description is most efficient with `fill(...)` since it does not contain a loop. However, it is limited to a single output at a time.
 
-For batch filling, `fillThrow` or `fillSkip` may be better.
-- `fillThrow` fills all outputs but if one has been already been filled by another solver the whole call will revert.
+For batch filling, `fillThrow` or `fillSkip` may be better:
+- `fillThrow` fills all outputs, but if one has already been filled by another solver, the entire call will revert. Use it when an output has multiple outputs and you are filling all outputs of an order or none.
 
-  Use it when an output has multiple outputs and you are filling all outputs of an order or none.
-
-- `fillSkip` fills all outputs but if some has already been filled, those will be skipped silently.
-
-  Use it when you are batch filling multiple orders. This allows you to claim as many outputs as possible in one go since even if one order got filled by another solver you will still fill the rest.
+- `fillSkip` fills all outputs, but if some have already been filled, those will be skipped silently. Use it when you are batch filling multiple orders. This allows you to claim as many outputs as possible in one go, even if one order has been filled by another solver.
 
 ## Validation Layers
 
-Once orders have been filled on the output settlement contract, they need to be submitted to the validation layer to be ferried to the input chain. The first step is to generate the associated payload. The [reference payload encoding format](/#standardized-message-format) is:
+Once orders have been filled on the output settlement contract, they need to be submitted to the validation layer to be ferried to the input chain. The first step is to generate the associated payload. The reference payload encoding format is:
 
 ```
 Encoded FillDescription
@@ -73,4 +69,4 @@ For messaging protocols supporting simple broadcast interfaces like Wormhole, th
 function submit(address proofSource, bytes[] calldata payloads) public payable returns (uint256 refund);
 ```
 
-Where `proofSource = orderDto.order.remoteFiller` and  `payloads` is the encoded OutputDescriptions.
+Where `proofSource = orderDto.order.remoteFiller` and `payloads` is the encoded OutputDescriptions.

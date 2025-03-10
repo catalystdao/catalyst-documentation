@@ -1,0 +1,37 @@
+---
+title: "Output Settlement"
+slug: "architecture/output"
+description: "Catalyst currently supports two order types: simple limit orders and Dutch auctions. However, the Catalyst System was designed with flexibility in mind, and more can easily be added."
+sidebar:
+  order: 2
+---
+
+Catalyst's first filler – `CoinFiller.sol` – supports two order types: simple limit orders and Dutch auctions.
+
+## CoinFiller
+
+To configure whether to use a limit order or a Dutch auction, set the associated `fulfillmentContext` on the `OutputDescription`.
+
+import { Code } from '@astrojs/starlight/components';
+
+export const outputDescription = `
+struct OutputDescription {
+    ...
+    bytes remoteCall;
+    bytes fulfillmentContext;
+}`;
+
+<Code code={outputDescription} lang="solidity" mark={['bytes fulfillmentContext;']} />
+
+Use the following pseudocode:
+
+```solidity
+uint256 slope;
+uint256 stopTime;
+string orderType; // "limit" or "dutch"
+
+if (orderType == "limit") fulfillmentContext = "0x" || fulfillmentContext = "0x00";
+if (orderType == "dutch") fulfillmentContext = abi.encodePacked(0x01, slope, stopTime);
+```
+
+Specifically for Dutch auctions, if the order contains multiple outputs, only the first one will work as an auction, and the rest will resolve to the worst price. This is because solvers are only incentivized to compete on the first output in an order, since the winner of that order is the winner of the entire order once anyone fills the rest of the outputs.

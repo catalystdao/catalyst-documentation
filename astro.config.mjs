@@ -11,9 +11,7 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   redirects: {
     "/cross-cats/": "/intent/intent/",
-    "/cross-cats/solver/": "/intent/becoming-a-solver/introduction/",
-    "/validation": "/implementation/validation"
-
+    "/cross-cats/solver/": "/intent/becoming-a-solver/introduction/"
   },
   site: `${process.env["CF_PAGES_URL"] ?? "https://docs.catalyst.exchange"}`,
   markdown: {
@@ -43,15 +41,21 @@ export default defineConfig({
           link: "/",
         },
         {
-          label: "Implementations",
+          label: "System Architecture",
           autogenerate: {
-            directory: "1-implementation",
+            directory: "1-system-architecture",
           },
         },
         {
-          label: "Solvers",
+          label: "For Developers",
           autogenerate: {
-            directory: "2-solver",
+            directory: "2-devs",
+          },
+        },
+        {
+          label: "For Solvers",
+          autogenerate: {
+            directory: "3-solver",
           },
         },
         {
@@ -64,7 +68,7 @@ export default defineConfig({
         {
           label: "CatalystAMM",
           collapsed: true,
-          badge: "Legacy",
+          badge: "Deprecated",
           autogenerate: {
             directory: "9-amm",
           },

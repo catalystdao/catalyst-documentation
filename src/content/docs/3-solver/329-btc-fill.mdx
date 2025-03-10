@@ -1,7 +1,7 @@
 ---
 title: "Filling BTC Orders"
 slug: "solver/btc"
-description: "Catalyst supports Bitcoin orders. Filling Bitcoin orders is more complicated than EVM orders. If you are interested in filling Bitcoin orders, reach out and we will hook you up."
+description: "Catalyst supports Bitcoin orders. Filling Bitcoin orders is more complex than filling EVM orders. If you are interested in filling Bitcoin orders, reach out and we will assist you."
 sidebar:
   order: 100
   badge:
@@ -9,13 +9,13 @@ sidebar:
     variant: danger
 ---
 
-Catalyst supports a Bitcoin validation layer. However, filling Bitcoin swaps is technically more involved than EVM swaps. If you are already filling EVM swaps and interested in filling BTC swaps or interested in adding Bitcoin swaps to your app through Catalyst, reach out and we can get you onboarded. 
+Catalyst supports a Bitcoin validation layer. However, filling Bitcoin swaps is technically more involved than filling EVM swaps. If you are already filling EVM swaps and are interested in filling BTC swaps, or if you want to add Bitcoin swaps to your app through Catalyst, reach out and we can get you onboarded.
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 To determine whether an order involves a Bitcoin transaction, check the `orderDto.order.outputs[].token` field. If the token indicates Bitcoin, ensure the following conditions are met:
 
-- The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`. 
+- The first 30 bytes of the token should be `0x000000000000000000000000BC0000000000000000000000000000000000`.
   The 13th byte is `0xBC`.
 
 - The 31st byte indicates the number of confirmations required before the order can be verified on-chain.
@@ -25,7 +25,7 @@ To determine whether an order involves a Bitcoin transaction, check the `orderDt
 
 - The 32nd byte contains an address version identifier, which should be decoded as `uint8`.
 
-If the transaction is directed to Bitcoin, the address (`orderDto.order.outputs[].recipient`) will contain a relevant destination hash or witness, not the address itself. This value must be used along with the address version identifier – 32nd byte of token – to decode the address.
+If the transaction is directed to Bitcoin, the address (`orderDto.order.outputs[].recipient`) will contain a relevant destination hash or witness, not the address itself. This value must be used along with the address version identifier – the 32nd byte of the token – to decode the address.
 
 <table>
   <thead>
@@ -86,7 +86,7 @@ If the transaction is directed to Bitcoin, the address (`orderDto.order.outputs[
 \
 \*\* Part of the prefix – 1q/1p – is determined by the encoding scheme.
 
-You can use the below script to get inspiration for how to decode the Bitcoin address from an output description.
+You can use the script below to get inspiration for how to decode the Bitcoin address from an output description.
 
 ```typescript
 import bs58check from 'bs58check';
@@ -109,7 +109,7 @@ function decodeBitcoinAddress(
     );
     return bs58check.encode(bytes);
   }
-  if (version === A2) {
+  if (version === 2) {
     const prefix = !testnet ? '05' : 'C4';
     const bytes = hexStringToUint8Array(
       prefix + recipientHash.replace('0x', '').slice(0, 40)
@@ -153,9 +153,9 @@ import * as bitcoin from 'bitcoinjs-lib';
 ...
 bitcoin.initEccLib(ecc); // For Taproot support.
 
-const mainnet: bool;
+const mainnet: boolean;
 const psbt = new bitcoin.Psbt({
-  network: mainnet ? bitcoin.networks.bitcoin : bitcoin.networks.testnet;
+  network: mainnet ? bitcoin.networks.bitcoin : bitcoin.networks.testnet,
 });
 
 // ... add inputs
@@ -175,5 +175,4 @@ if (opReturnData.length > 0) {
   });
 }
 
-// ... complete transaction 
-```
+// ... complete transaction
